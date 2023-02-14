@@ -41,8 +41,7 @@ const Section12 = ({
                 </H4>
 
                 <Span textAlign="center" color="grey.600">
-                  We offer competitive prices on our 100 million plus product
-                  any range.
+                  {item.description}
                 </Span>
               </BazaarCard>
             </Grid>;

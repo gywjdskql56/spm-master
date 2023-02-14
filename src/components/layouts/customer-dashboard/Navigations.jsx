@@ -90,12 +90,14 @@ const linkList = [{
     title: "회원정보",
     icon: Person,
     count: 3
-  }, {
-    href: "/address",
-    title: "주소",
-    icon: Place,
-    count: 16
-  }, {
+  },
+//   {
+//     href: "/address",
+//     title: "주소",
+//     icon: Place,
+//     count: 16
+//   },
+  {
     href: "/payment-methods",
     title: "결제 방법",
     icon: CreditCard,

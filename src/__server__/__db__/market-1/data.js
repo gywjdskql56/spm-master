@@ -14,11 +14,11 @@ export const mainCarouselData = [{
 }];
 export const categories = [{
   id: "f4c1291a-ff9e-4aa2-aa6c-95eb8b8bcc5e",
-  name: "Headphone",
+  name: "성형(얼굴)",
   icon: null,
-  slug: "headphone",
-  image: "/assets/images/banners/category-1.png",
-  description: "3k orders this week",
+  slug: "성형(얼굴)",
+  image: "/assets/images/banners/category/img.png",
+  description: "3820명이 검색했어요.",
   parent: [],
   for: {
     demo: "market-1",
@@ -26,11 +26,11 @@ export const categories = [{
   }
 }, {
   id: "5dff32d0-5570-42cd-a8b6-61b0541e28b9",
-  name: "Watch",
+  name: "임플란트",
   icon: null,
-  slug: "watch",
-  image: "/assets/images/banners/category-2.png",
-  description: "3k orders this week",
+  slug: "임플란트",
+  image: "/assets/images/banners/category/img_1.png",
+  description: "2394명이 검색했어요.",
   parent: [],
   for: {
     demo: "market-1",
@@ -38,11 +38,11 @@ export const categories = [{
   }
 }, {
   id: "c8074ef7-6bf3-496a-91d5-d974dc7d091b",
-  name: "Sunglass",
+  name: "피부과",
   icon: null,
-  slug: "sunglass",
-  image: "/assets/images/banners/category-3.png",
-  description: "3k orders this week",
+  slug: "피부과",
+  image: "/assets/images/banners/category/img_2.png",
+  description: "1204명이 검색했어요.",
   parent: [],
   for: {
     demo: "market-1",
@@ -50,11 +50,11 @@ export const categories = [{
   }
 }, {
   id: "ae6b57bf-b967-484b-ab32-3314f10f5166",
-  name: "Headphone",
+  name: "건강검진",
   icon: null,
-  slug: "headphone",
-  image: "/assets/images/banners/category-1.png",
-  description: "3k orders this week",
+  slug: "건강검진",
+  image: "/assets/images/banners/category/img_3.png",
+  description: "972명이 검색했어요.",
   parent: [],
   for: {
     demo: "market-1",
@@ -62,11 +62,11 @@ export const categories = [{
   }
 }, {
   id: "0ed2a642-0b27-47ec-8d9c-b3fce4159cfd",
-  name: "Watch",
+  name: "라식/라섹",
   icon: null,
-  slug: "watch",
-  image: "/assets/images/banners/category-2.png",
-  description: "3k orders this week",
+  slug: "라식/라섹",
+  image: "/assets/images/banners/category/img_4.png",
+  description: "",
   parent: [],
   for: {
     demo: "market-1",
@@ -98,7 +98,7 @@ export const categories = [{
   }
 }, {
   id: "79c89024-dff2-4a00-9ce5-251145dfc18f",
-  name: "얼굴 시술(보톡스, 필러등)",
+  name: "얼굴 시술",
   icon: null,
   slug: "fashion",
   image: "/assets/images/products/Fashion/Jewellery/8.IndianPearlThreadEarrings.png",
@@ -348,14 +348,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "IPhone 13 Pro Max",
+  title: "여신완성 패키지",
   brand: null,
   price: 150,
   size: null,
   colors: [],
   discount: 28,
-  thumbnail: "/assets/images/products/flash-3.png",
-  images: ["/assets/images/products/flash-3.png", "/assets/images/products/flash-3.png"],
+  thumbnail: "/assets/images/products/Package/img_2.png",
+  images: ["/assets/images/products/Package/img_2.png", "/assets/images/products/Package/img_2.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -396,14 +396,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Mi Led Smart Watch",
+  title: "건강검진 패키지",
   brand: null,
   price: 180,
   size: null,
   colors: [],
   discount: 21,
-  thumbnail: "/assets/images/products/flash-4.png",
-  images: ["/assets/images/products/flash-4.png", "/assets/images/products/flash-4.png"],
+  thumbnail: "/assets/images/products/Package/img_3.png",
+  images: ["/assets/images/products/Package/img_3.png", "/assets/images/products/Package/img_3.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -444,14 +444,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "NikeCourt Zoom Vapor Cage",
+  title: "강남 전신지방흡입 + 강남투어",
   brand: null,
   price: 250,
   size: null,
   colors: [],
   discount: 25,
-  thumbnail: "/assets/images/products/flash-1.png",
-  images: ["/assets/images/products/flash-1.png", "/assets/images/products/flash-1.png"],
+  thumbnail: "/assets/images/products/Package/img_4.png",
+  images: ["/assets/images/products/Package/img_4.png", "/assets/images/products/Package/img_4.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -492,14 +492,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Classic Rolex Watch",
+  title: "연세 세브란스 병원 건강검진 특가",
   brand: null,
   price: 350,
   size: null,
   colors: [],
   discount: 15,
-  thumbnail: "/assets/images/products/flash-2.png",
-  images: ["/assets/images/products/flash-2.png", "/assets/images/products/flash-2.png"],
+  thumbnail: "/assets/images/products/Package/img_8.png",
+  images: ["/assets/images/products/Package/img_8.png", "/assets/images/products/Package/img_8.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -540,14 +540,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "IPhone 13 Pro Max",
+  title: "고대안암병원 척추수술 패키지",
   brand: null,
   price: 150,
   size: null,
   colors: [],
   discount: 28,
-  thumbnail: "/assets/images/products/flash-3.png",
-  images: ["/assets/images/products/flash-3.png", "/assets/images/products/flash-3.png"],
+  thumbnail: "/assets/images/products/Package/img_6.png",
+  images: ["/assets/images/products/Package/img_6.png", "/assets/images/products/Package/img_6.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -588,14 +588,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Mi Led Smart Watch",
+  title: "국내 1위 임플란트 특가 여행",
   brand: null,
   price: 180,
   size: null,
   colors: [],
   discount: 21,
-  thumbnail: "/assets/images/products/flash-4.png",
-  images: ["/assets/images/products/flash-4.png", "/assets/images/products/flash-4.png"],
+  thumbnail: "/assets/images/products/Package/img_7.png",
+  images: ["/assets/images/products/Package/img_7.png", "/assets/images/products/Package/img_7.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -636,14 +636,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Camera",
+  title: "서울대학교병원",
   brand: null,
   price: 3300,
   size: null,
   colors: [],
   discount: 8,
-  thumbnail: "/assets/images/products/camera-1.png",
-  images: ["/assets/images/products/camera-1.png", "/assets/images/products/camera-1.png"],
+  thumbnail: "/assets/images/products/Hospital/img.png",
+  images: ["/assets/images/products/Hospital/img.png", "/assets/images/products/Hospital/img.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -684,14 +684,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Shoe",
+  title: "김천삼성병원",
   brand: null,
   price: 400,
   size: null,
   colors: [],
   discount: 5,
-  thumbnail: "/assets/images/products/shoes-2.png",
-  images: ["/assets/images/products/shoes-2.png", "/assets/images/products/shoes-2.png"],
+  thumbnail: "/assets/images/products/Hospital/img_1.png",
+  images: ["/assets/images/products/Hospital/img_1.png", "/assets/images/products/Hospital/img_1.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -732,14 +732,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Phone",
+  title: "연세이비인후과",
   brand: null,
   price: 999,
   size: null,
   colors: [],
   discount: 5,
-  thumbnail: "/assets/images/products/mobile-1.png",
-  images: ["/assets/images/products/mobile-1.png", "/assets/images/products/mobile-1.png"],
+  thumbnail: "/assets/images/products/Hospital/img_2.png",
+  images: ["/assets/images/products/Hospital/img_2.png", "/assets/images/products/Hospital/img_2.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -780,14 +780,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Watch",
+  title: "충남아산병원",
   brand: null,
   price: 999,
   size: null,
   colors: [],
   discount: 6,
-  thumbnail: "/assets/images/products/watch-1.png",
-  images: ["/assets/images/products/watch-1.png", "/assets/images/products/watch-1.png"],
+  thumbnail: "/assets/images/products/Hospital/img_3.png",
+  images: ["/assets/images/products/Hospital/img_3.png", "/assets/images/products/Hospital/img_3.png"],
   categories: [],
   status: null,
   reviews: [],
@@ -1836,14 +1836,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Mapple Earphones",
+  title: "상품 1",
   brand: null,
   price: 199,
   size: null,
   colors: [],
   discount: 6,
-  thumbnail: "/assets/images/products/Electronics/29.AppleEarphones.png",
-  images: ["/assets/images/products/Electronics/29.AppleEarphones.png", "/assets/images/products/Electronics/29.AppleEarphones.png"],
+  thumbnail: "/assets/images/products/Place/img_13.png",
+  images: ["/assets/images/products/Place/img_13.png", "/assets/images/products/Place/img_13.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -1884,14 +1884,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Lokia android one",
+  title: "상품 2",
   brand: null,
   price: 122,
   size: null,
   colors: [],
   discount: 9,
-  thumbnail: "/assets/images/products/Electronics/30.Nokiaandroidone.png",
-  images: ["/assets/images/products/Electronics/30.Nokiaandroidone.png", "/assets/images/products/Electronics/30.Nokiaandroidone.png"],
+  thumbnail: "/assets/images/products/Place/img_14.png",
+  images: ["/assets/images/products/Place/img_14.png", "/assets/images/products/Place/img_14.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -1932,14 +1932,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Xymphone lights",
+  title: "상품 3",
   brand: null,
   price: 255,
   size: null,
   colors: [],
   discount: 10,
-  thumbnail: "/assets/images/products/Electronics/31.Symphonlights.png",
-  images: ["/assets/images/products/Electronics/31.Symphonlights.png", "/assets/images/products/Electronics/31.Symphonlights.png"],
+  thumbnail: "/assets/images/products/Place/img_15.png",
+  images: ["/assets/images/products/Place/img_15.png", "/assets/images/products/Place/img_15.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -1980,14 +1980,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Lphone 7",
+  title: "상품 4",
   brand: null,
   price: 109,
   size: null,
   colors: [],
   discount: 5,
-  thumbnail: "/assets/images/products/Electronics/32.iphone7.png",
-  images: ["/assets/images/products/Electronics/32.iphone7.png", "/assets/images/products/Electronics/32.iphone7.png"],
+  thumbnail: "/assets/images/products/Place/img_16.png",
+  images: ["/assets/images/products/Place/img_16.png", "/assets/images/products/Place/img_16.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -2028,14 +2028,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Ceats wireless earphones",
+  title: "상품 5",
   brand: null,
   price: 181,
   size: null,
   colors: [],
   discount: 5,
-  thumbnail: "/assets/images/products/Electronics/33.beatswirelessearphones.png",
-  images: ["/assets/images/products/Electronics/33.beatswirelessearphones.png", "/assets/images/products/Electronics/33.beatswirelessearphones.png"],
+  thumbnail: "/assets/images/products/Place/img_17.png",
+  images: ["/assets/images/products/Place/img_17.png", "/assets/images/products/Place/img_17.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -2076,14 +2076,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "HPC 2018",
+  title: "상품 6",
   brand: null,
   price: 154,
   size: null,
   colors: [],
   discount: 9,
-  thumbnail: "/assets/images/products/Electronics/34.HTC2018.png",
-  images: ["/assets/images/products/Electronics/34.HTC2018.png", "/assets/images/products/Electronics/34.HTC2018.png"],
+  thumbnail: "/assets/images/products/Place/img_18.png",
+  images: ["/assets/images/productsPlace/img_18.png", "/assets/images/products/Place/img_18.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -2124,14 +2124,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Xeats bluetooth earphones",
+  title: "상품 7",
   brand: null,
   price: 148,
   size: null,
   colors: [],
   discount: 9,
-  thumbnail: "/assets/images/products/Electronics/35.beatsbluetoothearpohones.png",
-  images: ["/assets/images/products/Electronics/35.beatsbluetoothearpohones.png", "/assets/images/products/Electronics/35.beatsbluetoothearpohones.png"],
+  thumbnail: "/assets/images/products/Place/img_19.png",
+  images: ["/assets/images/products/Place/img_19.png", "/assets/images/products/Place/img_19.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -2172,14 +2172,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "sbs Wireless Earphones",
+  title: "상품 8",
   brand: null,
   price: 160,
   size: null,
   colors: [],
   discount: 9,
-  thumbnail: "/assets/images/products/Electronics/36.sbsWirelessEarphones.png",
-  images: ["/assets/images/products/Electronics/36.sbsWirelessEarphones.png", "/assets/images/products/Electronics/36.sbsWirelessEarphones.png"],
+  thumbnail: "/assets/images/products/Place/img_20.png",
+  images: ["/assets/images/products/Place/img_20.png", "/assets/images/products/Place/img_20.png"],
   categories: ["electronics"],
   status: null,
   reviews: [],
@@ -2220,14 +2220,14 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Silver Cap",
+  title: "상품 9",
   brand: null,
   price: 237,
   size: null,
   colors: [],
   discount: 5,
-  thumbnail: "/assets/images/products/Fashion/Accessories/1.SilverCap.png",
-  images: ["/assets/images/products/Fashion/Accessories/1.SilverCap.png", "/assets/images/products/Fashion/Accessories/1.SilverCap.png"],
+  thumbnail: "/assets/images/products/Place/img_21.png",
+  images: ["/assets/images/products/Place/img_21.png", "/assets/images/products/Place/img_21.png"],
   categories: ["fashion"],
   status: null,
   reviews: [],
@@ -3249,7 +3249,7 @@ export const products = [{
 export const brands = [{
   id: "2dbb367f-d432-4d90-867b-756f2b4a0dcb",
   slug: "ferrari",
-  name: "Ferrari",
+  name: "서울특별시",
   image: "/assets/images/brands/ferrari.png",
   type: "car",
   for: {
@@ -3259,7 +3259,7 @@ export const brands = [{
 }, {
   id: "44668f9f-e8e4-473e-bae4-591e45adf4e4",
   slug: "tesla",
-  name: "Tesla",
+  name: "부산광역시",
   image: "/assets/images/brands/tesla.png",
   type: "car",
   for: {
@@ -3269,7 +3269,7 @@ export const brands = [{
 }, {
   id: "91d0d7e5-d260-46f1-8445-bc098c5ae630",
   slug: "bmw",
-  name: "Bmw",
+  name: "인천광역시",
   image: "/assets/images/brands/bmw.png",
   type: "car",
   for: {
@@ -3279,7 +3279,7 @@ export const brands = [{
 }, {
   id: "e8f9d5c3-8bfa-473a-8029-e6813cfd1a99",
   slug: "toyota",
-  name: "Toyota",
+  name: "제주특별자치도",
   image: "/assets/images/brands/toyota.png",
   type: "car",
   for: {
@@ -3309,7 +3309,7 @@ export const brands = [{
 }, {
   id: "e73dc783-c355-4a30-9ae3-4995d4f13513",
   slug: "apple",
-  name: "Apple",
+  name: "서울특별시",
   image: "/assets/images/brands/apple.png",
   type: "mobile",
   for: {
@@ -3319,7 +3319,7 @@ export const brands = [{
 }, {
   id: "52cc15f6-d076-432b-94d2-1bd73bd01447",
   slug: "dell",
-  name: "Dell",
+  name: "부산광역시",
   image: "/assets/images/brands/dell.png",
   type: "mobile",
   for: {
@@ -3329,7 +3329,7 @@ export const brands = [{
 }, {
   id: "6c794f56-aaa4-433b-a6fe-3b78dbb357f9",
   slug: "xiaomi",
-  name: "Xiaomi",
+  name: "인천광역시",
   image: "/assets/images/brands/xiaomi.png",
   type: "mobile",
   for: {
@@ -3339,7 +3339,7 @@ export const brands = [{
 }, {
   id: "75f6ccee-8946-41a7-977f-61b3a5fc6401",
   slug: "asus",
-  name: "Asus",
+  name: "제주특별자치도",
   image: "/assets/images/brands/asus.png",
   type: "mobile",
   for: {
@@ -3349,7 +3349,7 @@ export const brands = [{
 }, {
   id: "d0a80046-7044-4b77-a1c2-2d06335e9d2e",
   slug: "sony",
-  name: "Sony",
+  name: "경기도",
   image: "/assets/images/brands/sony.png",
   type: "mobile",
   for: {
@@ -3359,7 +3359,7 @@ export const brands = [{
 }, {
   id: "9fedbaee-67cd-47ef-9447-07b9041fc79d",
   slug: "acer",
-  name: "Acer",
+  name: "충청도",
   image: "/assets/images/brands/acer.png",
   type: "mobile",
   for: {
@@ -3419,8 +3419,8 @@ export const brands = [{
 }, {
   id: "5b7ca86c-8f24-43b4-9e6f-65dbe2bb1426",
   slug: "london-britches",
-  name: "London Britches",
-  image: "/assets/images/products/london-britches.png",
+  name: "하나투어",
+  image: "/assets/images/products/Tour/img.png",
   type: "fashion",
   for: {
     demo: "market-1",
@@ -3429,8 +3429,8 @@ export const brands = [{
 }, {
   id: "b2aab7d3-10d4-445d-bd07-e23e44c1daea",
   slug: "jim-and-jago",
-  name: "Jim & Jago",
-  image: "/assets/images/products/jim and jiko.png",
+  name: "모두투어",
+  image: "/assets/images/products/Tour/img_1.png",
   type: "fashion",
   for: {
     demo: "market-1",
@@ -3442,21 +3442,21 @@ export const brands = [{
 export const serviceList = [{
   id: "5f9bd366-9583-4e6d-9b11-abe74b9c5d96",
   icon: "Truck",
-  title: "Worldwide Delivery",
-  description: null
+  title: "수준높은 의료수준",
+  description: "그 어느나라에 비해 뒤쳐지지 않는 수준높은 의료 수준을 보유하고 있으며, 검증된 병원만을 대상으로 합니다."
 }, {
   id: "121cffea-6972-41f8-8094-98dca22d17bb",
   icon: "CreditCardVerified",
-  title: "Safe Payment",
-  description: null
+  title: "안전한 결제 및 사후관리",
+  description: "플랫폼 내에서 결제를 지원하며, 환불 및 결제 관련 조치 또한 플랫폼에서 지원합니다."
 }, {
   id: "5b94f5d8-71ec-40a6-b5b8-401286deba24",
   icon: "Shield",
-  title: "Shop With Confidence",
-  description: null
+  title: "간편한 예약 및 번역지원",
+  description: "일정에 맞춰 간편하게 예약이 가능하며, 문의사항 및 현지에서 도움이 필요한 경우 번역을 지원합니다."
 }, {
   id: "8c4bb18f-d914-4269-9c7c-3c6728ba33e9",
   icon: "CustomerService",
-  title: "24/7 Support",
-  description: null
+  title: "24시간 고객지원",
+  description: "24시간 고객 지원 서비스를 통해 신속하고 정확하게 대응합니다."
 }];

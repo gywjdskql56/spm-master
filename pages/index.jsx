@@ -25,6 +25,10 @@ const MarketShop = props => {
       {/* CATEGORIES */}
       <Section10 categories={props.bottomCategories} />
 
+      {/* MOBILE PHONES */}
+      <Section7 title="전체" shops={props.mobileShops} brands={props.mobileBrands} productList={props.mobileList} />
+
+
       {/* HERO SLIDER SECTION */}
       <Section1 carouselData={props.mainCarouselData} />
 
@@ -38,25 +42,22 @@ const MarketShop = props => {
       <Section4 topRatedList={props.topRatedProducts} topRatedBrands={props.topRatedBrands} />
 
       {/* NEW ARRIVAL LIST */}
-      <Section5 newArrivalsList={props.newArrivalsList} />
+{/*       <Section5 newArrivalsList={props.newArrivalsList} /> */}
 
       {/* BIG DISCOUNTS */}
-      <Section13 bigDiscountList={props.bigDiscountList} />
+{/*       <Section13 bigDiscountList={props.bigDiscountList} /> */}
 
       {/* CAR LIST */}
-      <Section6 carBrands={props.carBrands} carList={props.carList} />
-
-      {/* MOBILE PHONES */}
-      <Section7 title="Mobile Phones" shops={props.mobileShops} brands={props.mobileBrands} productList={props.mobileList} />
+{/*        <Section6 carBrands={props.carBrands} carList={props.carList} /> */}
 
       {/* PROMO BANNERS */}
-      <Section8 />
+{/*        <Section8 /> */}
 
       {/* OPTICS / WATHCH */}
-      <Section7 title="Optics / Watch" shops={props.opticsShops} brands={props.opticsBrands} productList={props.opticsList} />
+{/*        <Section7 title="Optics / Watch" shops={props.opticsShops} brands={props.opticsBrands} productList={props.opticsList} /> */}
 
       {/* MORE FOR YOU */}
-      <Section11 moreItems={props.moreItems} />
+{/*        <Section11 moreItems={props.moreItems} /> */}
 
       {/* SERVICE CARDS */}
       <Section12 serviceList={props.serviceList} />

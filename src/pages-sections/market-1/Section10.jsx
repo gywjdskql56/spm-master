@@ -28,14 +28,13 @@ const Section10 = ({
     mb: "70px"
   }}>
       <CategorySectionHeader seeMoreLink="#" title="" />
-
       <Grid container spacing={3}>
         {categories.map((item, ind) => <Grid item lg={2} md={3} sm={4} xs={12} key={ind}>
             <Link href={`/product/search/${item.slug}`} passHref>
               <a>
                 <StyledBazaarCard elevation={1}>
                   <LazyImage width={52} height={52} alt="fashion" src={item.image} objectFit="contain" borderRadius="8px" />
-                  <Box fontWeight="600" ml={1.25}>
+                  <Box fontWeight="600" ml={1.25} fontSize={20}>
                     {item.name}
                   </Box>
                 </StyledBazaarCard>

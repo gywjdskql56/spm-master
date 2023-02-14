@@ -33,7 +33,7 @@ const Section6 = ({
           mb: "0.75rem"
         }} onClick={handleCategoryClick(brand)} isSelected={selected === brand.slug} />)}
 
-          <ProductCategoryItem id="all" title="View All Brands" isSelected={selected === "all"} sx={{
+          <ProductCategoryItem id="all" title="도시 모두 보기" isSelected={selected === "all"} sx={{
           mt: 8,
           height: 44,
           justifyContent: "center"

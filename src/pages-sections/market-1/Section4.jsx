@@ -17,7 +17,7 @@ const Section4 = ({
         <Grid container spacing={4}>
           {/* TOP RATINGS AREA */}
           <Grid item lg={6} xs={12}>
-            <CategorySectionHeader icon={<RankBadge />} title="Top Ratings" seeMoreLink="#" />
+            <CategorySectionHeader icon={<RankBadge />} title="후기가 좋은 병원" seeMoreLink="#" />
 
             <BazaarCard sx={{
             p: 2
@@ -36,7 +36,7 @@ const Section4 = ({
 
           {/* FEATURED BRANDS AREA */}
           <Grid item md={6} xs={12}>
-            <CategorySectionHeader icon={<DottedStar />} title="Featured Brands" seeMoreLink="#" />
+            <CategorySectionHeader icon={<DottedStar />} title="후기가 좋은 여행사" seeMoreLink="#" />
 
             <BazaarCard sx={{
             p: 2

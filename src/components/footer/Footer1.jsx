@@ -41,9 +41,7 @@ const Footer1 = () => {
                 </Link>
 
                 <Paragraph mb={2.5} color="grey.500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor libero id et, in gravida. Sit diam duis mauris nulla
-                  cursus. Erat et lectus vel ut sollicitudin elit at amet.
+                  한국의료관광 중개 플랫폼입니다.
                 </Paragraph>
 
                 <AppStore />
@@ -51,7 +49,7 @@ const Footer1 = () => {
 
               <Grid item lg={2} md={6} sm={6} xs={12}>
                 <Box fontSize="18px" fontWeight="600" mb={1.5} lineHeight="1" color="white">
-                  About Us
+                  회사소개
                 </Box>
 
                 <div>
@@ -63,7 +61,7 @@ const Footer1 = () => {
 
               <Grid item lg={3} md={6} sm={6} xs={12}>
                 <Box fontSize="18px" fontWeight="600" mb={1.5} lineHeight="1" color="white">
-                  Customer Care
+                  고객지원
                 </Box>
 
                 <div>
@@ -75,19 +73,19 @@ const Footer1 = () => {
 
               <Grid item lg={3} md={6} sm={6} xs={12}>
                 <Box fontSize="18px" fontWeight="600" mb={1.5} lineHeight="1" color="white">
-                  Contact Us
+                  본사
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  70 Washington Square South, New York, NY 10012, United States
+                  서울특별시 강남구 테헤란로 97-2, 4층
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  Email: uilib.help@gmail.com
+                  Email: 00000000@gmail.com
                 </Box>
 
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: +1 1123 456 780
+                  Phone: +82 3913-0284
                 </Box>
 
                 <FlexBox className="flex" mx={-0.625}>
@@ -111,8 +109,8 @@ const Footer1 = () => {
       </Box>
     </footer>;
 };
-const aboutLinks = ["Careers", "Our Stores", "Our Cares", "Terms & Conditions", "Privacy Policy"];
-const customerCareLinks = ["Help Center", "How to Buy", "Track Your Order", "Corporate & Bulk Purchasing", "Returns & Refunds"];
+const aboutLinks = ["인사말","언론보도","자료공개"];
+const customerCareLinks = ["자주 묻는 말","고객센터"];
 const iconList = [{
   icon: Facebook,
   url: "https://www.facebook.com/UILibOfficial"
