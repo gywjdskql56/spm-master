@@ -69,7 +69,8 @@ const Section7 = props => {
 
           <Grid container spacing={3}>
             {productList.map(item => <Grid item lg={4} sm={6} xs={12} key={item.id}>
-                <ProductCard1 hoverEffect id={item.id} slug={item.slug} title={item.title} price={item.price} rating={item.rating} imgUrl={item.thumbnail} discount={item.discount} />
+                {/*todo:slug={item.slug}*/}
+                <ProductCard1 hoverEffect id={item.id} slug={"test-product"} title={item.title} price={item.price} rating={item.rating} imgUrl={item.thumbnail} discount={item.discount} />
               </Grid>)}
           </Grid>
         </Box>

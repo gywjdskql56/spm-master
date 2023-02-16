@@ -142,10 +142,10 @@ const ProductIntro = ({
             </FlexBox>}
 
           <FlexBox alignItems="center" mb={2}>
-            <Box>Sold By:</Box>
+            <Box>판매사 홈페이지:</Box>
             <Link href="/shops/scarlett-beauty" passHref>
               <a>
-                <H6 ml={1}>Mobile Store</H6>
+                <H6 ml={1}>하나투어 바로가기</H6>
               </a>
             </Link>
           </FlexBox>
