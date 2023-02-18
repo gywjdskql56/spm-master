@@ -11,23 +11,23 @@ import api from "utils/__api__/dashboard";
 // TABLE HEADING DATA LIST
 const tableHeading = [{
   id: "product",
-  label: "Product",
+  label: "제품",
   align: "left"
 }, {
   id: "customer",
-  label: "Customer",
+  label: "고객",
   align: "left"
 }, {
   id: "comment",
-  label: "Comment",
+  label: "후기",
   align: "left"
 }, {
   id: "published",
-  label: "Published",
+  label: "공개 여부",
   align: "left"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 
@@ -65,7 +65,7 @@ export default function ProductReviews({
     defaultSort: "product"
   });
   return <Box py={4}>
-      <H3 mb={2}>Product Reviews</H3>
+      <H3 mb={2}>상품 후기</H3>
 
       <Card>
         <Scrollbar>

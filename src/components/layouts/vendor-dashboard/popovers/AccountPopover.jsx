@@ -68,7 +68,7 @@ const AccountPopover = () => {
         <MenuItem>설정</MenuItem>
 
         <Divider />
-        <MenuItem>Logout</MenuItem>
+        <MenuItem>로그아웃</MenuItem>
       </Menu>
     </Box>;
 };

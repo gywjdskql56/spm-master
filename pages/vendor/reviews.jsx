@@ -55,7 +55,7 @@ export default function Reviews({
     listData: reviews
   });
   return <Box py={4}>
-      <H3 mb={2}>Product Reviews</H3>
+      <H3 mb={2}>뷰상품 후기</H3>
 
       <Card>
         <Scrollbar>

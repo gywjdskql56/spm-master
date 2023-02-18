@@ -34,8 +34,8 @@ export const orders = [{
   discount: 0,
   totalPrice: 350,
   isDelivered: false,
-  shippingAddress: "Kelly Williams 777 Brockton Avenue, Abington MA 2351",
-  status: "Pending",
+  shippingAddress: "5.5%",
+  status: "처리진행중",
   deliveredAt: null
 }, {
   users: {
@@ -73,8 +73,8 @@ export const orders = [{
   discount: 0,
   totalPrice: 500,
   isDelivered: false,
-  shippingAddress: "Kelly Williams 777 Brockton Avenue, Abington MA 2351",
-  status: "Processing",
+  shippingAddress: "5.5%",
+  status: "처리진행중",
   deliveredAt: null
 }, {
   users: {
@@ -112,8 +112,8 @@ export const orders = [{
   discount: 0,
   totalPrice: 700,
   isDelivered: true,
-  shippingAddress: "Kelly Williams 777 Brockton Avenue, Abington MA 2351",
-  status: "Delivered",
+  shippingAddress: "5.5%",
+  status: "예약확정",
   deliveredAt: "2023-02-21T07:18:01.062Z"
 }, {
   users: {
@@ -151,8 +151,8 @@ export const orders = [{
   discount: 0,
   totalPrice: 700,
   isDelivered: true,
-  shippingAddress: "Kelly Williams 777 Brockton Avenue, Abington MA 2351",
-  status: "Delivered",
+  shippingAddress: "5.5%",
+  status: "예약확정",
   deliveredAt: "2022-12-12T22:23:37.065Z"
 }, {
   users: {
@@ -190,7 +190,7 @@ export const orders = [{
   discount: 0,
   totalPrice: 300,
   isDelivered: false,
-  shippingAddress: "Kelly Williams 777 Brockton Avenue, Abington MA 2351",
-  status: "Cancelled",
+  shippingAddress: "5.5%",
+  status: "구매취소",
   deliveredAt: null
 }];

@@ -116,9 +116,9 @@ const MenuTab = ({
               <Link href={`/support-tickets`}>
                   <Tab value="five" label={(<Typography variant="h6">고객센터</Typography>)} />
               </Link>
-{/*               <Link href={`/vendor/dashboard`}> */}
-{/*                   <Tab value="five" label={(<Typography variant="h6">판매자 페이지</Typography>)} /> */}
-{/*               </Link> */}
+              <Link href={`/vendor/dashboard`}>
+                  <Tab value="five" label={(<Typography variant="h6">판매자 페이지</Typography>)} />
+              </Link>
             </Tabs>
           </Box>
         </StyledContainer>

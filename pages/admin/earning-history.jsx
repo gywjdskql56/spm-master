@@ -66,7 +66,7 @@ export default function EarningHistory({
     defaultSort: "no"
   });
   return <Box py={4}>
-      <H3 mb={2}>Earning History</H3>
+      <H3 mb={2}>매출 내역</H3>
 
       <Card>
         <Scrollbar>

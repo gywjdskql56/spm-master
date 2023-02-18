@@ -62,7 +62,7 @@ export default function Payouts({
     defaultSort: "no"
   });
   return <Box py={4}>
-      <H3 mb={2}>Payouts</H3>
+      <H3 mb={2}>대금 결제</H3>
 
       <Card>
         <Scrollbar>
