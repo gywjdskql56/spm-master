@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "webpack --mode production",
+    "build": "next build",
     "export": "next build && next export",
     "build:local": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next build",
     "start": "next start",
@@ -12,7 +12,7 @@
     "fix:prettier": "prettier --write . '!.next' '!.node_modules'",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "*.+(js|jsx)": [
@@ -73,6 +73,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
+    "gh-pages": "^5.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
   }
