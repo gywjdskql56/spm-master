@@ -63,9 +63,9 @@ const AccountPopover = () => {
         </Box>
 
         <Divider />
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My Orders</MenuItem>
-        <MenuItem>Settings</MenuItem>
+        <MenuItem>마이 페이지</MenuItem>
+        <MenuItem>내 주문</MenuItem>
+        <MenuItem>설정</MenuItem>
 
         <Divider />
         <MenuItem>Logout</MenuItem>

@@ -48,7 +48,7 @@ const Section4 = ({
                 image,
                 slug
               }) => <Grid item sm={6} xs={12} key={id}>
-                    <Link href={`/product/search/${slug}`} passHref>
+                    <Link href={`/product/${slug}`} passHref>
                       <a>
                         <ProductCard5 title={name} imgUrl={image} />
                       </a>

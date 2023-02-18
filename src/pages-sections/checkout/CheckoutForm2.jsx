@@ -106,19 +106,19 @@ const CheckoutForm2 = () => {
           <Card1 sx={{
         mb: 3
       }}>
-            <Heading number={1} title="Delivery Date and Time" />
+            <Heading number={1} title="방문 희망 날짜와 시간" />
 
             <Box mb={3.5}>
               <Grid container spacing={3}>
                 <Grid item sm={6} xs={12}>
-                  <TextField select fullWidth type="text" name="date" label="Delivery Date" onChange={handleChange} value={values.date} error={!!touched.date && !!errors.date} helperText={touched.date && errors.date}>
+                  <TextField select fullWidth type="text" name="date" label="방문 희망 날짜" onChange={handleChange} value={values.date} error={!!touched.date && !!errors.date} helperText={touched.date && errors.date}>
                     {dateList.map(item => <MenuItem value={item.value} key={item.label}>
                         {item.label}
                       </MenuItem>)}
                   </TextField>
                 </Grid>
                 <Grid item sm={6} xs={12}>
-                  <TextField select fullWidth type="text" name="time" label="Delivery Time" onChange={handleChange} value={values.time} error={!!touched.time && !!errors.time} helperText={touched.time && errors.time}>
+                  <TextField select fullWidth type="text" name="time" label="방문 희망 시간" onChange={handleChange} value={values.time} error={!!touched.time && !!errors.time} helperText={touched.time && errors.time}>
                     {timeList.map(item => <MenuItem value={item.value} key={item.value}>
                         {item.value}
                       </MenuItem>)}

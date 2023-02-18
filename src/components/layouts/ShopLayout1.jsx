@@ -47,7 +47,7 @@ const ShopLayout1 = ({
 
       <div className="section-after-sticky">
         {/* NAVIGATION BAR */}
-{/*         {showNavbar && <Navbar elevation={0} border={1} />} */}
+        {showNavbar && <Navbar elevation={0} border={1} />}
 
         {/* BODY CONTENT */}
         {children}

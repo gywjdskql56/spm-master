@@ -24,7 +24,7 @@ export default function OrderEdit() {
     return <h1>Loading...</h1>;
   }
   return <Box py={4}>
-      <H3 mb={2}>Order Details</H3>
+      <H3 mb={2}>주문 상세</H3>
       <OrderDetails order={orderDetails} />
     </Box>;
 }

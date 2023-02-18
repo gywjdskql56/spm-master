@@ -260,13 +260,13 @@ const vendorPageList = [{
 }, {
   imgUrl: "/assets/images/landing/vendor/order-list.jpg",
   previewUrl: "/admin/orders",
-  title: "Order List",
+  title: "주문 목록",
   status: "New",
   page: "admin"
 }, {
   imgUrl: "/assets/images/landing/vendor/order-details.jpg",
   previewUrl: "/admin/orders/f0ba538b-c8f3-45ce-b6c1-209cf07ba5f8",
-  title: "Order Details",
+  title: "주문 상세페이지",
   status: "New",
   page: "admin"
 }, {
@@ -402,7 +402,7 @@ const customerPageList = [{
 }, {
   imgUrl: "/assets/images/landing/customer/order-details.jpg",
   previewUrl: "/orders/f0ba538b-c8f3-45ce-b6c1-209cf07ba5f8",
-  title: "Order Details",
+  title: "주문 상세",
   page: "user"
 }, {
   imgUrl: "/assets/images/landing/customer/my-addresses.jpg",
@@ -422,7 +422,7 @@ const customerPageList = [{
 }, {
   imgUrl: "/assets/images/landing/customer/support-ticket.jpg",
   previewUrl: "/support-tickets",
-  title: "Support Tickets",
+  title: "고객센터",
   page: "user"
 }, {
   imgUrl: "/assets/images/landing/customer/support-ticket-detials.jpg",

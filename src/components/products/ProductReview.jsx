@@ -33,9 +33,9 @@ const ProductReview = () => {
   return <Box>
       {commentList.map((item, ind) => <ProductComment {...item} key={ind} />)}
 
-//      <H2 fontWeight="600" mt={7} mb={2.5}>
-//        Write a Review for this product
-//      </H2>
+      <H2 fontWeight="600" mt={7} mb={2.5}>
+        상품에 대한 후기를 알려주세요.
+      </H2>
 
       <form onSubmit={handleSubmit}>
         <Box mb={2.5}>

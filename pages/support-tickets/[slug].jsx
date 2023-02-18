@@ -28,7 +28,7 @@ const SupportTicketDetails = ({
       px: 4,
       bgcolor: "primary.light"
     }}>
-        Back to Support Ticket
+        고객센터 목록으로 돌아가기
       </Button>
     </Link>;
 

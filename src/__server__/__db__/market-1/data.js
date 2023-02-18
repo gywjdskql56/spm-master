@@ -605,7 +605,7 @@ export const products = [{
   }
 }, {
   id: "aab8e6b5-2512-4355-8229-beed259998df",
-  slug: "camera",
+  slug: "test-product",
   shop: {
     id: "e29a64e2-37d9-41fc-9351-22c4284853e6",
     slug: "anytime-buys",
@@ -653,7 +653,7 @@ export const products = [{
   }
 }, {
   id: "02796708-7731-4326-b84e-7039b9e28f9a",
-  slug: "shoe",
+  slug: "test-product",
   shop: {
     id: "b4162c02-a905-45ce-a2d6-ed3fb7af2416",
     slug: "scarlett-beauty",
@@ -701,7 +701,7 @@ export const products = [{
   }
 }, {
   id: "2307db67-f7fa-48c6-a1c3-765065670102",
-  slug: "phone",
+  slug: "test-product",
   shop: {
     id: "46f0dbc6-871e-453e-be91-48f7a111f75f",
     slug: "keyboard-kiosk",
@@ -749,7 +749,7 @@ export const products = [{
   }
 }, {
   id: "d1609ae9-8f3e-45b5-8ebd-0ae7ba568a7f",
-  slug: "watch",
+  slug: "test_product",
   shop: {
     id: "c14593f9-2ff3-4093-8a05-0c9526d95951",
     slug: "scarlett-beauty",
@@ -845,7 +845,7 @@ export const products = [{
   }
 }, {
   id: "c0e41d73-1948-466c-9c9d-159abc50fafe",
-  slug: "makeup",
+  slug: "test-product",
   shop: {
     id: "26bfc082-c479-4aaf-b504-d47ed49d3502",
     slug: "coveted-clicks",
@@ -1596,7 +1596,7 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Budi 2017",
+  title: "라식/라섹 인천 여행 패키지",
   brand: null,
   price: 226,
   size: null,
@@ -1644,7 +1644,7 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Resla 2015",
+  title: "건강검진 + 제주도 패키지",
   brand: null,
   price: 101,
   size: null,
@@ -1692,7 +1692,7 @@ export const products = [{
       instagram: null
     }
   },
-  title: "Xorsche 2018",
+  title: "시술 + 강원도 꽃 관광패키지",
   brand: null,
   price: 241,
   size: null,
@@ -3418,7 +3418,7 @@ export const brands = [{
   }
 }, {
   id: "5b7ca86c-8f24-43b4-9e6f-65dbe2bb1426",
-  slug: "london-britches",
+  slug: "test-product",
   name: "하나투어",
   image: "/assets/images/products/Tour/img.png",
   type: "fashion",
@@ -3428,7 +3428,7 @@ export const brands = [{
   }
 }, {
   id: "b2aab7d3-10d4-445d-bd07-e23e44c1daea",
-  slug: "jim-and-jago",
+  slug: "test-product",
   name: "모두투어",
   image: "/assets/images/products/Tour/img_1.png",
   type: "fashion",

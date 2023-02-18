@@ -37,7 +37,7 @@ const megaMenus = [[{
     title: "Order List",
     url: "/orders"
   }, {
-    title: "Order Details",
+    title: "주문 상세",
     url: "/orders/f0ba538b-c8f3-45ce-b6c1-209cf07ba5f8"
   }, {
     title: "View Profile",
@@ -98,7 +98,7 @@ const megaMenus = [[{
     url: "/sale-page-2"
   }]
 }, {
-  title: "주문/배송",
+  title: "주문/예약",
   child: [{
     title: "Search product",
     url: "/product/search/mobile phone"
@@ -226,7 +226,7 @@ const navbarNavigations = [{
       title: "Order List",
       url: "/orders"
     }, {
-      title: "Order Details",
+      title: "주문 상세",
       url: "/orders/f0ba538b-c8f3-45ce-b6c1-209cf07ba5f8"
     }]
   }, {

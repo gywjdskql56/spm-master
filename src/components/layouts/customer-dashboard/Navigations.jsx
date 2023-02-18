@@ -69,7 +69,7 @@ const linkList = [{
   title: "주문 관리",
   list: [{
     href: "/orders",
-    title: "주문/배송",
+    title: "주문/예약",
     icon: ShoppingBagOutlined,
     count: 5
   }, {

@@ -26,7 +26,7 @@ const MarketShop = props => {
       <Section10 categories={props.bottomCategories} />
 
       {/* MOBILE PHONES */}
-      <Section7 title="Mobile Phones" shops={props.mobileShops} brands={props.mobileBrands} productList={props.mobileList} />
+      <Section7 title="전체" shops={props.mobileShops} brands={props.mobileBrands} productList={props.mobileList} />
 
 
       {/* HERO SLIDER SECTION */}

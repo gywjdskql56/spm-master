@@ -84,7 +84,7 @@ const DashboardNavbar = ({
           <CustomButton onClick={() => router.push("/")} startIcon={<Globe sx={{
           color: "grey.900"
         }} />}>
-            Browse Website
+            고객사 페이지
           </CustomButton>
 
           <Box flexGrow={1} />
