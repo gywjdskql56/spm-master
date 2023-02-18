@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "webpack --mode production",
     "export": "next build && next export",
     "build:local": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next build",
     "start": "next start",
     "size": "node --max_old_space_size=4096",
     "fix:prettier": "prettier --write . '!.next' '!.node_modules'",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "lint-staged": {
     "*.+(js|jsx)": [
