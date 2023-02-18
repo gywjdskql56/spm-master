@@ -14,31 +14,31 @@ import { currency } from "lib";
 // table column list
 const tableHeading = [{
   id: "no",
-  label: "No",
+  label: "일련번호",
   align: "left"
 }, {
   id: "seller",
-  label: "Seller",
+  label: "판매자",
   align: "left"
 }, {
   id: "package",
-  label: "Package",
+  label: "패키지",
   align: "left"
 }, {
   id: "amount",
-  label: "Amount",
+  label: "수량",
   align: "left"
 }, {
   id: "payment",
-  label: "Payment Method",
+  label: "지불 방법",
   align: "left"
 }, {
   id: "date",
-  label: "Date",
+  label: "날짜",
   align: "left"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 
@@ -64,7 +64,7 @@ export default function PackagePayment({
     defaultSort: "no"
   });
   return <Box py={4}>
-      <H3 mb={2}>Package Payments</H3>
+      <H3 mb={2}>패키지 결제내역</H3>
 
       <Card>
         <Scrollbar>

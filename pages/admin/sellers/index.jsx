@@ -13,27 +13,27 @@ import api from "utils/__api__/dashboard";
 // table column list
 const tableHeading = [{
   id: "name",
-  label: "Seller Name",
+  label: "판매자 이름",
   align: "left"
 }, {
   id: "shopName",
-  label: "Shop Name",
+  label: "판매자 회사",
   align: "left"
 }, {
   id: "package",
-  label: "Current Package",
+  label: "등급",
   align: "left"
 }, {
   id: "balance",
-  label: "Current Balance",
+  label: "최근 매출",
   align: "left"
 }, {
   id: "published",
-  label: "Shop Published",
+  label: "판매사 공개",
   align: "left"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 
@@ -60,9 +60,9 @@ export default function SellerList({
     listData: sellers
   });
   return <Box py={4}>
-      <H3 mb={2}>Sellers</H3>
+      <H3 mb={2}>판매자</H3>
 
-      <SearchArea handleSearch={() => {}} buttonText="Add New Seller" handleBtnClick={() => {}} searchPlaceholder="Search Seller..." />
+      <SearchArea handleSearch={() => {}} buttonText="새로운 판매자 등록" handleBtnClick={() => {}} searchPlaceholder="판매자 검색" />
 
       <Card>
         <Scrollbar>

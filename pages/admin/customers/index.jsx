@@ -13,27 +13,27 @@ import api from "utils/__api__/dashboard";
 // table column list
 const tableHeading = [{
   id: "name",
-  label: "Name",
+  label: "성함",
   align: "left"
 }, {
   id: "phone",
-  label: "Phone",
+  label: "휴대폰 번호",
   align: "left"
 }, {
   id: "email",
-  label: "Email",
+  label: "이메일",
   align: "left"
 }, {
   id: "balance",
-  label: "Wallet Balance",
+  label: "포인트",
   align: "left"
 }, {
   id: "orders",
-  label: "No Of Orders",
+  label: "주문 수",
   align: "left"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 
@@ -60,9 +60,9 @@ export default function CustomerList({
     listData: customers
   });
   return <Box py={4}>
-      <H3 mb={2}>Customers</H3>
+      <H3 mb={2}>회원 리스트</H3>
 
-      <SearchArea handleSearch={() => {}} buttonText="Add Customer" handleBtnClick={() => {}} searchPlaceholder="Search Customer..." />
+      <SearchArea handleSearch={() => {}} buttonText="회원 추가" handleBtnClick={() => {}} searchPlaceholder="회원 검색" />
 
       <Card>
         <Scrollbar>

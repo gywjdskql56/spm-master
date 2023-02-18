@@ -15,18 +15,18 @@ export const orders = [{
   id: "f0ba538b-c8f3-45ce-b6c1-209cf07ba5f8",
   tax: 0,
   items: [{
-    product_img: "/assets/images/products/Automotive/2.Audi2017.png",
-    product_name: "Budi 2017",
+    product_img: "/assets/images/products/Package/img_1.png",
+    product_name: "인천 패키지",
     product_price: 226,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/3.Tesla2015.png",
-    product_name: "Resla 2015",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 101,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/4.Porsche2018.png",
-    product_name: "Xorsche 2018",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 241,
     product_quantity: 4
   }],
@@ -54,18 +54,18 @@ export const orders = [{
   id: "1f10985b-09a8-4d93-b5ef-bd8a73bd6067",
   tax: 0,
   items: [{
-    product_img: "/assets/images/products/Automotive/2.Audi2017.png",
-    product_name: "Budi 2017",
+    product_img: "/assets/images/products/Package/img_1.png",
+    product_name: "인천 패키지",
     product_price: 226,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/3.Tesla2015.png",
-    product_name: "Resla 2015",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 101,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/4.Porsche2018.png",
-    product_name: "Xorsche 2018",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 241,
     product_quantity: 4
   }],
@@ -93,18 +93,18 @@ export const orders = [{
   id: "6d54d506-208a-43bb-8cb1-20c0783ea661",
   tax: 0,
   items: [{
-    product_img: "/assets/images/products/Automotive/2.Audi2017.png",
-    product_name: "Budi 2017",
+    product_img: "/assets/images/products/Package/img_1.png",
+    product_name: "인천 패키지",
     product_price: 226,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/3.Tesla2015.png",
-    product_name: "Resla 2015",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 101,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/4.Porsche2018.png",
-    product_name: "Xorsche 2018",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 241,
     product_quantity: 4
   }],
@@ -132,18 +132,18 @@ export const orders = [{
   id: "63d35462-520b-4566-ba1c-82596472a888",
   tax: 0,
   items: [{
-    product_img: "/assets/images/products/Automotive/2.Audi2017.png",
-    product_name: "Budi 2017",
+    product_img: "/assets/images/products/Package/img_1.png",
+    product_name: "인천 패키지",
     product_price: 226,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/3.Tesla2015.png",
-    product_name: "Resla 2015",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 101,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/4.Porsche2018.png",
-    product_name: "Xorsche 2018",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 241,
     product_quantity: 4
   }],
@@ -171,18 +171,18 @@ export const orders = [{
   id: "753deee0-56b3-40a7-85d4-346b3647c8f8",
   tax: 0,
   items: [{
-    product_img: "/assets/images/products/Automotive/2.Audi2017.png",
-    product_name: "Budi 2017",
+    product_img: "/assets/images/products/Package/img_1.png",
+    product_name: "인천 패키지",
     product_price: 226,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/3.Tesla2015.png",
-    product_name: "Resla 2015",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 101,
     product_quantity: 4
   }, {
-    product_img: "/assets/images/products/Automotive/4.Porsche2018.png",
-    product_name: "Xorsche 2018",
+    product_img: "/assets/images/products/Package/img.png",
+    product_name: "제주도 패키지",
     product_price: 241,
     product_quantity: 4
   }],

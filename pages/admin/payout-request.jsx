@@ -14,35 +14,35 @@ import { currency } from "lib";
 // table column list
 const tableHeading = [{
   id: "no",
-  label: "No",
+  label: "일련번호",
   align: "left"
 }, {
   id: "seller",
-  label: "Seller Info",
+  label: "판매자 정보",
   align: "left"
 }, {
   id: "shopName",
-  label: "Shop Name",
+  label: "판매사",
   align: "left"
 }, {
   id: "totalAmount",
-  label: "Total Amount",
+  label: "총 금액",
   align: "left"
 }, {
   id: "requestAmount",
-  label: "Req. Amount",
+  label: "요청 금액",
   align: "left"
 }, {
   id: "date",
-  label: "Date",
+  label: "날짜",
   align: "left"
 }, {
   id: "status",
-  label: "Status",
+  label: "상태",
   align: "left"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 
@@ -70,7 +70,7 @@ export default function PayoutRequests({
     defaultSort: "no"
   });
   return <Box py={4}>
-      <H3 mb={2}>Payout Requests</H3>
+      <H3 mb={2}>대금 결제 요청</H3>
 
       <Card>
         <Scrollbar>

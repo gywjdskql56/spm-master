@@ -14,27 +14,27 @@ import { currency } from "lib";
 // table column list
 const tableHeading = [{
   id: "no",
-  label: "No",
+  label: "일련번호",
   align: "left"
 }, {
   id: "sellerInfo",
-  label: "Seller Info",
+  label: "판매자 정보",
   align: "left"
 }, {
   id: "amount",
-  label: "Amount",
+  label: "금액",
   align: "left"
 }, {
   id: "date",
-  label: "Date",
+  label: "날짜",
   align: "left"
 }, {
   id: "payment",
-  label: "Payment Method",
+  label: "지불 방법",
   align: "center"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 

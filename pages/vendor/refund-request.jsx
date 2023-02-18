@@ -12,7 +12,7 @@ import api from "utils/__api__/vendor";
 // table column list
 const tableHeading = [{
   id: "orderNo",
-  label: "Order No",
+  label: "주문번호",
   align: "left"
 }, {
   id: "shopName",
@@ -59,7 +59,7 @@ export default function RefundRequest({
     listData: requests
   });
   return <Box py={4}>
-      <H3 mb={2}>Refund Request</H3>
+      <H3 mb={2}>환불 요청</H3>
 
       <Card>
         <Scrollbar>

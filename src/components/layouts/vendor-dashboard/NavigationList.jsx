@@ -62,7 +62,7 @@ export const navigations = [{
     name: "환불 요청",
     path: "/admin/refund-request"
   }, {
-    name: "환불 세팅",
+    name: "환불 규정",
     path: "/admin/refund-setting"
   }]
 }, {
