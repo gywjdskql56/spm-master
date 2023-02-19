@@ -38,7 +38,7 @@ const SupportTicketDetails = ({
   }
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="Support Ticket" navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="고객센터" navigation={<CustomerDashboardNavigation />} />
 
       {/* CONVERSATION LIST */}
       {ticket.conversation.map((item, ind) => <FlexBox gap={2} mb={4} key={ind}>
@@ -74,7 +74,7 @@ const SupportTicketDetails = ({
         ml: "auto",
         display: "block"
       }}>
-          Post message
+          저장
         </Button>
       </form>
     </CustomerDashboardLayout>;

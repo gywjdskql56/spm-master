@@ -5,7 +5,7 @@ import Scrollbar from "components/Scrollbar";
 import SearchArea from "components/dashboard/SearchArea";
 import TableHeader from "components/data-table/TableHeader";
 import TablePagination from "components/data-table/TablePagination";
-import VendorDashboardLayout from "components/layouts/vendor-dashboard";
+import AdminDashboardLayout from "components/layouts/admin-dashboard";
 import useMuiTable from "hooks/useMuiTable";
 import { OrderRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
@@ -42,7 +42,7 @@ const tableHeading = [{
 
 // =============================================================================
 OrderList.getLayout = function getLayout(page) {
-  return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
+  return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
 };
 // =============================================================================
 

@@ -3,7 +3,7 @@ import TableBody from "@mui/material/TableBody";
 import SearchArea from "components/dashboard/SearchArea";
 import TableHeader from "components/data-table/TableHeader";
 import TablePagination from "components/data-table/TablePagination";
-import VendorDashboardLayout from "components/layouts/vendor-dashboard";
+import AdminDashboardLayout from "components/layouts/admin-dashboard";
 import { H3 } from "components/Typography";
 import Scrollbar from "components/Scrollbar";
 import useMuiTable from "hooks/useMuiTable";
@@ -39,7 +39,7 @@ const tableHeading = [{
 
 // =============================================================================
 SellerList.getLayout = function getLayout(page) {
-  return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
+  return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
 };
 // =============================================================================
 

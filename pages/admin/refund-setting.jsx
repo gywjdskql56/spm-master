@@ -1,7 +1,7 @@
 import { Delete } from "@mui/icons-material";
 import { Box, Button, Card, IconButton, TextField } from "@mui/material";
 import { FlexBetween, FlexBox } from "components/flex-box";
-import VendorDashboardLayout from "components/layouts/vendor-dashboard";
+import AdminDashboardLayout from "components/layouts/admin-dashboard";
 import { H3, H4, H5 } from "components/Typography";
 import React, { useState } from "react";
 const reasonList = [{
@@ -23,7 +23,7 @@ const reasonList = [{
 
 // =============================================================================
 RefundSetting.getLayout = function getLayout(page) {
-  return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
+  return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
 };
 // =============================================================================
 

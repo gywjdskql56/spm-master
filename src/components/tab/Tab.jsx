@@ -108,16 +108,23 @@ const MenuTab = ({
               <Link href={`/#`}>
                 <Tab value="one" label={(<Typography variant="h6">홈</Typography>)} />
               </Link>
+              <Link href={`/#`}>
               <Tab value="two" label={(<Typography variant="h6">의료여행 패키지</Typography>)} />
+              </Link>
+              <Link href={`/#`}>
               <Tab value="three" label={(<Typography variant="h6">의료여행 DIY</Typography>)} />
+              </Link>
               <Link href={`/profile`}>
                 <Tab value="four" label={(<Typography variant="h6">마이페이지</Typography>)} />
               </Link>
               <Link href={`/support-tickets`}>
                   <Tab value="five" label={(<Typography variant="h6">고객센터</Typography>)} />
               </Link>
+              <Link href={`/admin/dashboard`}>
+                  <Tab value="five" label={(<Typography variant="h6">관리자페이지</Typography>)} />
+              </Link>
               <Link href={`/vendor/dashboard`}>
-                  <Tab value="five" label={(<Typography variant="h6">판매자 페이지</Typography>)} />
+                  <Tab value="five" label={(<Typography variant="h6">판매자페이지</Typography>)} />
               </Link>
             </Tabs>
           </Box>

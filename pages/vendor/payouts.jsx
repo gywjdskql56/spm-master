@@ -13,19 +13,19 @@ import { currency } from "lib";
 // table column list
 const tableHeading = [{
   id: "no",
-  label: "No",
+  label: "번호",
   align: "center"
 }, {
   id: "amount",
-  label: "Amount",
+  label: "금액",
   align: "center"
 }, {
   id: "payment",
-  label: "Payment Method",
+  label: "지불 방식",
   align: "center"
 }, {
   id: "date",
-  label: "Date",
+  label: "날짜",
   align: "center"
 }];
 

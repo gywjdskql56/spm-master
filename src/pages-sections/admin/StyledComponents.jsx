@@ -50,7 +50,7 @@ const StatusWrapper = styled(Box)(({
 }) => {
   let color = theme.palette.secondary.main;
   let backgroundColor = theme.palette.secondary[100];
-  if (status === "Accepted" || status === "예약확정" || status === "Normal") {
+  if (status === "입금완료" || status === "예약확정" || status === "Normal") {
     color = theme.palette.success.main;
     backgroundColor = theme.palette.success[100];
   }
@@ -59,6 +59,10 @@ const StatusWrapper = styled(Box)(({
     backgroundColor = theme.palette.error[100];
   }
   if (status === "주문확인중") {
+    color = theme.palette.warning.main;
+    backgroundColor = theme.palette.warning[100];
+  }
+  if (status === "요청확인중") {
     color = theme.palette.warning.main;
     backgroundColor = theme.palette.warning[100];
   }

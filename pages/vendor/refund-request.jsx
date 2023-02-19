@@ -16,23 +16,23 @@ const tableHeading = [{
   align: "left"
 }, {
   id: "shopName",
-  label: "Shop Name",
+  label: "판매사",
   align: "left"
 }, {
   id: "product",
-  label: "Product Details",
+  label: "상품 정보",
   align: "left"
 }, {
   id: "amount",
-  label: "Amount",
+  label: "금액",
   align: "left"
 }, {
   id: "status",
-  label: "Status",
+  label: "처리상태",
   align: "left"
 }, {
   id: "action",
-  label: "Action",
+  label: "수정/삭제",
   align: "center"
 }];
 

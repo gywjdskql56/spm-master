@@ -43,7 +43,7 @@ const ProfileEditor = ({
       px: 4,
       bgcolor: "primary.light"
     }}>
-        Back to Profile
+        프로필로 돌아가기
       </Button>
     </Link>;
 
@@ -53,7 +53,7 @@ const ProfileEditor = ({
   }
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader icon={Person} title="Edit Profile" button={HEADER_LINK} navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader icon={Person} title="프로필 수정" button={HEADER_LINK} navigation={<CustomerDashboardNavigation />} />
 
       {/* PROFILE EDITOR FORM */}
       <Card1>

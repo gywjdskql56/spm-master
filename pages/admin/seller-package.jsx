@@ -4,7 +4,7 @@ import { FlexBetween } from "components/flex-box";
 import GoldPackageIcon from "components/icons/GoldPackageIcon";
 import PremiumPackageIcon from "components/icons/PremiumPackageIcon";
 import SilverPackageIcon from "components/icons/SilverPackageIcon";
-import VendorDashboardLayout from "components/layouts/vendor-dashboard";
+import AdminDashboardLayout from "components/layouts/admin-dashboard";
 import { H3 } from "components/Typography";
 import { SellerPackageCard } from "pages-sections/admin";
 const packageList = [{
@@ -29,7 +29,7 @@ const packageList = [{
 
 // =============================================================================
 SellerPackage.getLayout = function getLayout(page) {
-  return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
+  return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
 };
 // =============================================================================
 
