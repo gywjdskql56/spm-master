@@ -13,6 +13,10 @@ const fbStyle = {
   background: "#3B5998",
   color: "white"
 };
+const kkStyle = {
+  background: "#FEE500",
+  color: "#000000"
+};
 const googleStyle = {
   background: "#4285F4",
   color: "white"
@@ -37,6 +41,11 @@ export const Wrapper = styled(({
     marginBottom: 10,
     ...fbStyle,
     "&:hover": fbStyle
+  },
+    ".kakaoButton": {
+    marginBottom: 10,
+    ...kkStyle,
+    "&:hover": kkStyle
   },
   ".googleButton": {
     ...googleStyle,

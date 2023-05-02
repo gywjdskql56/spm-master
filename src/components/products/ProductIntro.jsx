@@ -9,7 +9,9 @@ import { useAppContext } from "contexts/AppContext";
 import { FlexBox, FlexRowCenter } from "../flex-box";
 import { currency } from "lib";
 import productVariants from "data/product-variants";
-
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 // ================================================================
 
 // ================================================================
@@ -63,6 +65,7 @@ const ProductIntro = ({
       }
     });
   };
+  const { allowedMaxDays, allowedDays, allowedRange, beforeToday, afterToday, combine } = DateRangePicker;
   return <Box width="100%">
       <Grid container spacing={3} justifyContent="space-around">
         <Grid item md={6} xs={12} alignItems="center">
@@ -117,13 +120,21 @@ const ProductIntro = ({
             <Box color="inherit">다른 화폐로 결제 가능</Box>
           </Box>
 
-          {!cartItem?.qty ? <Button color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }} />
+        </LocalizationProvider>
+          {!cartItem?.qty ?
+          <Button color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
           mb: 4.5,
           px: "1.75rem",
-          height: 40
+          height: 40,
+          margin: 2
         }}>
               장바구니에 추가하기
-            </Button> : <FlexBox alignItems="center" mb={4.5}>
+            </Button>
+            :
+            <FlexBox alignItems="center" mb={4.5}>
+            <FlexBox alignItems="center">
               <Button size="small" sx={{
             p: 1
           }} color="primary" variant="outlined" onClick={handleCartAmountChange(cartItem?.qty - 1)}>
@@ -139,6 +150,17 @@ const ProductIntro = ({
           }} color="primary" variant="outlined" onClick={handleCartAmountChange(cartItem?.qty + 1)}>
                 <Add fontSize="small" />
               </Button>
+              <FlexBox alignItems="center">
+              <Button color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
+                  mb: 0,
+                  px: "1.75rem",
+                  height: 40,
+                  margin: 2
+              }}>
+              장바구니에 추가하기
+            </Button>
+            </FlexBox>
+            </FlexBox>
             </FlexBox>}
 
           <FlexBox alignItems="center" mb={2}>
