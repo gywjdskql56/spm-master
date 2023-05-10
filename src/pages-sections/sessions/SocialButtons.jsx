@@ -4,7 +4,8 @@ import Image from "components/BazaarImage";
 import { FlexBox } from "components/flex-box";
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
-
+import GoogleLogin from "react-google-login";
+//import { GoogleLogin, GoogleOauthProvider } from '@react-oauth/google';
 // =======================================
 
 // =======================================
@@ -19,9 +20,17 @@ const SocialButtons = props => {
     const componentClicked = () => {
     console.log("clicked");
   };
-  const responseFacebook = response => {
-    console.log(response);
+
+  const responseFacebook = (response) => {
+    const { id, email } = response; //페이스북 응답객체에서 id와 email을 할당한 후
+    oAuthLoginHandler(Number(id), email);  // props로 내려준 oAuthLoginHandler라는 함수에 인자로 넘겨준다.
   };
+  const FACEBOOK_APP_ID = '1446552009504968'
+  const responseGoogle = async(response) => {
+   console.log(response);
+   console.log("responseGoogle")
+   const { googleId, profileObj : { email, name } } = response;
+  }
 
   return <Fragment>
       <Box mb={3} mt={3.8}>
@@ -36,7 +45,7 @@ const SocialButtons = props => {
         </FlexBox>
       </Box>
 
-      <Button className="facebookButton" size="medium" onClick={() =>
+      {/*<Button className="facebookButton" size="medium" onClick={() =>
           FacebookLoginClient.login(console.log, {
             scope: 'email',
           })
@@ -47,7 +56,26 @@ const SocialButtons = props => {
         <Box fontSize="12px" ml={1}>
           페이스북으로 로그인
         </Box>
+      </Button>*/}
+
+
+          <FacebookLogin
+      appId={FACEBOOK_APP_ID} // 페이스북 앱 등록 후, 생성되는 앱 아이디를 넣어준다.
+      autoLoad={false} // 자동 실행 여부를 정해줄 수 있다.
+      fields="name,email,picture" // fields 설정
+      callback={responseFacebook}
+
+      render={(renderProps) => (
+      <Button className="facebookButton" size="medium" onClick={renderProps.onClick} fullWidth sx={{
+      height: 44
+    }}>
+        <Image src="/assets/images/icons/facebook-filled-white.svg" alt="facebook" />
+        <Box fontSize="12px" ml={1}>
+          Login with Facebook
+        </Box>
       </Button>
+      )}
+    ></FacebookLogin>
 
 {/*<FacebookLogin
   appId="1446552009504968"
@@ -84,19 +112,42 @@ const SocialButtons = props => {
     }}>
         <Image style={{ width: 20, height: 20 }} src="/assets/images/icons/kakao2.png" alt="kakao" />
         <Box fontSize="12px" ml={1}>
-          카카오톡으로 로그인
+          Login with KakaoTalk
         </Box>
       </Button>
       </a>
 
-      <Button className="googleButton" size="medium" fullWidth sx={{
+      {/*<Button className="googleButton" size="medium" fullWidth sx={{
       height: 44
     }}>
         <Image src="/assets/images/icons/google-1.svg" alt="facebook" />
         <Box fontSize="12px" ml={1}>
-          구글로 로그인
+          Login with Google
         </Box>
       </Button>
+      {/*<GoogleOauthProvider clientId={'1098622404399-oi7u4rfaa8ri99aj8pknq2lh87d88s14.apps.googleusercontent.com'}>
+      <GoogleLogin
+         onSuccess={(res)=>{console.log(res)}}
+         onFailure={(err)=>{console.log(err)}}
+      />
+      </GoogleOauthProvider>*/}
+      <GoogleLogin
+      clientId={'1098622404399-oi7u4rfaa8ri99aj8pknq2lh87d88s14.apps.googleusercontent.com'}
+      onSuccess={responseGoogle}
+      responseType={"id_token"}
+      accessType={"offline"}
+      redirectUri={'http://localhost:3000/signup'}
+      render={(renderProps) => (
+            <Button className="googleButton" size="medium" fullWidth onClick={renderProps.onClick} sx={{
+                height: 44
+            }}>
+        <Image src="/assets/images/icons/google-1.svg" alt="facebook" />
+        <Box fontSize="12px" ml={1}>
+          Login with Google
+        </Box>
+      </Button>
+        )}
+  />
     </Fragment>;
 };
 export default SocialButtons;

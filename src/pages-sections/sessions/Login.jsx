@@ -58,11 +58,20 @@ export const Wrapper = styled(({
 }));
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [login, setLogin] = useState(false);
   const togglePasswordVisibility = useCallback(() => {
     setPasswordVisibility(visible => !visible);
   }, []);
   const handleFormSubmit = async values => {
-    console.log(values);
+    console.log('click')
+    console.log(`http://localhost:5003/do_login/${values.email}_${values.password}`)
+    fetch(`http://localhost:5003/do_login/${values.email}_${values.password}`)
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        ResultLogin(data['result'])
+    );
+    console.log('complete')
   };
   const {
     values,
@@ -76,6 +85,42 @@ const Login = () => {
     onSubmit: handleFormSubmit,
     validationSchema: formSchema
   });
+  function ResultLogin(result) {
+      console.log(result)
+      if (result=='fail'){
+        if (typeof window !== "undefined") {
+            window.alert("아이디 또는 비밀번호를 다시 한번 확인해주세요.")
+            }
+      } else if (result=='cust') {
+        if (typeof window !== "undefined") {
+            window.alert("고객 로그인에 성공했습니다.")
+            window.location.href =  'http://localhost:3000'
+            }
+      } else if (result=='vendor') {
+        if (typeof window !== "undefined") {
+            window.alert("판매자 로그인에 성공했습니다.")
+            window.location.href =  'http://localhost:3000/vendor/dashboard'
+            }
+      } else if (result=='admin') {
+        if (typeof window !== "undefined") {
+            window.alert("관리자 로그인에 성공했습니다.")
+            window.location.href =  'http://localhost:3000/admin/dashboard'
+            }
+      }
+
+  }
+
+  {/*function SelfLogin() {
+    console.log('click')
+    console.log(`http://localhost:5003/do_login/${values.email}_${values.password}`)
+    fetch(`http://localhost:5003/do_login/${values.email}_${values.password}`)
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        ResultLogin(data['result'])
+    );
+    console.log('complete')
+  }*/}
   return <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
       <form onSubmit={handleSubmit}>
         <BazaarImage src="/assets/images/bazaar-black-sm.svg" sx={{
@@ -83,7 +128,7 @@ const Login = () => {
       }} />
 
         <H1 textAlign="center" mt={1} mb={4} fontSize={16}>
-          K-MEDI에 오신걸 환영합니다.
+          Welcome to K-MEDI
         </H1>
 
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
@@ -92,32 +137,30 @@ const Login = () => {
         endAdornment: <EyeToggleButton show={passwordVisibility} click={togglePasswordVisibility} />
       }} />
 
-        <Button fullWidth type="submit" color="primary" variant="contained" sx={{
-        height: 44
-      }}>
-          로그인
+        <Button fullWidth type="submit" color="primary" variant="contained" sx={{height: 44}} >
+          Log in
         </Button>
       </form>
 
       <SocialButtons />
 
       <FlexRowCenter mt="1.25rem">
-        <Box>아직 계정이 없으신가요?</Box>
+        <Box>Don't have an account yet?</Box>
         <Link href="/signup" passHref legacyBehavior>
           <a>
             <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-              회원가입
+              Sign up
             </H6>
           </a>
         </Link>
       </FlexRowCenter>
 
       <FlexBox justifyContent="center" bgcolor="grey.200" borderRadius="4px" py={2.5} mt="1.25rem">
-        비밀번호를 잊으셨나요?
+        Forgot your password?
         <Link href="/reset-password" passHref legacyBehavior>
           <a>
             <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-              비밀번호 초기화
+              Reset password
             </H6>
           </a>
         </Link>
