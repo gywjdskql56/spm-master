@@ -1,19 +1,21 @@
 import { Delete, KeyboardArrowDown } from "@mui/icons-material";
-import { Box, Card, Grid, Button, Avatar, Divider, MenuItem, TextField, IconButton } from "@mui/material";
+import { Box, Card, Grid, Button, Avatar, Divider, MenuItem, TextField, IconButton, Modal } from "@mui/material";
 import { format } from "date-fns";
 import { FlexBetween, FlexBox } from "components/flex-box";
 import { H5, H6, Paragraph, Span } from "components/Typography";
 import { currency } from "lib";
+
 // ===================================================================
 
 const OrderDetails = ({
   order
 }) => {
+
   return <Grid container spacing={3}>
       <Grid item xs={12}>
         <Card sx={{
-        p: 3
-      }}>
+            p: 3
+        }}>
           <FlexBox alignItems="center" gap={4}>
             <Paragraph>
               <Span color="grey.600">주문번호:</Span> {order.id}
@@ -77,6 +79,7 @@ const OrderDetails = ({
                 <Paragraph color="grey.600">
                   추가 옵션: 비즈니스석으로 변경, 필러 추가
                 </Paragraph>
+
 
                 <IconButton>
                   <Delete sx={{

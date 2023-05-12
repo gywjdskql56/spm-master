@@ -12,6 +12,9 @@ import productVariants from "data/product-variants";
 import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import DatePicker from "react-multi-date-picker"
+import { Calendar } from "react-multi-date-picker"
+import DatePanel from "react-multi-date-picker/plugins/date_panel"
 // ================================================================
 
 // ================================================================
@@ -31,6 +34,7 @@ const ProductIntro = ({
     state,
     dispatch
   } = useAppContext();
+  const [value, setValue] = useState(new Date())
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectVariants, setSelectVariants] = useState({
     option: "option 1",
@@ -119,6 +123,20 @@ const ProductIntro = ({
             </H2>
             <Box color="inherit">다른 화폐로 결제 가능</Box>
           </Box>
+          <Box mb={2}>
+          <H6 mb={1}>예약날짜 선택</H6>
+          </Box>
+        <DatePicker
+          multiple
+          plugins={[
+           <DatePanel />
+          ]}
+          value={value}
+          onChange={setValue}
+        />
+        <Box mb={2}>
+          <H6 mb={1}>예약날짜 선택</H6>
+        </Box>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }} />
