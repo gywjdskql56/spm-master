@@ -1,5 +1,6 @@
 import Router from "next/router";
 import { Box, Card, Stack, Table, TableContainer } from "@mui/material";
+import { useState, useEffect } from "react";
 import TableBody from "@mui/material/TableBody";
 import SearchArea from "components/dashboard/SearchArea";
 import TableHeader from "components/data-table/TableHeader";
@@ -46,20 +47,31 @@ ProductList.getLayout = function getLayout(page) {
 // =============================================================================
 
 export default function ProductList(props) {
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5003/get_product/123-45-12345")
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data); setProduct(data)});
+    }, []);
   const {
     products
   } = props;
 
   // RESHAPE THE PRODUCT LIST BASED TABLE HEAD CELL ID
-  const filteredProducts = products.map(item => ({
-    id: item.id,
-    slug: item.slug,
-    name: item.title,
-    brand: item.brand,
+  const filteredProducts = product.map(item => ({
+    id: item.product_id,
+    slug: item.product_id,
+    name: item.product_name,
+    region: item.region_name,
     price: item.price,
-    image: item.thumbnail,
-    published: item.published,
-    category: item.categories[0]
+    sale_price: item.sale_price,
+    option: item.option,
+    image: "/assets/images/products/Package/"+item.img+".png",
+    published: item.public=='Y'? true:false,
+    category: item.category_name,
+    dates: item.dates
   }));
   const {
     order,
@@ -72,6 +84,7 @@ export default function ProductList(props) {
   } = useMuiTable({
     listData: filteredProducts
   });
+
   return <Box py={4}>
       <H3 mb={2}>상품 리스트</H3>
 
@@ -83,23 +96,28 @@ export default function ProductList(props) {
           minWidth: 900
         }}>
             <Table>
-              <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={products.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
-
-              <TableBody>
-                {filteredList.map((product, index) => <ProductRow product={product} key={index} />)}
-              </TableBody>
+              <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={product.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
+                <TableBody>
+                  {filteredList.map((product, index) => <ProductRow product={product} key={index} />)}
+                </TableBody>
             </Table>
           </TableContainer>
         </Scrollbar>
 
         <Stack alignItems="center" my={4}>
-          <TablePagination onChange={handleChangePage} count={Math.ceil(products.length / rowsPerPage)} />
+          <TablePagination onChange={handleChangePage} count={Math.ceil(product.length / rowsPerPage)} />
         </Stack>
       </Card>
     </Box>;
 }
 export const getStaticProps = async () => {
   const products = await api.products();
+//  const [product, setProduct] = useState([]);
+//  fetch("http://localhost:5003/get_product/123-45-12345")
+//    .then((response) =>
+//        response.json())
+//    .then((data) =>
+//        {console.log(data); setProduct(data)});
   return {
     props: {
       products

@@ -20,7 +20,7 @@ const ProductRow = ({
     name,
     price,
     image,
-    brand,
+    region,
     id,
     published,
     slug
@@ -45,11 +45,7 @@ const ProductRow = ({
       </StyledTableCell>
 
       <StyledTableCell align="left">
-        <Avatar src={brand} sx={{
-        width: 55,
-        height: "auto",
-        borderRadius: 0
-      }} />
+        <CategoryWrapper>{region}</CategoryWrapper>
       </StyledTableCell>
 
       <StyledTableCell align="left">{currency(price)}</StyledTableCell>

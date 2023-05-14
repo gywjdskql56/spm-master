@@ -6,6 +6,7 @@ import { H3 } from "components/Typography";
 import { ProductForm } from "pages-sections/admin";
 import AdminDashboardLayout from "components/layouts/admin-dashboard";
 // import api from "utils/__api__/products";
+import DateObject from "react-date-object";
 
 // =============================================================================
 EditProduct.getLayout = function getLayout(page) {
@@ -14,19 +15,26 @@ EditProduct.getLayout = function getLayout(page) {
 // =============================================================================
 
 const INITIAL_VALUES = {
-  name: "",
-  tags: "",
-  stock: "",
-  price: 0,
-  category: [],
-  sale_price: "",
-  description: ""
+  name: "test-product",
+  tags: "hi",
+  price: 100,
+  sale_price: 100,
+  category1: '성형',
+  category2: '서울',
+  description: "desc",
+  option: "추가(1029)|추가1(234)".split('|'),
+  img: 'img_1',
+  show: true,
+  dates : [[new DateObject().set({ day: 1 }), new DateObject().set({ day: 3 })],
+  [new DateObject().set({ day: 28 }), new DateObject().set({ day: 28 })],
+  [new DateObject("2023-05-23"), new DateObject("2023-05-24")]]
 };
 
 // form field validation schema
 const validationSchema = yup.object().shape({
   name: yup.string().required("required"),
   category: yup.array().min(1).required("required"),
+  dates: yup.array().required("required"),
   description: yup.string().required("required"),
   stock: yup.number().required("required"),
   price: yup.number().required("required"),
@@ -37,6 +45,7 @@ export default function EditProduct() {
   const {
     query
   } = useRouter();
+  console.log(INITIAL_VALUES)
   const [product, setProduct] = useState({
     ...INITIAL_VALUES
   });
