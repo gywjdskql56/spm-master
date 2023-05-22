@@ -9,7 +9,7 @@ import { H1, H6 } from "components/Typography";
 import BazaarImage from "components/BazaarImage";
 import BazaarTextField from "components/BazaarTextField";
 import { Wrapper } from "./Login";
-import SocialButtons from "./SocialButtons";
+import SocialButtons from "./SocialButtons_signup";
 import EyeToggleButton from "./EyeToggleButton";
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -337,8 +337,9 @@ const Signup = () => {
           Sign up
         </Button>
       </form>
-
+      {cust==true?
       <SocialButtons />
+      :<div />}
       <FlexRowCenter mt="1.25rem">
         <Box>Already have an account?</Box>
         <Link href="/login" passHref legacyBehavior>

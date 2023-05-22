@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Button, Card, Box, styled, FormControlLabel, Checkbox } from "@mui/material";
+import { Button, Card, Box, styled, FormControlLabel, Checkbox, Grid } from "@mui/material";
 import Link from "next/link";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -59,10 +59,9 @@ export const Wrapper = styled(({
     marginBottom: 24
   }
 }));
-const Login = () => {
+const UserInfo = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [login, setLogin] = useState(false);
-  const [cart, setCart] = useState({'data':[]});
     const [state, setState] = useState({
     cust: true,
     shop: false,
@@ -85,15 +84,15 @@ const Login = () => {
   }, []);
   const handleFormSubmit = async values => {
     if (typeof window !== 'undefined') {
-    sessionStorage.setItem('id',values.email)}
+    sessionStorage.setItem('id',values.email)
     console.log('click')
-    console.log(`http://localhost:5003/do_login/${values.email}_${values.password}`)
-    fetch(`http://localhost:5003/do_login/${values.email}_${values.password}`)
+    console.log(`http://localhost:5003/get_cust_by_id/${sessionStorage.setItem('id',values.email)}`)
+    fetch(`http://localhost:5003/get_cust_by_id/${sessionStorage.setItem('id',values.email)}`)
     .then((response) =>
         response.json())
     .then((data) =>
-        {ResultLogin(data['result']);}
-    );
+        {ResultLogin(data['data']);}
+    );}
     console.log('complete')
   };
   const {
@@ -108,39 +107,35 @@ const Login = () => {
     onSubmit: handleFormSubmit,
     validationSchema: formSchema
   });
+  function Logout() {
+   if (typeof window !== "undefined") {
+    sessionStorage.removeItem('id')
+    }
+  }
   function ResultLogin(result) {
       console.log(result)
       if (result=='fail'){
         if (typeof window !== "undefined") {
             window.alert("아이디 또는 비밀번호를 다시 한번 확인해주세요.")
             sessionStorage.setItem('type', null)
-            window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
       } else if (result=='cust') {
         if (typeof window !== "undefined") {
             window.alert("고객 로그인에 성공했습니다.")
             window.location.href =  'http://localhost:3000'
             sessionStorage.setItem('type', 'cust')
-            fetch("http://localhost:5003/get_cart_by_id/"+window.sessionStorage.getItem('id'))
-            .then((response) =>
-                response.json())
-            .then((data) =>
-                {setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))});
-
             }
       } else if (result=='vendor') {
         if (typeof window !== "undefined") {
             window.alert("판매자 로그인에 성공했습니다.")
             window.location.href =  'http://localhost:3000/vendor/dashboard'
             sessionStorage.setItem('type', 'vendor')
-            window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
       } else if (result=='admin') {
         if (typeof window !== "undefined") {
             window.alert("관리자 로그인에 성공했습니다.")
             window.location.href =  'http://localhost:3000/admin/dashboard'
             sessionStorage.setItem('type', 'admin')
-            window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
       }
 
@@ -164,63 +159,20 @@ const Login = () => {
       }} />
 
         <H1 textAlign="center" mt={1} mb={4} fontSize={16}>
-          Welcome to K-MEDI
+          Login as {sessionStorage.getItem('id')}
         </H1>
-        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-        <FormLabel component="legend">Please select a membership type</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={cust} onChange={handleChange_check} name="cust" />
-            }
-            label="Regular customer"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={shop} onChange={handleChange_check} name="shop" />
-            }
-            label="Vendor"
-          />
-        </FormGroup>
-      </FormControl>
-      {cust==true?
-        <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
-        :
-        <BazaarTextField mb={1.5} fullWidth name="email" size="small" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email or Registration Number" placeholder="exmple@mail.com / ***-**-*****" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
-        }
-        <BazaarTextField mb={2} fullWidth size="small" name="password" label="Password" autoComplete="on" variant="outlined" onBlur={handleBlur} onChange={handleChange} value={values.password} placeholder="*********" type={passwordVisibility ? "text" : "password"} error={!!touched.password && !!errors.password} helperText={touched.password && errors.password} InputProps={{
-        endAdornment: <EyeToggleButton show={passwordVisibility} click={togglePasswordVisibility} />
-      }} />
 
-        <Button fullWidth type="submit" color="primary" variant="contained" sx={{height: 44}} >
-          Log in
+
+        <Button className="kakaoButton" ml={1} mb={1.5} fullWidth type="submit" color="info" variant="contained" sx={{height: 44}} >
+          My Page
+        </Button>
+        <div />
+        <Button className="googleButton" ml={1} mb={1.5} fullWidth onClick={() => Logout()} color="primary" variant="contained" sx={{height: 44}} >
+          Logout
         </Button>
       </form>
-      {cust==true?
-      <SocialButtons />:
-      <div />}
 
-      <FlexRowCenter mt="1.25rem">
-        <Box>Don't have an account yet?</Box>
-        <Link href="/signup" passHref legacyBehavior>
-          <a>
-            <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-              Sign up
-            </H6>
-          </a>
-        </Link>
-      </FlexRowCenter>
 
-      <FlexBox justifyContent="center" bgcolor="grey.200" borderRadius="4px" py={2.5} mt="1.25rem">
-        Forgot your password?
-        <Link href="/reset-password" passHref legacyBehavior>
-          <a>
-            <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-              Reset password
-            </H6>
-          </a>
-        </Link>
-      </FlexBox>
     </Wrapper>;
 };
 const initialValues = {
@@ -231,4 +183,4 @@ const formSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
   email: yup.string().email("invalid email").required("Email is required")
 });
-export default Login;
+export default UserInfo;

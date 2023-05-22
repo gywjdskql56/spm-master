@@ -4,15 +4,40 @@ import { useFormik } from "formik";
 import { FlexBox } from "components/flex-box";
 import ProductComment from "./ProductComment";
 import { H2, H5 } from "components/Typography";
-
+import { useCallback, useState, useEffect } from "react";
 // ===================================================
 
 // ===================================================
 
-const ProductReview = () => {
-  const handleFormSubmit = async (values, {
+const ProductReview = ({review, product_id}) => {
+const handleFormSubmit = async (values, {
     resetForm
   }) => {
+    if (window.sessionStorage.getItem('id')==null){
+        window.alert("로그인 후에 다시 진행해주세요.")
+    }
+    else{
+    console.log('complete')
+    console.log(values)
+    fetch('http://localhost:5003/insert_review',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({'date': values.date,'review': values.comment,'rating': values.rating, 'email':window.sessionStorage.getItem('id'), 'product_id':product_id})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.response=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 등록되었습니다.")
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+            }
+    }})}
     resetForm();
   };
   const {
@@ -30,8 +55,27 @@ const ProductReview = () => {
     initialValues: initialValues,
     validationSchema: reviewSchema
   });
+{/*  const commentList = [{
+  name: "정지여",
+  imgUrl: "/assets/images/faces/img.png",
+  rating: 5,
+  date: "2021-02-14",
+  comment: "너무 편하고 좋았습니다. 수술도 정말 잘되었고 덕분에 한국에서의 추억이 좋게 남았어요"
+}, {
+  name: "정지남",
+  imgUrl: "/assets/images/faces/img_1.png",
+  rating: 5,
+  date: "2019-08-10",
+  comment: "병원 시설이 매우 좋아서 입원하는 동안 만족스러웠어요. 교수님들이 친절하시고 자세히 안내해주셔서 생각보다 무섭지는 않았습니다"
+}, {
+  name: "정지돌",
+  imgUrl: "/assets/images/faces/img_2.png",
+  rating: 5,
+  date: "2021-02-05",
+  comment: "호텔이 생각보다 작긴했지만 혼자 지내기에는 충분했고 주변에 먹을게 많았어요. 생각보다 덜아파서 재밌게 돌아다니다가 왔습니다."
+}];*/}
   return <Box>
-      {commentList.map((item, ind) => <ProductComment {...item} key={ind} />)}
+      {review.map((item, ind) => <ProductComment {...item} key={ind} />)}
 
       <H2 fontWeight="600" mt={7} mb={2.5}>
         상품에 대한 후기를 알려주세요.
@@ -62,25 +106,7 @@ const ProductReview = () => {
       </form>
     </Box>;
 };
-const commentList = [{
-  name: "정지여",
-  imgUrl: "/assets/images/faces/img.png",
-  rating: 5,
-  date: "2021-02-14",
-  comment: "너무 편하고 좋았습니다. 수술도 정말 잘되었고 덕분에 한국에서의 추억이 좋게 남았어요"
-}, {
-  name: "정지남",
-  imgUrl: "/assets/images/faces/img_1.png",
-  rating: 5,
-  date: "2019-08-10",
-  comment: "병원 시설이 매우 좋아서 입원하는 동안 만족스러웠어요. 교수님들이 친절하시고 자세히 안내해주셔서 생각보다 무섭지는 않았습니다"
-}, {
-  name: "정지돌",
-  imgUrl: "/assets/images/faces/img_2.png",
-  rating: 5,
-  date: "2021-02-05",
-  comment: "호텔이 생각보다 작긴했지만 혼자 지내기에는 충분했고 주변에 먹을게 많았어요. 생각보다 덜아파서 재밌게 돌아다니다가 왔습니다."
-}];
+
 const initialValues = {
   rating: 0,
   comment: "",

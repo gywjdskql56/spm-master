@@ -8,7 +8,7 @@ import { H1, H2, H3, H6 } from "components/Typography";
 import { useAppContext } from "contexts/AppContext";
 import { FlexBox, FlexRowCenter } from "../flex-box";
 import { currency } from "lib";
-import productVariants from "data/product-variants";
+//import productVariants from "data/product-variants";
 import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
@@ -93,7 +93,7 @@ const ProductIntro = ({
 
           <FlexBox alignItems="center" mb={1}>
             <Box>판매사:</Box>
-            <H6>하나투어</H6>
+            <H6>{product.company_name}</H6>
           </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
@@ -104,18 +104,25 @@ const ProductIntro = ({
             <H6 lineHeight="1">(50)</H6>
           </FlexBox>
 
-          {productVariants.map(variant => <Box key={variant.id} mb={2}>
-              <H6 mb={1}>{variant.title}</H6>
+          {(product.option).map(variant =>
+        <Button key={variant} color="success" variant="contained" sx={{
+          mb: 4.5,
+          px: "1.75rem",
+          height: 40,
+          margin: 2
+        }}>
+              <H6 mb={1} style={{color:'white'}}>{variant}</H6>
 
-              {variant.values.map(({
+              {/* {variant.values.map(({
             id,
             value
           }) => <Chip key={id} label={value} onClick={handleChangeVariant(variant.title, value)} sx={{
             borderRadius: "4px",
             mr: 1,
             cursor: "pointer"
-          }} color={selectVariants[variant.title.toLowerCase()] === value ? "primary" : "default"} />)}
-            </Box>)}
+          }} color={selectVariants[variant.title.toLowerCase()] === value ? "primary" : "default"} />)} */}
+            </Button>
+            )}
 
           <Box pt={1} mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">

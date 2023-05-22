@@ -16,12 +16,16 @@ import MiniCart from "components/MiniCart";
 import Category from "components/icons/Category";
 import { Paragraph } from "components/Typography";
 import MobileMenu from "components/navbar/MobileMenu";
-import { FlexBetween, FlexBox } from "components/flex-box";
+import { FlexBetween, FlexBox, FlexRowCenter } from "components/flex-box";
 import CategoryMenu from "components/categories/CategoryMenu";
 import ShoppingBagOutlined from "components/icons/ShoppingBagOutlined";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-
+import { H1, H6 } from "components/Typography";
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import { Grid } from "@mui/material";
 
 // styled component
 export const HeaderWrapper = styled(Box)(({
@@ -57,6 +61,7 @@ const Header = ({
   const {
     state
   } = useAppContext();
+  console.log(state);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [sidenavOpen, setSidenavOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
@@ -75,7 +80,43 @@ const Header = ({
       <Dialog scroll="body" open={dialogOpen} fullWidth={isMobile} onClose={toggleDialog} sx={{
       zIndex: 9999
     }}>
-        <Login />
+    {typeof window == 'undefined'?
+    <Login />
+    :(window.sessionStorage.getItem('id') != null?
+    <div>
+      <form>
+        <H1 textAlign="center" mt={1} mb={2} fontSize={16}>
+          Welcome to K-MEDI
+        </H1>
+        <FormControl sx={{ m: 2 }} component="fieldset" variant="standard">
+        <FormLabel component="legend">{"Signed as "+window.sessionStorage.getItem('id')}</FormLabel>
+      </FormControl>
+      <Grid container spacing={3}>
+      <Grid item md={5} xs={5}>
+      <Link href="/profile">
+      <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'orange', color:'white'}}>
+        <Box fontSize="12px" ml={1}>
+          My Page
+        </Box>
+      </Button>
+      </Link>
+      </Grid>
+      <Grid item md={5} xs={5}>
+      <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'black', color:'white'}} onClick={()=>{if (typeof window !== 'undefined') {sessionStorage.clear();window.alert("로그아웃되었습니다.")}}}>
+        <Box fontSize="12px" ml={1}>
+          Logout
+        </Box>
+        </Button>
+      </Grid>
+      <Grid item md={1} xs={1} />
+      </Grid>
+
+      </form>
+
+      </div>
+    :<Login />)
+    }
+
       </Dialog>
 
       <Drawer open={sidenavOpen} anchor="right" onClose={toggleSidenav} sx={{

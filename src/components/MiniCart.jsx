@@ -23,6 +23,7 @@ const MiniCart = ({
     dispatch
   } = useAppContext();
   const cartList = state.cart;
+  console.log(cartList)
   const handleCartAmountChange = (amount, product) => () => {
     dispatch({
       type: "CHANGE_CART_AMOUNT",
@@ -83,7 +84,7 @@ const MiniCart = ({
               </Button>
             </FlexBox>
 
-            <Link href={`/product/${item.id}`}>
+            <Link href={`/product/${item.slug}`}>
               <a>
                 <Avatar alt={item.name} src={item.imgUrl} sx={{
               mx: 2,

@@ -7,6 +7,19 @@ export const navigations = [{
   icon: duotone.Dashboard,
   path: "/vendor/dashboard"
 },{
+  name: "상품",
+  icon: duotone.Products,
+  children: [{
+    name: "상품 리스트",
+    path: "/vendor/products"
+  }, {
+    name: "상품 만들기",
+    path: "/vendor/products/create"
+  }, {
+    name: "리뷰",
+    path: "/vendor/product-reviews"
+  }]
+},{
   name: "매출",
   icon: duotone.ProjectChart,
   children: [{

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
 import warnings
 import pandas as pd
@@ -7,7 +7,7 @@ import random
 warnings.filterwarnings("ignore")
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-CORS(app)
+CORS(app, resources={r'*': {'origins': '*'}})
 
 @app.route('/get_category', methods=['GET', 'POST'])
 def get_category():
@@ -19,6 +19,27 @@ def get_cust():
     data = pd.read_excel("data/CUST.xlsx")
     return data.to_json(force_ascii=False).encode('utf-8')
 
+@app.route('/get_cust_by_id/<email>', methods=['GET', 'POST'])
+def get_cust_by_id(email):
+    data = pd.read_excel("data/CUST.xlsx")
+    data = data.set_index('email').loc[email].transpose().to_dict()
+    # {'country': 'KR',
+    #  'firstName': 'Hyojeong',
+    #  'lastName': 'Kim',
+    #  'oauthProvider': 'self',
+    #  'password': 1234,
+    #  'phoneNum': '010-7748-0152'}
+    return data
+
+@app.route('/get_product_all', methods=['GET', 'POST'])
+def get_product_all():
+    data = pd.read_excel("data/PRODUCT.xlsx")
+    data = data.fillna('')
+    data_dict = data.transpose().to_dict()
+    data_list = []
+    for i in data_dict.keys():
+        data_list.append(data_dict[i])
+    return data_list
 
 @app.route('/get_product/<vendor_id>', methods=['GET', 'POST'])
 def get_product(vendor_id):
@@ -35,8 +56,46 @@ def get_product_by_id(product_id):
     data = pd.read_excel("data/PRODUCT.xlsx")
     data = data[data['product_id']==product_id].fillna('').set_index('product_id')
     data_dict = data.transpose().to_dict()
+    data_dict[product_id]['date_list'] = eval(data_dict[product_id]['date_list'])
     print(data_dict)
     return data_dict
+
+@app.route('/get_product_detail_by_id/<product_id>', methods=['GET', 'POST'])
+def get_product_detail_by_id(product_id):
+    product = pd.read_excel("data/PRODUCT.xlsx")
+    vendor = pd.read_excel("data/VENDOR.xlsx")
+    review = pd.read_excel("data/REVIEW.xlsx")
+    review = review[review['product_id']==product_id]
+    review = review.set_index('id').transpose().to_dict()
+    review_list = list()
+    for key in review.keys():
+        review_list.append(review[key])
+    data = pd.merge(product, vendor, left_on='company_code', right_on='company_code', how='left')
+    data = data.rename(columns={'product_id':'id','product_name':'name','price':'org_price','sale_price':'price'})
+    data = data[data['id']==product_id].fillna('').set_index('id')
+    data_dict = data.transpose().to_dict()
+    data_dict[product_id]['date_list'] = eval(data_dict[product_id]['date_list'])
+    data_dict[product_id]['id'] = product_id
+    data_dict[product_id]['option'] = data_dict[product_id]['option'].split('|') if data_dict[product_id]['option']!="" else []
+    data_dict[product_id]['title'] = data_dict[product_id]['name']
+    data_dict[product_id]['images'] = ["/assets/images/products/Package/"+data_dict[product_id]['img']+".png"]*2
+    data_dict[product_id]['review'] = review_list
+    print(data_dict)
+    return data_dict[product_id]
+
+@app.route('/get_cart_by_id/<cust_id>', methods=['GET', 'POST'])
+def get_cart_by_id(cust_id):
+    cart = pd.read_excel("data/CART.xlsx")
+    product = pd.read_excel("data/PRODUCT.xlsx")
+    data = pd.merge(cart, product, left_on='product_id', right_on='product_id', how='left')
+    data['slug'] = data['product_id']
+    data['imgUrl'] = data['img'].apply(lambda x: '/assets/images/products/Package/{}.png'.format(x))
+    data = data.rename(columns={'product_id':'id','product_name':'name','price':'org_price','sale_price':'price'})
+    data_dict = data[data['email']==cust_id].fillna('').transpose().to_dict()
+    data_list = list()
+    for key in data_dict.keys():
+        data_list.append(data_dict[key])
+    return {"data":data_list}
 
 @app.route('/get_region', methods=['GET', 'POST'])
 def get_region():
@@ -71,7 +130,21 @@ def do_login(email, password):
             return {'result': 'vendor'}
         else:
             return {'result': 'fail'}
-
+@app.route('/insert_review', methods=['GET', 'POST'])
+def insert_review():
+    if request.method=='POST':
+        data = request.get_json()
+        data['product_id'] = data['product_id'][0]
+        print(data)
+        review = pd.read_excel("data/REVIEW.xlsx")
+        max_id = max(list(map(lambda x: int(x.replace('R', '')), review['id']))) + 1
+        max_id = "R"+'0'*(5-len(str(max_id)))+str(max_id)
+        data['id'] = max_id
+        review = review.append(data, ignore_index=True)
+        review.to_excel("data/REVIEW.xlsx", index=False)
+        return {'response': "success"}
+    else:
+        return {'response': "fail"}
 @app.route('/insert_product', methods=['GET', 'POST'])
 def insert_product():
     if request.method=='POST':

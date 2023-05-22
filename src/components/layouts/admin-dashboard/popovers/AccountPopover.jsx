@@ -58,8 +58,8 @@ const AccountPopover = () => {
       }
     }}>
         <Box px={2} pt={1}>
-          <H6>Gage Paquette</H6>
-          <Small color="grey.500">Admin</Small>
+          <H6>{typeof window !== 'undefined'? sessionStorage.getItem('id') : "USER"}</H6>
+          <Small color="grey.500">{typeof window !== 'undefined'? sessionStorage.getItem('type') : "ADMIN"}</Small>
         </Box>
 
         <Divider />

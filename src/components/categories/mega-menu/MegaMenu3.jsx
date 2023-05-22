@@ -6,7 +6,7 @@ import LazyImage from "components/LazyImage";
 import { NavLink } from "components/nav-link";
 import BazaarCard from "components/BazaarCard";
 import { H3, Small } from "components/Typography";
-
+import { useCallback, useState, useEffect } from "react";
 // ====================================================================================
 
 // ====================================================================================
@@ -18,6 +18,15 @@ const MegaMenu3 = ({
   },
   minWidth
 }) => {
+    const [category, setCategory] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:5003/get_category")
+        .then((response) =>
+            response.json())
+        .then((data) =>
+            {setCategory(data['data']); console.log(data['data'])});
+    }, []);
+   console.log(categories)
   return categories ? <StyledMegaMenu>
       <BazaarCard sx={{
       ml: "1rem",

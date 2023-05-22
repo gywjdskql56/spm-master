@@ -18,6 +18,14 @@ const Section7 = props => {
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState("");
   const [type, setType] = useState("도시");
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5003/get_product_all")
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data); setProduct(data)});
+    }, []);
   const handleCategoryClick = brand => () => {
     if (selected.match(brand)) setSelected("");else setSelected(brand);
   };
@@ -68,9 +76,9 @@ const Section7 = props => {
           <CategorySectionHeader title={title} seeMoreLink="#" />
 
           <Grid container spacing={3}>
-            {productList.map(item => <Grid item lg={4} sm={6} xs={12} key={item.id}>
+            {product.map(item => <Grid item lg={4} sm={6} xs={12} key={item.product_id}>
                 {/*todo:slug={item.slug}*/}
-                <ProductCard1 hoverEffect id={item.id} slug={"test-product"} title={item.title} price={item.price} rating={item.rating} imgUrl={item.thumbnail} discount={item.discount} />
+                <ProductCard1 hoverEffect id={item.product_id} slug={item.product_id} title={item.product_name} price={item.price} rating={5} imgUrl={"/assets/images/products/Package/"+item.img+".png"} discount={item.discount} />
               </Grid>)}
           </Grid>
         </Box>

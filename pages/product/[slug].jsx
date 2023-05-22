@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Box, Container, styled, Tab, Tabs } from "@mui/material";
 import { H2 } from "components/Typography";
@@ -35,12 +35,25 @@ const ProductDetails = props => {
   const {
     frequentlyBought,
     relatedProducts,
-    product
+    products
   } = props;
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(0);
+  const [product, setProduct] = useState(0);
+  const [id, setId] = useState(null);
   const handleOptionClick = (_, value) => setSelectedOption(value);
+  console.log(product)
 
+  useEffect(() => {
+    const product_id = window.location.href.split("/").splice(-1);
+    console.log(product_id)
+    setId(product_id)
+     fetch("http://localhost:5003/get_product_detail_by_id/"+product_id)
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data);setProduct(data)})
+ }, []);
   // Show a loading state when the fallback is rendered
   if (router.isFallback) {
     return <h1>Loading...</h1>;
@@ -59,15 +72,15 @@ const ProductDetails = props => {
         </StyledTabs>
 
         <Box mb={6}>
-          {selectedOption === 0 && <ProductDescription />}
-          {selectedOption === 1 && <ProductReview />}
+          {selectedOption === 0 && <ProductDescription explain={product.detail} />}
+          {selectedOption === 1 && <ProductReview review={product.review} product_id={id} />}
         </Box>
 
-        {frequentlyBought && <FrequentlyBought productsData={frequentlyBought} />}
+{/*        {frequentlyBought && <FrequentlyBought productsData={frequentlyBought} />} */}
 
-        <AvailableShops />
+{/*        <AvailableShops />  */}
 
-        {relatedProducts && <RelatedProducts productsData={relatedProducts} />}
+{/*        {relatedProducts && <RelatedProducts productsData={relatedProducts} />} */}
       </Container>
     </ShopLayout1>;
 };
@@ -85,7 +98,8 @@ export const getStaticProps = async ({
 }) => {
   const relatedProducts = await getRelatedProducts();
   const frequentlyBought = await getFrequentlyBought();
-  const product = await api.getProduct(params.slug);
+  console.log(params.slug)
+  const product = await api.getProduct('test-product');
   return {
     props: {
       frequentlyBought,

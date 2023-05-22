@@ -87,9 +87,21 @@ const MenuTab = ({
             indicatorColor="secondary"
             aria-label="secondary tabs example"
           >
-            <Tab value="one" label="Item One" />
-            <Tab value="two" label="Item Two" />
-            <Tab value="three" label="Item Three" />
+          <Link href={`/#`}>
+            <Tab value="one" label="홈" />
+          </Link>
+          <Link href={`/#`}>
+            <Tab value="two" label="의료여행 패키지" />
+          </Link>
+          <Link href={`/#`}>
+            <Tab value="three" label="의료여행 DIY" />
+          </Link>
+          <Link href={`/profile`}>
+            <Tab value="four" label="마이페이지" />
+          </Link>
+          <Link href={`/support-tickets`}>
+            <Tab value="five" label="고객센터" />
+          </Link>
           </Tabs>
         </Box>
       </StyledContainer>

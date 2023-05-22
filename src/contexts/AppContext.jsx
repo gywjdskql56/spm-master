@@ -1,44 +1,67 @@
-import { createContext, useContext, useMemo, useReducer } from "react";
+import { createContext, useContext, useMemo, useReducer, useEffect,useState } from "react";
 
 // =================================================================================
 
 // =================================================================================
+//const INITIAL_CART = [{
+//  qty: 1,
+//  sale_price: 210,
+//  slug: "silver-high-neck-sweater",
+//  product_name: "여행1",
+//  product_id: "6e8f151b-277b-4465-97b6-547f6a72e5c9",
+//  imgUrl: "/assets/images/products/Fashion/Clothes/img.png"
+//}, {
+//  qty: 1,
+//  sale_price: 110,
+//  slug: "yellow-casual-sweater",
+//  product_name: "여행2",
+//  product_id: "76d14d65-21d0-4b41-8ee1-eef4c2232793",
+//  imgUrl: "/assets/images/products/Fashion/Clothes/img_1.png"
+//}, {
+//  qty: 1,
+//  sale_price: 140,
+//  slug: "denim-blue-jeans",
+//  product_name: "여행3",
+//  product_id: "0fffb188-98d8-47f7-8189-254f06cad488",
+//  imgUrl: "/assets/images/products/Fashion/Clothes/img_2.png"
+//}];
 
-const INITIAL_CART = [{
-  qty: 1,
-  price: 210,
-  slug: "silver-high-neck-sweater",
-  name: "여행1",
-  id: "6e8f151b-277b-4465-97b6-547f6a72e5c9",
-  imgUrl: "/assets/images/products/Fashion/Clothes/img.png"
-}, {
-  qty: 1,
-  price: 110,
-  slug: "yellow-casual-sweater",
-  name: "여행2",
-  id: "76d14d65-21d0-4b41-8ee1-eef4c2232793",
-  imgUrl: "/assets/images/products/Fashion/Clothes/img_1.png"
-}, {
-  qty: 1,
-  price: 140,
-  slug: "denim-blue-jeans",
-  name: "여행3",
-  id: "0fffb188-98d8-47f7-8189-254f06cad488",
-  imgUrl: "/assets/images/products/Fashion/Clothes/img_2.png"
-}];
-const INITIAL_STATE = {
-  cart: INITIAL_CART
+let INITIAL_CART = {'data':[]}
+
+let INITIAL_STATE= null;
+console.log(INITIAL_CART)
+if (typeof window !== 'undefined' && window.sessionStorage.getItem("cart") !=null) {
+ console.log("window")
+ INITIAL_CART = window.sessionStorage.getItem("cart")
+ console.log(INITIAL_CART)
+ INITIAL_STATE = {
+  cart: JSON.parse(INITIAL_CART)['data']
 };
+
+} else {
+    INITIAL_STATE = {
+      cart: (INITIAL_CART)['data']
+    };
+}
+//
+//const INITIAL_STATE = {
+//      cart: (INITIAL_CART)['data']
+//    };
 const AppContext = createContext({
   state: INITIAL_STATE,
   dispatch: () => {}
 });
+
+//console.log(AppContext)
 const reducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_CART_AMOUNT":
       let cartList = state.cart;
+      console.log(state)
+      console.log(cartList)
       let cartItem = action.payload;
       let exist = cartList.find(item => item.id === cartItem.id);
+      console.log(exist)
       if (cartItem.qty < 1) {
         const filteredCart = cartList.filter(item => item.id !== cartItem.id);
         return {
@@ -64,7 +87,10 @@ const reducer = (state, action) => {
       };
     default:
       {
-        return state;
+        return {
+        ...state,
+        cart: []
+      };
       }
   }
 };
@@ -76,6 +102,15 @@ const reducer = (state, action) => {
 export const AppProvider = ({
   children
 }) => {
+//  const [cart, setCart] = useState([]);
+//    useEffect(() => {
+//        fetch("http://localhost:5003/get_cart_by_id/gywjdskql5915@gmail.com")
+//        .then((response) =>
+//            response.json())
+//        .then((data) =>
+//            {setCart(data); console.log(data)});
+//       }, []);
+  console.log(INITIAL_STATE)
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const contextValue = useMemo(() => ({
     state,
