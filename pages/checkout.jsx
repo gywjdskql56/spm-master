@@ -1,9 +1,15 @@
-import { Grid } from "@mui/material";
+import { Grid, TextField, Divider } from "@mui/material";
 import SEO from "components/SEO";
-import CheckoutForm from "pages-sections/checkout/CheckoutForm";
+import CheckoutForm from "pages-sections/checkout/CheckoutForm3";
 import CheckoutNavLayout from "components/layouts/CheckoutNavLayout";
 import CheckoutSummary from "pages-sections/checkout/CheckoutSummary";
+import { useState } from "react";
+import { FlexBetween, FlexBox } from "components/flex-box";
+import { Span } from "components/Typography";
+
+
 const Checkout = () => {
+  const [comment, setComment] = useState("");
   return <CheckoutNavLayout>
       <SEO title="Checkout" />
       <Grid container flexWrap="wrap-reverse" spacing={3}>

@@ -10,11 +10,20 @@ import CheckoutNavLayout from "components/layouts/CheckoutNavLayout";
 import { useAppContext } from "contexts/AppContext";
 import countryList from "data/countryList";
 import { currency } from "lib";
+import { useState } from "react";
 const Cart = () => {
   const {
     state
   } = useAppContext();
+  const [comment, setComment] = useState("");
   const cartList = state.cart;
+  function checkout() {
+    if (typeof window !== 'undefined') {
+        window.sessionStorage.setItem('order', JSON.stringify(state));
+        console.log(JSON.parse(window.sessionStorage.getItem('order')))
+        window.sessionStorage.setItem('total_price', getTotalPrice());
+    }
+  }
   const getTotalPrice = () => cartList.reduce((accum, item) => accum + item.price * item.qty, 0);
   return <CheckoutNavLayout>
       <SEO title="Cart" />
@@ -42,7 +51,7 @@ const Cart = () => {
             mb: 2
           }} />
 
-            <FlexBox alignItems="center" columnGap={1} mb={2}>
+            {/*<FlexBox alignItems="center" columnGap={1} mb={2}>
               <Span fontWeight="600">Additional Comments</Span>
 
               <Span p="6px 10px" fontSize={12} lineHeight="1" borderRadius="3px" color="primary.main" bgcolor="primary.light">
@@ -50,16 +59,15 @@ const Cart = () => {
               </Span>
             </FlexBox>
 
-            <TextField variant="outlined" rows={6} fullWidth multiline sx={{
+            <TextField variant="outlined" rows={6} value={comment} onChange={(event)=>{setComment(event.target.value); console.log(event.target.value)}} fullWidth multiline sx={{
             mb: 2
-          }} />
+          }} />*/}
 
             <Divider sx={{
             mb: 2
           }} />
 
-            <TextField fullWidth size="small" label="Voucher" variant="outlined" placeholder="Voucher" />
-
+            {/*<TextField fullWidth size="small" label="Voucher" variant="outlined" placeholder="Voucher" />
             <Button variant="outlined" color="primary" fullWidth sx={{
             mt: 2,
             mb: 4
@@ -70,35 +78,30 @@ const Cart = () => {
             <Divider sx={{
             mb: 2
           }} />
-
             <Span fontWeight={600} mb={2} display="block">
               Shipping Estimates
             </Span>
-
             <Autocomplete fullWidth sx={{
             mb: 2
           }} options={countryList}
           // getOptionLabel={(option) => option.label}
           renderInput={params => <TextField {...params} size="small" label="Country" variant="outlined" placeholder="Select Country" />} />
-
             <TextField select fullWidth size="small" label="State" variant="outlined" placeholder="Select State" defaultValue="new-york">
               {stateList.map(item => <MenuItem value={item.value} key={item.label}>
                   {item.label}
                 </MenuItem>)}
             </TextField>
-
             <TextField fullWidth size="small" label="Zip Code" placeholder="3100" variant="outlined" sx={{
             mt: 2
           }} />
-
             <Button variant="outlined" color="primary" fullWidth sx={{
             my: 2
           }}>
               Calculate Shipping
-            </Button>
+            </Button>*/}
 
             <Link href="/checkout" passHref legacyBehavior>
-              <Button variant="contained" color="primary" fullWidth>
+              <Button variant="contained" color="primary" onClick={()=>checkout()} fullWidth>
                 Checkout Now
               </Button>
             </Link>

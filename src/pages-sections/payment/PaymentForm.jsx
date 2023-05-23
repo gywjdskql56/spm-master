@@ -114,7 +114,7 @@ const PaymentForm = () => {
         <Grid item sm={6} xs={12}>
           <Link href="/orders" passHref>
             <Button variant="contained" color="primary" type="submit" fullWidth>
-              Review
+              Complete
             </Button>
           </Link>
         </Grid>

@@ -85,7 +85,7 @@ const stepperList = [{
   title: "Payment",
   disabled: false
 }, {
-  title: "Review",
+  title: "Complete",
   disabled: true
 }];
 export default CheckoutNavLayout;
