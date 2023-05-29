@@ -17,20 +17,33 @@ const Section7 = props => {
   } = props;
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState("");
-  const [type, setType] = useState("도시");
+  const [type, setType] = useState("region_name");
   const [product, setProduct] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:5003/get_product_all")
+    window.sessionStorage.setItem('category', 'all')
+    fetch(`http://localhost:5003/get_product_by_category/${window.sessionStorage.getItem('category')}`)
     .then((response) =>
         response.json())
     .then((data) =>
         {console.log(data); setProduct(data)});
+
     }, []);
+
+
+  if (typeof window !== 'undefined')
+  {console.log(window.sessionStorage.getItem('category'))}
   const handleCategoryClick = brand => () => {
     if (selected.match(brand)) setSelected("");else setSelected(brand);
+    console.log(brand)
+    fetch(`http://localhost:5003/get_product_filter/${type}|${brand}`)
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data); setProduct(data)});
   };
   useEffect(() => {
-    if (type === "도시") setList(brands);else setList(shops);
+    if (type === "region_name") setList(brands);else setList(shops);
   }, [brands, shops, type]);
   return <Container sx={{
     mb: "70px"
@@ -48,7 +61,7 @@ const Section7 = props => {
           <FlexBox mt={-1} mb={1}>
             <H3 fontSize={20} fontWeight={600} padding="0.5rem 1rem" style={{
             cursor: "pointer"
-          }} onClick={() => setType("도시")} color={type === "도시" ? "grey.900" : "grey.600"}>
+          }} onClick={() => setType("region_name")} color={type === "region_name" ? "grey.900" : "grey.600"}>
               도시
             </H3>
             <H3 fontSize={20} lineHeight="1.3" color="grey.400" fontWeight={600} paddingTop="0.5rem">
@@ -56,12 +69,14 @@ const Section7 = props => {
             </H3>
             <H3 fontSize={20} fontWeight={600} padding="0.5rem 1rem" style={{
             cursor: "pointer"
-          }} onClick={() => setType("여행사")} color={type === "여행사" ? "grey.900" : "grey.600"}>
+          }} onClick={() => setType("company_name")} color={type === "company_name" ? "grey.900" : "grey.600"}>
               여행사
             </H3>
           </FlexBox>
 
-          {list.map(item => <ProductCategoryItem key={item.id} title={item.name} isSelected={!!selected.match(item.slug)} onClick={handleCategoryClick(item.slug)} imgUrl={type === "여행사" ? `/assets/images/shops/${item.thumbnail}.png` : item.image} sx={{
+          {list.map(item => <ProductCategoryItem key={item.id} title={item.name} isSelected={!!selected.match(item.slug)} onClick={handleCategoryClick(item.slug)}
+//          imgUrl={type === "company_name" ? `/assets/images/shops/${item.thumbnail}.png` : item.image}
+          sx={{
           mb: "0.75rem",
           bgcolor: selected.match(item.slug) ? "white" : "grey.100"
         }} />)}

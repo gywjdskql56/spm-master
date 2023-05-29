@@ -3246,49 +3246,9 @@ export const products = [{
 }];
 
 // brands
-export const brands = [{
-  id: "2dbb367f-d432-4d90-867b-756f2b4a0dcb",
-  slug: "ferrari",
-  name: "서울특별시",
-  image: "/assets/images/brands/ferrari.png",
-  type: "car",
-  for: {
-    demo: "market-1",
-    type: "car-brands"
-  }
-}, {
-  id: "44668f9f-e8e4-473e-bae4-591e45adf4e4",
-  slug: "tesla",
-  name: "부산광역시",
-  image: "/assets/images/brands/tesla.png",
-  type: "car",
-  for: {
-    demo: "market-1",
-    type: "car-brands"
-  }
-}, {
-  id: "91d0d7e5-d260-46f1-8445-bc098c5ae630",
-  slug: "bmw",
-  name: "인천광역시",
-  image: "/assets/images/brands/bmw.png",
-  type: "car",
-  for: {
-    demo: "market-1",
-    type: "car-brands"
-  }
-}, {
-  id: "e8f9d5c3-8bfa-473a-8029-e6813cfd1a99",
-  slug: "toyota",
-  name: "제주특별자치도",
-  image: "/assets/images/brands/toyota.png",
-  type: "car",
-  for: {
-    demo: "market-1",
-    type: "car-brands"
-  }
-}, {
+export const brands = [  {
   id: "e73dc783-c355-4a30-9ae3-4995d4f13513",
-  slug: "apple",
+  slug: "seoul",
   name: "서울특별시",
   image: "/assets/images/brands/apple.png",
   type: "mobile",
@@ -3298,7 +3258,7 @@ export const brands = [{
   }
 }, {
   id: "52cc15f6-d076-432b-94d2-1bd73bd01447",
-  slug: "dell",
+  slug: "busan",
   name: "부산광역시",
   image: "/assets/images/brands/dell.png",
   type: "mobile",
@@ -3308,7 +3268,7 @@ export const brands = [{
   }
 }, {
   id: "6c794f56-aaa4-433b-a6fe-3b78dbb357f9",
-  slug: "xiaomi",
+  slug: "incheon",
   name: "인천광역시",
   image: "/assets/images/brands/xiaomi.png",
   type: "mobile",
@@ -3318,7 +3278,7 @@ export const brands = [{
   }
 }, {
   id: "75f6ccee-8946-41a7-977f-61b3a5fc6401",
-  slug: "asus",
+  slug: "zezu",
   name: "제주특별자치도",
   image: "/assets/images/brands/asus.png",
   type: "mobile",
@@ -3328,7 +3288,7 @@ export const brands = [{
   }
 }, {
   id: "d0a80046-7044-4b77-a1c2-2d06335e9d2e",
-  slug: "sony",
+  slug: "gyeonggi",
   name: "경기도",
   image: "/assets/images/brands/sony.png",
   type: "mobile",
@@ -3336,17 +3296,7 @@ export const brands = [{
     demo: "market-1",
     type: "mobile-brands"
   }
-}, {
-  id: "9fedbaee-67cd-47ef-9447-07b9041fc79d",
-  slug: "acer",
-  name: "충청도",
-  image: "/assets/images/brands/acer.png",
-  type: "mobile",
-  for: {
-    demo: "market-1",
-    type: "mobile-brands"
-  }
-}, {
+},  {
   id: "b61a66bb-bad1-41b5-bb93-c855f93e0bb5",
   slug: "ray-ban",
   name: "Ray-ban",
@@ -3396,27 +3346,7 @@ export const brands = [{
     demo: "market-1",
     type: "optics-brands"
   }
-}, {
-  id: "5b7ca86c-8f24-43b4-9e6f-65dbe2bb1426",
-  slug: "test-product",
-  name: "하나투어",
-  image: "/assets/images/products/Tour/img.png",
-  type: "fashion",
-  for: {
-    demo: "market-1",
-    type: "featured-brands"
-  }
-}, {
-  id: "b2aab7d3-10d4-445d-bd07-e23e44c1daea",
-  slug: "test-product",
-  name: "모두투어",
-  image: "/assets/images/products/Tour/img_1.png",
-  type: "fashion",
-  for: {
-    demo: "market-1",
-    type: "featured-brands"
-  }
-}];
+},  ];
 
 // service
 export const serviceList = [{

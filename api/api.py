@@ -66,6 +66,32 @@ def get_product_all():
         data_list.append(data_dict[i])
     return data_list
 
+@app.route('/get_product_by_category/<category>', methods=['GET', 'POST'])
+def get_product_by_category(category):
+    data = pd.read_excel("data/PRODUCT.xlsx")
+    data = data.fillna('')
+    if category!='all':
+        data = data[data['category_name']==category]
+    data_dict = data.transpose().to_dict()
+    data_list = []
+    for i in data_dict.keys():
+        data_list.append(data_dict[i])
+    return data_list
+
+@app.route('/get_product_filter/<type>|<brand>', methods=['GET', 'POST'])
+def get_product_filter(type, brand):
+
+    product = pd.read_excel("data/PRODUCT.xlsx")
+    vendor = pd.read_excel("data/VENDOR.xlsx")
+    data = pd.merge(product, vendor, left_on='company_code', right_on='company_code', how='left')
+    data = data[data[type]==brand]
+    data = data.fillna('')
+    data_dict = data.transpose().to_dict()
+    data_list = []
+    for i in data_dict.keys():
+        data_list.append(data_dict[i])
+    return data_list
+
 @app.route('/get_product/<vendor_id>', methods=['GET', 'POST'])
 def get_product(vendor_id):
     data = pd.read_excel("data/PRODUCT.xlsx")

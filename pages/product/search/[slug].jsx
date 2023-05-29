@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { Apps, FilterList, ViewList } from "@mui/icons-material";
 import { Box, Card, Container, Grid, IconButton, MenuItem, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -10,10 +10,22 @@ import ProductCard1List from "components/products/ProductCard1List";
 import ProductCard9List from "components/products/ProductCard9List";
 import ProductFilterCard from "components/products/ProductFilterCard";
 import productDatabase from "data/product-database";
+
 const ProductSearchResult = () => {
   const [view, setView] = useState("grid");
+  const [category, setCategory] = useState("");
+  const [product, setProduct] = useState([]);
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
   const toggleView = useCallback(v => () => setView(v), []);
+  useEffect(() => {
+    const slug = window.location.href.split("/").splice(-1);
+    setCategory(slug)
+    fetch(`http://localhost:5003/get_product_by_category/${slug}`)
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data); setProduct(data)});
+  },[])
   return <ShopLayout1>
       <Container sx={{
       mt: 4,
@@ -33,8 +45,8 @@ const ProductSearchResult = () => {
         }
       }}>
           <Box>
-            <H5>“ 성형 ”에 대한 검색결과입니다.</H5>
-            <Paragraph color="grey.600">48 개의 상품</Paragraph>
+            <H5>“ {category} ”에 대한 검색결과입니다.</H5>
+            <Paragraph color="grey.600">{product.length} 개의 상품</Paragraph>
           </Box>
 
           <FlexBox alignItems="center" columnGap={4} flexWrap="wrap" my="0.5rem">
@@ -89,7 +101,9 @@ const ProductSearchResult = () => {
 
           {/* PRODUCT VIEW AREA */}
           <Grid item md={9} xs={12}>
-            {view === "grid" ? <ProductCard1List products={productDatabase.slice(0, 10)} /> : <ProductCard9List products={productDatabase.slice(0, 10)} />}
+            {product == []?
+                <div />
+                :(view === "grid" ? <ProductCard1List products={product} /> : <ProductCard9List products={product} />)}
           </Grid>
         </Grid>
       </Container>

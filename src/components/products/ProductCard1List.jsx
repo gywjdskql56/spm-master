@@ -10,8 +10,8 @@ const ProductCard1List = ({
 }) => {
   return <Fragment>
       <Grid container spacing={3}>
-        {products.map(item => <Grid item lg={4} sm={6} xs={12} key={item.id}>
-            <ProductCard1 id={item.id} slug={item.slug} title={item.title} price={item.price} rating={item.rating} imgUrl={item.thumbnail} discount={item.discount} />
+        {products.map(item => <Grid item lg={4} sm={6} xs={12} key={item.product_id}>
+            <ProductCard1 id={item.product_id} slug={item.product_id} title={item.product_name} price={item.sale_price} rating={item.rating} imgUrl={"/assets/images/products/Package/"+item.img+".png"} discount={item.discount} />
           </Grid>)}
       </Grid>
 

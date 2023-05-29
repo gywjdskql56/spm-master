@@ -44,9 +44,9 @@ const Section10 = ({
         {category.map((item, ind) => <Grid item lg={2} md={3} sm={4} xs={12} key={ind}>
             <Link href={`/product/search/${item}`} passHref>
               <a>
-                <StyledBazaarCard elevation={1}>
+                <StyledBazaarCard id={item} onClick={(e)=>console.log(item)} elevation={1}>
                   {/*<LazyImage width={52} height={52} alt="fashion" src={"/assets/images/banners/category/img_4.png"} objectFit="contain" borderRadius="8px" />*/}
-                  <Box fontWeight="600" ml={1.25} fontSize={20}>
+                  <Box id={item} onClick={(e)=>{if (typeof window !== 'undefined') {window.sessionStorage.setItem('category',e.target.outerText); console.log(window.sessionStorage.getItem('category'))}}} fontWeight="600" ml={1.25} fontSize={20} sx={{ height: 100,}}>
                     {item}
                   </Box>
                 </StyledBazaarCard>
