@@ -4,13 +4,13 @@ import { Box } from "@mui/material";
 import * as yup from "yup";
 import { H3 } from "components/Typography";
 import { ProductForm } from "pages-sections/admin";
-import AdminDashboardLayout from "components/layouts/admin-dashboard";
+import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 // import api from "utils/__api__/products";
 import DateObject from "react-date-object";
 import dynamic from 'next/dynamic'
 // =============================================================================
 EditProduct.getLayout = function getLayout(page) {
-  return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
+  return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
 };
 // =============================================================================
 

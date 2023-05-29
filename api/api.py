@@ -14,6 +14,31 @@ def get_category():
     data = pd.read_excel("data/CATEGORY.xlsx")
     return {'data': data['category_name'].tolist()}
 
+@app.route('/get_ticket', methods=['GET', 'POST'])
+def get_ticket():
+    data = pd.read_excel("data/TICKET.xlsx")
+    data = data.transpose().to_dict()
+    data_list = list()
+    for key in data.keys():
+        data_list.append(data[key])
+    return {'data': data_list}
+
+@app.route('/get_ticket_by_id/<id>', methods=['GET', 'POST'])
+def get_ticket_by_id(id):
+    data = pd.read_excel("data/TICKET.xlsx")
+    data = data[data['id']==id]
+    data = data.transpose().to_dict()
+    return {'data': data[list(data.keys())[0]]}
+
+@app.route('/get_ticket_by_type/<type>', methods=['GET', 'POST'])
+def get_ticket_by_type(type):
+    data = pd.read_excel("data/TICKET.xlsx")
+    data = data[data['to']==type].transpose().to_dict()
+    data_list = list()
+    for key in data.keys():
+        data_list.append(data[key])
+    return {'data': data_list}
+
 @app.route('/get_cust', methods=['GET', 'POST'])
 def get_cust():
     data = pd.read_excel("data/CUST.xlsx")
@@ -130,6 +155,48 @@ def do_login(email, password):
             return {'result': 'vendor'}
         else:
             return {'result': 'fail'}
+@app.route('/insert_ticket_answer', methods=['GET', 'POST'])
+def insert_ticket_answer():
+    if request.method=='POST':
+        data = request.get_json()
+        print(data)
+        ticket = pd.read_excel("data/TICKET.xlsx").set_index('id')
+        ticket.loc[data['id'], 'answer'] = data['answer']
+        ticket.loc[data['id'], 'date_answer'] = datetime.now()
+        # max_id = max(list(map(lambda x: int(x.replace('R', '')), review['id']))) + 1
+        # max_id = "R"+'0'*(5-len(str(max_id)))+str(max_id)
+        # data['id'] = max_id
+        # review = review.append(data, ignore_index=True)
+        ticket.reset_index().to_excel("data/TICKET.xlsx", index=False)
+        return {'response': "success"}
+    else:
+        return {'response': "fail"}
+
+@app.route('/insert_ticket_question', methods=['GET', 'POST'])
+def insert_ticket_question():
+    if request.method=='POST':
+        data = request.get_json()
+        print(data)
+        ticket = pd.read_excel("data/TICKET.xlsx")
+        new_id = max(list(map(lambda x: int(x.replace("T", '')), ticket['id'])))+1
+        new_id = 'P' + '0' * (5 - len(str(new_id))) + str(new_id)
+        data['id'] = new_id
+        data['answer'] = ""
+        data['to'] = "admin" if data['to'] else "vendor"
+        data['public'] = "Y" if data['public'] else "N"
+        data['status'] = "답변대기"
+        data['date'] = datetime.now()
+        data['date_answer'] = ""
+        ticket = ticket.append(data, ignore_index=True)
+        # max_id = max(list(map(lambda x: int(x.replace('R', '')), review['id']))) + 1
+        # max_id = "R"+'0'*(5-len(str(max_id)))+str(max_id)
+        # data['id'] = max_id
+        # review = review.append(data, ignore_index=True)
+        ticket.reset_index().to_excel("data/TICKET.xlsx", index=False)
+        return {'response': "success"}
+    else:
+        return {'response': "fail"}
+
 @app.route('/insert_review', methods=['GET', 'POST'])
 def insert_review():
     if request.method=='POST':

@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import * as React from 'react';
-import { Button, Checkbox, Box, FormControlLabel, Grid } from "@mui/material";
+import { Button, Checkbox, Box, FormControlLabel, Grid, TextField } from "@mui/material";
 import Link from "next/link";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -20,6 +20,8 @@ import 'react-phone-input-2/lib/style.css'
 import { Small } from "components/Typography";
 import Alert from '@mui/material/Alert';
 import AlertPopup from 'react-popup-alert'
+import Autocomplete from "@mui/material/Autocomplete";
+import countryList from "data/countryList";
 
 const Signup = () => {
   const googleTranslateElementInit = () => {
@@ -320,6 +322,14 @@ const Signup = () => {
       placeholder="Enter phone number"
       value={value}
       onChange={setValue}/>
+
+    <Small display="block" mb={1.5} textAlign="left" fontWeight="600" color="grey.700">
+          Country
+    </Small>
+      <Autocomplete fullWidth sx={{
+              mb: 2
+        }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue("billing_country", value)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
+
 
 
         <FormControlLabel name="agreement" className="agreement" onChange={handleChange} control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">

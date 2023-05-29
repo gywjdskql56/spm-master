@@ -3287,26 +3287,6 @@ export const brands = [{
     type: "car-brands"
   }
 }, {
-  id: "76436695-c58d-4402-9af7-bbc46fdc57b0",
-  slug: "mini",
-  name: "Mini",
-  image: "/assets/images/brands/mini.png",
-  type: "car",
-  for: {
-    demo: "market-1",
-    type: "car-brands"
-  }
-}, {
-  id: "95909c6c-91e7-4b64-a26b-0e3a56f144c2",
-  slug: "ford",
-  name: "Ford",
-  image: "/assets/images/brands/ford.png",
-  type: "car",
-  for: {
-    demo: "market-1",
-    type: "car-brands"
-  }
-}, {
   id: "e73dc783-c355-4a30-9ae3-4995d4f13513",
   slug: "apple",
   name: "서울특별시",

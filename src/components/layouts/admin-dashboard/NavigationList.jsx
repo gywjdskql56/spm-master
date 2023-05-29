@@ -54,7 +54,13 @@ export const navigations = [{
 }, {
   name: "고객",
   icon: duotone.Customers,
-  path: "/admin/customers"
+  children: [{
+    name: "고객 리스트",
+    path: "/admin/customers"
+  }, {
+    name: "고객센터",
+    path: "/admin/support-tickets"
+  }]
 }, {
   name: "환불",
   icon: duotone.Refund,

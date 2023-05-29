@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import * as React from 'react';
-import { Button, Checkbox, Box, FormControlLabel, Grid } from "@mui/material";
+import { Button, Checkbox, Box, FormControlLabel, Grid, TextField } from "@mui/material";
 import Link from "next/link";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -20,6 +20,9 @@ import 'react-phone-input-2/lib/style.css'
 import { Small } from "components/Typography";
 import Alert from '@mui/material/Alert';
 import AlertPopup from 'react-popup-alert'
+import queryString from 'query-string';
+import Autocomplete from "@mui/material/Autocomplete";
+import countryList from "data/countryList";
 
 const Signup = () => {
   const googleTranslateElementInit = () => {
@@ -32,14 +35,6 @@ const Signup = () => {
     );
   };
   // {/*includedLanguages: 'en,ko,ja,zh-CN,zh,th',*/}
-  useEffect(() => {
-    var addScript = document.createElement("script");
-    addScript.type = 'text/javascript';
-  addScript.src =
-    '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-  document.body.appendChild(addScript);
-  window.googleTranslateElementInit = googleTranslateElementInit;
-}, []);
     {/*addScript.setAttribute(
       "src",
       "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
@@ -88,6 +83,28 @@ const Signup = () => {
   const [verify, setVerify] = React.useState(false);
   const { cust, shop } = state;
   const error = [cust, shop].filter((v) => v).length !== 1;
+
+    useEffect(() => {
+    console.log(window.location.href)
+    console.log(window.location.href.split('?').splice(-1)[0])
+    const qs = queryString.parse(window.location.href.split('?').splice(-1)[0]);
+    console.log(qs);
+    if (('email') in qs){
+        values.email = qs.email.replace('#_=_', '')
+    }
+    if (('lastName') in qs){
+        values.nameL = qs.lastName
+    }
+    if (('firstName') in qs){
+        values.nameF = qs.firstName
+    }
+    var addScript = document.createElement("script");
+    addScript.type = 'text/javascript';
+  addScript.src =
+    '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.body.appendChild(addScript);
+  window.googleTranslateElementInit = googleTranslateElementInit;
+}, []);
 
   function handleEmail() {
     console.log("Email: ", values.email)
@@ -273,6 +290,11 @@ const Signup = () => {
             </Grid>
             <Grid item xs={6}>
             <BazaarTextField mb={1.5} name="nameL" size="small" label="Last Name" variant="outlined" onBlur={handleBlur} value={values.nameL} onChange={handleChange} placeholder="" error={!!touched.nameL && !!errors.nameL} helperText={touched.nameL && errors.nameL} />
+            </Grid>
+            <Grid item xs={6}>
+            <Autocomplete fullWidth sx={{
+              mb: 2
+            }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue("billing_country", value)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
             </Grid>
         </Grid>
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />

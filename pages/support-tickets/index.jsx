@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import TableRow from "components/TableRow";
 import { Span } from "components/Typography";
 import { FlexBox } from "components/flex-box";
+import { useState, useEffect } from "react";
 import CustomerService from "components/icons/CustomerService";
 import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
@@ -26,21 +27,29 @@ const StyledChip = styled(Chip)(({
 
 // =============================================
 
-const TicketList = ({
-  ticketList
-}) => {
+const TicketList = () => {
+    const [ticketList, setTicketList] = useState(null);
+    useEffect(() => {
+    fetch("http://localhost:5003/get_ticket")
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {setTicketList(data['data']);console.log(data)}
+    );},[])
+  console.log(ticketList)
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
       <UserDashboardHeader title="고객센터" icon={CustomerService} navigation={<CustomerDashboardNavigation />} />
 
       {/* SUPPORT TICKET LIST AREA */}
-      {ticketList.map(item => <Link href={`/support-tickets/${item.slug}`} key={item.id} passHref>
+      {ticketList!=null?
+      ticketList.map(item => <Link href={`/support-tickets/${item.id}`} key={item.id} passHref>
           <TableRow sx={{
         my: "1rem",
         p: "15px 24px"
       }}>
             <Box>
-              <span>{item.title}</span>
+              <span>{item.question_title}</span>
               <FlexBox alignItems="center" flexWrap="wrap" pt={1} m={-0.75}>
                 <StyledChip label={item.type} size="small" />
                 <StyledChip label={item.status} size="small" green={1} />
@@ -50,7 +59,7 @@ const TicketList = ({
                 </Span>
 
                 <Span m={0.75} color="grey.600">
-                  {item.category}
+                  {item.to}
                 </Span>
               </FlexBox>
             </Box>
@@ -65,7 +74,8 @@ const TicketList = ({
               </IconButton>
             </Typography>
           </TableRow>
-        </Link>)}
+        </Link>)
+        : <div />}
 
       {/* PAGINATION AREA */}
       <FlexBox justifyContent="center" mt={5}>
@@ -73,12 +83,5 @@ const TicketList = ({
       </FlexBox>
     </CustomerDashboardLayout>;
 };
-export const getStaticProps = async () => {
-  const ticketList = await api.getTicketList();
-  return {
-    props: {
-      ticketList
-    }
-  };
-};
+
 export default TicketList;

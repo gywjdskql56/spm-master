@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { format } from "date-fns";
 import { Avatar, Box, Button, Divider, TextField } from "@mui/material";
@@ -11,9 +12,7 @@ import CustomerDashboardNavigation from "components/layouts/customer-dashboard/N
 import api from "utils/__api__/ticket";
 // ==========================================================
 
-const SupportTicketDetails = ({
-  ticket
-}) => {
+const SupportTicketDetails = () => {
   const router = useRouter();
 
   // HANDLE FORM SUBMIT
@@ -32,6 +31,19 @@ const SupportTicketDetails = ({
       </Button>
     </Link>;
 
+  const [ticket, setTicket] = useState(null);
+
+  useEffect(() => {
+    const ticket_id = window.location.href.split("/").splice(-1);
+    console.log(ticket_id[0]);
+    fetch(`http://localhost:5003/get_ticket_by_id/${window.location.href.split("/").splice(-1)[0]}`)
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {setTicket(data['data']);console.log(data)}
+    );
+  },[])
+
   // Show a loading state when the fallback is rendered
   if (router.isFallback) {
     return <h1>Loading...</h1>;
@@ -41,23 +53,41 @@ const SupportTicketDetails = ({
       <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="고객센터" navigation={<CustomerDashboardNavigation />} />
 
       {/* CONVERSATION LIST */}
-      {ticket.conversation.map((item, ind) => <FlexBox gap={2} mb={4} key={ind}>
-          <Avatar src={item.imgUrl} />
+      <FlexBox gap={2} mb={4} key="1">
+          {/*<Avatar src={ticket.conversation.imgUrl} />*/}
 
-          <Box>
+          {ticket!=null? <Box>
             <H5 fontWeight="600" mt={0} mb={0}>
-              {item.name}
+              QUESTION
             </H5>
 
             <Span color="grey.600">
-              {format(new Date(item.date), "hh:mm:a | dd MMM yyyy")}
+              {ticket.email}{" | "}{format(new Date(ticket.date), "hh:mm:a | dd MMM yyyy")}
             </Span>
 
             <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-              {item.text}
+              {ticket.question}
             </Box>
-          </Box>
-        </FlexBox>)}
+          </Box>: <div />}
+        </FlexBox>
+
+        <FlexBox gap={2} mb={4} key="2">
+          {/*<Avatar src={ticket.conversation.imgUrl} />*/}
+
+          {ticket!=null? <Box>
+            <H5 fontWeight="600" mt={0} mb={0}>
+              ANSWER
+            </H5>
+
+            <Span color="grey.600">
+              {format(new Date(ticket.date_answer), "hh:mm:a | dd MMM yyyy")}
+            </Span>
+
+            <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+              {ticket.answer}
+            </Box>
+          </Box>: <div />}
+        </FlexBox>
 
       <Divider sx={{
       mb: 4,
@@ -65,7 +95,7 @@ const SupportTicketDetails = ({
     }} />
 
       {/* FORM AREA */}
-      <form onSubmit={handleFormSubmit}>
+      {/*<form onSubmit={handleFormSubmit}>
         <TextField rows={8} fullWidth multiline sx={{
         mb: 3
       }} placeholder="Write your message here..." />
@@ -76,10 +106,10 @@ const SupportTicketDetails = ({
       }}>
           저장
         </Button>
-      </form>
+      </form>*/}
     </CustomerDashboardLayout>;
 };
-export const getStaticPaths = async () => {
+{/*export const getStaticPaths = async () => {
   const paths = await api.getSlugs();
   return {
     paths: paths,
@@ -91,11 +121,12 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params
 }) => {
+  console.log(String(params.slug))
   const ticket = await api.getTicket(String(params.slug));
   return {
     props: {
       ticket
     }
   };
-};
+};*/}
 export default SupportTicketDetails;
