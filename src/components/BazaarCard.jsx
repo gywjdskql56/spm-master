@@ -17,7 +17,9 @@ const BazaarCard = styled(({
   transition: "all 250ms ease-in-out",
   "&:hover": {
     ...(hoverEffect && {
-      boxShadow: theme.shadows[3]
+      boxShadow: theme.shadows[3],
+      backgroundColor: "white",
+      transform: "scale(1.05)"
     })
   }
 }));

@@ -143,7 +143,7 @@ const Header = ({
             {/* MIDDLE CONTENT - LOGO */}
             <Link href="/">
               <a>
-                <Image height={44} src="/assets/images/bazaar-black-sm.svg" alt="logo" />
+                <Image height={44} src="/assets/images/logo_new3.png" alt="logo" />
               </a>
             </Link>
 
@@ -198,7 +198,7 @@ const Header = ({
         <FlexBox mr={2} minWidth="170px" alignItems="center">
           <Link href="/">
             <a>
-              <Image height={44} src="/assets/images/logo2.svg" alt="logo" />
+              <Image height={44} src="/assets/images/logo_new3.png" alt="logo" />
             </a>
           </Link>
 

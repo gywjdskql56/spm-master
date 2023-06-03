@@ -159,8 +159,8 @@ const Login = () => {
   }*/}
   return <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
       <form onSubmit={handleSubmit}>
-        <BazaarImage src="/assets/images/bazaar-black-sm.svg" sx={{
-        m: "auto"
+        <BazaarImage src="/assets/images/logo_new.png" sx={{
+        m: "auto", maxHeight: 100,
       }} />
 
         <H1 textAlign="center" mt={1} mb={4} fontSize={16}>

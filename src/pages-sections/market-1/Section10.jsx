@@ -15,7 +15,13 @@ const StyledBazaarCard = styled(BazaarCard)(({
   alignItems: "center",
   transition: "all 250ms ease-in-out",
   "&:hover": {
-    boxShadow: theme.shadows[3]
+    boxShadow: theme.shadows[3],
+    backgroundColor:"#81F2B4"
+  },
+  "&:active": {
+    boxShadow: theme.shadows[3],
+    backgroundColor:"#060F60",
+    color:"white"
   }
 }));
 
@@ -36,6 +42,7 @@ const Section10 = ({
   }, []);
   console.log(categories)
   console.log(category)
+
   return <Container sx={{
     mb: "70px"
   }}>
@@ -46,7 +53,7 @@ const Section10 = ({
               <a>
                 <StyledBazaarCard id={item} onClick={(e)=>console.log(item)} elevation={1}>
                   {/*<LazyImage width={52} height={52} alt="fashion" src={"/assets/images/banners/category/img_4.png"} objectFit="contain" borderRadius="8px" />*/}
-                  <Box id={item} onClick={(e)=>{if (typeof window !== 'undefined') {window.sessionStorage.setItem('category',e.target.outerText); console.log(window.sessionStorage.getItem('category'))}}} fontWeight="600" ml={1.25} fontSize={20} sx={{ height: 100,}}>
+                  <Box id={item} onClick={(e)=>{if (typeof window !== 'undefined') {window.sessionStorage.setItem('category',e.target.outerText); console.log(window.sessionStorage.getItem('category'))}}} fontWeight="600" ml={1.25} fontSize={20} sx={{ height: 100,}} style={{ color: '#021460' }}>
                     {item}
                   </Box>
                 </StyledBazaarCard>

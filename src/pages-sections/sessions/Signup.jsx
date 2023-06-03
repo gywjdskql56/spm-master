@@ -222,7 +222,7 @@ const Signup = () => {
 
   return <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
       <form onSubmit={handleSubmit}>
-        <BazaarImage src="/assets/images/bazaar-black-sm.svg" sx={{
+        <BazaarImage src="/assets/images/logo_new.png" sx={{
         m: "auto"
       }} />
       <>

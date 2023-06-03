@@ -78,13 +78,14 @@ const Section7 = props => {
 //          imgUrl={type === "company_name" ? `/assets/images/shops/${item.thumbnail}.png` : item.image}
           sx={{
           mb: "0.75rem",
-          bgcolor: selected.match(item.slug) ? "white" : "grey.100"
+          bgcolor: selected.match(item.slug) ? "#060F60" : "#E2E6ED",
+          color: selected.match(item.slug) ? "white" : "black"
         }} />)}
 
-          <ProductCategoryItem title={`${type} 모두보기`} isSelected={!!selected.match(`all-${type}`)} onClick={handleCategoryClick(`all-${type}`)} sx={{
+          {/*<ProductCategoryItem title={`${type} 모두보기`} isSelected={!!selected.match(`all-${type}`)} onClick={handleCategoryClick(`all-${type}`)} sx={{
           mt: 8,
           bgcolor: selected.match(`all-${type}`)
-        }} />
+        }} />*/}
         </BazaarCard>
 
         <Box flex="1 1 0" minWidth="0px">

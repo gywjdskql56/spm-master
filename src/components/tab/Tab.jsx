@@ -79,13 +79,14 @@ const MenuTab = ({
     };
     return <HeaderWrapper className={clsx(className)}>
       <StyledContainer>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%'}} style={{color:"#4D87E2"}}>
           <Tabs
             value={value}
             onChange={handleChange}
-            textColor="secondary"
+            textColor="#4D87E2"
             indicatorColor="secondary"
             aria-label="secondary tabs example"
+            style={{color:"#4D87E2"}}
           >
           <Link href={`/#`}>
             <Tab value="one" label="홈" />
@@ -94,7 +95,7 @@ const MenuTab = ({
             <Tab value="two" label="의료여행 패키지" />
           </Link>
           <Link href={`/#`}>
-            <Tab value="three" label="의료여행 DIY" />
+            <Tab value="three" label="의료상품" />
           </Link>
           <Link href={`/profile`}>
             <Tab value="four" label="마이페이지" />
@@ -113,7 +114,7 @@ const MenuTab = ({
             <Tabs
               value={value}
               onChange={handleChange}
-              textColor="secondary"
+              textColor="#4D87E2"
               indicatorColor="secondary"
               aria-label="secondary tabs example"
             >
@@ -124,7 +125,7 @@ const MenuTab = ({
               <Tab value="two" label={(<Typography variant="h6">의료여행 패키지</Typography>)} />
               </Link>
               <Link href={`/#`}>
-              <Tab value="three" label={(<Typography variant="h6">의료여행 DIY</Typography>)} />
+              <Tab value="three" label={(<Typography variant="h6">의료상품</Typography>)} />
               </Link>
               <Link href={`/profile`}>
                 <Tab value="four" label={(<Typography variant="h6">마이페이지</Typography>)} />

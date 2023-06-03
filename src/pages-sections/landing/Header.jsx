@@ -73,7 +73,7 @@ const Header = () => {
                 <Box sx={{
                 cursor: "pointer"
               }}>
-                  <Image width="96px" height="44px" src="/assets/images/logo2.svg" alt="logo" />
+                  <Image width="96px" height="44px" src="/assets/images/logo_new3.png" alt="logo" />
                 </Box>
               </Scroll>
 

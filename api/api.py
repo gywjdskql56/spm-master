@@ -16,7 +16,7 @@ def get_category():
 
 @app.route('/get_ticket', methods=['GET', 'POST'])
 def get_ticket():
-    data = pd.read_excel("data/TICKET.xlsx")
+    data = pd.read_excel("data/TICKET.xlsx").fillna('')
     data = data.transpose().to_dict()
     data_list = list()
     for key in data.keys():
@@ -205,7 +205,7 @@ def insert_ticket_question():
         print(data)
         ticket = pd.read_excel("data/TICKET.xlsx")
         new_id = max(list(map(lambda x: int(x.replace("T", '')), ticket['id'])))+1
-        new_id = 'P' + '0' * (5 - len(str(new_id))) + str(new_id)
+        new_id = 'T' + '0' * (5 - len(str(new_id))) + str(new_id)
         data['id'] = new_id
         data['answer'] = ""
         data['to'] = "admin" if data['to'] else "vendor"
