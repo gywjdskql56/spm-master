@@ -15,6 +15,9 @@ import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import DatePicker from "react-multi-date-picker"
 import { Calendar } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+
 // ================================================================
 
 // ================================================================
@@ -40,7 +43,21 @@ const ProductIntro = ({
     option: "option 1",
     type: "type 1"
   });
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+   function handleDates(value){
+      //your modification on passed value ....
+      console.log(value)
+      setValue(value)
+     const date_list = []
+     for (let i=0; i<value.length; i++) {
+        console.log(value[i])
+        console.log(value[i].format("YYYY-MM-DD"))
+        date_list.push(value[i].format("YYYY-MM-DD"))
+     }
+   console.log(date_list)
+   }
   // HANDLE CHAMGE TYPE AND OPTIONS
   const handleChangeVariant = (variantName, value) => () => {
     setSelectVariants(state => ({
@@ -69,13 +86,34 @@ const ProductIntro = ({
       }
     });
   };
+  const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 2,
+};
   const { allowedMaxDays, allowedDays, allowedRange, beforeToday, afterToday, combine } = DateRangePicker;
   return <Box width="100%">
       <Grid container spacing={3} justifyContent="space-around">
         <Grid item md={6} xs={12} alignItems="center">
-          <FlexBox justifyContent="center" mb={6}>
+          <FlexBox justifyContent="center" mb={6} onClick={handleOpen}>
             <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={product.images[selectedImage]} />
           </FlexBox>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={style}>
+           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={product.images[selectedImage]} />
+          </Box>
+          </Modal>
 
           <FlexBox overflow="auto">
             {images.map((url, ind) => <FlexRowCenter key={ind} width={64} height={64} minWidth={64} bgcolor="white" border="1px solid" borderRadius="10px" ml={ind === 0 ? "auto" : 0} style={{
@@ -133,13 +171,13 @@ const ProductIntro = ({
           <Box mb={2}>
           <H6 mb={1}>예약날짜 선택</H6>
           </Box>
-        <DatePicker
+        <Calendar
           multiple
           plugins={[
            <DatePanel />
           ]}
           value={value}
-          onChange={setValue}
+          onChange={handleDates}
         />
         <Box mb={2}>
           <H6 mb={1}>예약날짜 선택</H6>

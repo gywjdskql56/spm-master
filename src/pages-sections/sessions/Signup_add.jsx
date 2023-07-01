@@ -23,6 +23,8 @@ import AlertPopup from 'react-popup-alert'
 import queryString from 'query-string';
 import Autocomplete from "@mui/material/Autocomplete";
 import countryList from "data/countryList";
+import { targetUrl } from "components/config";
+
 
 const Signup = () => {
   const googleTranslateElementInit = () => {
@@ -47,7 +49,7 @@ const Signup = () => {
     setPasswordVisibility(visible => !visible);
   }, []);
   const handleFormSubmit = async values => {
-    console.log(values);
+    console.log('submit')
   };
   const {
     values,
@@ -65,7 +67,7 @@ const Signup = () => {
     cust: true,
     shop: false,
   });
-  const [value, setValue] = useState()
+  const [value, setValue] = useState("")
 
   const handleChange_check = (event) => {
   if (event.target.name=='cust'){
@@ -80,14 +82,15 @@ const Signup = () => {
   };
 
   const [open, setOpen] = React.useState(false);
+  const [fieldvalue, setFieldValue] = React.useState(null);
   const [verify, setVerify] = React.useState(false);
   const { cust, shop } = state;
   const error = [cust, shop].filter((v) => v).length !== 1;
 
     useEffect(() => {
     console.log(window.location.href)
-    console.log(window.location.href.split('?').splice(-1)[0])
-    const qs = queryString.parse(window.location.href.split('?').splice(-1)[0]);
+    console.log(window.location.href.split('signup_add?').splice(-1)[0])
+    const qs = queryString.parse(window.location.href.split('signup_add?').splice(-1)[0]);
     console.log(qs);
     if (('email') in qs){
         values.email = qs.email.replace('#_=_', '')
@@ -108,7 +111,7 @@ const Signup = () => {
 
   function handleEmail() {
     console.log("Email: ", values.email)
-    fetch('https://9093-59-6-221-140.ngrok-free.app/api/email/send',{
+    fetch(targetUrl+'/email/send',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -123,7 +126,7 @@ const Signup = () => {
   function checkEmail() {
     console.log("Email: ", values.email)
     console.log("Code: ", values.check)
-    fetch('https://9093-59-6-221-140.ngrok-free.app/api/email/verify',{
+    fetch(targetUrl+'/email/verify',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -167,29 +170,32 @@ const Signup = () => {
             }
         }
     else*/} {
-        console.log("Email: ", values.email)
-        console.log("Code: ", values.check)
-        console.log("NameL: ", values.nameL)
-        console.log("NameF: ", values.nameF)
-        console.log("Password: ", values.password)
-        fetch('https://9093-59-6-221-140.ngrok-free.app/api/members/signup',{
+    console.log({
+          "country": fieldvalue,
+          "email": values.email,
+          "firstName": values.nameF,
+          "lastName": values.nameL,
+          "phoneNum": value,
+        })
+
+        fetch(targetUrl+'/members/oauth2-signup',{
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
           body: JSON.stringify({
-          "country": "KR",
+          "country": fieldvalue,
           "email": values.email,
           "firstName": values.nameF,
           "lastName": values.nameL,
-          "password": values.password,
-          "phoneNum": "+821012345678",
-          "oauthProvider": 'self',
+          "phoneNum": value,
         })
         })
         .then(response => response.json())
-        .then(response => console.log(response))
+        .then(response => {if (typeof window !== "undefined" && response.status=='success') {
+            window.alert("Success for sign-up")} else {window.alert("Try again.")};console.log(response)})
       }
   }
 
@@ -294,7 +300,7 @@ const Signup = () => {
             <Grid item xs={6}>
             <Autocomplete fullWidth sx={{
               mb: 2
-            }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue("billing_country", value)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
+            }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue( value.label)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
             </Grid>
         </Grid>
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
@@ -341,7 +347,7 @@ const Signup = () => {
     <PhoneInput
       placeholder="Enter phone number"
       value={value}
-      onChange={setValue}/>
+      onChange={(newValue) => setValue(newValue)}/>
 
 
         <FormControlLabel name="agreement" className="agreement" onChange={handleChange} control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">

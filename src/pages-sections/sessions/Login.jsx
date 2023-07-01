@@ -12,6 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import { FlexBox, FlexRowCenter } from "components/flex-box";
+import { targetUrl, weburl } from "components/config";
+
 const fbStyle = {
   background: "#3B5998",
   color: "white"
@@ -62,38 +64,95 @@ export const Wrapper = styled(({
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [login, setLogin] = useState(false);
+  const [types, setType] = useState("email");
+  const [url, setUrl] = useState("/members/signin");
   const [cart, setCart] = useState({'data':[]});
     const [state, setState] = useState({
     cust: true,
     shop: false,
+    admin:false
   });
-  const { cust, shop } = state;
-  const error = [cust, shop].filter((v) => v).length !== 1;
+  const { cust, shop, admin } = state;
+  const error = [cust, shop, admin].filter((v) => v).length !== 1;
   const handleChange_check = (event) => {
       if (event.target.name=='cust'){
       setState({
         cust: true,
-        shop: false,});
+        shop: false,
+        admin:false});
+        setType('email')
+        setUrl("/members/signin")
+      } else if (event.target.name=='shop'){
+      setState({
+        cust: false,
+        shop: true,
+        admin:false});
+        setType('businessRegistrationNumber')
+        setUrl("/members/vendor/signin")
       } else {
       setState({
         cust: false,
-        shop: true,});
+        shop: false,
+        admin:true});
+        setType('id')
+        setUrl("/members/sysadmin/signin")
+        console.log("adddmin")
       }
+      console.log(admin)
+      console.log(event.target.name)
+      console.log(state)
   };
   const togglePasswordVisibility = useCallback(() => {
     setPasswordVisibility(visible => !visible);
   }, []);
   const handleFormSubmit = async values => {
-    if (typeof window !== 'undefined') {
-    sessionStorage.setItem('id',values.email)}
+    console.log("handleFormSubmit")
+    console.log(targetUrl+url)
+
     console.log('click')
-    console.log(`http://localhost:5003/do_login/${values.email}_${values.password}`)
+    console.log(targetUrl+url)
+
+     let content = {}
+     content[types] = values.email
+     content["password"] = values.password
+     console.log(content)
+     console.log({"password":values.password})
+
+    fetch(targetUrl+url,{
+          method: 'POST',
+          credentials : 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(content)
+        })
+        .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data);
+       ResultLogin(data);
+        }
+    );
+
+
+{/*    fetch(targetUrl+'/members/signin',{
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+          body: JSON.stringify({
+          "email": values.email,
+          "password": values.password,
+        })
+        })
     fetch(`http://localhost:5003/do_login/${values.email}_${values.password}`)
     .then((response) =>
         response.json())
     .then((data) =>
         {ResultLogin(data['result']);}
-    );
+    );*/}
     console.log('complete')
   };
   const {
@@ -109,36 +168,38 @@ const Login = () => {
     validationSchema: formSchema
   });
   function ResultLogin(result) {
-      console.log(result)
-      if (result=='fail'){
+      console.log(result.status)
+      if (result.status=='fail' || result.status=='error'){
         if (typeof window !== "undefined") {
             window.alert("아이디 또는 비밀번호를 다시 한번 확인해주세요.")
             sessionStorage.setItem('type', null)
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
-      } else if (result=='cust') {
-        if (typeof window !== "undefined") {
+      }
+      else if (result.data[0]['authority']=="ROLE_MEMBER"){
+      if (typeof window !== "undefined") {
             window.alert("고객 로그인에 성공했습니다.")
-            window.location.href =  'http://localhost:3000'
+            window.location.href =  weburl
             sessionStorage.setItem('type', 'cust')
             fetch("http://localhost:5003/get_cart_by_id/"+window.sessionStorage.getItem('id'))
             .then((response) =>
                 response.json())
             .then((data) =>
                 {setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))});
-
+            sessionStorage.setItem('id',values.email)
             }
-      } else if (result=='vendor') {
+      }
+      else if (result.data[0]['authority']=="ROLE_VENDOR") {
         if (typeof window !== "undefined") {
             window.alert("판매자 로그인에 성공했습니다.")
-            window.location.href =  'http://localhost:3000/vendor/dashboard'
+            window.location.href =  weburl+'/vendor/dashboard'
             sessionStorage.setItem('type', 'vendor')
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
-      } else if (result=='admin') {
+      } else if (result.data[0]['authority']=="ROLE_SYSADMIN") {
         if (typeof window !== "undefined") {
             window.alert("관리자 로그인에 성공했습니다.")
-            window.location.href =  'http://localhost:3000/admin/dashboard'
+            window.location.href = weburl+'/admin/dashboard'
             sessionStorage.setItem('type', 'admin')
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
@@ -181,13 +242,22 @@ const Login = () => {
             }
             label="Vendor"
           />
+          <FormControlLabel
+            control={
+              <Checkbox checked={admin} onChange={handleChange_check} name="admin" />
+            }
+            label="Admin"
+          />
         </FormGroup>
       </FormControl>
       {cust==true?
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
         :
-        <BazaarTextField mb={1.5} fullWidth name="email" size="small" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email or Registration Number" placeholder="exmple@mail.com / ***-**-*****" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
-        }
+        (shop==true?
+        <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
+        :
+        <BazaarTextField mb={1.5} fullWidth name="email" size="small" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="ID" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
+        )}
         <BazaarTextField mb={2} fullWidth size="small" name="password" label="Password" autoComplete="on" variant="outlined" onBlur={handleBlur} onChange={handleChange} value={values.password} placeholder="*********" type={passwordVisibility ? "text" : "password"} error={!!touched.password && !!errors.password} helperText={touched.password && errors.password} InputProps={{
         endAdornment: <EyeToggleButton show={passwordVisibility} click={togglePasswordVisibility} />
       }} />

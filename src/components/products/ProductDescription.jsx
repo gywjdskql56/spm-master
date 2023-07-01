@@ -1,33 +1,108 @@
-import { Box } from "@mui/material";
-import { H3 } from "components/Typography";
-
+import { Box, Button, Grid } from "@mui/material";
+import { H2, H3, H5, H6 } from "components/Typography";
+import LazyImage from "components/LazyImage";
+import { FlexBox, FlexRowCenter } from "../flex-box";
+import Typography from '@mui/material/Typography';
+import Image from 'mui-image'
 // ======================================================
 
 // ======================================================
 
 const ProductDescription = ({explain}) => {
-  return <Box>
-      <H3 mb={2}>상세설명:</H3>
-      <Box>
-{/*        패키지명 : 인천 앞바다 패키지 <br />
-        여행사 : 하나투어 <br />
-        여행기간 : 7박 9일(2월내 출발상품) <br />
-        상품구성 : 인천 대학병원 교수님이 집도하시는 라섹/라식에 인천 차이나타운/동화마을/월미도 관광 패키지  <br />
-        상세설명 : 월/화 - 김리라 교수님, 수/목/금/토 - 가나다 교수님께서 라섹과 라식 수술 집도 <br />
-        {"       "}1일차 : 인천 도착 및 숙소방문<br />
-        {"       "}2일차 : 수술 전 검진 및 차이나타운 방문<br />
-        {"       "}3일차 : 동화마을 방문 및 인천시장 방문<br />
-        {"       "}4일차 : 월미도 방문<br />
-        {"       "}5일차 : 수술 진행<br />
-        {"       "}6일차 : 송도 복합 쇼핑몰<br />
-        {"       "}7일차 : 자유시간 및 탑승수속<br />
-        {"       "}** 호텔정보 : U5<br />
-        주의사항 : 1. 환불은 출발 3일전까지 가능합니다. <br />
-        {"      "} 2. 숙소는 출발전 일주일전까지만 협의하에 변경이 가능합니다. (차액이 발생할 수 있습니다.)<br />
-        {"      "} 3. 일정은 병원 사정에 의해서 최대 1일까지 변동이 있을 수 있습니다.<br /> */}
-            {explain}
+  return <Box style={{backgroundColor:"#E2E6ED"}} sx={{ borderRadius: '16px',p: 2, m:2 }}>
+
+      <Box sx={{ borderRadius: '16px',p: 2 }}>
+      <H2 mb={2}>Overview</H2>
+      <Box sx={{borderColor:"grey.500",border: 2,borderRadius: '16px',p: 2}}>
+      <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+        <Typography variant="subtitle1">{explain}</Typography>
         <br />
         <br />
+      </Box>
+
+      <H5 mb={0}># Included</H5>
+      <Button key="1" color="success" variant="contained" sx={{
+          mb: 4.5,
+          px: "1.75rem",
+          height: 30,
+          margin: 1
+        }}><H6 mb={1} style={{color:'white'}}>{"Accomodation"}</H6>
+      </Button>
+      <Button key="1" color="success" variant="contained" sx={{
+          mb: 4.5,
+          px: "1.75rem",
+          height: 30,
+          margin: 1
+        }}><H6 mb={1} style={{color:'white'}}>{"Hospital"}</H6>
+      </Button>
+
+      <H5 mb={0}># Not Included</H5>
+      <Button key="1" color="error" variant="contained" sx={{
+          mb: 4.5,
+          px: "1.75rem",
+          height: 30,
+          margin: 1
+        }}><H6 mb={1} style={{color:'white'}}>{"Flight"}</H6>
+      </Button>
+
+
+
+      <H3 mb={2}>Accommodation Information</H3>
+      <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+        {"[호텔 U5]\n"}
+        {"요즘 핫한 을지로 호텔. 광장시장이 근처에 위치해 있으며, 서울 한가운데 위치해서 다른 도시로 가기 편리함"}
+        <FlexBox justifyContent="left" mb={3}>
+          <Image src={"/assets/images/products/Place/img_15.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+          <LazyImage alt={"title"} sx={{borderRadius: 8, p:2}} width={300} height={180} objectFit="contain" src={"/assets/images/products/Place/img_15.png"} />
+        </FlexBox>
+      </Box>
+
+      <H3 mb={2}>Hospital Information</H3>
+      <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+        {"[서산제일병원]"}
+        <FlexBox justifyContent="left" mb={3}>
+        <div>
+           <Image src={"/assets/images/products/Hospital/img_2.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+          {/*<LazyImage alt={"title"} width={200} height={200} loading="eager" objectFit="contain" src={"/assets/images/products/Hospital/img_2.png"} />*/}
+        </FlexBox>
+      </Box>
+      </Box>
+      </Box>
+
+    <Box sx={{ borderRadius: '16px',p: 2 }}>
+      <H2 mb={2}>Detail</H2>
+      <Box sx={{borderColor:"grey.500",border: 2,borderRadius: '16px',p: 2}} >
+      <H3 mb={2}>Day 1</H3>
+      <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+        {"[경복궁 투어] \n한국 정통 궁의 모습을 느껴볼 수 있습니다"}
+        <FlexBox justifyContent="left" mb={3}>
+        <div>
+          <Image src={"/assets/images/products/Place/img_1.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+        </FlexBox>
+      </Box>
+
+      <H3 mb={2}>Day 2</H3>
+      <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+        {"[경복궁 투어] \n한국 정통 궁의 모습을 느껴볼 수 있습니다"}
+        <FlexBox justifyContent="left" mb={3}>
+        <div>
+           <Image src={"/assets/images/products/Place/img_2.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+        </FlexBox>
+      </Box>
+
+      <H3 mb={2}>Day 3</H3>
+      <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+        {"[콜로세움 투어] \n한국 정통 궁의 모습을 느껴볼 수 있습니다"}
+        <FlexBox justifyContent="left" mb={3}>
+        <div>
+          <Image src={"/assets/images/products/Place/img_3.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+        </FlexBox>
+      </Box>
+      </Box>
       </Box>
     </Box>;
 };

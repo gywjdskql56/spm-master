@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { FlexBox, FlexRowCenter } from "components/flex-box";
 import { H1, H6 } from "components/Typography";
+import { targetUrl } from "components/config";
 import BazaarImage from "components/BazaarImage";
 import BazaarTextField from "components/BazaarTextField";
 import { Wrapper } from "./Login";
@@ -72,6 +73,10 @@ const Signup = () => {
     cust: true,
     shop: false,
   });
+    const [state2, setState2] = React.useState({
+    tour: true,
+    hospital: false,
+  });
   const [value, setValue] = useState()
 
   const handleChange_check = (event) => {
@@ -86,14 +91,34 @@ const Signup = () => {
   }
   };
 
+    const handleChange_check2 = (event) => {
+  if (event.target.name=='tour'){
+  setState2({
+    tour: true,
+    hospital: false,});
+  } else {
+  setState2({
+    tour: false,
+    hospital: true,});
+  }
+  };
+
+  const [fieldvalue, setFieldValue] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [verify, setVerify] = React.useState(false);
+  const [type, setType] = React.useState(null);
   const { cust, shop } = state;
+  const { tour, hospital } = state2;
   const error = [cust, shop].filter((v) => v).length !== 1;
+  const error2 = [tour, hospital].filter((v) => v).length !== 1;
+  const [file, setFile] = React.useState(null);
+  const [file1, setFile1] = React.useState(null);
+  const [file2, setFile2] = React.useState(null);
 
   function handleEmail() {
     console.log("Email: ", values.email)
-    fetch('https://9093-59-6-221-140.ngrok-free.app/api/email/send',{
+    console.log("Email: ", targetUrl)
+    fetch(targetUrl+'/email/send',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -104,11 +129,30 @@ const Signup = () => {
     .then(response => response.json())
     .then(response => console.log(response))
   }
+    const handleFileChange1 = (e) => {
+    if (e.target.files) {
+      setFile1(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }
+  };
+  const handleFileChange2 = (e) => {
+    if (e.target.files) {
+      setFile2(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }
+  };
+  const handleFileChange = (e) => {
+    setFile(event.target.files);
+    console.log(event.target.files)
+  };
+
+
+
 
   function checkEmail() {
     console.log("Email: ", values.email)
     console.log("Code: ", values.check)
-    fetch('https://9093-59-6-221-140.ngrok-free.app/api/email/verify',{
+    fetch(targetUrl+'/email/verify',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -117,7 +161,13 @@ const Signup = () => {
       body: JSON.stringify({'emailAddr':values.email,'code': values.check})
     })
     .then(response => response.json())
-    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){setVerify(true)}})
+    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+            window.alert("Verified")
+            }}
+            else {if (typeof window !== "undefined") {
+            window.alert("Try again")
+            }}
+            })
   }
 
   function checkform(){
@@ -151,30 +201,95 @@ const Signup = () => {
             window.alert("Please type the password twice")
             }
         }
-    else*/} {
+    else*/}
+    if(cust) {
         console.log("Email: ", values.email)
         console.log("Code: ", values.check)
         console.log("NameL: ", values.nameL)
         console.log("NameF: ", values.nameF)
         console.log("Password: ", values.password)
-        fetch('https://9093-59-6-221-140.ngrok-free.app/api/members/signup',{
+        console.log("country: ", fieldvalue)
+        console.log("country: ", values.billing_country)
+        console.log("phoneNum: ", value)
+        fetch(targetUrl+'/members/signup',{
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
           body: JSON.stringify({
-          "country": "KR",
+          "country": fieldvalue,
           "email": values.email,
           "firstName": values.nameF,
           "lastName": values.nameL,
           "password": values.password,
-          "phoneNum": "+821012345678",
-          "oauthProvider": 'self',
+          "phoneNum": value
         })
         })
         .then(response => response.json())
-        .then(response => console.log(response))
+        .then(response => {console.log(response);if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+            window.alert("Success for sign-up")
+            }}
+            else {if (typeof window !== "undefined") {
+            window.alert("Try again")
+            }}})
+      }
+      else {
+
+        console.log("Email: ", values.email)
+        console.log("Code: ", values.check)
+        console.log("nameC: ", values.nameC)
+        console.log("Regist: ", values.regist)
+        console.log("Password: ", values.password)
+        console.log("NameL: ", values.nameL)
+        console.log("NameF: ", values.nameF)
+        console.log("Email: ", values.email)
+        console.log("country: ", fieldvalue)
+        console.log("countryType: ", type)
+        console.log("phoneNum: ", value)
+        console.log("File1: ", file[0])
+        console.log("File2: ", file[1])
+        const fd = new FormData();
+        Object.values(file).forEach((file) => fd.append("proofFiles", file));
+
+        if (tour){
+            setType("유치업자")
+        }else {
+            setType("의료업자")
+        }
+        const body_data = {
+          "businessRegistrationNumber": values.regist,
+          "companyName": values.nameC,
+          "companyType": type,
+          "email": values.email,
+          "firstName": values.nameF,
+          "lastName": values.nameL,
+          "password": values.password,
+          "phoneNum": value
+        }
+
+        fd.append(
+            'vendorSignUpRequestDto',
+            new Blob([JSON.stringify(body_data)], { type: 'application/json' })
+        );
+        for (var pair of fd.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]);
+        }
+        fetch(targetUrl+'/members/vendor-signup',{
+          credentials : 'include',
+          method: 'POST',
+//          headers: {
+//            'Accept': 'application/json',
+//        },
+          body: fd
+        })
+        .then(response => response.json())
+        .then(response => {console.log(response);if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+            window.alert("Success for sign-up")
+            }}
+            else {if (typeof window !== "undefined") {
+            window.alert("Try again")
+            }}})
       }
   }
 
@@ -252,20 +367,50 @@ const Signup = () => {
         </FormGroup>
       </FormControl>
 
+      {shop? <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+        <FormLabel component="legend">업체 종류를 골라주세요</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox checked={tour} onChange={handleChange_check2} name="tour" />
+            }
+            label="외국인유치업자"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={hospital} onChange={handleChange_check2} name="hospital" />
+            }
+            label="외국인의료업자"
+          />
+        </FormGroup>
+      </FormControl>:
+      <div />}
+
       {shop?
         (<div>
         {/*<Alert severity="error">This is an error alert — check it out!</Alert>
         <Alert variant="filled" severity="error">
           This is an error alert — check it out!
         </Alert>*/}
+         <div>
+                <input type="file" id="file" onChange={handleFileChange} multiple="multiple"></input>
+            </div>
 
-        <FormControlLabel name="agreement" className="agreement" control={<div />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">Upload business registration certificate (member registration will be approved after document review)</FlexBox>} />
-          <div>
-            <input type="file" name="file" onChange={null}/>
+        <FormControlLabel name="agreement" className="agreement" control={<div />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">사업자등록증과 외국인유치업자/의료유치업자 관련서류를 업로드해주세요.</FlexBox>} />
+          {/*<div>
+            <input type="file" name="file" onChange={handleFileChange} />
           </div>
+        <FormControlLabel name="agreement" className="agreement" control={<div />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">사업자등록증을 업로드해주세요.</FlexBox>} />
+          <div>
+            <input type="file" name="file" onChange={handleFileChange1} />
+          </div>
+          <FormControlLabel name="agreement" className="agreement" control={<div />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">외국인유치업자/의료유치업자 관련서류를 업로드해주세요.</FlexBox>} />
+          <div>
+            <input type="file" name="file" onChange={handleFileChange2} />
+          </div>*/}
           <FormControlLabel name="agreement" className="agreement" control={<div />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start"></FlexBox>} />
-          <BazaarTextField mb={1.5} fullWidth name="name_c" size="small" label="Company Name" variant="outlined" onBlur={handleBlur} value={values.nameC} onChange={handleChange} placeholder="HJ Agency" error={!!touched.nameC && !!errors.nameC} helperText={touched.nameC && errors.nameC} />
-        <BazaarTextField mb={1.5} fullWidth name="num_c" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.regist} onChange={handleChange} label="Company Registration Number" placeholder="123-45-67890" error={!!touched.regist && !!errors.regist} helperText={touched.regist && errors.regist} />
+          <BazaarTextField mb={1.5} fullWidth name="nameC" size="small" label="Company Name" variant="outlined" onBlur={handleBlur} value={values.nameC} onChange={handleChange} placeholder="HJ Agency" error={!!touched.nameC && !!errors.nameC} helperText={touched.nameC && errors.nameC} />
+        <BazaarTextField mb={1.5} fullWidth name="regist" size="small" type="number" variant="outlined" onBlur={handleBlur} value={values.regist} onChange={handleChange} label="Company Registration Number" placeholder="123-45-67890" error={!!touched.regist && !!errors.regist} helperText={touched.regist && errors.regist} />
           <div />
           </div>)
           : <div />}
@@ -322,16 +467,16 @@ const Signup = () => {
       placeholder="Enter phone number"
       value={value}
       onChange={setValue}/>
-
+    {cust==true?
+    <div>
     <Small display="block" mb={1.5} textAlign="left" fontWeight="600" color="grey.700">
           Country
     </Small>
       <Autocomplete fullWidth sx={{
               mb: 2
-        }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue("billing_country", value)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
-
-
-
+        }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue(value.label)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
+ </div>
+:<div />}
         <FormControlLabel name="agreement" className="agreement" onChange={handleChange} control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">
               Please agree to the following
               <a href="/" target="_blank" rel="noreferrer noopener">

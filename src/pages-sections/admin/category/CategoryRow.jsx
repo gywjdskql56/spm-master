@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 
 const CategoryRow = ({
   item,
+  key,
   selected
 }) => {
   const {
@@ -21,18 +22,22 @@ const CategoryRow = ({
     id,
     slug
   } = item;
+  console.log(item)
+  console.log(key)
+  console.log(selected)
+  console.log(id)
   const router = useRouter();
   const [featuredCategory, setFeaturedCategory] = useState(featured);
   const isItemSelected = selected.indexOf(name) !== -1;
   const handleNavigate = () => router.push(`/admin/categories/${slug}`);
   return <StyledTableRow tabIndex={-1} role="checkbox" selected={isItemSelected}>
-      <StyledTableCell align="left">#{id.split("-")[0]}</StyledTableCell>
+      <StyledTableCell align="left">#{id}</StyledTableCell>
 
       <StyledTableCell align="left">
         <CategoryWrapper>{name}</CategoryWrapper>
       </StyledTableCell>
 
-      <StyledTableCell align="left">
+     {/*} <StyledTableCell align="left">
         <Avatar src={image} sx={{
         borderRadius: "8px"
       }} />
@@ -56,7 +61,7 @@ const CategoryRow = ({
         <StyledIconButton>
           <Delete />
         </StyledIconButton>
-      </StyledTableCell>
+      </StyledTableCell>*/}
     </StyledTableRow>;
 };
 export default CategoryRow;

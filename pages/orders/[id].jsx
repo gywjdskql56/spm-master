@@ -181,8 +181,9 @@ const OrderDetails = ({
         </Box>
       </Card>
 
-      {/* SHIPPING AND ORDER SUMMERY */}
+
       <Grid container spacing={3}>
+      {/* SHIPPING AND ORDER SUMMERY
         <Grid item lg={6} md={6} xs={12}>
           <Card sx={{
           p: "20px 30px"
@@ -195,7 +196,7 @@ const OrderDetails = ({
               {order.shippingAddress}
             </Paragraph>
           </Card>
-        </Grid>
+        </Grid>*/}
 
         <Grid item lg={6} md={6} xs={12}>
           <Card sx={{

@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { useCallback, useState, useEffect } from "react";
 import { StatusWrapper, StyledTableRow, StyledTableCell, StyledIconButton } from "pages-sections/admin";
 import api from "utils/__api__/ticket";
+import { targetUrl, weburl } from "components/config";
+
 const tableHeading = [{
   id: "title",
   label: "문의",
@@ -45,15 +47,39 @@ export default function SupportTickets({
   ticketList
 }) {
   const [ticket, setTicket] = useState([]);
+
+    const getTicket = async () => {
+    const res = await fetch(targetUrl+"/sysqnas",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  setTicket(data.data)
+  console.log(data);
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  setTicket((data.data))
+  return data;
+  }
+
   useEffect(() => {
-    const ticket_id = window.location.href.split("/").splice(-1);
+    {/*const ticket_id = window.location.href.split("/").splice(-1);
     console.log(ticket_id[0]);
     fetch("http://localhost:5003/get_ticket_by_type/admin")
     .then((response) =>
         response.json())
     .then((data) =>
         {setTicket(data['data']);console.log(data)}
-    );
+    );*/}
+    getTicket()
   },[])
   const {
     order,
@@ -86,7 +112,7 @@ export default function SupportTickets({
               <TableBody>
                 {ticket!=[]? filteredList.map((ticket, index) => <StyledTableRow role="checkbox" key={index}>
                     <StyledTableCell align="left">
-                      {ticket.question_title}
+                      {ticket.title}
                     </StyledTableCell>
 
                     <StyledTableCell align="left">
@@ -94,18 +120,25 @@ export default function SupportTickets({
                         {ticket.type}
                       </StatusWrapper>
                     </StyledTableCell>
+                    {ticket.answerDate ==null?
                     <StyledTableCell align="left">
                       <StatusWrapper status={ticket.status}>
-                        {ticket.status}
+                        {"답변대기중"}
                       </StatusWrapper>
                     </StyledTableCell>
+                    :
                     <StyledTableCell align="left">
-                      {ticket.date}
+                      <StatusWrapper status={ticket.status}>
+                        {"답변완료"}
+                      </StatusWrapper>
+                    </StyledTableCell>}
+                    <StyledTableCell align="left">
+                      {ticket.writeDate}
                     </StyledTableCell>
 
 
                     <StyledTableCell align="center">
-                      <StyledIconButton onClick={() => router.push(`/admin/support-tickets/${ticket.id}`)}>
+                      <StyledIconButton onClick={() => router.push(`/admin/support-tickets/${ticket.sysqnaId}`)}>
                         <Edit />
                       </StyledIconButton>
                       <StyledIconButton>

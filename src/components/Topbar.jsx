@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Add, ExpandMore, Facebook, Instagram, Remove, Twitter } from "@mui/icons-material";
 import { Box, Chip, Container, IconButton, MenuItem, styled } from "@mui/material";
 import TouchRipple from "@mui/material/ButtonBase";
@@ -96,10 +96,31 @@ const Topbar = ({
       locale: lang
     });
   };
+    const googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: "ja",
+        autoDisplay: false,
+      },
+      "google_translate_element"
+    );
+  };
+    useEffect(() => {
+    var addScript = document.createElement("script");
+    addScript.type = 'text/javascript';
+  addScript.src =
+    '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.body.appendChild(addScript);
+  window.googleTranslateElementInit = googleTranslateElementInit;
+}, []);
   return <TopbarWrapper bgColor={bgColor} expand={expand ? 1 : 0}>
       <StyledContainer>
         <FlexBetween width="100%">
           <FlexBox alignItems="center" gap={1}>
+            <>
+              <div id="google_translate_element"></div>
+              <h4>Language</h4>
+            </>
             <Chip label="HOT" size="small" sx={{
             color: "white",
             fontWeight: 700,
@@ -112,9 +133,11 @@ const Topbar = ({
             <Span className="title">{t("*** 대학병원 입점")}</Span>
           </FlexBox>
 
-          <IconButton disableRipple className="expand" onClick={() => setExpand(state => !state)}>
+
+
+          {/*<IconButton disableRipple className="expand" onClick={() => setExpand(state => !state)}>
             {expand ? <Remove /> : <Add />}
-          </IconButton>
+          </IconButton>*/}
         </FlexBetween>
 
         <FlexBox className="topbarRight" alignItems="center">

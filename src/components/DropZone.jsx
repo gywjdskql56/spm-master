@@ -28,7 +28,7 @@ const DropZone = ({
   return <Box py={4} px={{
     md: 10,
     xs: 4
-  }} display="flex" minHeight="200px" alignItems="center" borderRadius="10px" border="1.5px dashed" flexDirection="column" borderColor="grey.300" justifyContent="center" textAlign="center" bgcolor={isDragActive ? "grey.200" : "grey.100"} sx={{
+  }} display="flex" minHeight="150px" alignItems="center" borderRadius="10px" border="1.5px dashed" flexDirection="column" borderColor="grey.300" justifyContent="center" textAlign="center" bgcolor={isDragActive ? "grey.200" : "grey.100"} sx={{
     transition: "all 250ms ease-in-out",
     outline: "none"
   }} {...getRootProps()}>
@@ -50,11 +50,10 @@ const DropZone = ({
 
       <Button type="button" variant="outlined" color="info" sx={{
       px: 4,
-      my: 4
+      my: 1
     }}>
         파일을 선택해주세요.
       </Button>
-
       <Small color="grey.600">{imageSize}</Small>
     </Box>;
 };

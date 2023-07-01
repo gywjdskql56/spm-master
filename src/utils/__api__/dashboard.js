@@ -1,4 +1,5 @@
 import axios from "axios";
+import { targetUrl, weburl } from "components/config";
 // dashboard
 const getAllCard = async () => {
   const response = await axios.get("/api/admin/dashboard-cards");
@@ -48,6 +49,17 @@ const getOrder = async id => {
 // customers
 const customers = async () => {
   const response = await axios.get("/api/admin/customers");
+//  const res = await fetch(targetUrl+"/members/infos",{
+//          credentials : 'include',
+//          method: 'GET',
+//          headers: {
+//            'Content-Type': 'application/json',
+//            "ngrok-skip-browser-warning": true,
+//        }})
+//  const data = await res.json();
+//  const data2 = data.data;
+//  console.log(data);
+
   return response.data;
 };
 

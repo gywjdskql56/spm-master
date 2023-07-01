@@ -5,6 +5,8 @@ import { FlexBox } from "components/flex-box";
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import GoogleLogin from "react-google-login";
+import { targetUrl } from "components/config";
+
 //import { GoogleLogin, GoogleOauthProvider } from '@react-oauth/google';
 // =======================================
 
@@ -13,7 +15,7 @@ import GoogleLogin from "react-google-login";
 const SocialButtons = props => {
   const REST_API_KEY = "17d25a2249fa39f009ca9310359a919a";
   const REDIRECT_URI = "https://ac31-211-178-9-143.ngrok-free.app/login";
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
+//  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
   function onClick(){
       console.log('clicked!')
   }
@@ -77,6 +79,17 @@ const SocialButtons = props => {
       )}
     ></FacebookLogin>
 
+    <a href={targetUrl+"/oauth2/authorization/facebook"}>
+    <Button className="facebookButton" size="medium" fullWidth sx={{
+      height: 44
+    }}>
+      <Image src="/assets/images/icons/facebook-filled-white.svg" alt="facebook" />
+        <Box fontSize="12px" ml={1}>
+          Sign up with Facebook
+        </Box>
+      </Button>
+    </a>
+
 {/*<FacebookLogin
   appId="1446552009504968"
   style={{
@@ -104,7 +117,7 @@ const SocialButtons = props => {
         console.log('name: ', response.name);
       }}
     />*/}
-    <a href={KAKAO_AUTH_URL}>
+    {/*<a href={KAKAO_AUTH_URL}>
           <Button className="kakaoButton" size="medium" onClick={() =>
           console.log('clicked')
         } fullWidth sx={{
@@ -115,7 +128,7 @@ const SocialButtons = props => {
           Sign up with KakaoTalk
         </Box>
       </Button>
-      </a>
+      </a>*/}
 
       {/*<Button className="googleButton" size="medium" fullWidth sx={{
       height: 44
@@ -130,7 +143,7 @@ const SocialButtons = props => {
          onSuccess={(res)=>{console.log(res)}}
          onFailure={(err)=>{console.log(err)}}
       />
-      </GoogleOauthProvider>*/}
+      </GoogleOauthProvider>
       <GoogleLogin
       clientId={'1098622404399-oi7u4rfaa8ri99aj8pknq2lh87d88s14.apps.googleusercontent.com'}
       onSuccess={responseGoogle}
@@ -147,7 +160,18 @@ const SocialButtons = props => {
         </Box>
       </Button>
         )}
-  />
+  />*/}
+
+  <a href={targetUrl+"/oauth2/authorization/google"}>
+    <Button className="googleButton" size="medium" fullWidth sx={{
+                height: 44
+            }}>
+        <Image src="/assets/images/icons/google-1.svg" alt="facebook" />
+        <Box fontSize="12px" ml={1}>
+          Sign up with Google
+        </Box>
+    </Button>
+  </a>
     </Fragment>;
 };
 export default SocialButtons;

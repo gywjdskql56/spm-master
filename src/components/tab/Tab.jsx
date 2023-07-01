@@ -89,19 +89,19 @@ const MenuTab = ({
             style={{color:"#4D87E2"}}
           >
           <Link href={`/#`}>
-            <Tab value="one" label="홈" />
+            <Tab value="one" label="HOME" />
           </Link>
           <Link href={`/#`}>
-            <Tab value="two" label="의료여행 패키지" />
+            <Tab value="two" label="MEDICAL PACKAGE" />
           </Link>
           <Link href={`/#`}>
-            <Tab value="three" label="의료상품" />
+            <Tab value="three" label="HOSPITAL" />
           </Link>
           <Link href={`/profile`}>
-            <Tab value="four" label="마이페이지" />
+            <Tab value="four" label="PROFILE" />
           </Link>
           <Link href={`/support-tickets`}>
-            <Tab value="five" label="고객센터" />
+            <Tab value="five" label="SERVICE CENTER" />
           </Link>
           </Tabs>
         </Box>
@@ -119,19 +119,19 @@ const MenuTab = ({
               aria-label="secondary tabs example"
             >
               <Link href={`/#`}>
-                <Tab value="one" label={(<Typography variant="h6">홈</Typography>)} />
+                <Tab value="one" label={(<Typography variant="h6">HOME</Typography>)} />
               </Link>
               <Link href={`/#`}>
-              <Tab value="two" label={(<Typography variant="h6">의료여행 패키지</Typography>)} />
+              <Tab value="two" label={(<Typography variant="h6">Medical Package</Typography>)} />
               </Link>
               <Link href={`/#`}>
-              <Tab value="three" label={(<Typography variant="h6">의료상품</Typography>)} />
+              <Tab value="three" label={(<Typography variant="h6">HOSPITAL</Typography>)} />
               </Link>
               <Link href={`/profile`}>
-                <Tab value="four" label={(<Typography variant="h6">마이페이지</Typography>)} />
+                <Tab value="four" label={(<Typography variant="h6">PROFILE</Typography>)} />
               </Link>
               <Link href={`/support-tickets`}>
-                  <Tab value="five" label={(<Typography variant="h6">고객센터</Typography>)} />
+                  <Tab value="five" label={(<Typography variant="h6">SERVICE CENTER</Typography>)} />
               </Link>
               {/*
               <Link href={`/admin/dashboard`}>

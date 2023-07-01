@@ -9,33 +9,61 @@ import Scrollbar from "components/Scrollbar";
 import useMuiTable from "hooks/useMuiTable";
 import { SellerRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
+import { useEffect, useState } from "react";
+import { targetUrl, weburl } from "components/config";
 
 // table column list
 const tableHeading = [{
-  id: "name",
-  label: "판매자 이름",
+  id: "businessRegistrationNumber",
+  label: "사업자등록번호",
   align: "left"
 }, {
-  id: "shopName",
-  label: "판매자 회사",
+  id: "companyName",
+  label: "회사명",
   align: "left"
 }, {
-  id: "package",
-  label: "등급",
+  id: "companyType",
+  label: "판매사 유형",
   align: "left"
 }, {
-  id: "balance",
-  label: "최근 매출",
+  id: "phoneNum",
+  label: "휴대폰 번호",
   align: "left"
 }, {
-  id: "published",
-  label: "판매사 공개",
+  id: "email",
+  label: "이메일",
   align: "left"
 }, {
-  id: "action",
-  label: "수정/삭제",
-  align: "center"
+  id: "approvedDate",
+  label: "회원가입 승인날짜",
+  align: "left"
 }];
+
+const sellers_new = [{
+  businessRegistrationNumber: "+12345678910",
+  companyName: "떠나요 여행사",
+  companyType: "유치업자",
+  phoneNum: "010-1234-5678",
+  email: "hana@gmail.com",
+  approvedDate: "2023-06-11T11:30:30" //"/assets/images/avatars/001-man.svg"
+}, {
+  businessRegistrationNumber: "+12343458910", //phone
+  companyName: "모두투어", //shopName
+  companyType: "유치업자", //name
+  phoneNum: "010-1234-5678", //package
+  email: "hana@gmail.com", //published
+  approvedDate: "2023-06-11T11:30:30"
+},]
+
+ {/*
+            "vendorId": 1,
+            "businessRegistrationNumber": "123-45-12345",
+            "companyType": "유치업자",
+            "companyName": "Hana Tour",
+            "email": "hana@gmail.com",
+            "phoneNum": "010-1234-5678",
+            "approvedDate": "2023-06-11T11:30:30"
+        */}
 
 // =============================================================================
 SellerList.getLayout = function getLayout(page) {
@@ -48,6 +76,39 @@ SellerList.getLayout = function getLayout(page) {
 export default function SellerList({
   sellers
 }) {
+
+
+  const [open, setOpen] = useState(false);
+  const [info, setInfo] = useState(sellers_new);
+
+  const getData = async () => {
+
+  const res = await fetch(targetUrl+"/members/vendor/infos",{
+          credentials : 'include',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  const infos = data.data;
+  console.log(data);
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  setInfo(data.data)
+  return data;
+  }
+
+  useEffect(() => {
+    getData();
+    setOpen(true)
+  }, []);
+
   const {
     order,
     orderBy,
@@ -57,16 +118,17 @@ export default function SellerList({
     handleChangePage,
     handleRequestSort
   } = useMuiTable({
-    listData: sellers
+    listData: info
   });
+
   return <Box py={4}>
       <H3 mb={2}>판매자</H3>
 
-      <SearchArea handleSearch={() => {}} buttonText="새로운 판매자 등록" handleBtnClick={() => {}} searchPlaceholder="판매자 검색" />
+      {/*<SearchArea handleSearch={() => {}} buttonText="새로운 판매자 등록" handleBtnClick={() => {}} searchPlaceholder="판매자 검색" />*/}
 
       <Card>
         <Scrollbar>
-          <TableContainer sx={{
+          {info!=sellers_new? <TableContainer sx={{
           minWidth: 1100
         }}>
             <Table>
@@ -77,6 +139,9 @@ export default function SellerList({
               </TableBody>
             </Table>
           </TableContainer>
+          :
+          <div />
+          }
         </Scrollbar>
 
         <Stack alignItems="center" my={4}>

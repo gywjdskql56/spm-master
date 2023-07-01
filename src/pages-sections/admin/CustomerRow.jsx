@@ -14,24 +14,31 @@ const CustomerRow = ({
 }) => {
   const {
     email,
-    name,
-    phone,
+    firstName,
+    lastName,
+    phoneNum,
     avatar,
-    balance,
-    orders
+    country,
+    joinDate
   } = customer;
   return <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
           <Avatar src={avatar} />
-          <Paragraph>{name}</Paragraph>
+          <Paragraph>{firstName}</Paragraph>
+        </FlexBox>
+      </StyledTableCell>
+
+      <StyledTableCell align="left">
+        <FlexBox alignItems="center" gap={1.5}>
+          <Paragraph>{lastName}</Paragraph>
         </FlexBox>
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        {phone}
+        {phoneNum}
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
@@ -40,19 +47,25 @@ const CustomerRow = ({
         {email}
       </StyledTableCell>
 
-      <StyledTableCell align="left" sx={{
+     <StyledTableCell align="left" sx={{
+      fontWeight: 400
+    }}>
+        {country}
+      </StyledTableCell>
+
+      {/*<StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
         {currency(balance)}
-      </StyledTableCell>
+      </StyledTableCell>*/}
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        {orders}
+        {joinDate}
       </StyledTableCell>
 
-      <StyledTableCell align="center">
+      {/*<StyledTableCell align="center">
         <StyledIconButton>
           <Edit />
         </StyledIconButton>
@@ -60,7 +73,7 @@ const CustomerRow = ({
         <StyledIconButton>
           <Delete />
         </StyledIconButton>
-      </StyledTableCell>
+      </StyledTableCell>*/}
     </StyledTableRow>;
 };
 export default CustomerRow;

@@ -33,13 +33,13 @@ const MarketShop = props => {
       <Section1 carouselData={props.mainCarouselData} />
 
       {/* FLASH DEALS SECTION */}
-      <Section2 flashDeals={props.flashDealsData} />
+ {/*     <Section2 flashDeals={props.flashDealsData} /> */}
 
       {/* TOP CATEGORIES */}
-      <Section3 categoryList={props.topCategories} />
+ {/*      <Section3 categoryList={props.topCategories} /> */}
 
       {/* TOP RATED PRODUCTS */}
-      <Section4 topRatedList={props.topRatedProducts} topRatedBrands={props.topRatedBrands} />
+ {/*     <Section4 topRatedList={props.topRatedProducts} topRatedBrands={props.topRatedBrands} /> */}
 
       {/* NEW ARRIVAL LIST */}
 {/*       <Section5 newArrivalsList={props.newArrivalsList} /> */}

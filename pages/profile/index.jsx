@@ -10,15 +10,57 @@ import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import { currency } from "lib";
 import api from "utils/__api__/users";
+import { useState, useEffect } from "react";
+import { targetUrl, weburl } from "components/config";
 // ============================================================
 
 const Profile = ({
   user
 }) => {
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
+  const [users, setUsers] = useState(null);
+  const getUser = async (a) => {
+  console.log(a)
+
+  const auth = await fetch(targetUrl+"/members/auth",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+
+  console.log(auth);
+  const auth_data = await auth.json();
+  console.log(auth_data.data);
+
+  const res = await fetch(targetUrl+"/members/myinfo",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  setUsers(data.data)
+  console.log(data);
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  setUsers(data.data)
+  return data;
+  }
+
+  useEffect(() => {
+    getUser("1")
+  },[])
 
   // SECTION TITLE HEADER LINK
-  const HEADER_LINK = <Link href={`/profile/${user.id}`} passHref>
+  const HEADER_LINK = <Link href={`/profile/${users.memberId}`} passHref>
       <Button color="primary" sx={{
       px: 4,
       bgcolor: "primary.light"
@@ -53,20 +95,20 @@ const Profile = ({
             height: "100%",
             alignItems: "center"
           }}>
-              <Avatar src={user.avatar} sx={{
+              {/*<Avatar src={user.avatar} sx={{
               height: 64,
               width: 64
-            }} />
+            }} />*/}
 
               <Box ml={1.5} flex="1 1 0">
                 <FlexBetween flexWrap="wrap">
                   <div>
-                    <H5 my="0px">{`${user.name.firstName} ${user.name.lastName}`}</H5>
+                    <H5 my="0px">{`${users.firstName} ${users.lastName}`}</H5>
                     <FlexBox alignItems="center">
-                      <Typography color="grey.600">포인트:</Typography>
+                      {/*<Typography color="grey.600">포인트:</Typography>
                       <Typography ml={0.5} color="primary.main">
                         {currency(5.50)}
-                      </Typography>
+                      </Typography>*/}
                     </FlexBox>
                   </div>
 
@@ -111,11 +153,11 @@ const Profile = ({
         justifyContent: "flex-start"
       })
     }}>
-        <TableRowItem title="이름" value={user.name.firstName} />
-        <TableRowItem title="성" value={user.name.lastName} />
-        <TableRowItem title="이메일" value={user.email} />
-        <TableRowItem title="휴대폰번호" value={user.phone} />
-        <TableRowItem title="생년월일" value={format(new Date(user.dateOfBirth), "yyyy-MM-dd")} />
+        <TableRowItem title="이름" value={users.firstName} />
+        <TableRowItem title="성" value={users.lastName} />
+        <TableRowItem title="이메일" value={users.email} />
+        <TableRowItem title="휴대폰번호" value={users.phoneNum} />
+        <TableRowItem title="국가" value={users.country} />
       </TableRow>
     </CustomerDashboardLayout>;
 };

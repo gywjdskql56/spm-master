@@ -13,6 +13,7 @@ export function getComparator(order, orderBy) {
   return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
 }
 export function stableSort(array, comparator) {
+  console.log(array)
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -25,6 +26,7 @@ export function stableSort(array, comparator) {
 // ================================================================
 
 // ================================================================
+
 
 const useMuiTable = props => {
   const {

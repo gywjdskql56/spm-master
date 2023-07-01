@@ -19,6 +19,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { H3, H5, Span } from "components/Typography";
 import { FlexBox } from "components/flex-box";
 import { format } from "date-fns";
+import { targetUrl, weburl } from "components/config";
 
 // =============================================================================
 SupportTickets.getLayout = function getLayout(page) {
@@ -32,17 +33,86 @@ export default function SupportTickets() {
 
   const router = useRouter();
 
+  const [ticket, setTicket] = useState([]);
+  const [id, setId] = useState([]);
+
+  const getTicket = async () => {
+  const ticket_id = window.location.href.split("/").splice(-1);
+  setId(ticket_id)
+  const res = await fetch(targetUrl+"/sysqnas/"+ticket_id,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  setTicket(data.data)
+  setText(data.data.answer)
+  console.log(data);
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  setTicket((data.data))
+  return data;
+  }
+
+
+
   // HANDLE FORM SUBMIT
+    const cors = require("cors");
+//    const app = express();
+//    app.use(cors());
   const handleFormSubmit = event => {
+
+
+
+      fetch(targetUrl + '/members/vendor-approve/1',{
+      method: 'PATCH',
+      credentials : 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, PATCH, DELETE",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Accept-Patch": "application/example, text/example"
+    },
+      body: JSON.stringify({
+      'answer': text})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.response=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 등록되었습니다.")
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+            }
+    }})
+
+
+
+
+
     event.preventDefault();
     console.log(text)
-    fetch('http://localhost:5003/insert_ticket',{
-      method: 'POST',
+    fetch(targetUrl + '/sysqnas/answer/'+id,{
+      method: 'PATCH',
+      credentials : 'include',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, PATCH, DELETE",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Accept-Patch": "application/example, text/example"
     },
-      body: JSON.stringify({'id': window.location.href.split("/").splice(-1)[0],
+      body: JSON.stringify({
       'answer': text})
     })
     .then(response => response.json())
@@ -59,17 +129,17 @@ export default function SupportTickets() {
   };
 
   const [text, setText] = useState("");
-  const [ticket, setTicket] = useState(null);
 
   useEffect(() => {
     const ticket_id = window.location.href.split("/").splice(-1);
     console.log(ticket_id[0]);
-    fetch(`http://localhost:5003/get_ticket_by_id/${window.location.href.split("/").splice(-1)[0]}`)
+    {/*fetch(`http://localhost:5003/get_ticket_by_id/${window.location.href.split("/").splice(-1)[0]}`)
     .then((response) =>
         response.json())
     .then((data) =>
         {setTicket(data['data']);console.log(data);setText(data['data'].answer)}
-    );
+    );*/}
+    getTicket()
   },[])
 
   // Show a loading state when the fallback is rendered
@@ -119,15 +189,15 @@ export default function SupportTickets() {
 
           {ticket!=null? <Box>
             <H5 fontWeight="600" mt={0} mb={0}>
-              QUESTION
+              {ticket.title}
             </H5>
 
             <Span color="grey.600">
-              {ticket.email}{" | "}{format(new Date(ticket.date), "hh:mm:a | dd MMM yyyy")}
+              {ticket.email}{" | "}{ticket.writeDate}}
             </Span>
 
             <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-              {ticket.question}
+              {ticket.contents}
             </Box>
           </Box>: <div />}
         </FlexBox>

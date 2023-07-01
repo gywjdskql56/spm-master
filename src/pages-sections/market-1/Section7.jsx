@@ -12,9 +12,29 @@ const Section7 = props => {
   const {
     productList,
     shops,
-    brands,
     title
   } = props;
+  const brands = [  {
+  id: "e73dc783-c355-4a30-9ae3-4995d4f13513",
+  slug: "seoul",
+  name: "Seoul",
+}, {
+  id: "52cc15f6-d076-432b-94d2-1bd73bd01447",
+  slug: "busan",
+  name: "Busan",
+}, {
+  id: "6c794f56-aaa4-433b-a6fe-3b78dbb357f9",
+  slug: "incheon",
+  name: "Incheon",
+}, {
+  id: "75f6ccee-8946-41a7-977f-61b3a5fc6401",
+  slug: "zezu",
+  name: "Zezu",
+}, {
+  id: "d0a80046-7044-4b77-a1c2-2d06335e9d2e",
+  slug: "gyeonggi",
+  name: "Gyeonggi-do",
+},  ];
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState("");
   const [type, setType] = useState("region_name");
@@ -31,8 +51,6 @@ const Section7 = props => {
     }, []);
 
 
-  if (typeof window !== 'undefined')
-  {console.log(window.sessionStorage.getItem('category'))}
   const handleCategoryClick = brand => () => {
     if (selected.match(brand)) setSelected("");else setSelected(brand);
     console.log(brand)
@@ -62,7 +80,7 @@ const Section7 = props => {
             <H3 fontSize={20} fontWeight={600} padding="0.5rem 1rem" style={{
             cursor: "pointer"
           }} onClick={() => setType("region_name")} color={type === "region_name" ? "grey.900" : "grey.600"}>
-              도시
+              CITY
             </H3>
             <H3 fontSize={20} lineHeight="1.3" color="grey.400" fontWeight={600} paddingTop="0.5rem">
               |
@@ -70,7 +88,7 @@ const Section7 = props => {
             <H3 fontSize={20} fontWeight={600} padding="0.5rem 1rem" style={{
             cursor: "pointer"
           }} onClick={() => setType("company_name")} color={type === "company_name" ? "grey.900" : "grey.600"}>
-              여행사
+              VENDOR
             </H3>
           </FlexBox>
 

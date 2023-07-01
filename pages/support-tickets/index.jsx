@@ -11,6 +11,8 @@ import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import api from "utils/__api__/ticket";
+import { targetUrl, weburl } from "components/config";
+
 // styled components
 const StyledChip = styled(Chip)(({
   theme,
@@ -29,13 +31,36 @@ const StyledChip = styled(Chip)(({
 
 const TicketList = () => {
     const [ticketList, setTicketList] = useState(null);
+    const getTicket = async () => {
+    const res = await fetch(targetUrl+"/sysqnas",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  setTicketList(data.data)
+  console.log(data);
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  setCategory((data.data))
+  return data;
+  }
     useEffect(() => {
+    {/*getTicket()*/}
     fetch("http://localhost:5003/get_ticket")
     .then((response) =>
         response.json())
     .then((data) =>
         {setTicketList(data['data']);console.log(data)}
-    );},[])
+    )
+    ;},[])
   console.log(ticketList)
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
