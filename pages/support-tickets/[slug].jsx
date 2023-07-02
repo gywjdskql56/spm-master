@@ -10,10 +10,53 @@ import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import api from "utils/__api__/ticket";
+import { targetUrl, weburl, getAuth } from "components/config";
+
 // ==========================================================
 
 const SupportTicketDetails = () => {
   const router = useRouter();
+
+
+    const [ticket, setTicket] = useState(null);
+    const getTicket = async () => {
+
+    getAuth()
+
+    {/*const response = await fetch(targetUrl+"/members/auth/",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const datar = await response.json();
+  console.log(datar.status);*/}
+
+
+    const ticket_id = window.location.href.split("/").splice(-1);
+    const res = await fetch(targetUrl+"/sysqnas/"+ticket_id,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  setTicket(data.data)
+  console.log(data);
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  return data;
+  }
+    useEffect(() => {
+    getTicket()
+    ;},[])
 
   // HANDLE FORM SUBMIT
   const handleFormSubmit = event => {
@@ -31,7 +74,7 @@ const SupportTicketDetails = () => {
       </Button>
     </Link>;
 
-  const [ticket, setTicket] = useState(null);
+  {/*const [ticket, setTicket] = useState(null);
 
   useEffect(() => {
     const ticket_id = window.location.href.split("/").splice(-1);
@@ -42,7 +85,7 @@ const SupportTicketDetails = () => {
     .then((data) =>
         {setTicket(data['data']);console.log(data)}
     );
-  },[])
+  },[])*/}
 
   // Show a loading state when the fallback is rendered
   if (router.isFallback) {
@@ -58,32 +101,32 @@ const SupportTicketDetails = () => {
 
           {ticket!=null? <Box>
             <H5 fontWeight="600" mt={0} mb={0}>
-              QUESTION
+              {ticket.title}
             </H5>
 
             <Span color="grey.600">
-              {ticket.email}{" | "}{format(new Date(ticket.date), "hh:mm:a | dd MMM yyyy")}
+              {ticket.email}{" | "}{format(new Date(ticket.writeDate), "hh:mm:a | dd MMM yyyy")}
             </Span>
 
-            <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-              {ticket.question}
+            <Box borderRadius="10px" bgcolor="grey.400" p={2} mt={2}>
+              {ticket.contents}
             </Box>
           </Box>: <div />}
         </FlexBox>
 
-        <FlexBox gap={2} mb={4} key="2">
+        <FlexBox className='align-right' gap={2} mb={4} key="2">
           {/*<Avatar src={ticket.conversation.imgUrl} />*/}
 
           {ticket!=null? <Box>
             <H5 fontWeight="600" mt={0} mb={0}>
-              ANSWER
+              ADMIN
             </H5>
 
             <Span color="grey.600">
-              {format(new Date(ticket.date_answer), "hh:mm:a | dd MMM yyyy")}
+              {format(new Date(ticket.answerDate), "hh:mm:a | dd MMM yyyy")}
             </Span>
 
-            <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+            <Box borderRadius="10px" bgcolor="grey.400" p={2} mt={2}>
               {ticket.answer}
             </Box>
           </Box>: <div />}

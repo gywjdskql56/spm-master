@@ -146,7 +146,7 @@ console.log(customers)
 
               <TableBody>
                 {filteredList.map(customer => <CustomerRow customer={customer} key={customer.id} />)}
-              </TableBody>
+              </TableBody>z
             </Table>
           </TableContainer>
         </Scrollbar>

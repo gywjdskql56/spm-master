@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Delete, Edit, RemoveRedEye } from "@mui/icons-material";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, Button } from "@mui/material";
 import { FlexBox } from "components/flex-box";
 import BazaarSwitch from "components/BazaarSwitch";
 import { Paragraph, Small } from "components/Typography";
@@ -24,7 +24,10 @@ import { targetUrl, weburl } from "components/config";
 const SellerRow = ({
   seller
 }) => {
+  console.log("seller")
+  console.log(seller)
   const {
+    vendorId,
     businessRegistrationNumber,
     companyName,
     companyType,
@@ -32,6 +35,50 @@ const SellerRow = ({
     email,
     approvedDate,
   } = seller;
+
+  const [id, setID] = useState(null);
+  const [info, setInfo] = useState(null);
+  function approve(){
+    console.log(targetUrl + '/members/vendor-approve/'+vendorId.toString())
+    fetch(targetUrl + '/members/vendor-approve/'+vendorId.toString(),{
+      method: "PATCH",
+      credentials : 'include',
+      headers: {
+        "Content-Type": "application/json",
+    }
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.status=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("승인되었습니다.")
+            window.location.reload()
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("회원가입 승인에 실패하였습니다. 다시 시도해주세요.")
+            }
+    }})
+  }
+
+  useEffect(()=>{
+   if (approvedDate==null){
+   const url = targetUrl + '/members/vendor-prooffile/'+vendorId.toString()
+   const download = document.createElement("a")
+   download.href = url
+
+   fetch(targetUrl + '/members/vendor-signup-request',{
+      method: "GET",
+      credentials : 'include',
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": true,
+    }
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.data);setInfo(response.data)})
+    }
+  },[])
 //  const [shopPulish, setShopPublish] = useState(published);
   return <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left">
@@ -70,7 +117,13 @@ const SellerRow = ({
 
       <StyledTableCell align="left">
         {/*<BazaarSwitch color="info" checked={shopPulish} onChange={() => setShopPublish(state => !state)} />*/}
-        {approvedDate}
+        {approvedDate!=null?
+        approvedDate
+        :
+        <Button fullWidth type="submit" color="success" variant="contained" sx={{height: 30}} onClick={() => approve()} >
+          회원가입 승인하기
+        </Button>
+        }
       </StyledTableCell>
 
       {/*<StyledTableCell align="center">

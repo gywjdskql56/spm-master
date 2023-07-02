@@ -69,24 +69,18 @@ export default function SupportTickets() {
 //    app.use(cors());
   const handleFormSubmit = event => {
 
-
-
-      fetch(targetUrl + '/members/vendor-approve/1',{
-      method: 'PATCH',
+    {/*fetch(targetUrl + '/members/vendor-approve/1',{
+      method: "PATCH",
       credentials : 'include',
       headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, PATCH, DELETE",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Accept-Patch": "application/example, text/example"
+        "Content-Type": "application/json",
     },
       body: JSON.stringify({
       'answer': text})
     })
     .then(response => response.json())
     .then(response => {console.log(response); console.log(response.response);
-    if(response.response=='success'){
+    if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
         }
@@ -94,11 +88,7 @@ export default function SupportTickets() {
         if (typeof window !== "undefined") {
             window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
             }
-    }})
-
-
-
-
+    }})*/}
 
     event.preventDefault();
     console.log(text)
@@ -106,24 +96,20 @@ export default function SupportTickets() {
       method: 'PATCH',
       credentials : 'include',
       headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, PATCH, DELETE",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Accept-Patch": "application/example, text/example"
+         "Content-Type": "application/json",
     },
       body: JSON.stringify({
       'answer': text})
     })
     .then(response => response.json())
     .then(response => {console.log(response); console.log(response.response);
-    if(response.response=='success'){
+    if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
         }
     }else{
         if (typeof window !== "undefined") {
-            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+            window.alert("수정에 실패하였습니다. 다시 시도해주세요.")
             }
     }})
   };
@@ -171,12 +157,12 @@ export default function SupportTickets() {
     }} />*/}
     <H3 mb={2}>Edit Support-tickets</H3>
 
-            <Divider sx={{
+     <Divider sx={{
       mb: 4,
       borderColor: "grey.300"
     }} />
 
-      <Link href="admin/insert_ticket_answer" passHref>
+      <Link href={weburl+"/admin/support-tickets"} passHref>
       <Button color="primary" sx={{
       px: 4, mb: 3,
       bgcolor: "primary.light"
@@ -196,7 +182,7 @@ export default function SupportTickets() {
               {ticket.email}{" | "}{ticket.writeDate}}
             </Span>
 
-            <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+            <Box borderRadius="10px" bgcolor="grey.400" p={2} mt={2}>
               {ticket.contents}
             </Box>
           </Box>: <div />}

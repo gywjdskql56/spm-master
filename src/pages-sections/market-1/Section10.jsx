@@ -39,6 +39,7 @@ const Section10 = ({
 
   const res = await fetch(targetUrl+"/categories",{
           method: 'GET',
+          credentials : 'include',
           headers: {
             'Content-Type': 'application/json',
             "ngrok-skip-browser-warning": true,

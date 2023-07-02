@@ -69,6 +69,9 @@ export default function SupportTickets({
   setTicket((data.data))
   return data;
   }
+  function DeleteFAQ(id){
+    console.log(id)
+  }
 
   useEffect(() => {
     {/*const ticket_id = window.location.href.split("/").splice(-1);
@@ -141,7 +144,7 @@ export default function SupportTickets({
                       <StyledIconButton onClick={() => router.push(`/admin/support-tickets/${ticket.sysqnaId}`)}>
                         <Edit />
                       </StyledIconButton>
-                      <StyledIconButton>
+                      <StyledIconButton onClick={() => DeleteFAQ(ticket.sysqnaId)}>
                         <Delete />
                       </StyledIconButton>
                     </StyledTableCell>

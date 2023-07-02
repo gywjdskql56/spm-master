@@ -55,15 +55,6 @@ const sellers_new = [{
   approvedDate: "2023-06-11T11:30:30"
 },]
 
- {/*
-            "vendorId": 1,
-            "businessRegistrationNumber": "123-45-12345",
-            "companyType": "유치업자",
-            "companyName": "Hana Tour",
-            "email": "hana@gmail.com",
-            "phoneNum": "010-1234-5678",
-            "approvedDate": "2023-06-11T11:30:30"
-        */}
 
 // =============================================================================
 SellerList.getLayout = function getLayout(page) {

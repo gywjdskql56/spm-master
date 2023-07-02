@@ -18,7 +18,7 @@ const Profile = ({
   user
 }) => {
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState({"memberId":"0"});
   const getUser = async (a) => {
   console.log(a)
 

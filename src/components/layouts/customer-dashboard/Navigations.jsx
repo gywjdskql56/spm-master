@@ -71,17 +71,19 @@ const linkList = [{
     href: "/orders",
     title: "주문/예약",
     icon: ShoppingBagOutlined,
-    count: 5
-  }, {
-    href: "/wish-list",
-    title: "관심상품",
-    icon: FavoriteBorder,
-    count: 19
-  }, {
+    count: null
+  },
+//  {
+//    href: "/wish-list",
+//    title: "관심상품",
+//    icon: FavoriteBorder,
+//    count: 19
+//  },
+  {
     href: "/support-tickets",
     title: "고객센터",
     icon: CustomerService,
-    count: 1
+    count: null
   }]
 }, {
   title: "계정 설정",
@@ -89,7 +91,7 @@ const linkList = [{
     href: "/profile",
     title: "회원정보",
     icon: Person,
-    count: 3
+    count : null
   },
 //   {
 //     href: "/address",
@@ -97,11 +99,12 @@ const linkList = [{
 //     icon: Place,
 //     count: 16
 //   },
-  {
-    href: "/payment-methods",
-    title: "결제 방법",
-    icon: CreditCard,
-    count: 4
-  }]
+//  {
+//    href: "/payment-methods",
+//    title: "결제 방법",
+//    icon: CreditCard,
+//    count: 4
+//  }
+  ]
 }];
 export default Navigations;

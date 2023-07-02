@@ -14,6 +14,8 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import Select from 'react-select'
+import { targetUrl, weburl } from "components/config";
+
 // ==========================================================
 
 const SupportTicketDetails = ({
@@ -22,7 +24,7 @@ const SupportTicketDetails = ({
   const handleFormSubmit = event => {
     event.preventDefault();
     console.log(text)
-    fetch('http://localhost:5003/insert_ticket_question',{
+    {/*fetch('http://localhost:5003/insert_ticket_question',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -40,6 +42,31 @@ const SupportTicketDetails = ({
     }else{
         if (typeof window !== "undefined") {
             window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+            }
+    }})*/}
+
+
+
+    fetch(targetUrl+"/sysqnas",{
+      method: 'POST',
+      credentials : 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "ngrok-skip-browser-warning": true,
+    },
+      body: JSON.stringify({'type': category, 'open':open, 'contents':text, 'title':title})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.status=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 등록되었습니다.")
+            window.location.href = weburl
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("질문등록에 실패하였습니다. 다시 시도해주세요.")
             }
     }})
   };
@@ -97,7 +124,7 @@ const SupportTicketDetails = ({
       borderColor: "grey.300"
     }} />
 
-      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+      {/*<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Please select a recipient</FormLabel>
         <FormGroup>
           <FormControlLabel
@@ -113,7 +140,7 @@ const SupportTicketDetails = ({
             label="Vendor"
           />
         </FormGroup>
-      </FormControl>
+      </FormControl>*/}
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Please select a category of your question</FormLabel>
       <Select options={options} onChange={(e) => setCategory(e.value)} />
@@ -132,7 +159,7 @@ const SupportTicketDetails = ({
         control={
           <Checkbox checked={open} onChange={()=>{setOpen(!open)}} name="shop" />
         }
-        label="Private"
+        label="Public"
       />
 
         <Button type="submit" color="primary" variant="contained" sx={{

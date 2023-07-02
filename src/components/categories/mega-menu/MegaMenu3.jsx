@@ -18,14 +18,7 @@ const MegaMenu3 = ({
   },
   minWidth
 }) => {
-    const [category, setCategory] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:5003/get_category")
-        .then((response) =>
-            response.json())
-        .then((data) =>
-            {setCategory(data['data']); console.log(data['data'])});
-    }, []);
+
    console.log(categories)
   return categories ? <StyledMegaMenu>
       <BazaarCard sx={{

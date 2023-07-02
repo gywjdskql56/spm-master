@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Box, Chip, IconButton, Pagination, styled, Typography } from "@mui/material";
+import { Avatar, Box, Chip, IconButton, Pagination, styled, Typography, Button } from "@mui/material";
 import { East } from "@mui/icons-material";
 import { format } from "date-fns";
 import TableRow from "components/TableRow";
@@ -34,7 +34,6 @@ const TicketList = () => {
     const getTicket = async () => {
     const res = await fetch(targetUrl+"/sysqnas",{
           method: 'GET',
-          credentials : 'include',
           headers: {
             'Content-Type': 'application/json',
             "ngrok-skip-browser-warning": true,
@@ -49,38 +48,43 @@ const TicketList = () => {
     }
   }
   console.log(data.data);
-  setCategory((data.data))
   return data;
   }
     useEffect(() => {
-    {/*getTicket()*/}
-    fetch("http://localhost:5003/get_ticket")
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {setTicketList(data['data']);console.log(data)}
-    )
+    getTicket()
     ;},[])
   console.log(ticketList)
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
       <UserDashboardHeader title="고객센터" icon={CustomerService} navigation={<CustomerDashboardNavigation />} />
+     <Link href={weburl+"/support-tickets/create"} passHref>
+      <Button color="primary" sx={{
+      px: 4, mb: 3,
+      bgcolor: "primary.light"
+    }}>
+        Create FAQ
+      </Button>
+    </Link>
 
       {/* SUPPORT TICKET LIST AREA */}
       {ticketList!=null?
-      ticketList.map(item => <Link href={`/support-tickets/${item.id}`} key={item.id} passHref>
+      ticketList.map(item => <Link href={`/support-tickets/${item.sysqnaId}`} key={item.sysqnaId} passHref>
           <TableRow sx={{
         my: "1rem",
         p: "15px 24px"
       }}>
             <Box>
-              <span>{item.question_title}</span>
+            {item.open?
+            <span>{item.title}</span>
+            :  <span><img style={{ width: 20, height: 20 }} src="/assets/images/lock.png" alt="BigCo Inc. logo"/>{item.title}</span>
+              }
               <FlexBox alignItems="center" flexWrap="wrap" pt={1} m={-0.75}>
                 <StyledChip label={item.type} size="small" />
-                <StyledChip label={item.status} size="small" green={1} />
+                {item.answerDate==null? <StyledChip label={"답변대기중"} size="small" green={1} />
+                : <StyledChip label={"답변완료"} size="small" green={1} />}
 
                 <Span className="pre" m={0.75} color="grey.600">
-                  {format(new Date(item.date), "MMM dd, yyyy")}
+                  {format(new Date(item.writeDate), "MMM dd, yyyy")}
                 </Span>
 
                 <Span m={0.75} color="grey.600">

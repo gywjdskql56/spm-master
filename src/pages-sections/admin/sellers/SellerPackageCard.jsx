@@ -18,7 +18,7 @@ const PackageHeading = styled(H1)(({
   ":after": {
     fontSize: 16,
     fontWeight: 600,
-    content: "'/month'",
+    content: "'/상품 결제금액의 총액'",
     verticalAlign: "baseline",
     color: theme.palette.grey[600]
   }
@@ -46,7 +46,7 @@ const SellerPackageCard = ({
         {packageName} Package
       </H3>
 
-      <PackageHeading fontSize={60}>{currency(price, 0)}</PackageHeading>
+      <PackageHeading fontSize={60}>{10}%</PackageHeading>
 
       <Box mt={1} mb={2}>
         {features.map((item, index) => <FlexBox gap={2} my={2} alignItems="center" key={index}>
@@ -55,7 +55,7 @@ const SellerPackageCard = ({
           </FlexBox>)}
       </Box>
 
-      <FlexBox alignItems="center" gap={2} width={200}>
+      {/*<FlexBox alignItems="center" gap={2} width={200}>
         <Button fullWidth color="secondary" variant="outlined">
           수정
         </Button>
@@ -63,7 +63,7 @@ const SellerPackageCard = ({
         <Button fullWidth color="error" variant="outlined">
           삭제
         </Button>
-      </FlexBox>
+      </FlexBox>*/}
     </Wrapper>;
 };
 export default SellerPackageCard;

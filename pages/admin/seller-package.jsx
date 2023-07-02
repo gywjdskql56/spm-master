@@ -12,8 +12,10 @@ const packageList = [{
   price: 25,
   packageName: "Premium",
   Icon: PremiumPackageIcon,
-  features: ["상품 업로드 제한: 250개", "수수료율: 5%", "패키지 기한: 1,095일"]
-}, {
+  features: ["상품 업로드 제한: 없음", "수수료율: 10%", "정산일자: 패키지 종료후 7일이내"]
+},
+];
+{/*{
   id: 2,
   price: 15,
   packageName: "Gold",
@@ -25,8 +27,7 @@ const packageList = [{
   packageName: "Silver",
   Icon: SilverPackageIcon,
   features: ["상품 업로드 제한: 250개", "수수료율: 5%", "패키지 기한: 1,095일"]
-}];
-
+}*/}
 // =============================================================================
 SellerPackage.getLayout = function getLayout(page) {
   return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
@@ -38,9 +39,9 @@ export default function SellerPackage() {
       <FlexBetween mb={2}>
         <H3>판매자 패키지 상품</H3>
 
-        <Button color="info" variant="contained" startIcon={<Add />}>
+        {/*<Button color="info" variant="contained" startIcon={<Add />}>
           새로운 패키지 상품
-        </Button>
+        </Button>*/}
       </FlexBetween>
 
       <Grid container spacing={3}>

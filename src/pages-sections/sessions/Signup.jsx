@@ -118,7 +118,7 @@ const Signup = () => {
   function handleEmail() {
     console.log("Email: ", values.email)
     console.log("Email: ", targetUrl)
-    fetch(targetUrl+'/email/send',{
+    fetch(targetUrl+'/members/email/code',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -152,7 +152,7 @@ const Signup = () => {
   function checkEmail() {
     console.log("Email: ", values.email)
     console.log("Code: ", values.check)
-    fetch(targetUrl+'/email/verify',{
+    fetch(targetUrl+'/members/email-verify',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -262,8 +262,6 @@ const Signup = () => {
           "companyName": values.nameC,
           "companyType": type,
           "email": values.email,
-          "firstName": values.nameF,
-          "lastName": values.nameL,
           "password": values.password,
           "phoneNum": value
         }
@@ -414,14 +412,15 @@ const Signup = () => {
           <div />
           </div>)
           : <div />}
-        <Grid container spacing={2}>
+        {cust? <Grid container spacing={2}>
             <Grid item xs={6}>
             <BazaarTextField mb={1.5} name="nameF" size="small" label="First Name" variant="outlined" onBlur={handleBlur} value={values.nameF} onChange={handleChange} placeholder="" error={!!touched.nameF && !!errors.nameF} helperText={touched.nameF && errors.nameF} />
             </Grid>
             <Grid item xs={6}>
             <BazaarTextField mb={1.5} name="nameL" size="small" label="Last Name" variant="outlined" onBlur={handleBlur} value={values.nameL} onChange={handleChange} placeholder="" error={!!touched.nameL && !!errors.nameL} helperText={touched.nameL && errors.nameL} />
             </Grid>
-        </Grid>
+        </Grid> :
+        <div />}
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
 
         <div>
