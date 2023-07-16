@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Badge, Box, Button, Dialog, Drawer, styled } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
@@ -26,7 +26,7 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import { Grid } from "@mui/material";
-
+import { targetUrl, weburl, getAuth } from "components/config";
 // styled component
 export const HeaderWrapper = styled(Box)(({
   theme
@@ -75,6 +75,28 @@ const Header = ({
     setValue(newValue);
   };
 
+  const Logout = async () => {
+
+      const res = await fetch(targetUrl+"/logout",{
+          method: 'POST',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+        const data = await res.json();
+        console.log(data)
+        if (data.status=="success"){
+            window.alert("로그아웃 되었습니다.")
+        }else {
+            window.alert("로그아웃에 실패하였습니다.")
+        }
+        window.sessionStorage.removeItem('id')
+        window.sessionStorage.removeItem('type')
+//        .then(res=>{console.log(res.json()); getAuth()})
+
+  }
+
   // LOGIN AND MINICART DRAWER
   const DIALOG_DRAWER = <Fragment>
       <Dialog scroll="body" open={dialogOpen} fullWidth={isMobile} onClose={toggleDialog} sx={{
@@ -102,7 +124,7 @@ const Header = ({
       </Link>
       </Grid>
       <Grid item md={5} xs={5}>
-      <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'black', color:'white'}} onClick={()=>{if (typeof window !== 'undefined') {sessionStorage.clear();window.alert("로그아웃되었습니다.")}}}>
+      <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'black', color:'white'}} onClick={()=>Logout()}>
         <Box fontSize="12px" ml={1}>
           Logout
         </Box>

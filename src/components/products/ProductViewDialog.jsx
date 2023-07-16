@@ -53,7 +53,8 @@ const ProductViewDialog = props => {
   const {
     product,
     openDialog,
-    handleCloseDialog
+    handleCloseDialog,
+    item
   } = props;
   const {
     state,
@@ -98,10 +99,10 @@ const ProductViewDialog = props => {
               <H2>{product.title}</H2>
 
               <Paragraph py={1} color="grey.500" fontWeight={600} fontSize={13}>
-                CATEGORY: Cosmetic
+                CATEGORY: {"category_name"}
               </Paragraph>
 
-              <H1 color="primary.main">{currency(product.price)}</H1>
+              <H1 color="primary.main">{"₩"+(product.price)}</H1>
 
               <FlexBox alignItems="center" gap={1}>
                 <BazaarRating color="warn" fontSize="1.25rem" value={4} readOnly />
@@ -109,9 +110,7 @@ const ProductViewDialog = props => {
               </FlexBox>
 
               <Paragraph my={2}>
-                Sed egestas, ante et vulputate volutpat, eros pede semper est,
-                vitae luctus metus libero eu augue. Morbi purus liberpuro ate
-                vol faucibus adipiscing.
+                {"detail"}
               </Paragraph>
 
               <Divider sx={{

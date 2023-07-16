@@ -33,9 +33,9 @@ const RecentPurchase = ({
       <FlexBetween px={3} py={2.5}>
         <H5>최근 주문 상품</H5>
 
-        <Button size="small" color="info" variant="outlined">
+        {/*<Button size="small" color="info" variant="outlined">
           전체보기
-        </Button>
+        </Button>*/}
       </FlexBetween>
 
       <DataListTable dataList={data} tableHeading={tableHeading} type="RECENT_PURCHASE" />

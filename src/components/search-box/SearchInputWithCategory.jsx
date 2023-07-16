@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Box, MenuItem, TextField, styled, useTheme } from "@mui/material";
+import { Box, MenuItem, TextField, styled, useTheme, Button, Grid } from "@mui/material";
 import { KeyboardArrowDownOutlined } from "@mui/icons-material";
 import TouchRipple from "@mui/material/ButtonBase";
 import BazaarMenu from "components/BazaarMenu";
@@ -27,6 +27,7 @@ const SearchInputWithCategory = () => {
   const [category, setCategory] = useState("*");
   const [resultList, setResultList] = useState([]);
   const [categoryTitle, setCategoryTitle] = useState("카테고리 전체");
+  const [keyword, setKeyword] = useState("");
 
   // HANDLE CHANGE THE CATEGORY
   const handleCategoryChange = cat => () => {
@@ -37,9 +38,12 @@ const SearchInputWithCategory = () => {
   // FETCH PRODUCTS VIA API
   const getProducts = async (searchText, category) => {
     const data = await api.searchProducts(searchText, category);
-    setResultList(data);
+    console.log(data)
+    {/*setResultList(data);*/}
   };
   const handleSearch = e => {
+    setKeyword(e.target.value)
+    console.log(e.target.value)
     startTransition(() => {
       const value = e.target?.value;
       if (!value) setResultList([]);else if (value && category !== "*") getProducts(value, category);else getProducts(value);
@@ -65,7 +69,9 @@ const SearchInputWithCategory = () => {
   return <Box position="relative" flex="1 1 0" maxWidth="670px" mx="auto" {...{
     ref: parentRef
   }}>
-      <TextField fullWidth variant="outlined" placeholder="원하시는 수술명(시술명), 지역, 병원 등을 입력하세요" onChange={handleSearch} InputProps={{
+      <Grid container spacing={3}>
+      <Grid item lg={10} md={10} xs={10}>
+      <TextField fullWidth variant="outlined" placeholder="Please type the keyword that you want to search.." onChange={handleSearch} InputProps={{
       sx: {
         height: 44,
         paddingRight: 0,
@@ -76,7 +82,7 @@ const SearchInputWithCategory = () => {
           borderColor: "primary.main"
         }
       },
-      endAdornment: categoryDropdown,
+      endAdornment: null,//categoryDropdown,
       startAdornment: <SearchOutlinedIcon fontSize="small" />
     }} />
 
@@ -85,6 +91,15 @@ const SearchInputWithCategory = () => {
               <MenuItem key={item}>{item}</MenuItem>
             </Link>)}
         </SearchResultCard>}
+        </Grid>
+        <Grid item lg={2} md={2} xs={2}>
+        <Link href={`/product/search/${keyword}`}>
+       <Button variant="contained" color="primary" sx={{fontSize: "16px"}}>
+          Search
+        </Button>
+        </Link>
+        </Grid>
+        </Grid>
     </Box>;
 };
 const categories = [{

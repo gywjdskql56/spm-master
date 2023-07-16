@@ -130,12 +130,12 @@ const ProductIntro = ({
           <H1 mb={1}>{title}</H1>
 
           <FlexBox alignItems="center" mb={1}>
-            <Box>판매사:</Box>
+            <Box>Vendor:</Box>
             <H6>{product.company_name}</H6>
           </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
-            <Box lineHeight="1">후기:</Box>
+            <Box lineHeight="1">Review:</Box>
             <Box mx={1} lineHeight="1">
               <BazaarRating color="warn" fontSize="1.25rem" value={4} readOnly />
             </Box>
@@ -164,12 +164,11 @@ const ProductIntro = ({
 
           <Box pt={1} mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {currency(price)}
+              {"₩"+(price)}
             </H2>
-            <Box color="inherit">다른 화폐로 결제 가능</Box>
           </Box>
           <Box mb={2}>
-          <H6 mb={1}>예약날짜 선택</H6>
+          <H6 mb={1}>Select reservation date (Multiple selection possible)</H6>
           </Box>
         <Calendar
           multiple
@@ -179,13 +178,13 @@ const ProductIntro = ({
           value={value}
           onChange={handleDates}
         />
-        <Box mb={2}>
+        {/*<Box mb={2}>
           <H6 mb={1}>예약날짜 선택</H6>
         </Box>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }} />
-        </LocalizationProvider>
+        </LocalizationProvider>*/}
           {!cartItem?.qty ?
           <Button color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
           mb: 4.5,
@@ -220,14 +219,14 @@ const ProductIntro = ({
                   height: 40,
                   margin: 2
               }}>
-              장바구니에 추가하기
+              Add to cart
             </Button>
             </FlexBox>
             </FlexBox>
             </FlexBox>}
 
           <FlexBox alignItems="center" mb={2}>
-            <Box>판매사 홈페이지:</Box>
+            <Box>Vendor information:</Box>
             <Link href="/shops/scarlett-beauty" passHref>
               <a>
                 <H6 ml={1}>하나투어 바로가기</H6>

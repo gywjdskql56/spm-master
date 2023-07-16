@@ -79,6 +79,7 @@
     "react-popup-alert": "^2.0.0",
     "react-router-dom": "^6.11.1",
     "react-scroll": "^1.8.8",
+    "react-scroll-box": "^0.3.5",
     "react-select": "^5.7.3",
     "rsuite": "^5.31.1",
     "semantic-ui-react": "^2.1.4",

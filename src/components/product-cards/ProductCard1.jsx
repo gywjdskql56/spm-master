@@ -84,7 +84,8 @@ const ProductCard1 = ({
   hideRating,
   hoverEffect,
   discount = 5,
-  showProductSize
+  showProductSize,
+  item
 }) => {
   const {
     enqueueSnackbar
@@ -123,9 +124,9 @@ const ProductCard1 = ({
             <RemoveRedEye color="disabled" fontSize="small" />
           </IconButton>
 
-          <IconButton onClick={toggleIsFavorite}>
+          {/*<IconButton onClick={toggleIsFavorite}>
             {isFavorite ? <Favorite color="primary" fontSize="small" /> : <FavoriteBorder fontSize="small" color="disabled" />}
-          </IconButton>
+          </IconButton>*/}
         </HoverIconWrapper>
 
         <Link href={`/product/${slug}`}>
@@ -140,7 +141,8 @@ const ProductCard1 = ({
       price,
       id,
       slug,
-      imgGroup: [imgUrl, imgUrl]
+      imgGroup: [imgUrl, imgUrl],
+      item
     }} />
 
       <ContentWrapper>
@@ -166,13 +168,16 @@ const ProductCard1 = ({
               </Box>
 
               {!!discount && <Box color="grey.600" fontWeight="600">
-                  <del>{currency(price)}</del>
+                  <del>{"₩"+(price)}</del>
                 </Box>}
             </FlexBox>
           </Box>
 
           <FlexBox width="30px" alignItems="center" className="add-cart" flexDirection="column-reverse" justifyContent={!!cartItem?.qty ? "space-between" : "flex-start"}>
-            <Button color="primary" variant="outlined" sx={{
+          <Button color="primary" variant="outlined" sx={{padding: "3px"}} onClick={toggleDialog}>
+              <Add fontSize="small" />
+            </Button>
+            {/*<Button color="primary" variant="outlined" sx={{
             padding: "3px"
           }} onClick={handleCartAmountChange({
             id,
@@ -202,7 +207,7 @@ const ProductCard1 = ({
             }, "remove")}>
                   <Remove fontSize="small" />
                 </Button>
-              </Fragment>}
+              </Fragment>}*/}
           </FlexBox>
         </FlexBox>
       </ContentWrapper>

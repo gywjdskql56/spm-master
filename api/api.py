@@ -78,13 +78,16 @@ def get_product_by_category(category):
         data_list.append(data_dict[i])
     return data_list
 
-@app.route('/get_product_filter/<type>|<brand>', methods=['GET', 'POST'])
-def get_product_filter(type, brand):
+@app.route('/get_product_filter/<type>|<brand>|<cate>', methods=['GET', 'POST'])
+def get_product_filter(type, brand, cate):
 
     product = pd.read_excel("data/PRODUCT.xlsx")
     vendor = pd.read_excel("data/VENDOR.xlsx")
     data = pd.merge(product, vendor, left_on='company_code', right_on='company_code', how='left')
-    data = data[data[type]==brand]
+    if brand != "*":
+        data = data[data[type]==brand]
+    if cate!= '':
+        data = data[data['category_name'] == cate]
     data = data.fillna('')
     data_dict = data.transpose().to_dict()
     data_list = []

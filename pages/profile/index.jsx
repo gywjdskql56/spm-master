@@ -18,11 +18,11 @@ const Profile = ({
   user
 }) => {
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
-  const [users, setUsers] = useState({"memberId":"0"});
+  const [users, setUsers] = useState({"memberId":"0","firstName":"-","lastName":"-"});
   const getUser = async (a) => {
   console.log(a)
 
-  const auth = await fetch(targetUrl+"/members/auth",{
+  {/*const auth = await fetch(targetUrl+"/members/auth",{
           method: 'GET',
           credentials : 'include',
           headers: {
@@ -32,7 +32,7 @@ const Profile = ({
 
   console.log(auth);
   const auth_data = await auth.json();
-  console.log(auth_data.data);
+  console.log(auth_data.data);*/}
 
   const res = await fetch(targetUrl+"/members/myinfo",{
           method: 'GET',
@@ -69,16 +69,16 @@ const Profile = ({
       </Button>
     </Link>;
   const infoList = [{
-    title: "16",
+    title: "-",
     subtitle: "전체 주문건수"
   }, {
-    title: "02",
+    title: "-",
     subtitle: "결제 대기"
   }, {
-    title: "00",
+    title: "-",
     subtitle: "사용 대기"
   }, {
-    title: "01",
+    title: "-",
     subtitle: "리뷰 작성"
   }];
   return <CustomerDashboardLayout>

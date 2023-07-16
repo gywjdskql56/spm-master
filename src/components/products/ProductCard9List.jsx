@@ -12,7 +12,7 @@ const ProductCard9List = ({
     {products.map(item => <ProductCard9 id={item.product_id} key={item.product_id} slug={item.product_id} title={item.product_name} price={item.sale_price} off={item.discount} rating={item.rating} imgUrl={"/assets/images/products/Package/"+item.img+".png"} />)}
     <FlexBetween flexWrap="wrap" mt={4}>
       <Span color="grey.600">Showing 1-9 of 1.3k Products</Span>
-      <Pagination count={10} variant="outlined" color="primary" />
+      <Pagination count={1} variant="outlined" color="primary" />
     </FlexBetween>
   </div>;
 };

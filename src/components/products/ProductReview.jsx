@@ -10,11 +10,13 @@ import { useCallback, useState, useEffect } from "react";
 // ===================================================
 
 const ProductReview = ({review, product_id}) => {
+
+
 const handleFormSubmit = async (values, {
     resetForm
   }) => {
     if (window.sessionStorage.getItem('id')==null){
-        window.alert("로그인 후에 다시 진행해주세요.")
+        window.alert("Please try again after logging in.")
     }
     else{
     console.log('complete')
@@ -31,11 +33,11 @@ const handleFormSubmit = async (values, {
     .then(response => {console.log(response); console.log(response.response);
     if(response.response=='success'){
         if (typeof window !== "undefined") {
-            window.alert("성공적으로 등록되었습니다.")
+            window.alert("Your comment has successfully registered.")
         }
     }else{
         if (typeof window !== "undefined") {
-            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+            window.alert("Comment registration failed. please try again.")
             }
     }})}
     resetForm();
@@ -78,13 +80,13 @@ const handleFormSubmit = async (values, {
       {review.map((item, ind) => <ProductComment {...item} key={ind} />)}
 
       <H2 fontWeight="600" mt={7} mb={2.5}>
-        상품에 대한 후기를 알려주세요.
+        Please tell us your review about the product.
       </H2>
 
       <form onSubmit={handleSubmit}>
         <Box mb={2.5}>
           <FlexBox mb={1.5} gap={0.5}>
-            <H5 color="grey.700">서비스 만족도</H5>
+            <H5 color="grey.700">Service satisfaction</H5>
             <H5 color="error.main">*</H5>
           </FlexBox>
 
@@ -93,11 +95,11 @@ const handleFormSubmit = async (values, {
 
         <Box mb={3}>
           <FlexBox mb={1.5} gap={0.5}>
-            <H5 color="grey.700">리뷰 작성하기</H5>
+            <H5 color="grey.700">Write a review</H5>
             <H5 color="error.main">*</H5>
           </FlexBox>
 
-          <TextField rows={8} multiline fullWidth name="comment" variant="outlined" onBlur={handleBlur} value={values.comment} onChange={handleChange} placeholder="상세한 후기를 남겨주시면 다른 분들에게 도움이 돼요!" error={!!touched.comment && !!errors.comment} helperText={touched.comment && errors.comment} />
+          <TextField rows={8} multiline fullWidth name="comment" variant="outlined" onBlur={handleBlur} value={values.comment} onChange={handleChange} placeholder="If you leave a detailed review, it will help others!" error={!!touched.comment && !!errors.comment} helperText={touched.comment && errors.comment} />
         </Box>
 
         <Button variant="contained" color="primary" type="submit" disabled={!(dirty && isValid)}>

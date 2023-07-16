@@ -46,7 +46,7 @@ const HealthAndBeauty = props => {
       </SidenavContainer>
 
       {/* SETTINGS IS USED ONLY FOR DEMO, YOU CAN REMOVE THIS */}
-      <Setting />
+      {/*<Setting />*/}
 
       {/* POPUP NEWSLETTER FORM */}
       <Newsletter image="/assets/images/newsletter/bg-4.png" />

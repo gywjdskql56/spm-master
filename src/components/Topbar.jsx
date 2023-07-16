@@ -121,7 +121,7 @@ const Topbar = ({
               <div id="google_translate_element"></div>
               <h4>Language</h4>
             </>
-            <Chip label="HOT" size="small" sx={{
+            {/*<Chip label="HOT" size="small" sx={{
             color: "white",
             fontWeight: 700,
             backgroundColor: "primary.main",
@@ -130,7 +130,7 @@ const Topbar = ({
               pr: ".8rem"
             }
           }} />
-            <Span className="title">{t("*** 대학병원 입점")}</Span>
+            <Span className="title">{t("*** 대학병원 입점")}</Span>*/}
           </FlexBox>
 
 
@@ -140,7 +140,7 @@ const Topbar = ({
           </IconButton>*/}
         </FlexBetween>
 
-        <FlexBox className="topbarRight" alignItems="center">
+        {/*<FlexBox className="topbarRight" alignItems="center">
           <BazaarMenu handler={<TouchRipple className="handler marginRight">
                 <Span className="menuTitle">
                   {language === "en" ? "EN" : "DE"}
@@ -167,7 +167,7 @@ const Topbar = ({
                 </a>
               </Link>)}
           </FlexBox>
-        </FlexBox>
+        </FlexBox>*/}
       </StyledContainer>
     </TopbarWrapper>;
 };

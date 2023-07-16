@@ -25,14 +25,14 @@ const CategorySectionHeader = props => {
         </H2>
       </FlexBox>
 
-      {seeMoreLink && <Link href={seeMoreLink}>
+      {/*seeMoreLink && <Link href={seeMoreLink}>
           <a>
             <FlexBox alignItems="center" color="grey.600">
               전체보기
               {settings.direction === "ltr" ? <ArrowRight fontSize="small" color="inherit" /> : <ArrowLeft fontSize="small" color="inherit" />}
             </FlexBox>
           </a>
-        </Link>}
+        </Link>*/}
     </FlexBetween>;
 };
 export default CategorySectionHeader;

@@ -34,26 +34,28 @@ const Footer1 = () => {
           <Box py={10} overflow="hidden">
             <Grid container spacing={3}>
               <Grid item lg={4} md={6} sm={6} xs={12}>
-                <Link href="/">
+                {/*<Link href="/">
                   <a>
                     <Image mb={2.5} src="/assets/images/logo_new.png" alt="logo" />
                   </a>
-                </Link>
+                </Link>*/}
 
                 <Paragraph mb={2.5} color="grey.500">
-                  한국의료관광 중개 플랫폼입니다.
+                  Hello. Welcome to ALLMEDITRIP.
+                    We strive to provide excellent Korean medical services at reasonable prices to foreigners.
+                    Enjoy Korea travel and medical services at the same time through ALLMEDITRIP.
                 </Paragraph>
 
-                <AppStore />
+                {/*<AppStore />*/}
               </Grid>
 
               <Grid item lg={2} md={6} sm={6} xs={12}>
                 <Box fontSize="18px" fontWeight="600" mb={1.5} lineHeight="1" color="white">
-                  회사소개
+                  Company info
                 </Box>
 
                 <div>
-                  {aboutLinks.map((item, ind) => <Link href="/" key={ind} passHref>
+                  {aboutLinks.map((item, ind) => <Link href="/info" key={ind} passHref>
                       <StyledLink>{item}</StyledLink>
                     </Link>)}
                 </div>
@@ -61,11 +63,11 @@ const Footer1 = () => {
 
               <Grid item lg={3} md={6} sm={6} xs={12}>
                 <Box fontSize="18px" fontWeight="600" mb={1.5} lineHeight="1" color="white">
-                  고객지원
+                  Supports
                 </Box>
 
                 <div>
-                  {customerCareLinks.map((item, ind) => <Link href="/" key={ind} passHref>
+                  {customerCareLinks.map((item, ind) => <Link href="/support-tickets" key={ind} passHref>
                       <StyledLink>{item}</StyledLink>
                     </Link>)}
                 </div>
@@ -73,22 +75,22 @@ const Footer1 = () => {
 
               <Grid item lg={3} md={6} sm={6} xs={12}>
                 <Box fontSize="18px" fontWeight="600" mb={1.5} lineHeight="1" color="white">
-                  본사
+                  Head Office
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  서울특별시 강남구 테헤란로 97-2, 4층
+                  B113, 11 Seoae-ro 1-gil, Jung-gu, Seoul
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  Email: 00000000@gmail.com
+                  Company: StaynLive(406-86-41474)
                 </Box>
 
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: +82 3913-0284
+                  Phone: 0507-1370-3709
                 </Box>
 
-                <FlexBox className="flex" mx={-0.625}>
+                {/*<FlexBox className="flex" mx={-0.625}>
                   {iconList.map((item, ind) => <a href={item.url} target="_blank" rel="noreferrer noopenner" key={ind}>
                       <IconButton sx={{
                     margin: 0.5,
@@ -101,7 +103,7 @@ const Footer1 = () => {
                     }} />
                       </IconButton>
                     </a>)}
-                </FlexBox>
+                </FlexBox>*/}
               </Grid>
             </Grid>
           </Box>
@@ -109,8 +111,8 @@ const Footer1 = () => {
       </Box>
     </footer>;
 };
-const aboutLinks = ["인사말","언론보도","자료공개"];
-const customerCareLinks = ["자주 묻는 말","고객센터"];
+const aboutLinks = ["About ALLMEDITRIP"];
+const customerCareLinks = ["FAQ"];
 const iconList = [{
   icon: Facebook,
   url: "https://www.facebook.com/UILibOfficial"

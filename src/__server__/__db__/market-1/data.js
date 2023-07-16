@@ -1,15 +1,15 @@
 // carousel-data
 export const mainCarouselData = [{
-  title: "2월 한달간 모든 고객님들께 패키지 상품 10% 할인",
+  title: "10% discount on package products for all customers for the month of February",
   imgUrl: "/assets/images/products/Ads/img_1.png",
-  description: `품질좋은 의료서비스를 저렴한 가격에 받으면서 한국 곳곳을 관광할 수 있는 패키지 상품들을 둘러보세요.`,
-  buttonText: "자세히 알아보기",
+  description: `Explore package products that allow you to tour all over Korea while receiving quality medical services at affordable prices.`,
+  buttonText: "Learn more",
   buttonLik: "#"
 }, {
-  title: "첫 구매고객님께 성형 및 시술 예약시 최대 50% 할인 혜택",
+  title: "Up to 50% discount on plastic surgery and procedure reservations for first-time customers",
   imgUrl: "/assets/images/products/Ads/img.png",
-  description: `(성형 및 시술 품목 한정) 첫 구매 고객님들께는 최대 50% 할인혜택까지 드립니다.`,
-  buttonText: "자세히 알아보기",
+  description: `(Limited to plastic surgery and treatment items) First-time customers receive up to 50% discount.`,
+  buttonText: "Learn more",
   buttonLik: "#"
 }];
 export const categories = [{
@@ -3352,21 +3352,21 @@ export const brands = [  {
 export const serviceList = [{
   id: "5f9bd366-9583-4e6d-9b11-abe74b9c5d96",
   icon: "Truck",
-  title: "수준높은 의료수준",
-  description: "그 어느나라에 비해 뒤쳐지지 않는 수준높은 의료 수준을 보유하고 있으며, 검증된 병원만을 대상으로 합니다."
+  title: "High level of medical care",
+  description: "We have a high level of medical care that does not lag behind any other country, and only verified hospitals are targeted."
 }, {
   id: "121cffea-6972-41f8-8094-98dca22d17bb",
   icon: "CreditCardVerified",
-  title: "안전한 결제 및 사후관리",
-  description: "플랫폼 내에서 결제를 지원하며, 환불 및 결제 관련 조치 또한 플랫폼에서 지원합니다."
+  title: "Safe payment and follow-up management",
+  description: "Payments are supported within the platform, and actions related to refunds and payments are also supported by the platform."
 }, {
   id: "5b94f5d8-71ec-40a6-b5b8-401286deba24",
   icon: "Shield",
-  title: "간편한 예약 및 번역지원",
-  description: "일정에 맞춰 간편하게 예약이 가능하며, 문의사항 및 현지에서 도움이 필요한 경우 번역을 지원합니다."
+  title: "Easy reservation and translation support",
+  description: "You can easily make a reservation according to your schedule, and we support translation for inquiries and local assistance."
 }, {
   id: "8c4bb18f-d914-4269-9c7c-3c6728ba33e9",
   icon: "CustomerService",
-  title: "24시간 고객지원",
-  description: "24시간 고객 지원 서비스를 통해 신속하고 정확하게 대응합니다."
+  title: "24 hour customer support",
+  description: "24/7 customer support service responds quickly and accurately"
 }];

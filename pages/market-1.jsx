@@ -23,10 +23,10 @@ const MarketShop = props => {
       <SEO title="Market v1" />
 
       {/* CATEGORIES */}
-      <Section10 categories={props.bottomCategories} />
+      {/*<Section10 categories={props.bottomCategories} />*/}
 
       {/* MOBILE PHONES */}
-      <Section7 title="전체" shops={props.mobileShops} brands={props.mobileBrands} productList={props.mobileList} />
+      <Section7 shops={props.mobileShops} brands={props.mobileBrands} productList={props.mobileList} />
 
 
       {/* HERO SLIDER SECTION */}
@@ -66,7 +66,7 @@ const MarketShop = props => {
 {/*       <Newsletter /> */}
 
       {/* SETTINGS IS USED ONLY FOR DEMO, YOU CAN REMOVE THIS */}
-      <Setting />
+      {/*<Setting />*/}
     </ShopLayout1>;
 };
 export const getStaticProps = async ({

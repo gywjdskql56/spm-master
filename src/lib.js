@@ -47,7 +47,7 @@ function renderProductCount(page, perPageProduct, totalProduct) {
 
 function calculateDiscount(price, discount) {
   const afterDiscount = Number((price - price * (discount / 100)).toFixed(2));
-  return currency(afterDiscount);
+  return "₩"+(afterDiscount);
 }
 
 /**

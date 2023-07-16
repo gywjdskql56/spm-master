@@ -334,17 +334,18 @@ const Signup = () => {
   }
 
   return <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
+
       <form onSubmit={handleSubmit}>
-        <BazaarImage src="/assets/images/logo_new.png" sx={{
+        {/*<BazaarImage src="/assets/images/logo_new.png" sx={{
         m: "auto"
-      }} />
+      }} />*/}
       <>
       <div id="google_translate_element"></div>
-      <h4>If you want to change language, please choose language you want</h4>
+      <h4>Privacy Policy</h4>
     </>
 
-        <H1 textAlign="center" mt={1} mb={4} fontSize={16}>
-          Sign up
+        <H1 textAlign="center" mt={1} mb={4} fontSize={10}>
+          {"This Privacy Policy (the \"Policy\") explains the way of treatment of the information which is provided or collected in the websites on which this Policy is posted. In addition the Policy also explains the information which is provided or collected in the course of using the applications of the Company which exist in the websites or platforms of other company. Through this Policy, the Company regards personal information of the users as important and inform them of the purpose and method of Company\'s using the personal information provided by the users and the measures taken by the Company for protection of those personal information. This Policy will be effective on the ___th day of ____, 2023 and, in case of modification thereof, the Company will make public notice of it through posting it on the bulletin board of Company\'s website or individual notice through sending mails, fax or e-mails).  "}
         </H1>
 
         <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
@@ -476,13 +477,13 @@ const Signup = () => {
         }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue(value.label)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
  </div>
 :<div />}
-       <TextField rows={6} multiline fullWidth color="info" size="medium" name="Terms & Conditions" onBlur={handleBlur} value={values.description} label="Terms & Conditions" error={Boolean(errors.description && touched.description)} helperText={touched.description && errors.description} />
-
         <FormControlLabel name="agreement" className="agreement" onChange={handleChange} control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">
               Please agree to the following
+              <a href="/" target="_blank" rel="noreferrer noopener">
                 <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
                   terms and conditions
                 </H6>
+              </a>
               to sign up as a member
             </FlexBox>} />
 
@@ -514,12 +515,9 @@ const initialValues = {
   regist: "",
   password: "",
   re_password: "",
-  description: "This Privacy Policy (the \"Policy\") explains the way of treatment of the information which is provided or collected in the websites on which this Policy is posted. In addition the Policy also explains the information which is provided or collected in the course of using the applications of the Company which exist in the websites or platforms of other company. Through this Policy, the Company regards personal information of the users as important and inform them of the purpose and method of Company\'s using the personal information provided by the users and the measures taken by the Company for protection of those personal information. This Policy will be effective on the 23th day of August, 2023 and, in case of modification thereof, the Company will make public notice of it through posting it on the bulletin board of Company\'s website or individual notice through sending mails, fax or e-mails).  ",
-
   agreement: false
 };
 const formSchema = yup.object().shape({
-  description: yup.string(),
   nameF: yup.string().required("First name is required"),
   nameL: yup.string().required("Last name is required"),
   nameC: yup.string().required("Company name is required"),

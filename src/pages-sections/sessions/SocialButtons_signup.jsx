@@ -61,7 +61,7 @@ const SocialButtons = props => {
       </Button>*/}
 
 
-          <FacebookLogin
+         {/*<FacebookLogin
       appId={FACEBOOK_APP_ID} // 페이스북 앱 등록 후, 생성되는 앱 아이디를 넣어준다.
       autoLoad={false} // 자동 실행 여부를 정해줄 수 있다.
       fields="name,email,picture" // fields 설정
@@ -77,7 +77,7 @@ const SocialButtons = props => {
         </Box>
       </Button>
       )}
-    ></FacebookLogin>
+    ></FacebookLogin>*/}
 
     <a href={targetUrl+"/oauth2/authorization/facebook"}>
     <Button className="facebookButton" size="medium" fullWidth sx={{

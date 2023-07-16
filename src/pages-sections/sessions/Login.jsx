@@ -187,20 +187,21 @@ const Login = () => {
             .then((data) =>
                 {setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))});
             sessionStorage.setItem('id',values.email)
+            sessionStorage.setItem('type',result.data[0]['authority'])
             }
       }
       else if (result.data[0]['authority']=="ROLE_VENDOR") {
         if (typeof window !== "undefined") {
             window.alert("판매자 로그인에 성공했습니다.")
             window.location.href =  weburl+'/vendor/dashboard'
-            sessionStorage.setItem('type', 'vendor')
+            sessionStorage.setItem('type', result.data[0]['authority'])
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
       } else if (result.data[0]['authority']=="ROLE_SYSADMIN") {
         if (typeof window !== "undefined") {
             window.alert("관리자 로그인에 성공했습니다.")
             window.location.href = weburl+'/admin/dashboard'
-            sessionStorage.setItem('type', 'admin')
+            sessionStorage.setItem('type', result.data[0]['authority'])
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             }
       }
@@ -254,7 +255,7 @@ const Login = () => {
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
         :
         (shop==true?
-        <BazaarTextField mb={1.5} fullWidth name="email" size="small" type="email" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Email" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
+        <BazaarTextField mb={1.5} fullWidth name="email" size="small" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="Registration Number" placeholder="123-45-67890" />
         :
         <BazaarTextField mb={1.5} fullWidth name="email" size="small" variant="outlined" onBlur={handleBlur} value={values.email} onChange={handleChange} label="ID" placeholder="exmple@mail.com" error={!!touched.email && !!errors.email} helperText={touched.email && errors.email} />
         )}
@@ -299,6 +300,6 @@ const initialValues = {
 };
 const formSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
-  email: yup.string().email("invalid email").required("Email is required")
+  email: yup.string()//.email("invalid email").required("Email is required")
 });
 export default Login;

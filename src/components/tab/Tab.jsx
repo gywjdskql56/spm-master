@@ -83,25 +83,25 @@ const MenuTab = ({
           <Tabs
             value={value}
             onChange={handleChange}
-            textColor="#4D87E2"
+//            textColor="#4D87E2"
             indicatorColor="secondary"
             aria-label="secondary tabs example"
             style={{color:"#4D87E2"}}
           >
-          <Link href={`/#`}>
-            <Tab value="one" label="HOME" />
+          <Link href={`/`}>
+            <Tab value={0} label="HOME" />
           </Link>
-          <Link href={`/#`}>
-            <Tab value="two" label="MEDICAL PACKAGE" />
+          <Link href={`/info`}>
+            <Tab value={1} label="ABOUT ALLMEDITRIP" />
           </Link>
-          <Link href={`/#`}>
-            <Tab value="three" label="HOSPITAL" />
-          </Link>
+          {/*<Link href={`/`}>
+            <Tab value={2} label="HOSPITAL" />
+          </Link>*/}
           <Link href={`/profile`}>
-            <Tab value="four" label="PROFILE" />
+            <Tab value={3} label="PROFILE" />
           </Link>
           <Link href={`/support-tickets`}>
-            <Tab value="five" label="SERVICE CENTER" />
+            <Tab value={4} label="SERVICE CENTER" />
           </Link>
           </Tabs>
         </Box>
@@ -114,24 +114,24 @@ const MenuTab = ({
             <Tabs
               value={value}
               onChange={handleChange}
-              textColor="#4D87E2"
+//              textColor="#4D87E2"
               indicatorColor="secondary"
               aria-label="secondary tabs example"
             >
               <Link href={`/#`}>
-                <Tab value="one" label={(<Typography variant="h6">HOME</Typography>)} />
+                <Tab value={0} label={(<Typography variant="h6">HOME</Typography>)} />
               </Link>
               <Link href={`/#`}>
-              <Tab value="two" label={(<Typography variant="h6">Medical Package</Typography>)} />
+              <Tab value={1} label={(<Typography variant="h6">Medical Package</Typography>)} />
               </Link>
               <Link href={`/#`}>
-              <Tab value="three" label={(<Typography variant="h6">HOSPITAL</Typography>)} />
+              <Tab value={2} label={(<Typography variant="h6">HOSPITAL</Typography>)} />
               </Link>
               <Link href={`/profile`}>
-                <Tab value="four" label={(<Typography variant="h6">PROFILE</Typography>)} />
+                <Tab value={3} label={(<Typography variant="h6">PROFILE</Typography>)} />
               </Link>
               <Link href={`/support-tickets`}>
-                  <Tab value="five" label={(<Typography variant="h6">SERVICE CENTER</Typography>)} />
+                  <Tab value={4} label={(<Typography variant="h6">SERVICE CENTER</Typography>)} />
               </Link>
               {/*
               <Link href={`/admin/dashboard`}>

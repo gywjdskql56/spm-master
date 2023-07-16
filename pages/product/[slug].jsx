@@ -5,12 +5,14 @@ import { H2 } from "components/Typography";
 import ShopLayout1 from "components/layouts/ShopLayout1";
 import ProductIntro from "components/products/ProductIntro";
 import ProductReview from "components/products/ProductReview";
+import ProductFAQ from "components/products/ProductFAQ";
 import AvailableShops from "components/products/AvailableShops";
 import RelatedProducts from "components/products/RelatedProducts";
 import FrequentlyBought from "components/products/FrequentlyBought";
 import ProductDescription from "components/products/ProductDescription";
 import { getFrequentlyBought, getRelatedProducts } from "utils/__api__/related-products";
 import api from "utils/__api__/products";
+import { targetUrl, weburl } from "components/config";
 
 // styled component
 const StyledTabs = styled(Tabs)(({
@@ -40,6 +42,7 @@ const ProductDetails = props => {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(0);
   const [product, setProduct] = useState(0);
+  const [FAQ, setFAQ] = useState(0);
   const [id, setId] = useState(null);
   const handleOptionClick = (_, value) => setSelectedOption(value);
   console.log(product)
@@ -53,6 +56,21 @@ const ProductDetails = props => {
         response.json())
     .then((data) =>
         {console.log(data);setProduct(data)})
+
+    fetch(targetUrl+"/productqnas?productId=10",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data);setFAQ(data.data)})
+
+
+
  }, []);
   // Show a loading state when the fallback is rendered
   if (router.isFallback) {
@@ -67,13 +85,15 @@ const ProductDetails = props => {
 
         {/* PRODUCT DESCRIPTION AND REVIEW */}
         <StyledTabs textColor="primary" value={selectedOption} indicatorColor="primary" onChange={handleOptionClick}>
-          <Tab className="inner-tab" label="상품 설명" />
-          {product ? <Tab className="inner-tab" label={"상품 후기 ("+product.review.length+")"} /> : <Tab className="inner-tab" label={"상품 후기"} />}
+          <Tab className="inner-tab" label="Description" />
+          {product ? <Tab className="inner-tab" label={"Review ("+product.review.length+")"} /> : <Tab className="inner-tab" label={"상품 후기"} />}
+          <Tab className="inner-tab" label="FAQ" />
         </StyledTabs>
 
         <Box mb={6}>
           {selectedOption === 0 && <ProductDescription explain={product.detail} />}
           {selectedOption === 1 && <ProductReview review={product.review} product_id={id} />}
+          {selectedOption === 2 && <ProductFAQ review={FAQ} product_id={id} />}
         </Box>
 
 {/*        {frequentlyBought && <FrequentlyBought productsData={frequentlyBought} />} */}

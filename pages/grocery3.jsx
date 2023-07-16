@@ -34,7 +34,7 @@ const Grocery3 = props => {
       <Newsletter image="/assets/images/newsletter/bg-2.png" />
 
       {/* SETTINGS IS USED ONLY FOR DEMO, YOU CAN REMOVE THIS */}
-      <Setting />
+     {/*<Setting />*/}
 
       {/* SMALL DEVICE BOTTOM NAVIGATION */}
       <MobileNavigationBar />

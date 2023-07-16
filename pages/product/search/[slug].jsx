@@ -45,14 +45,14 @@ const ProductSearchResult = () => {
         }
       }}>
           <Box>
-            <H5>“ {category} ”에 대한 검색결과입니다.</H5>
-            <Paragraph color="grey.600">{product.length} 개의 상품</Paragraph>
+            <H5>This is a search result for “ {category} ”</H5>
+            <Paragraph color="grey.600">{product.length} products</Paragraph>
           </Box>
 
           <FlexBox alignItems="center" columnGap={4} flexWrap="wrap" my="0.5rem">
             <FlexBox alignItems="center" gap={1} flex="1 1 0">
               <Paragraph color="grey.600" whiteSpace="pre">
-                정렬기준:
+                Sort by:
               </Paragraph>
 
               <TextField select fullWidth size="small" variant="outlined" placeholder="Short by" defaultValue={sortOptions[0].value} sx={{
@@ -65,7 +65,7 @@ const ProductSearchResult = () => {
               </TextField>
             </FlexBox>
 
-            <FlexBox alignItems="center" my="0.25rem">
+            {/*<FlexBox alignItems="center" my="0.25rem">
               <Paragraph color="grey.600" mr={1}>
                 보기형식:
               </Paragraph>
@@ -79,25 +79,25 @@ const ProductSearchResult = () => {
               </IconButton>
 
               {/* SHOW IN THE SMALL DEVICE */}
-              {downMd && <Sidenav handle={<IconButton>
+              {/*{downMd && <Sidenav handle={<IconButton>
                       <FilterList fontSize="small" />
                     </IconButton>}>
                   <ProductFilterCard />
                 </Sidenav>}
-            </FlexBox>
+            </FlexBox>*/}
           </FlexBox>
         </Card>
 
         <Grid container spacing={3}>
           {/* PRODUCT FILTER SIDEBAR AREA */}
-          <Grid item md={3} sx={{
+          {/*<Grid item md={3} sx={{
           display: {
             md: "block",
             xs: "none"
           }
         }}>
             <ProductFilterCard />
-          </Grid>
+          </Grid>*/}
 
           {/* PRODUCT VIEW AREA */}
           <Grid item md={9} xs={12}>
@@ -110,16 +110,16 @@ const ProductSearchResult = () => {
     </ShopLayout1>;
 };
 const sortOptions = [{
-  label: "연관성",
+  label: "Relevance",
   value: "Relevance"
 }, {
-  label: "최신순",
+  label: "Date",
   value: "Date"
 }, {
-  label: "가격 낮은순",
+  label: "Price Low to High",
   value: "Price Low to High"
 }, {
-  label: "가격 높은순",
+  label: "Price High to Low",
   value: "Price High to Low"
 }];
 export default ProductSearchResult;

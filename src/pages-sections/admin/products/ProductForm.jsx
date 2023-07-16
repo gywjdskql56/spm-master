@@ -18,6 +18,7 @@ import FormLabel from '@mui/material/FormLabel';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { targetUrl, weburl } from "components/config";
 // ================================================================
 
 // ================================================================
@@ -29,13 +30,18 @@ const ProductForm = props => {
     handleFormSubmit
   } = props;
   const [files, setFiles] = useState({'상품':[],'병원':[],'숙소':[],1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[]});
+  const [main, setMain] = useState([]);
   const [desc, setDesc] = useState(["","","","","","","","","","","","","",]);
   const [show, setShow] = useState(false);
   const [category, setCategory] = useState([]);
+  const [categoryID, setCategoryID] = useState(null);
   const [region, setRegion] = useState([]);
+  const [regionID, setRegionID] = useState(null);
   const [optionI, setOptionI] = useState([]);
   const [optionN, setOptionN] = useState([]);
   const [option, setOption] = useState([]);
+  const [optionT, setOptionT] = useState([]);
+  const [cateid, setCateid] = useState(1);
   const [state, setState] = useState({
     cust: true,
     shop: false,
@@ -48,11 +54,13 @@ const ProductForm = props => {
       setState({
         cust: true,
         shop: false,});
+        setCateid(1)
         setList(['상품','병원','숙소'])
       } else {
       setState({
         cust: false,
         shop: true,});
+        setCateid(2)
         setList(['상품','병원'])
       }
   };
@@ -99,13 +107,27 @@ const ProductForm = props => {
     console.log(values.description)
     console.log(index)
     console.log(event)
-        values.description[index] = event.target.value
+    values.description[index] = event.target.value
     setDesc(desc => desc.map((desc, i) => i === index ? event.target.value : desc));
+    }
+
+    const handleChangeDropZoneMain = (files_list) => {
+    console.log(files_list)
+    console.log(files_list[0])
+    console.log(files_list[0].preview)
+    console.log(files_list[0].path)
+    files_list.forEach(file => Object.assign(file, {
+      preview: URL.createObjectURL(file)
+    }));
+    setMain([files_list[0]])
     }
 
   // HANDLE UPDATE NEW IMAGE VIA DROP ZONE
   const handleChangeDropZone = (files_list, index) => {
     console.log(index)
+    console.log(files_list)
+    console.log(files_list[0])
+    console.log(files_list[0].preview)
     files_list.forEach(file => Object.assign(file, {
       preview: URL.createObjectURL(file)
     }));
@@ -163,23 +185,21 @@ const ProductForm = props => {
   }
 
   const getRegion = async () => {
-  const res = await fetch(targetUrl+"/categories",{
+  const res = await fetch(targetUrl+"/regions",{
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             "ngrok-skip-browser-warning": true,
         }})
   const data = await res.json();
-  setCategory(data.data)
+  setRegion(data.data)
   console.log(data);
-  if (data.status =="error"){
+  {/*if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
     window.location.href =  weburl
     }
-  }
-  console.log(data.data);
-  setCategory((data.data))
+  }*/}
   return data;
   }
 
@@ -188,6 +208,9 @@ const ProductForm = props => {
         getRegion()
    }, []);
   // HANDLE DELETE UPLOAD IMAGE
+    const handleFileDeleteMain = (file) => () => {
+        setMain([])
+    }
   const handleFileDelete = (file,index) => () => {
     console.log(file)
     console.log(index)
@@ -246,6 +269,14 @@ const ProductForm = props => {
     console.log(values.not_included)
     values.not_included = ""
   }
+  function handleAdd_tags() {
+    console.log('ADD')
+    setOptionT(optionT => [...optionT, values.tags])
+    console.log(optionT)
+    values.tags = [...optionT, values.tags]
+    console.log(values.tags)
+    values.tags = ""
+  }
   function handleOption(optionItem){
     console.log('delete')
     setOption(option.filter(item => item !== optionItem))
@@ -261,6 +292,17 @@ const ProductForm = props => {
     console.log('delete')
     setOptionN(optionN.filter(item => item !== optionItem))
     console.log(values.not_included)
+  }
+  function handleOption_tags(optionItem){
+    console.log('delete')
+    setOptionT(optionT.filter(item => item !== optionItem))
+    console.log(values.tags)
+  }
+  function handleChangeCate(val){
+    setCategoryID(val)
+  }
+  function handleChangeRegion(val){
+    setRegionID(val)
   }
   function submit(){
   console.log(values.name)
@@ -283,12 +325,66 @@ const ProductForm = props => {
   }
   console.log(date_list)
   console.log(option.join('|'));
-  fetch('http://localhost:5003/insert_product',{
+  var day_list = [];
+    for (var i = 1; i <= day; i++) {
+        day_list.push(i);
+    }
+  const fd = new FormData();
+  fd.append("thumbnailImage", main)
+  fd.append("productDetailsImages", files["상품"])
+  fd.append("hospitalDetailsImages", files["병원"])
+  fd.append("accommodationDetailsImages", files["숙소"])
+
+  fd.append("courseDetailsImages", main)
+  day_list.forEach((day) => {files[day].forEach((img) => fd.append("courseDetailsImages", img))});
+  console.log({
+    "productName" : values.name,
+    "categoryId" : categoryID,
+    "regionId" : regionID,
+    "servicePeriodList" : [{"startDate" : "2023-06-05", "endDate" : "2023-06-09"}, {"startDate" : "2023-06-19", "endDate" : "2023-06-23"}],
+    "includedPartList" : optionI,
+    "nonIncludedPartList" : optionN,
+    "type" : cateid,
+    "productDetails" : desc[1],
+    "hospitalDetails" : desc[2],
+    "accommodationDetails" : desc[3],
+    "tourDescriptionList" : [{"day" : "1", "description" : "1일차 설명입니다.", "imageCount" : "1"},
+    {"day" : "2", "description" : "2일차 설명입니다.", "imageCount" : "2"},
+    {"day" : "3", "description" : "3일차 설명입니다.", "imageCount" : "3"}],
+    "tagList" : optionT,
+    "price" : values.price,
+    "salePrice" : values.sale_price,
+    "optionFeeList" : [{"name" : "비즈니스석", "price" : "700000"}, {"name" : "VIP", "price" : "1000000"}],
+    "open" : show
+  })
+//  ['상품','병원','숙소']
+  fd.append("productAddRequestDto", {
+    "productName" : values.name,
+    "categoryId" : categoryID,
+    "regionId" : regionID,
+    "servicePeriodList" : [{"startDate" : "2023-06-05", "endDate" : "2023-06-09"}, {"startDate" : "2023-06-19", "endDate" : "2023-06-23"}],
+    "includedPartList" : optionI,
+    "nonIncludedPartList" : optionN,
+    "type" : cateid,
+    "productDetails" : desc[1],
+    "hospitalDetails" : desc[2],
+    "accommodationDetails" : desc[3],
+    "tourDescriptionList" : [{"day" : "1", "description" : "1일차 설명입니다.", "imageCount" : "1"},
+    {"day" : "2", "description" : "2일차 설명입니다.", "imageCount" : "2"},
+    {"day" : "3", "description" : "3일차 설명입니다.", "imageCount" : "3"}],
+    "tagList" : optionT,
+    "price" : values.price,
+    "salePrice" : values.sale_price,
+    "optionFeeList" : [{"name" : "비즈니스석", "price" : "700000"}, {"name" : "VIP", "price" : "1000000"}],
+    "open" : show
+  })
+//  productAddRequestDto
+  fetch(targetUrl+'/products',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-    },
+      },
       body: JSON.stringify({'product_name': values.name,'company_code': '123-45-12345','public': true,'detail': values.description,
       'price': values.price,"sale_price": values.sale_price,'category_name': values.category1,'region_name': values.category2,
       'option': option.join('|'), 'public':values.show,'tags':values.tags, 'date_list':date_list})
@@ -339,15 +435,15 @@ const ProductForm = props => {
                 <TextField select fullWidth color="info" size="medium" name="category1" onBlur={handleBlur} placeholder="카테고리" onChange={handleChange} value={values.category1} label="카테고리를 선택해주세요." SelectProps={{
               multiple: false
             }} error={!!touched.category1 && !!errors.category1} helperText={touched.category1 && errors.category1}>
-                  {category.map((c,i) => <MenuItem value={c}>{c}</MenuItem>)}
+                  {category.map((c,i) => <MenuItem onClick={(e)=>handleChangeCate(c.categoryId)} value={c.categoryId}>{c.name}</MenuItem>)}
                   {/*<MenuItem value="fashion">Fashion</MenuItem>*/}
                 </TextField>
               </Grid>
               <Grid item sm={3} xs={6}>
-                <TextField select fullWidth color="info" size="medium" name="category2" onBlur={handleBlur} placeholder="카테고리" onChange={handleChange} value={values.category2} label="지역을 선택해주세요." SelectProps={{
+                <TextField select fullWidth color="info" size="medium" name="category2" onBlur={handleBlur} placeholder="지역" onChange={handleChange} value={values.category2} label="지역을 선택해주세요." SelectProps={{
               multiple: false
             }} error={!!touched.category2 && !!errors.category2} helperText={touched.category2 && errors.category2}>
-                  {region.map((r,i) => <MenuItem value={r.name}>{r.name}</MenuItem>)}
+                  {region.map((r,i) => <MenuItem onClick={(e)=>handleChangeRegion(r.regionId)} value={r.regionId}>{r.name}</MenuItem>)}
                   {/*<MenuItem value="fashion">Fashion</MenuItem>*/}
                 </TextField>
               </Grid>
@@ -382,7 +478,7 @@ const ProductForm = props => {
                 </Button>
               </Grid>
               {optionI.map(o =>
-              <Grid item sm={4} xs={4}>
+              <Grid item sm={2} xs={2}>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_included(o)} />
@@ -406,7 +502,7 @@ const ProductForm = props => {
                 </Button>
               </Grid>
               {optionN.map(o =>
-              <Grid item sm={4} xs={4}>
+              <Grid item sm={2} xs={2}>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#E49689" }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_not_included(o)} />
@@ -460,6 +556,23 @@ const ProductForm = props => {
               </Grid>
               <br />
 
+            <Grid container spacing={3}>
+             <Grid item xs={6}>
+              <Typography fontSize="14px" color="grey.600" align="center">
+              {"썸네일 (대표 이미지) ** 업로드는 한개만 가능합니다."}
+              </Typography>
+                <DropZone onChange={main => handleChangeDropZoneMain(main)} />
+                <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
+                  {main.map((file, index) => {
+                return <UploadImageBox key={index}>
+                        <BazaarImage src={file.preview} width="100%" />
+                        <StyledClear onClick={handleFileDeleteMain(file)} />
+                      </UploadImageBox>;
+              })}
+                </FlexBox>
+              </Grid>
+              </Grid>
+
 
 
            {list.map((n, index) => {
@@ -512,10 +625,36 @@ const ProductForm = props => {
               </Grid> )})}
               {/*<Grid item sm={6} xs={12}>
                 <TextField fullWidth name="stock" color="info" size="medium" label="수량" placeholder="수량" onBlur={handleBlur} value={values.stock} onChange={handleChange} error={!!touched.stock && !!errors.stock} helperText={touched.stock && errors.stock} />
-              </Grid>*/}
+              </Grid>
               <Grid item sm={12} xs={12}>
                 <TextField fullWidth name="tags" label="태그" color="info" size="medium" placeholder="태그" onBlur={handleBlur} value={values.tags} onChange={handleChange} error={!!touched.tags && !!errors.tags} helperText={touched.tags && errors.tags} />
+              </Grid>*/}
+
+              <Grid item sm={12} xs={12}>
+                <Typography fontSize="14px" color="grey.600" align="center">
+                    태그
+                </Typography>
+
+              <Grid container spacing={3}>
+              <Grid item xs={10}>
+                <TextField fullWidth color="info" size="medium" name="tags" label="tags" onBlur={handleBlur} onChange={handleChange} placeholder="tags" value={values.tags} />
               </Grid>
+              <Grid item xs={2}>
+                <Button variant="contained" type="submit" style={{ backgroundColor: "#BFE4FF" }} onClick={()=>handleAdd_tags()}>
+                  ADD
+                </Button>
+              </Grid>
+              {optionT.map(o =>
+              <Grid item sm={2} xs={2}>
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
+                  {o}
+                    <BiXCircle size={20} onClick={() => handleOption_tags(o)} />
+                </Button>
+              </Grid>)}
+              </Grid>
+              </Grid>
+
+
               <Grid item sm={6} xs={12}>
                 <TextField fullWidth name="price" color="info" size="medium" type="number" onBlur={handleBlur} value={values.price} label="정가" onChange={handleChange} placeholder="Regular Price" error={!!touched.price && !!errors.price} helperText={touched.price && errors.price} />
               </Grid>
