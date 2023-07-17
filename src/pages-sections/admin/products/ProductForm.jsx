@@ -31,6 +31,7 @@ const ProductForm = props => {
   } = props;
   const [files, setFiles] = useState({'상품':[],'병원':[],'숙소':[],1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[]});
   const [main, setMain] = useState([]);
+  const [thumb, setThumb] = useState([]);
   const [desc, setDesc] = useState(["","","","","","","","","","","","","",]);
   const [show, setShow] = useState(false);
   const [category, setCategory] = useState([]);
@@ -40,6 +41,7 @@ const ProductForm = props => {
   const [optionI, setOptionI] = useState([]);
   const [optionN, setOptionN] = useState([]);
   const [option, setOption] = useState([]);
+  const [optionNew, setOptionNew] = useState([]);
   const [optionT, setOptionT] = useState([]);
   const [cateid, setCateid] = useState(1);
   const [state, setState] = useState({
@@ -79,19 +81,37 @@ const ProductForm = props => {
    setListn(Array.from({length: event.target.value}, (_, i) => i + 1))
   };
 
-  const [dates, setDates] = useState([
+{/*  const [dates, setDates] = useState([
   [new DateObject().set({ day: 1 }), new DateObject().set({ day: 3 })],
   [new DateObject().set({ day: 28 }), new DateObject().set({ day: 28 })],
   [new DateObject().set({ day: 23 }), new DateObject().set({ day: 27 })]
+])*/}
+const [dates, setDates] = useState([
 ])
     function handleDates(value){
       //your modification on passed value ....
       setDates(value)
       values.dates = value
-      console.log(value)
+      {/*console.log(value)
       console.log(value[0][0])
       console.log(value[0][0].format())
-      console.log(new DateObject("2023-05-23"))
+      console.log(value[0][0].format("YYYY-MM-DD"))
+      var date_arr = []
+      for (let i = 0; i < value.length; i += 1) {
+         var stDate = value[i][0].format("YYYY-MM-DD")
+         if (value[i].length >1){
+            var edDate = value[i][1].format("YYYY-MM-DD")
+            var date_pair = [stDate, edDate]
+         }else{
+         var date_pair = [stDate, ""]
+         }
+         date_arr.push(date_pair)
+      }
+      setDates(date_arr)*/}
+      {/*console.log(new Date(value[0][0].format("YYYY-MM-DD")))
+      console.log(new DateObject(value[0][0].format("YYYY-MM-DD")))
+      console.log(new DateObject(value[0][0].format("YYYY-MM-DD"))===value[0][0]?true:false)
+      console.log(new DateObject(value[0][0].format("YYYY/MM/DD"))===value[0][0]?true:false)
       console.log(new DateObject("2023-05-23").format())
       console.log(new DateObject("2023/05/23"))
       console.log(new DateObject("2023/05/23").format())
@@ -99,9 +119,9 @@ const ProductForm = props => {
       console.log(new DateObject("2023","05","23").format())
       console.log(new DateObject().set({ day: 23 }))
       console.log(new DateObject().set({ day: 23 }).format())
-      console.log(new DateObject().set({ day: 23 })===new DateObject("2023-05-23")?true:false)
-      console.log(new DateObject().set({ day: 23 })===new DateObject("2023/05/23")?true:false)
-      console.log(new DateObject().set({ day: 23 })===new DateObject("2023","05","23")?true:false)
+      console.log(new DateObject().set({ day: 23 })==new DateObject("2023-07-23")?true:false)
+      console.log(new DateObject().set({ day: 23 })==new DateObject("2023/07/23")?true:false)
+      console.log(new DateObject().set({ day: 23 })==new DateObject("2023","07","23")?true:false)*/}
     }
     function handleChange_text(index, event){
     console.log(values.description)
@@ -120,6 +140,17 @@ const ProductForm = props => {
       preview: URL.createObjectURL(file)
     }));
     setMain([files_list[0]])
+    }
+
+    const handleChangeDropZoneMain2 = (event) => {
+    console.log(event)
+    console.log(event.target.files)
+    setThumb(event.target.files)
+//    console.log(files_list[0])
+//    files_list.forEach(file => Object.assign(file, {
+//      preview: URL.createObjectURL(file)
+//    }));
+//    setMain([files_list[0]])
     }
 
   // HANDLE UPDATE NEW IMAGE VIA DROP ZONE
@@ -247,8 +278,10 @@ const ProductForm = props => {
   function handleAdd() {
     console.log('ADD')
     setOption(option => [...option, values.option_sale_name+"("+values.option_sale_price+")"])
+    setOptionNew(optionNew => [...optionNew, {"name" : values.option_sale_name, "price" : values.option_sale_price}])
     console.log(option)
     values.option = [...values.option, values.option_sale_name+"("+values.option_sale_price+")"]
+    values.optionNew = [...values.optionNew, {"name" : values.option_sale_name, "price" : values.option_sale_price}]
     console.log(values.option)
     values.option_sale_name = ""
     values.option_sale_price = ""
@@ -280,7 +313,9 @@ const ProductForm = props => {
   function handleOption(optionItem){
     console.log('delete')
     setOption(option.filter(item => item !== optionItem))
+    setOptionNew(optionNew.filter(item => item !== optionItem))
     values.option = values.option.filter(item => item !== optionItem)
+    values.optionNew = values.optionNew.filter(item => item !== optionItem)
     console.log(values.option)
   }
   function handleOption_included(optionItem){
@@ -318,76 +353,63 @@ const ProductForm = props => {
   for (let i=0; i<dates.length; i++) {
     console.log(i)
     if (dates[i].length>1){
-        date_list.push([dates[i][0].format("YYYY-MM-DD"),dates[i][1].format("YYYY-MM-DD")])
+        date_list.push({"startDate":dates[i][0].format("YYYY-MM-DD"), "endDate":dates[i][1].format("YYYY-MM-DD")})
     } else if (dates[i].length==1){
-        date_list.push([dates[i][0].format("YYYY-MM-DD")])
+        date_list.push({"startDate":dates[i][0].format("YYYY-MM-DD")})
     }
   }
   console.log(date_list)
   console.log(option.join('|'));
+  console.log(values.optionNew);
   var day_list = [];
+  var day_item_list = [];
     for (var i = 1; i <= day; i++) {
         day_list.push(i);
+        day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
     }
-  const fd = new FormData();
-  fd.append("thumbnailImage", main)
-  fd.append("productDetailsImages", files["상품"])
-  fd.append("hospitalDetailsImages", files["병원"])
-  fd.append("accommodationDetailsImages", files["숙소"])
+  var fd = new FormData();
+//  fd.append("thumbnailImage", main)
+  Object.values(main).forEach((file) => fd.append("thumbnailImage", file));
+  console.log(main)
+//  fd.append("productDetailsImages", files["상품"])
+//  fd.append("hospitalDetailsImages", files["병원"])
+//  fd.append("accommodationDetailsImages", files["숙소"])
+  Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));
+  Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
+  Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
 
-  fd.append("courseDetailsImages", main)
+//  fd.append("courseDetailsImages", main)
   day_list.forEach((day) => {files[day].forEach((img) => fd.append("courseDetailsImages", img))});
-  console.log({
+  const body_data = {
     "productName" : values.name,
     "categoryId" : categoryID,
     "regionId" : regionID,
-    "servicePeriodList" : [{"startDate" : "2023-06-05", "endDate" : "2023-06-09"}, {"startDate" : "2023-06-19", "endDate" : "2023-06-23"}],
+    "servicePeriodList" : date_list,
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetails" : desc[1],
-    "hospitalDetails" : desc[2],
-    "accommodationDetails" : desc[3],
-    "tourDescriptionList" : [{"day" : "1", "description" : "1일차 설명입니다.", "imageCount" : "1"},
-    {"day" : "2", "description" : "2일차 설명입니다.", "imageCount" : "2"},
-    {"day" : "3", "description" : "3일차 설명입니다.", "imageCount" : "3"}],
+    "productDetails" : desc[2],
+    "hospitalDetails" : desc[0],
+    "accommodationDetails" : desc[1],
+    "tourDescriptionList" : day_item_list,
     "tagList" : optionT,
     "price" : values.price,
     "salePrice" : values.sale_price,
-    "optionFeeList" : [{"name" : "비즈니스석", "price" : "700000"}, {"name" : "VIP", "price" : "1000000"}],
+    "optionFeeList" : values.optionNew,
     "open" : show
-  })
+  }
+  console.log(body_data)
 //  ['상품','병원','숙소']
-  fd.append("productAddRequestDto", {
-    "productName" : values.name,
-    "categoryId" : categoryID,
-    "regionId" : regionID,
-    "servicePeriodList" : [{"startDate" : "2023-06-05", "endDate" : "2023-06-09"}, {"startDate" : "2023-06-19", "endDate" : "2023-06-23"}],
-    "includedPartList" : optionI,
-    "nonIncludedPartList" : optionN,
-    "type" : cateid,
-    "productDetails" : desc[1],
-    "hospitalDetails" : desc[2],
-    "accommodationDetails" : desc[3],
-    "tourDescriptionList" : [{"day" : "1", "description" : "1일차 설명입니다.", "imageCount" : "1"},
-    {"day" : "2", "description" : "2일차 설명입니다.", "imageCount" : "2"},
-    {"day" : "3", "description" : "3일차 설명입니다.", "imageCount" : "3"}],
-    "tagList" : optionT,
-    "price" : values.price,
-    "salePrice" : values.sale_price,
-    "optionFeeList" : [{"name" : "비즈니스석", "price" : "700000"}, {"name" : "VIP", "price" : "1000000"}],
-    "open" : show
-  })
+  fd.append("productAddRequestDto", new Blob([JSON.stringify(body_data)], { type: 'application/json' }))
+
+   for (var pair of fd.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]);
+    }
 //  productAddRequestDto
   fetch(targetUrl+'/products',{
+      credentials : 'include',
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({'product_name': values.name,'company_code': '123-45-12345','public': true,'detail': values.description,
-      'price': values.price,"sale_price": values.sale_price,'category_name': values.category1,'region_name': values.category2,
-      'option': option.join('|'), 'public':values.show,'tags':values.tags, 'date_list':date_list})
+      body: fd
     })
     .then(response => response.json())
     .then(response => {console.log(response); console.log(response.response);
@@ -561,7 +583,8 @@ const ProductForm = props => {
               <Typography fontSize="14px" color="grey.600" align="center">
               {"썸네일 (대표 이미지) ** 업로드는 한개만 가능합니다."}
               </Typography>
-                <DropZone onChange={main => handleChangeDropZoneMain(main)} />
+              <input type="file" id="file" onChange={e => handleChangeDropZoneMain2(e)}></input>
+                <DropZone onChange={e => handleChangeDropZoneMain(e)} />
                 <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
                   {main.map((file, index) => {
                 return <UploadImageBox key={index}>
@@ -687,6 +710,14 @@ const ProductForm = props => {
               <Grid item sm={2} xs={12}>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
                   {o}{" "}&nbsp;
+                    <BiXCircle size={25} onClick={() => handleOption(o)} />
+                </Button>
+              </Grid>)}
+
+              {values.optionNew.map(o =>
+              <Grid item sm={2} xs={12}>
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
+                  {o.name+"("+o.price+")"}{" "}&nbsp;
                     <BiXCircle size={25} onClick={() => handleOption(o)} />
                 </Button>
               </Grid>)}

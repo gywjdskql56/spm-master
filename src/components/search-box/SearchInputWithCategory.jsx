@@ -94,7 +94,7 @@ const SearchInputWithCategory = () => {
         </Grid>
         <Grid item lg={2} md={2} xs={2}>
         <Link href={`/product/search/${keyword}`}>
-       <Button variant="contained" color="primary" sx={{fontSize: "16px"}}>
+       <Button variant="contained" color="primary" sx={{fontSize: "16px", borderRadius: 300,}}>
           Search
         </Button>
         </Link>

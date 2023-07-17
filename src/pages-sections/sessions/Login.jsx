@@ -196,6 +196,8 @@ const Login = () => {
             window.location.href =  weburl+'/vendor/dashboard'
             sessionStorage.setItem('type', result.data[0]['authority'])
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
+            sessionStorage.setItem('id',values.email)
+            sessionStorage.setItem('type',result.data[0]['authority'])
             }
       } else if (result.data[0]['authority']=="ROLE_SYSADMIN") {
         if (typeof window !== "undefined") {
@@ -203,6 +205,7 @@ const Login = () => {
             window.location.href = weburl+'/admin/dashboard'
             sessionStorage.setItem('type', result.data[0]['authority'])
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
+            sessionStorage.setItem('id',values.email)
             }
       }
 
