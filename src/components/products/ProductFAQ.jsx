@@ -15,10 +15,10 @@ import Select from 'react-select'
 
 const ProductFAQ = ({review, product_id}) => {
   const options = [
-  { value: '회원가입/로그인', label: '회원가입/로그인' },
-  { value: '예약/결제', label: '예약/결제' },
-  { value: '환불/교환', label: '환불/교환' },
-  { value: '기타', label: '기타' }
+  { value: '회원가입/로그인', label: 'Signup/Login' },
+  { value: '예약/결제', label: 'Booking/Pay' },
+  { value: '환불/교환', label: 'Refund/Exchange' },
+  { value: '기타', label: 'Etc' }
 ]
 const handleFormSubmit = async (values, {
     resetForm
@@ -70,7 +70,7 @@ const handleFormSubmit = async (values, {
   const [open, setOpen] = useState(true);
 
   return <Box>
-      {review.map((item, ind) => <ProductCommentFAQ {...item} key={ind} />)}
+      {/*{review.map((item, ind) => <ProductCommentFAQ {...item} key={ind} />)}*/}
 
       <H2 fontWeight="600" mt={7} mb={2.5}>
         Please write your question about the product.
@@ -110,7 +110,7 @@ const handleFormSubmit = async (values, {
       />
 
         <Button variant="contained" color="primary" type="submit" disabled={!(dirty && isValid)}>
-          저장
+          Save
         </Button>
       </form>
     </Box>;

@@ -104,6 +104,7 @@ const Signup = () => {
   };
 
   const [fieldvalue, setFieldValue] = React.useState(false);
+  const [fieldlabel, setFieldLabel] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [verify, setVerify] = React.useState(false);
   const [type, setType] = React.useState(null);
@@ -227,12 +228,19 @@ const Signup = () => {
         })
         })
         .then(response => response.json())
-        .then(response => {console.log(response);if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        .then(response => {console.log(response);
+        if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
+            window.location.href =  weburl
             }}
-            else {if (typeof window !== "undefined") {
-            window.alert("Try again")
-            }}})
+            else {
+                if (typeof window !== "undefined") {
+                    if (response.message=="ALREADY EXIST MEMBER"){
+                    window.alert("You already have account")
+                    }else {
+                    window.alert("Try again")
+                    }
+                }}})
       }
       else {
 
@@ -282,12 +290,19 @@ const Signup = () => {
           body: fd
         })
         .then(response => response.json())
-        .then(response => {console.log(response);if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        .then(response => {console.log(response);
+        if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
+            window.location.href =  weburl
             }}
-            else {if (typeof window !== "undefined") {
-            window.alert("Try again")
-            }}})
+            else {
+                if (typeof window !== "undefined") {
+                    if (response.message=="ALREADY EXIST MEMBER"){
+                    window.alert("You already have account")
+                    }else {
+                    window.alert("Try again")
+                    }
+                }}})
       }
   }
 
@@ -473,11 +488,11 @@ const Signup = () => {
     </Small>
       <Autocomplete fullWidth sx={{
               mb: 2
-        }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => setFieldValue(value.label)} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
+        }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => {setFieldLabel(value.label);setFieldValue(value.value); values.billing_country=value.value; console.log(value);console.log(value.value); console.log(value.label)}} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
  </div>
 :<div />}
-       <TextField rows={6} multiline fullWidth color="info" size="medium" name="Terms & Conditions" onBlur={handleBlur} value={values.description} label="Terms & Conditions" error={Boolean(errors.description && touched.description)} helperText={touched.description && errors.description} />
-
+        <div />
+       <TextField rows={6} multiline fullWidth mb={1.5} sx={{mb: 2, m:2}} color="info" size="medium" name="Terms & Conditions" onBlur={handleBlur} value={values.description} label="Terms & Conditions" error={Boolean(errors.description && touched.description)} helperText={touched.description && errors.description} />
         <FormControlLabel name="agreement" className="agreement" onChange={handleChange} control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">
               Please agree to the following
                 <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">

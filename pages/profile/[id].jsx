@@ -55,7 +55,7 @@ const ProfileEditor = ({
 
   const [users, setUsers] = useState(null);
   const [init, setInit] = useState(null);
-  const [fieldvalue, setFieldValue] = useState(false);
+  const [fieldvalue, setFieldValue] = useState(null);
 
 //  const [init, setInit] = useState(INITIAL_VALUES_bf);
   const [open, setOpen] = useState(false);
@@ -174,8 +174,7 @@ const ProfileEditor = ({
 
                   <Grid item md={6} xs={12}>
                     <Autocomplete fullWidth sx={{
-                          mb: 2
-                    }} options={countryList} value={values.birth_date} getOptionLabel={(option) => option.label || ""} onChange={(_, value) => {setFieldValue(value.label); console.log(value); console.log(value.label)}} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.birth_date && !!errors.birth_date} helperText={touched.birth_date && errors.birth_date} {...params} />} />
+                          mb: 2}} options={countryList} value={values.birth_date} getOptionLabel={option => {option.label}} onChange={(_, value) => {values.birth_date=value.value;setFieldValue(value.value); console.log(values.birth_date);console.log(value);console.log(value.label); console.log(value.value); }} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.birth_date && !!errors.birth_date} helperText={touched.birth_date && errors.birth_date} {...params} />} />
                     {/*<LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DatePicker label="생년월일" maxDate={new Date()} value={values.birth_date} inputFormat="yyyy-MM-dd" renderInput={props => <TextField fullWidth size="small" helperText={touched.birth_date && errors.birth_date} error={!!touched.birth_date && !!errors.birth_date || props.error} {...props} />} onChange={newValue => setFieldValue("birth_date", newValue)} />
                     </LocalizationProvider>*/}

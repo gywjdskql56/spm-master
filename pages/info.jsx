@@ -36,10 +36,10 @@ const MarketShop = props => {
   <Grid container spacing={3}>
   <Grid item lg={4} md={4} xs={4} />
   <Grid item lg={1} md={1} xs={1}>
-          <BazaarImage src={`/assets/images/logos/staynlive.png`} alt={"staynlive"} sx={{
+          {/*<BazaarImage src={`/assets/images/logos/staynlive.png`} alt={"staynlive"} sx={{
               mb: "1.5rem",
               height: 50
-            }} />
+            }} />*/}
    </Grid>
    <Grid item lg={5} md={5} xs={5}>
       <Typography variant="h5" fontWeight="600" mb={1}>
@@ -57,8 +57,9 @@ const MarketShop = props => {
       />
 
       <Grid container spacing={3}>
-        <Grid item lg={5} md={5} xs={5} >
-        <Image src={"/assets/images/hotel/img.png"} width={500} priority={true} sx={{borderRadius: 8, p:2}} />
+      <Grid item lg={0.5} md={0.5} xs={0.5} />
+        <Grid item lg={4.5} md={4.5} xs={4.5} >
+        <Image src={"/assets/images/hotel/img.png"} width={400} priority={true} sx={{borderRadius: 8, p:2}} />
           {/*  <LazyImage alt={"staynlive"} sx={{borderRadius: 8, p:2}} width={400} height={400} loading="eager" objectFit="contain" src={"/assets/images/hotel/img.png"} /> */}
           </Grid>
           <Grid item lg={7} md={7} xs={7} >

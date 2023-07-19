@@ -56,7 +56,7 @@ const TicketList = () => {
   console.log(ticketList)
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader title="고객센터" icon={CustomerService} navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader title="Service Center" icon={CustomerService} navigation={<CustomerDashboardNavigation />} />
      <Link href={weburl+"/support-tickets/create"} passHref>
       <Button color="primary" sx={{
       px: 4, mb: 3,

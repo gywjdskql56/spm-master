@@ -49,17 +49,19 @@ const ProductDescription = ({explain}) => {
 
       <H3 mb={2}>Accommodation Information</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
-        {"[호텔 U5]\n"}
-        {"요즘 핫한 을지로 호텔. 광장시장이 근처에 위치해 있으며, 서울 한가운데 위치해서 다른 도시로 가기 편리함"}
+        {"[Hotel U5]\n"}
+        {"This is a package where you can try on Korean traditional clothes, Hanbok, while experiencing K-beauty yourself. Tour Gyeongbokgung Palace, an ancient palace in the beautiful city of Seoul. We will guide you to the best plastic surgery clinic in Seoul!"}
         <FlexBox justifyContent="left" mb={3}>
           <Image src={"/assets/images/products/Place/img_15.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
-          <LazyImage alt={"title"} sx={{borderRadius: 8, p:2}} width={300} height={180} objectFit="contain" src={"/assets/images/products/Place/img_15.png"} />
+          <Image src={"/assets/images/products/Place/img_14.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+          {/*<LazyImage alt={"title"} sx={{borderRadius: 8, p:2}} width={300} height={180} objectFit="contain" src={"/assets/images/products/Place/img_15.png"} />*/}
         </FlexBox>
       </Box>
 
       <H3 mb={2}>Hospital Information</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
-        {"[서산제일병원]"}
+        {"[Asan Medical Center]\n"}
+        {"Asan Medical Center opened in June 1989. Since then, continuous R&D and clinical. As a generous investment in medical treatment. Achieve world-class medical performance come."}
         <FlexBox justifyContent="left" mb={3}>
         <div>
            <Image src={"/assets/images/products/Hospital/img_2.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
@@ -75,7 +77,7 @@ const ProductDescription = ({explain}) => {
       <Box sx={{borderColor:"grey.500",border: 2,borderRadius: '16px',p: 2}} >
       <H3 mb={2}>Day 1</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
-        {"[경복궁 투어] \n한국 정통 궁의 모습을 느껴볼 수 있습니다"}
+        {"[Jeonju Hanok Village] \nJeonju Hanok Village is located in Pungnam-dong and Gyo-dong, Jeonju City. There are over 800 hanok, traditional Korean buildings, concentrated here. Jeonju Hanok Village, which preserves the old things in a rapidly changing city, is famous as a place where you can taste the old traditions of Korea."}
         <FlexBox justifyContent="left" mb={3}>
         <div>
           <Image src={"/assets/images/products/Place/img_1.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
@@ -85,20 +87,29 @@ const ProductDescription = ({explain}) => {
 
       <H3 mb={2}>Day 2</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
-        {"[경복궁 투어] \n한국 정통 궁의 모습을 느껴볼 수 있습니다"}
+        {"[Jeonju Hanok Village] \nJeonju Hanok Village is located in Pungnam-dong and Gyo-dong, Jeonju City. There are over 800 hanok, traditional Korean buildings, concentrated here. Jeonju Hanok Village, which preserves the old things in a rapidly changing city, is famous as a place where you can taste the old traditions of Korea."}
         <FlexBox justifyContent="left" mb={3}>
         <div>
            <Image src={"/assets/images/products/Place/img_2.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+        <div>
+           <Image src={"/assets/images/products/Place/img_4.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
         </div>
         </FlexBox>
       </Box>
 
       <H3 mb={2}>Day 3</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
-        {"[콜로세움 투어] \n한국 정통 궁의 모습을 느껴볼 수 있습니다"}
+        {"[Jeonju Hanok Village] \nJeonju Hanok Village is located in Pungnam-dong and Gyo-dong, Jeonju City. There are over 800 hanok, traditional Korean buildings, concentrated here. Jeonju Hanok Village, which preserves the old things in a rapidly changing city, is famous as a place where you can taste the old traditions of Korea."}
         <FlexBox justifyContent="left" mb={3}>
         <div>
           <Image src={"/assets/images/products/Place/img_3.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+        <div>
+          <Image src={"/assets/images/products/Place/img_5.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+        </div>
+        <div>
+          <Image src={"/assets/images/products/Place/img_6.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
         </div>
         </FlexBox>
       </Box>

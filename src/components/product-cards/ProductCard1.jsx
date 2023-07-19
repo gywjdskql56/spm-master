@@ -117,7 +117,7 @@ const ProductCard1 = ({
   };
   return <StyledBazaarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
-        {!!discount && <StyledChip color="primary" size="small" label={`${discount}% off`} />}
+        {/*{!!discount && <StyledChip color="primary" size="small" label={`${discount}% off`} />}*/}
 
         <HoverIconWrapper className="hover-box">
           <IconButton onClick={toggleDialog}>

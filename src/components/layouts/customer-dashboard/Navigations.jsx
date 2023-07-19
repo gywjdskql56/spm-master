@@ -66,10 +66,10 @@ const Navigations = () => {
     </MainContainer>;
 };
 const linkList = [{
-  title: "주문 관리",
+  title: "Order",
   list: [{
     href: "/orders",
-    title: "주문/예약",
+    title: "Order/Booking",
     icon: ShoppingBagOutlined,
     count: null
   },
@@ -81,15 +81,15 @@ const linkList = [{
 //  },
   {
     href: "/support-tickets",
-    title: "고객센터",
+    title: "Service Center",
     icon: CustomerService,
     count: null
   }]
 }, {
-  title: "계정 설정",
+  title: "Account Setting",
   list: [{
     href: "/profile",
-    title: "회원정보",
+    title: "Account Info",
     icon: Person,
     count : null
   },

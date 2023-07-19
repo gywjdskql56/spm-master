@@ -19,6 +19,8 @@ const Profile = ({
 }) => {
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
   const [users, setUsers] = useState({"memberId":"0","firstName":"-","lastName":"-"});
+  const [open, setOpen] = useState(false);
+
   const getUser = async (a) => {
   console.log(a)
 
@@ -57,7 +59,8 @@ const Profile = ({
 
   useEffect(() => {
     getUser("1")
-  },[])
+    setOpen(true)
+  },[open])
 
   // SECTION TITLE HEADER LINK
   const HEADER_LINK = <Link href={`/profile/${users.memberId}`} passHref>

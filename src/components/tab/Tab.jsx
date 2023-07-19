@@ -118,15 +118,15 @@ const MenuTab = ({
               indicatorColor="secondary"
               aria-label="secondary tabs example"
             >
-              <Link href={`/#`}>
+              <Link href={`/`}>
                 <Tab value={0} label={(<Typography variant="h6">HOME</Typography>)} />
               </Link>
-              <Link href={`/#`}>
-              <Tab value={1} label={(<Typography variant="h6">Medical Package</Typography>)} />
+              <Link href={`/info`}>
+              <Tab value={1} label={(<Typography variant="h6">ABOUT ALLMEDITRIP</Typography>)} />
               </Link>
-              <Link href={`/#`}>
+              {/*<Link href={`/#`}>
               <Tab value={2} label={(<Typography variant="h6">HOSPITAL</Typography>)} />
-              </Link>
+              </Link>*/}
               <Link href={`/profile`}>
                 <Tab value={3} label={(<Typography variant="h6">PROFILE</Typography>)} />
               </Link>

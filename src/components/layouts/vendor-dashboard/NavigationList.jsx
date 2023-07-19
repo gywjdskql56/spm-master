@@ -51,11 +51,12 @@ export const navigations = [{
   name: "고객센터 관리",
   icon: duotone.ElementHub,
   path: "/vendor/support-tickets"
-}, {
-  name: "계정 관리",
-  icon: duotone.AccountSetting,
-  path: "/vendor/account-setting"
 },
+//{
+//  name: "계정 관리",
+//  icon: duotone.AccountSetting,
+//  path: "/vendor/account-setting"
+//},
 //{
 //  name: "사이트 관리",
 //  icon: duotone.SiteSetting,

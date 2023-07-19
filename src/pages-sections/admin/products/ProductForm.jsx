@@ -44,6 +44,7 @@ const ProductForm = props => {
   const [optionNew, setOptionNew] = useState([]);
   const [optionT, setOptionT] = useState([]);
   const [cateid, setCateid] = useState(1);
+  const [product, setProduct] = useState(null);
   const [state, setState] = useState({
     cust: true,
     shop: false,
@@ -412,8 +413,8 @@ const [dates, setDates] = useState([
       body: fd
     })
     .then(response => response.json())
-    .then(response => {console.log(response); console.log(response.response);
-    if(response.response=='success'){
+    .then(response => {console.log(response); console.log(response.status);
+    if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
         }
@@ -500,7 +501,7 @@ const [dates, setDates] = useState([
                 </Button>
               </Grid>
               {optionI.map(o =>
-              <Grid item sm={2} xs={2}>
+              <Grid item sm={1} xs={1}>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_included(o)} />
@@ -552,7 +553,7 @@ const [dates, setDates] = useState([
                   />
                 </FormGroup>
               </FormControl>
-                  <Box sx={{ minWidth: 50 }}>
+                  <Box sx={{ minWidth: 20 }}>
                   <FormControl sx={{ m: 3 }} fullWidth>
                     <InputLabel id="demo-simple-select-label">관광일수</InputLabel>
                     <Select
@@ -583,7 +584,7 @@ const [dates, setDates] = useState([
               <Typography fontSize="14px" color="grey.600" align="center">
               {"썸네일 (대표 이미지) ** 업로드는 한개만 가능합니다."}
               </Typography>
-              <input type="file" id="file" onChange={e => handleChangeDropZoneMain2(e)}></input>
+             {/* <input type="file" id="file" onChange={e => handleChangeDropZoneMain2(e)}></input>*/}
                 <DropZone onChange={e => handleChangeDropZoneMain(e)} />
                 <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
                   {main.map((file, index) => {
@@ -593,6 +594,14 @@ const [dates, setDates] = useState([
                       </UploadImageBox>;
               })}
                 </FlexBox>
+              </Grid>
+              <Grid item xs={6}>
+             {main.map((file, index) => {
+                return <UploadImageBox key={index}>
+                        <BazaarImage src={file.preview} width="100%" />
+                        <StyledClear onClick={handleFileDeleteMain(file)} />
+                      </UploadImageBox>;
+              })}
               </Grid>
               </Grid>
 

@@ -73,10 +73,10 @@ const SupportTicketDetails = ({
 
   // HANDLE FORM SUBMIT
   const options = [
-  { value: '회원가입/로그인', label: '회원가입/로그인' },
-  { value: '예약/결제', label: '예약/결제' },
-  { value: '환불/교환', label: '환불/교환' },
-  { value: '기타', label: '기타' }
+  { value: '회원가입/로그인', label: 'Signup/Login' },
+  { value: '예약/결제', label: 'Booking/Pay' },
+  { value: '환불/교환', label: 'Refund/Exchange' },
+  { value: '기타', label: 'Etc' }
 ]
 
   // SECTION TITLE HEADER LINK
@@ -85,7 +85,7 @@ const SupportTicketDetails = ({
       px: 4,
       bgcolor: "primary.light"
     }}>
-        고객센터 목록으로 돌아가기
+        Back to list
       </Button>
     </Link>;
 
@@ -116,7 +116,7 @@ const SupportTicketDetails = ({
   const error = [admin, shop].filter((v) => v).length !== 1;
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="고객센터" navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="Customer Service Center" navigation={<CustomerDashboardNavigation />} />
 
 
       <Divider sx={{

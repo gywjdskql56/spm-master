@@ -43,16 +43,23 @@ const SupportTicketDetails = () => {
             "ngrok-skip-browser-warning": true,
         }})
   const data = await res.json();
-  setTicket(data.data)
+
   console.log(data);
   if (data.status =="error"){
     if (typeof window !== "undefined") {
-    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.alert("Try again")
     window.location.href =  weburl
     }
+  }else {
+    if (data.data.open==false && data.data.email!=window.sessionStorage.getItem('id')){
+        window.alert("You do not have access to private posts. Please log in with that account.")
+        window.location.href =  weburl + "/support-tickets"
+    }
+    else {
+        setTicket(data.data)
+        return data;
+    }
   }
-  console.log(data.data);
-  return data;
   }
     useEffect(() => {
     getTicket()
@@ -150,6 +157,14 @@ const SupportTicketDetails = () => {
           저장
         </Button>
       </form>*/}
+      {ticket!=null && ticket.email==window.sessionStorage.getItem('id')?
+      <Button type="submit" color="primary" variant="contained" sx={{
+        ml: "auto",
+        display: "block"
+      }}>
+          삭제
+        </Button>:<div />
+      }
     </CustomerDashboardLayout>;
 };
 {/*export const getStaticPaths = async () => {

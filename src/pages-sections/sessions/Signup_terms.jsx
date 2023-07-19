@@ -24,6 +24,8 @@ import AlertPopup from 'react-popup-alert'
 import Autocomplete from "@mui/material/Autocomplete";
 import countryList from "data/countryList";
 import {ScrollBox, ScrollAxes, FastTrack} from 'react-scroll-box';
+import { targetUrl, weburl } from "components/config";
+
 const Signup = () => {
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
@@ -227,12 +229,19 @@ const Signup = () => {
         })
         })
         .then(response => response.json())
-        .then(response => {console.log(response);if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        .then(response => {console.log(response);
+        if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
+            window.location.href =  weburl
             }}
-            else {if (typeof window !== "undefined") {
-            window.alert("Try again")
-            }}})
+            else {
+                if (typeof window !== "undefined") {
+                    if (response.message=="ALREADY EXIST MEMBER"){
+                    window.alert("You already have account")
+                    }else {
+                    window.alert("Try again")
+                    }
+                }}})
       }
       else {
 
