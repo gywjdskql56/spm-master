@@ -50,22 +50,23 @@ const Section7 = props => {
         }})
   const data = await res.json();
   setCategory(data.data)
-  console.log(data);
+  console.log(data.data);
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
     window.location.href =  weburl
-    }
-  const res2 = await fetch(`http://localhost:5003/get_product_by_category/${window.sessionStorage.getItem('category')}`)
-  const data = await res2.json();
-  setProduct(data)
-  {/*  .then((response) =>
-        response.json())
-    .then((data) =>
-        {console.log(data); setProduct(data)});*/}
-  }
-  console.log(data.data);
-  setCategory((data.data))
+    }}
+  const res2 = await fetch(targetUrl+`/open-products`,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data2 = await res2.json();
+  setProduct(data2.data)
+  console.log(data2.data);
+//  setCategory((data2.data))
   return data;
   }
 ///  console.log(categories)
@@ -118,12 +119,13 @@ const Section7 = props => {
 
   useEffect(() => {
     getData();
-    window.sessionStorage.setItem('category', 'all')
+    console.log(category)
+    {/*window.sessionStorage.setItem('category', 'all')
     fetch(`http://localhost:5003/get_product_by_category/${window.sessionStorage.getItem('category')}`)
     .then((response) =>
         response.json())
     .then((data) =>
-        {console.log(data); setProduct(data)});
+        {console.log(data); setProduct(data)});*/}
 
     }, []);
 
@@ -241,8 +243,7 @@ const Section7 = props => {
           </Grid>
           <Grid container spacing={3}>
             {product.map(item => <Grid item lg={4} sm={6} xs={12} key={item.product_id}>
-                {/*todo:slug={item.slug}*/}
-                <ProductCard1 hoverEffect id={item.product_id} slug={item.product_id} title={item.product_name} price={item.price} rating={4.9} imgUrl={"/assets/images/products/Package/"+item.img+".png"} discount={item.discount} item={item} />
+                <ProductCard1 hoverEffect id={item.productId} slug={item.productId} title={item.productName} price={item.price} rating={4.9} imgUrl={"/assets/images/products/Package/"+item.img+".png"} discount={5} item={item} />
               </Grid>)}
           </Grid>
         </Box>

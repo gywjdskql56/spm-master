@@ -102,7 +102,7 @@ const ProductIntro = ({
       <Grid container spacing={3} justifyContent="space-around">
         <Grid item md={6} xs={12} alignItems="center">
           <FlexBox justifyContent="center" mb={6} onClick={handleOpen}>
-            <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={product.images[selectedImage]} />
+            <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={"/assets/images/products/Package/img.png"} />
           </FlexBox>
           <Modal
             open={open}
@@ -111,11 +111,12 @@ const ProductIntro = ({
             aria-describedby="modal-modal-description"
           >
           <Box sx={style}>
-           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={product.images[selectedImage]} />
+           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={"/assets/images/products/Package/img.png"} />
+{/*           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={product.images[selectedImage]} /> */}
           </Box>
           </Modal>
 
-          <FlexBox overflow="auto">
+          {/*<FlexBox overflow="auto">
             {images.map((url, ind) => <FlexRowCenter key={ind} width={64} height={64} minWidth={64} bgcolor="white" border="1px solid" borderRadius="10px" ml={ind === 0 ? "auto" : 0} style={{
             cursor: "pointer"
           }} onClick={handleImageClick(ind)} mr={ind === images.length - 1 ? "auto" : "10px"} borderColor={selectedImage === ind ? "primary.main" : "grey.400"}>
@@ -123,15 +124,15 @@ const ProductIntro = ({
               height: 40
             }} />
               </FlexRowCenter>)}
-          </FlexBox>
+          </FlexBox>*/}
         </Grid>
 
         <Grid item md={6} xs={12} alignItems="center">
-          <H1 mb={1}>{title}</H1>
+          <H1 mb={1}>{product.productName}</H1>
 
           <FlexBox alignItems="center" mb={1}>
             <Box>Vendor:</Box>
-            <H6>{product.company_name}</H6>
+            <H6>{product.vendorInfo.companyName}</H6>
           </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
@@ -142,14 +143,14 @@ const ProductIntro = ({
             <H6 lineHeight="1">(50)</H6>
           </FlexBox>
 
-          {(product.option).map(variant =>
-        <Button key={variant} color="success" variant="contained" sx={{
+          {(product.optionFeeList).map(variant =>
+        <Button key={variant.id} color="success" variant="contained" sx={{
           mb: 4.5,
           px: "1.75rem",
           height: 40,
           margin: 2
         }}>
-              <H6 mb={1} style={{color:'white'}}>{variant}</H6>
+              <H6 mb={1} style={{color:'white'}}>{variant.name+"("+variant.price+")"}</H6>
 
               {/* {variant.values.map(({
             id,

@@ -4,36 +4,21 @@ import BazaarRating from "components/BazaarRating";
 import { H5, H6, Paragraph, Span } from "components/Typography";
 import { getDateDifference } from "lib";
 
-// ===========================================================
-
-// ===========================================================
-//answer
-//answerDate
-//answerUpdateDate
-//contents
-//email
-//oauthProvider
-//open
-//productqnaId
-//title
-//type
-//updateDate
-//writeDate
 
 const ProductComment = props => {
   const {
-  answer,
-  answerDate,
-  answerUpdateDate,
-  contents,
-  email,
+  productQnaId,
+  memberEmail,
   oauthProvider,
-  open,
-  productqnaId,
-  title,
   type,
+  title,
+  contents,
+  writeDate,
   updateDate,
-  writeDate
+  answerDate,
+  answer,
+  answerUpdateDate,
+  open
   } = props;
   return <Box mb={4} maxWidth="600px">
       <FlexBox alignItems="center" mb={2}>
@@ -44,7 +29,7 @@ const ProductComment = props => {
         <Box ml={2}>
         <Box sx={{borderColor:"grey.500",border: 2,borderRadius: '16px',p: 2}}>
           <H5 mb={0.5}>{title}</H5>
-          <Span mb={0.5}>{email}</Span> <Span>{" | "+ getDateDifference(writeDate)}</Span>
+          <Span mb={0.5}>{memberEmail}</Span> <Span>{" | "+ getDateDifference(writeDate)}</Span>
           <Box sx={{borderColor:"grey.700", borderRadius: '10px',p: 2,backgroundColor:"#E2E6ED"}}>
           <FlexBox alignItems="center">
           {open?

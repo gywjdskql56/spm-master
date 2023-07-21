@@ -41,7 +41,7 @@ const ProductDetails = props => {
   } = props;
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(0);
-  const [product, setProduct] = useState(0);
+  const [product, setProduct] = useState(null);
   const [FAQ, setFAQ] = useState(0);
   const [id, setId] = useState(null);
   const handleOptionClick = (_, value) => setSelectedOption(value);
@@ -51,13 +51,7 @@ const ProductDetails = props => {
     const product_id = window.location.href.split("/").splice(-1);
     console.log(product_id)
     setId(product_id)
-     fetch("http://localhost:5003/get_product_detail_by_id/"+product_id)
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {console.log(data);setProduct(data)})
-
-    fetch(targetUrl+"/productqnas?productId=10",{
+     fetch(targetUrl+"/productDetails?productId="+product_id,{
           method: 'GET',
           credentials : 'include',
           headers: {
@@ -67,9 +61,19 @@ const ProductDetails = props => {
     .then((response) =>
         response.json())
     .then((data) =>
-        {console.log(data);setFAQ(data.data)})
+        {console.log(data.data);setProduct(data.data)})
 
-
+    {/* fetch(targetUrl+"/productqnas?productId=1"+product_id,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data);setFAQ(data.data)}) */}
 
  }, []);
   // Show a loading state when the fallback is rendered
@@ -81,19 +85,19 @@ const ProductDetails = props => {
       my: 4
     }}>
         {/* PRODUCT DETAILS INFO AREA */}
-        {product ? <ProductIntro product={product} /> : <H2>Loading...</H2>}
+        {product!=null ? <ProductIntro product={product} /> : <H2>Loading...</H2>}
 
         {/* PRODUCT DESCRIPTION AND REVIEW */}
         <StyledTabs textColor="primary" value={selectedOption} indicatorColor="primary" onChange={handleOptionClick}>
           <Tab className="inner-tab" label="Description" />
-          {product ? <Tab className="inner-tab" label={"Review ("+product.review.length+")"} /> : <Tab className="inner-tab" label={"상품 후기"} />}
+          {product ? <Tab className="inner-tab" label={"Review ("+product.reviewList.length+")"} /> : <Tab className="inner-tab" label={"상품 후기"} />}
           <Tab className="inner-tab" label="FAQ" />
         </StyledTabs>
 
         <Box mb={6}>
-          {selectedOption === 0 && <ProductDescription explain={product.detail} />}
-          {selectedOption === 1 && <ProductReview review={product.review} product_id={id} />}
-          {selectedOption === 2 && <ProductFAQ review={FAQ} product_id={id} />}
+          {product!=null && selectedOption === 0 && <ProductDescription explain={product} />}
+          {product!=null && selectedOption === 1 && <ProductReview review={product.reviewList} product_id={product.productId} />}
+          {product!=null && selectedOption === 2 && <ProductFAQ faq={product.productQnaInfoList} product_id={product.productId} />}
         </Box>
 
 {/*        {frequentlyBought && <FrequentlyBought productsData={frequentlyBought} />} */}

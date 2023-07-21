@@ -13,7 +13,8 @@ import Select from 'react-select'
 
 // ===================================================
 
-const ProductFAQ = ({review, product_id}) => {
+const ProductFAQ = ({faq, product_id}) => {
+console.log(faq)
   const options = [
   { value: '회원가입/로그인', label: 'Signup/Login' },
   { value: '예약/결제', label: 'Booking/Pay' },
@@ -23,7 +24,7 @@ const ProductFAQ = ({review, product_id}) => {
 const handleFormSubmit = async (values, {
     resetForm
   }) => {
-  console.log(review)
+
     if (window.sessionStorage.getItem('id')==null){
         window.alert("로그인 후에 다시 진행해주세요.")
     }
@@ -70,7 +71,7 @@ const handleFormSubmit = async (values, {
   const [open, setOpen] = useState(true);
 
   return <Box>
-      {/*{review.map((item, ind) => <ProductCommentFAQ {...item} key={ind} />)}*/}
+      {faq.map((item, ind) => <ProductCommentFAQ {...item} key={ind} />)}
 
       <H2 fontWeight="600" mt={7} mb={2.5}>
         Please write your question about the product.

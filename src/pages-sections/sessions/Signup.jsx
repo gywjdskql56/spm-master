@@ -387,13 +387,13 @@ const Signup = () => {
             control={
               <Checkbox checked={tour} onChange={handleChange_check2} name="tour" />
             }
-            label="외국인유치업자"
+            label="외국인환자 유치업자"
           />
           <FormControlLabel
             control={
               <Checkbox checked={hospital} onChange={handleChange_check2} name="hospital" />
             }
-            label="외국인의료업자"
+            label="외국인환자 유치병원"
           />
         </FormGroup>
       </FormControl>:
