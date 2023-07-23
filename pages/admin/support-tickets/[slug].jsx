@@ -1,5 +1,5 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Box, Card, Stack, Table, TableContainer } from "@mui/material";
+import { Box, Card, Stack, Table, TableContainer, Grid } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableHeader from "components/data-table/TableHeader";
 import TablePagination from "components/data-table/TablePagination";
@@ -19,7 +19,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { H3, H5, Span } from "components/Typography";
 import { FlexBox } from "components/flex-box";
 import { format } from "date-fns";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl, weburl, getAuth } from "components/config";
 
 // =============================================================================
 SupportTickets.getLayout = function getLayout(page) {
@@ -59,6 +59,32 @@ export default function SupportTickets() {
   console.log(data.data);
   setTicket((data.data))
   return data;
+  }
+
+   const DeleteFAQ = async (id) => {
+        getAuth()
+        console.log(id)
+      const res = await fetch(targetUrl+"/sysqnas/answer/"+id,{
+              method: 'DELETE',
+              credentials : 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+      const data = await res.json();
+      console.log(data);
+      if (data.status =="success"){
+        if (typeof window !== "undefined") {
+        window.alert("성공적으로 삭제되었습니다.")
+        window.location.href =  weburl+"/admin/support-tickets"
+        }
+      } else {
+        if (typeof window !== "undefined") {
+        window.alert("문의글 삭제에 실패했습니다.")
+        window.location.reload()
+        }
+      }
+    console.log(id)
   }
 
 
@@ -106,6 +132,7 @@ export default function SupportTickets() {
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
+            window.location.href =  weburl+"/admin/support-tickets"
         }
     }else{
         if (typeof window !== "undefined") {
@@ -218,13 +245,26 @@ export default function SupportTickets() {
         }
         label="Private"
       />*/}
-
+      <Grid container spacing={1}>
+      <Grid item lg={10} md={10} xs={10} />
+      <Grid item lg={1} md={1} xs={1} >
         <Button type="submit" color="primary" variant="contained" sx={{
         ml: "auto",
         display: "block"
       }}>
           수정
         </Button>
+        </Grid>
+        <Grid item lg={1} md={1} xs={1} >
+        <Button color="success" variant="contained" onClick={() => DeleteFAQ(ticket.sysqnaId)}
+        sx={{
+        ml: "auto",
+        display: "block"
+      }}>
+          삭제
+        </Button>
+        </Grid>
+        </Grid>
       </form>
 {/*//        <Scrollbar>
 //          <TableContainer sx={{

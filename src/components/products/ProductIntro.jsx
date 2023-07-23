@@ -37,6 +37,7 @@ const ProductIntro = ({
     state,
     dispatch
   } = useAppContext();
+  console.log(product.servicePeriodList)
   const [value, setValue] = useState(new Date())
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectVariants, setSelectVariants] = useState({
@@ -173,6 +174,23 @@ const ProductIntro = ({
           </Box>
         <Calendar
           multiple
+          mapDays={({ date }) => {
+              let isInclude = false;
+              var todayDate = new Date().toISOString().slice(0, 10);
+              console.log(todayDate)
+              if (date.format("YYYY-MM-DD")>todayDate){
+                  for (let i =0; i <product.servicePeriodList.length; i++){
+                    if (!isInclude){
+                    isInclude = date.format("YYYY-MM-DD")>=product.servicePeriodList[i].startDate && date.format("YYYY-MM-DD")<=product.servicePeriodList[i].endDate
+                    }
+              }}
+                if (!isInclude)
+                return {
+                  disabled: true,
+                  style: { color: "#ccc" },
+                  onClick: () => alert("The date selected is disabled")
+                }
+          }}
           plugins={[
            <DatePanel />
           ]}

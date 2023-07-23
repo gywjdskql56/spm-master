@@ -51,7 +51,7 @@ const ProductDetails = props => {
     const product_id = window.location.href.split("/").splice(-1);
     console.log(product_id)
     setId(product_id)
-     fetch(targetUrl+"/productDetails?productId="+product_id,{
+    fetch(targetUrl+"/productDetails?productId="+product_id,{
           method: 'GET',
           credentials : 'include',
           headers: {
@@ -90,8 +90,8 @@ const ProductDetails = props => {
         {/* PRODUCT DESCRIPTION AND REVIEW */}
         <StyledTabs textColor="primary" value={selectedOption} indicatorColor="primary" onChange={handleOptionClick}>
           <Tab className="inner-tab" label="Description" />
-          {product ? <Tab className="inner-tab" label={"Review ("+product.reviewList.length+")"} /> : <Tab className="inner-tab" label={"상품 후기"} />}
-          <Tab className="inner-tab" label="FAQ" />
+          {product ? <Tab className="inner-tab" label={"Review ("+product.reviewList.length+")"} /> : <Tab className="inner-tab" label={"Review"} />}
+          {product ? <Tab className="inner-tab" label={"FAQ ("+product.productQnaInfoList.length+")"} /> : <Tab className="inner-tab" label={"FAQ"} />}
         </StyledTabs>
 
         <Box mb={6}>

@@ -12,10 +12,7 @@ export const navigations = [{
   children: [{
     name: "상품 리스트",
     path: "/admin/products"
-  }, {
-    name: "상품 만들기",
-    path: "/admin/products/create"
-  }, {
+}, {
     name: "리뷰",
     path: "/admin/product-reviews"
   }]

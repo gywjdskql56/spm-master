@@ -41,6 +41,7 @@ const Section7 = props => {
 
 
   const getData = async () => {
+  console.log("getData")
   const res = await fetch(targetUrl+"/categories",{
           method: 'GET',
           credentials : 'include',
@@ -51,11 +52,7 @@ const Section7 = props => {
   const data = await res.json();
   setCategory(data.data)
   console.log(data.data);
-  if (data.status =="error"){
-    if (typeof window !== "undefined") {
-    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
-    }}
+
   const res2 = await fetch(targetUrl+`/open-products`,{
           method: 'GET',
           credentials : 'include',
@@ -66,9 +63,43 @@ const Section7 = props => {
   const data2 = await res2.json();
   setProduct(data2.data)
   console.log(data2.data);
-//  setCategory((data2.data))
-  return data;
+
+  const res3 = await fetch(targetUrl+`/regions`,{
+      method: 'GET',
+      credentials : 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        "ngrok-skip-browser-warning": true,
+    }})
+  const data3 = await res3.json();
+  setRegions(data3.data)
+  console.log(data3.data);
   }
+
+
+  const getData_cons = async ()=> {
+  console.log("getData_cons")
+  var url = '';
+  if (cate=="*" && region=="*"){
+    console.log('all')
+  }else if (cate=="*"){
+    url = targetUrl+`/open-products?regionId=${region}`
+  }else if (region=="*"){
+    url = targetUrl+`/open-products?categoryId=${cate}`
+  }else {
+    url = targetUrl+`/open-products?categoryId=${cate}&regionId=${region}`
+  }
+  const res = await fetch(url, {
+      method: 'GET',
+      credentials : 'include',
+      headers: {
+      'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true,
+   }})
+  const data = await res.json();
+  setProduct(data.data)
+  }
+
 ///  console.log(categories)
 //  console.log(category)
 //  console.log(Object.values(category))
@@ -89,69 +120,49 @@ const Section7 = props => {
   label: "Price High to Low",
   value: "Price High to Low"
 }];
-  const brands = [  {
-  id: "e73dc783-c355-4a30-9ae3-4995d4f13513",
-  slug: "seoul",
-  name: "Seoul",
-}, {
-  id: "52cc15f6-d076-432b-94d2-1bd73bd01447",
-  slug: "busan",
-  name: "Busan",
-}, {
-  id: "6c794f56-aaa4-433b-a6fe-3b78dbb357f9",
-  slug: "incheon",
-  name: "Incheon",
-}, {
-  id: "75f6ccee-8946-41a7-977f-61b3a5fc6401",
-  slug: "zezu",
-  name: "Zezu",
-}, {
-  id: "d0a80046-7044-4b77-a1c2-2d06335e9d2e",
-  slug: "gyeonggi",
-  name: "Gyeonggi-do",
-},  ];
+//  const regions = [  {
+//  id: "e73dc783-c355-4a30-9ae3-4995d4f13513",
+//  slug: "seoul",
+//  name: "Seoul",
+//}, {
+//  id: "52cc15f6-d076-432b-94d2-1bd73bd01447",
+//  slug: "busan",
+//  name: "Busan",
+//}, {
+//  id: "6c794f56-aaa4-433b-a6fe-3b78dbb357f9",
+//  slug: "incheon",
+//  name: "Incheon",
+//}, {
+//  id: "75f6ccee-8946-41a7-977f-61b3a5fc6401",
+//  slug: "zezu",
+//  name: "Zezu",
+//}, {
+//  id: "d0a80046-7044-4b77-a1c2-2d06335e9d2e",
+//  slug: "gyeonggi",
+//  name: "Gyeonggi-do",
+//},  ];
   const [list, setList] = useState([]);
+  const [regions, setRegions] = useState([]);
   const [selected, setSelected] = useState("");
   const [type, setType] = useState("region_name");
-  const [cate, setCate] = useState("");
-  const [brand, setBrand] = useState("*");
+  const [cate, setCate] = useState("*");
+  const [region, setRegion] = useState("*");
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
     getData();
     console.log(category)
-    {/*window.sessionStorage.setItem('category', 'all')
-    fetch(`http://localhost:5003/get_product_by_category/${window.sessionStorage.getItem('category')}`)
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {console.log(data); setProduct(data)});*/}
-
     }, []);
 
 
-  const handleCategoryClick = brand => () => {
-    setBrand(brand)
-    if (selected.match(brand)) setSelected("");else setSelected(brand);
-    console.log(`http://localhost:5003/get_product_filter/${type}|${brand}|${cate}`)
-    fetch(`http://localhost:5003/get_product_filter/${type}|${brand}|${cate}`)
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {console.log(data); setProduct(data)});
-  };
-  useEffect(() => {
-    if (type === "region_name") setList(brands);else setList(shops);
-  }, [brands, shops, type]);
+  const handleCategoryClick = region => () => {
+    setRegion(region)
+    console.log(region)
+    if (selected.match(region)) {setSelected("");} else {setSelected(region.toString());}}
 
   useEffect(() => {
-    console.log(`http://localhost:5003/get_product_filter/${type}|${brand}|${cate}`)
-    fetch(`http://localhost:5003/get_product_filter/${type}|${brand}|${cate}`)
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {console.log(data); setProduct(data)});
-  }, [cate]);
+    getData_cons()
+  }, [cate, region]);
   return <Container sx={{
     mb: "70px"
   }}>
@@ -164,9 +175,9 @@ const Section7 = props => {
               <a>
                 <StyledBazaarCard id={ind} sx={{
           mb: "0.75rem",
-          bgcolor: cate.match(item.name) ? "#E2E6ED" : "white",
-          color: cate.match(item.name) ? "white" : "black"
-        }} onClick={(e)=>{console.log(item.name);setCate(item.name);handleCategoryClick(brand)}} elevation={1}>
+          bgcolor: cate.match(item.categoryId.toString()) ? "#E2E6ED" : "white",
+          color: cate.match(item.categoryId.toString()) ? "white" : "black"
+        }} onClick={(e)=>{console.log(item.name); setCate(item.categoryId.toString()); handleCategoryClick(region)}} elevation={1}>
                   {/*<LazyImage width={52} height={52} alt="fashion" src={"/assets/images/banners/category/img_4.png"} objectFit="contain" borderRadius="8px" />*/}
                   <Box id={item.name} onClick={(e)=>{if (typeof window !== 'undefined') {window.sessionStorage.setItem('category',e.target.outerText); console.log(window.sessionStorage.getItem('category'))}}} fontWeight="600" ml={1.25} fontSize={20} sx={{ height: 100,}} style={{ color: '#021460' }}>
                     {item.name}
@@ -206,18 +217,14 @@ const Section7 = props => {
             </H3>*/}
           </FlexBox>
 
-          {list.map(item => <ProductCategoryItem key={item.id} title={item.name} isSelected={!!selected.match(item.slug)} onClick={handleCategoryClick(item.slug)}
+          {regions.map(item => <ProductCategoryItem key={item.regionId} title={item.name} isSelected={!!selected.match(item.regionId)} onClick={handleCategoryClick(item.regionId)}
 //          imgUrl={type === "company_name" ? `/assets/images/shops/${item.thumbnail}.png` : item.image}
           sx={{
           mb: "0.75rem",
-          bgcolor: selected.match(item.slug) ? "#060F60" : "#E2E6ED",
-          color: selected.match(item.slug) ? "white" : "black"
+          bgcolor: selected.match(item.regionId) ? "#060F60" : "#E2E6ED",
+          color: selected.match(item.regionId) ? "white" : "black"
         }} />)}
 
-          {/*<ProductCategoryItem title={`${type} 모두보기`} isSelected={!!selected.match(`all-${type}`)} onClick={handleCategoryClick(`all-${type}`)} sx={{
-          mt: 8,
-          bgcolor: selected.match(`all-${type}`)
-        }} />*/}
         </BazaarCard>
 
         <Box flex="1 1 0" minWidth="0px">

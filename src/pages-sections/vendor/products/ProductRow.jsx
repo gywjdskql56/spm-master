@@ -35,7 +35,7 @@ const ProductRow = ({
         }} />
           <Box>
             <Paragraph>{name}</Paragraph>
-            <Small color="grey.600">{id}</Small>
+            <Small color="grey.600">#{id}</Small>
           </Box>
         </FlexBox>
       </StyledTableCell>
@@ -54,7 +54,7 @@ const ProductRow = ({
         <BazaarSwitch color="info" checked={productPulish} onChange={() => setProductPublish(state => !state)} />
       </StyledTableCell>
 
-      {/*<StyledTableCell align="center">
+      <StyledTableCell align="center">
         <StyledIconButton onClick={() => router.push(`/admin/products/${slug}`)}>
           <Edit />
         </StyledIconButton>
@@ -66,7 +66,7 @@ const ProductRow = ({
         <StyledIconButton>
           <Delete />
         </StyledIconButton>
-      </StyledTableCell>*/}
+      </StyledTableCell>
     </StyledTableRow>;
 };
 export default ProductRow;

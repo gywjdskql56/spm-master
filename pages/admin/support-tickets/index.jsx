@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { useCallback, useState, useEffect } from "react";
 import { StatusWrapper, StyledTableRow, StyledTableCell, StyledIconButton } from "pages-sections/admin";
 import api from "utils/__api__/ticket";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl, weburl, getAuth } from "components/config";
 
 const tableHeading = [{
   id: "title",
@@ -29,9 +29,14 @@ const tableHeading = [{
   id: "date",
   label: "업로드 날짜",
   align: "left"
-},  {
+},{
+  id: "date2",
+  label: "답변 날짜",
+  align: "left"
+},
+  {
   id: "action",
-  label: "수정/삭제",
+  label: "수정",
   align: "center"
 }];
 
@@ -69,7 +74,28 @@ export default function SupportTickets({
   setTicket((data.data))
   return data;
   }
-  function DeleteFAQ(id){
+  const DeleteFAQ = async (id) => {
+        console.log(id)
+      const res = await fetch(targetUrl+"/sysqnas/"+id,{
+              method: 'DELETE',
+              credentials : 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+      const data = await res.json();
+      console.log(data);
+      if (data.status =="success"){
+        if (typeof window !== "undefined") {
+        window.alert("성공적으로 삭제되었습니다.")
+        window.location.reload()
+        }
+      } else {
+        if (typeof window !== "undefined") {
+        window.alert("문의글 삭제에 실패했습니다.")
+        window.location.reload()
+        }
+      }
     console.log(id)
   }
 
@@ -100,9 +126,9 @@ export default function SupportTickets({
 
   const router = useRouter();
   return <Box py={4}>
-      <SearchInput placeholder="Search Ticket.." sx={{
+      {/*<SearchInput placeholder="Search Ticket.." sx={{
       mb: 4
-    }} />
+    }} />*/}
 
       <Card>
         <Scrollbar>
@@ -125,18 +151,21 @@ export default function SupportTickets({
                     </StyledTableCell>
                     {ticket.answerDate ==null?
                     <StyledTableCell align="left">
-                      <StatusWrapper status={ticket.status}>
+                      <StatusWrapper status={"답변대기중"}>
                         {"답변대기중"}
                       </StatusWrapper>
                     </StyledTableCell>
                     :
                     <StyledTableCell align="left">
-                      <StatusWrapper status={ticket.status}>
+                      <StatusWrapper status={"답변완료"}>
                         {"답변완료"}
                       </StatusWrapper>
                     </StyledTableCell>}
                     <StyledTableCell align="left">
                       {ticket.writeDate}
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                      {ticket.updateDate==null? ticket.answerDate: ticket.updateDate}
                     </StyledTableCell>
 
 
@@ -144,9 +173,9 @@ export default function SupportTickets({
                       <StyledIconButton onClick={() => router.push(`/admin/support-tickets/${ticket.sysqnaId}`)}>
                         <Edit />
                       </StyledIconButton>
-                      <StyledIconButton onClick={() => DeleteFAQ(ticket.sysqnaId)}>
+                      {/*<StyledIconButton onClick={() => DeleteFAQ(ticket.sysqnaId)}>
                         <Delete />
-                      </StyledIconButton>
+                      </StyledIconButton>*/}
                     </StyledTableCell>
                   </StyledTableRow>)
                   : <div></div>}

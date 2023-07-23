@@ -57,25 +57,7 @@ const handleFormSubmit = async (values, {
     initialValues: initialValues,
     validationSchema: reviewSchema
   });
-{/*  const commentList = [{
-  name: "정지여",
-  imgUrl: "/assets/images/faces/img.png",
-  rating: 5,
-  date: "2021-02-14",
-  comment: "너무 편하고 좋았습니다. 수술도 정말 잘되었고 덕분에 한국에서의 추억이 좋게 남았어요"
-}, {
-  name: "정지남",
-  imgUrl: "/assets/images/faces/img_1.png",
-  rating: 5,
-  date: "2019-08-10",
-  comment: "병원 시설이 매우 좋아서 입원하는 동안 만족스러웠어요. 교수님들이 친절하시고 자세히 안내해주셔서 생각보다 무섭지는 않았습니다"
-}, {
-  name: "정지돌",
-  imgUrl: "/assets/images/faces/img_2.png",
-  rating: 5,
-  date: "2021-02-05",
-  comment: "호텔이 생각보다 작긴했지만 혼자 지내기에는 충분했고 주변에 먹을게 많았어요. 생각보다 덜아파서 재밌게 돌아다니다가 왔습니다."
-}];*/}
+
   return <Box>
       {review.map((item, ind) => <ProductComment {...item} key={ind} />)}
 

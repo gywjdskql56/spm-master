@@ -9,8 +9,10 @@ import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import Scrollbar from "components/Scrollbar";
-import { ProductRow } from "pages-sections/admin";
+import { ProductRow } from "pages-sections/vendor";
 import api from "utils/__api__/dashboard";
+import { targetUrl, weburl } from "components/config";
+
 // TABLE HEADING DATA LIST
 const tableHeading = [{
   id: "name",
@@ -22,7 +24,7 @@ const tableHeading = [{
   align: "left"
 }, {
   id: "brand",
-  label: "판매사",
+  label: "지역",
   align: "left"
 }, {
   id: "price",
@@ -49,11 +51,17 @@ ProductList.getLayout = function getLayout(page) {
 export default function ProductList(props) {
   const [product, setProduct] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5003/get_product/123-45-12345")
+    fetch(targetUrl+"/vendor-products",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
     .then((response) =>
         response.json())
     .then((data) =>
-        {console.log(data); setProduct(data)});
+        {console.log(data); setProduct(data.data)});
     }, []);
   const {
     products
@@ -61,17 +69,16 @@ export default function ProductList(props) {
 
   // RESHAPE THE PRODUCT LIST BASED TABLE HEAD CELL ID
   const filteredProducts = product.map(item => ({
-    id: item.product_id,
-    slug: item.product_id,
-    name: item.product_name,
-    region: item.region_name,
+    id: item.productId,
+    slug: item.productId,
+    name: item.productName,
+    region: item.regionName,
     price: item.price,
-    sale_price: item.sale_price,
+    sale_price: item.salePrice,
     option: item.option,
     image: "/assets/images/products/Package/"+item.img+".png",
-    published: item.public=='Y'? true:false,
-    category: item.category_name,
-    dates: item.dates
+    published: item.open,
+    category: item.category.categoryName
   }));
   const {
     order,

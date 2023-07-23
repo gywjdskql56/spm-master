@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Rating, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Button, TextField, Rating, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { FlexBox } from "components/flex-box";
@@ -9,12 +9,9 @@ import FormGroup from '@mui/material/FormGroup';
 import { H2, H5 } from "components/Typography";
 import { useCallback, useState, useEffect } from "react";
 import Select from 'react-select'
-// ===================================================
-
-// ===================================================
+import { targetUrl, weburl } from "components/config";
 
 const ProductFAQ = ({faq, product_id}) => {
-console.log(faq)
   const options = [
   { value: '회원가입/로그인', label: 'Signup/Login' },
   { value: '예약/결제', label: 'Booking/Pay' },
@@ -25,13 +22,30 @@ const handleFormSubmit = async (values, {
     resetForm
   }) => {
 
-    if (window.sessionStorage.getItem('id')==null){
-        window.alert("로그인 후에 다시 진행해주세요.")
-    }
-    else{
-    console.log('complete')
-    console.log(values)
-    fetch('http://localhost:5003/insert_review',{
+  console.log({'productId':product_id, 'type': category, 'title':values.title,'contents': values.comment, 'open':open })
+
+    fetch(targetUrl+'/productqnas',{
+      method: 'POST',
+      credentials : 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({'productId':product_id, 'type': category, 'title':values.title,'contents': values.comment, 'open':open })
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response)
+        if(response.status=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 등록되었습니다.")
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+        }}
+    })
+
+    {/*fetch('http://localhost:5003/insert_review',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -40,16 +54,10 @@ const handleFormSubmit = async (values, {
       body: JSON.stringify({'date': values.date,'review': values.comment,'rating': values.rating, 'email':window.sessionStorage.getItem('id'), 'product_id':product_id})
     })
     .then(response => response.json())
-    .then(response => {console.log(response); console.log(response.response);
-    if(response.response=='success'){
-        if (typeof window !== "undefined") {
-            window.alert("성공적으로 등록되었습니다.")
-        }
-    }else{
-        if (typeof window !== "undefined") {
-            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
-            }
-    }})}
+    .then(response => {console.log(response); console.log(response.response);*/}
+
+
+
     resetForm();
   };
   const {
@@ -71,7 +79,11 @@ const handleFormSubmit = async (values, {
   const [open, setOpen] = useState(true);
 
   return <Box>
-      {faq.map((item, ind) => <ProductCommentFAQ {...item} key={ind} />)}
+      {faq.map((item, ind) => <Grid container spacing={2}>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+      <ProductCommentFAQ {...item} key={ind} />
+      </Grid>
+      </Grid>)}
 
       <H2 fontWeight="600" mt={7} mb={2.5}>
         Please write your question about the product.
