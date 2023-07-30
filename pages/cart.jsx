@@ -10,11 +10,57 @@ import CheckoutNavLayout from "components/layouts/CheckoutNavLayout";
 import { useAppContext } from "contexts/AppContext";
 import countryList from "data/countryList";
 import { currency } from "lib";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { targetUrl, weburl, getAuth } from "components/config";
+
 const Cart = () => {
-  const {
-    state
-  } = useAppContext();
+//  const {
+//    state
+//  } = useAppContext();
+
+const [state, setState] = useState({'cart':[]});
+const getData = async () => {
+const res = await fetch(targetUrl+"/cart",{
+              credentials : 'include',
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+console.log(res)
+const data = await res.json();
+console.log("RENEW!!!!!!!!!!!!!!!!")
+console.log(data)
+if(data.status=="success"){
+    console.log(data.status)
+   console.log(data);
+   var cartval = data.data
+   for (var j=0; j<cartval.length; j++){
+       var total_option_fee = 0
+       cartval[j]["optionFee"] = 0
+       for (var i=0; i<cartval[j].optionFeeInfoList.length; i++){
+            total_option_fee += cartval[j].optionFeeInfoList[i].price
+   }
+   cartval[j]["optionFee"] = total_option_fee
+   console.log(j+'-----'+total_option_fee)
+   }
+   console.log(cartval)
+
+   cartval = cartval.map((item)=> ({
+   'option': item.optionFeeInfoList,
+   'qty': item.count,
+   'name': item.productName,
+   'id':item.cartId,
+   'price': item.price+item.optionFee
+   }))
+   setState({"cart": cartval})
+};
+
+}
+useEffect(() => {
+    getData()
+},[])
+
   const [comment, setComment] = useState("");
   const cartList = state.cart;
   function checkout() {
@@ -24,14 +70,14 @@ const Cart = () => {
         window.sessionStorage.setItem('total_price', getTotalPrice());
     }
   }
-  const getTotalPrice = () => cartList.reduce((accum, item) => accum + item.price * item.qty, 0);
+  const getTotalPrice = () => state.cart.reduce((accum, item) => accum + item.price * item.qty, 0);
   return <CheckoutNavLayout>
       <SEO title="Cart" />
 
       <Grid container spacing={3}>
         {/* CART PRODUCT LIST */}
         <Grid item md={8} xs={12}>
-          {cartList.map(item => <ProductCard7 key={item.id} {...item} />)}
+          {state.cart.map(item => <ProductCard7 key={item.id} {...item} />)}
         </Grid>
 
         {/* CHECKOUT FORM */}

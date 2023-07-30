@@ -33,7 +33,7 @@ const ProductForm = props => {
   const [main, setMain] = useState([]);
   const [thumb, setThumb] = useState([]);
   const [desc, setDesc] = useState(["","","","","","","","","","","","","",]);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [category, setCategory] = useState([]);
   const [categoryID, setCategoryID] = useState(null);
   const [region, setRegion] = useState([]);
@@ -716,13 +716,13 @@ const [dates, setDates] = useState([
                   ADD
                 </Button>
               </Grid>
-              {values.option.map(o =>
+              {/*values.option.map(o =>
               <Grid item sm={2} xs={12}>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
                   {o}{" "}&nbsp;
                     <BiXCircle size={25} onClick={() => handleOption(o)} />
                 </Button>
-              </Grid>)}
+              </Grid>)*/}
 
               {values.optionNew.map(o =>
               <Grid item sm={2} xs={12}>
@@ -733,7 +733,7 @@ const [dates, setDates] = useState([
               </Grid>)}
               <Grid container spacing={3}>
               <Grid item sm={6} xs={6}>
-                <FormControlLabel control={<Switch defaultChecked value={values.show} onChange={handleChange} />} label="판매상품 공개하기" />
+                <FormControlLabel control={<Switch defaultChecked value={show} onChange={()=>{setShow((show)=>(!show))}} />} label="판매상품 공개하기" />
               </Grid>
               </Grid>
               <Grid item sm={6} xs={6}>

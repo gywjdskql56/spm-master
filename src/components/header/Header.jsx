@@ -106,6 +106,7 @@ if(data.status=="success"){
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const downMd = useMediaQuery(theme.breakpoints.down(1150));
   const toggleDialog = async () => {
+  console.log("result")
   var result = await getAuth()
   console.log(result)
   setDialogOpen(!dialogOpen)};

@@ -15,27 +15,27 @@ export const navigations = [{
   }, {
     name: "상품 만들기",
     path: "/vendor/products/create"
-  }, {
-    name: "리뷰",
-    path: "/vendor/product-reviews"
-  }]
-},{
-  name: "매출",
-  icon: duotone.ProjectChart,
-  children: [{
-    name: "매출 내역",
-    path: "/vendor/earning-history"
-  }, {
-    name: "대금결제",
-    path: "/vendor/payouts"
-  }, {
-    name: "대금결제 요청",
-    path: "/vendor/payout-requests"
-  }, {
-    name: "대금결제 설정",
-    path: "/vendor/payout-settings"
-  }]
-}, {
+  }
+  ]
+},
+//{
+//  name: "매출",
+//  icon: duotone.ProjectChart,
+//  children: [{
+//    name: "매출 내역",
+//    path: "/vendor/earning-history"
+//  }, {
+//    name: "대금결제",
+//    path: "/vendor/payouts"
+//  }, {
+//    name: "대금결제 요청",
+//    path: "/vendor/payout-requests"
+//  }, {
+//    name: "대금결제 설정",
+//    path: "/vendor/payout-settings"
+//  }]
+//},
+{
   name: "환불 요청",
   icon: duotone.Refund,
   path: "/vendor/refund-request"
@@ -62,8 +62,9 @@ export const navigations = [{
 //  icon: duotone.SiteSetting,
 //  path: "/vendor/site-settings"
 //},
-{
-  name: "로그아웃",
-  icon: duotone.Session,
-  path: "/"
-}];
+//{
+//  name: "로그아웃",
+//  icon: duotone.Session,
+//  path: "/"
+//}
+];

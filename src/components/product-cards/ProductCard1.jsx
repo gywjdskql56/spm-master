@@ -168,7 +168,7 @@ const ProductCard1 = ({
               </Box>
 
               {!!discount && <Box color="grey.600" fontWeight="600">
-                  <del>{"₩"+(price)}</del>
+                  <del>{"US"+(price)}</del>
                 </Box>}
             </FlexBox>
           </Box>

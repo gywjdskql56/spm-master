@@ -40,22 +40,23 @@ const ProductCard7 = ({
   imgUrl,
   slug
 }) => {
+   console.log()
   const {
     dispatch
   } = useAppContext();
   // handle change cart
   const handleCartAmountChange = amount => () => {
-    dispatch({
-      type: "CHANGE_CART_AMOUNT",
-      payload: {
-        id,
-        name,
-        price,
-        imgUrl,
-        qty: amount,
-        slug
-      }
-    });
+//    dispatch({
+//      type: "CHANGE_CART_AMOUNT",
+//      payload: {
+//        id,
+//        name,
+//        price,
+//        imgUrl,
+//        qty: amount,
+//        slug
+//      }
+//    });
   };
   return <Wrapper>
       <Image alt={name} width={140} height={140} display="block" src={imgUrl || "/assets/images/products/iphone-xi.png"} />

@@ -80,7 +80,7 @@ return {'cart':[]}, createContext({
 
 }
 ///////////////////////////////
-INITIAL_CART, AppContext = await getData()
+//INITIAL_CART, AppContext = await getData()
 console.log("INITIAL_CART")
 console.log(INITIAL_CART)
 
@@ -238,7 +238,7 @@ export const AppProvider = ({
   const [cart, setCart] = useState(INITIAL_CART);
   const [tf, setTF] = useState(false);
 
-  if (tf==false){
+  {/*if (tf==false){
         fetch(targetUrl+"/cart",{
               credentials : 'include',
               method: 'GET',
@@ -276,15 +276,8 @@ export const AppProvider = ({
             }
             setTF(true)
             });
-   }
-  console.log("CART")
-  console.log(cart)
-  console.log(INITIAL_CART)
-  console.log(cart['cart'])
-  console.log(INITIAL_CART['cart'])
-  console.log(cart['cart'][0])
-  console.log(INITIAL_CART['cart'][0])
-  console.log(cart['cart'][0] == INITIAL_CART['cart'][0])
+   }*/}
+
   const [state, dispatch] = useReducer(reducer, INITIAL_CART);
   console.log("state")
   console.log(state)

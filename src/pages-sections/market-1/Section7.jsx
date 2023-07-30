@@ -61,6 +61,7 @@ const Section7 = props => {
             "ngrok-skip-browser-warning": true,
         }})
   const data2 = await res2.json();
+  console.log("setProduct")
   setProduct(data2.data)
   console.log(data2.data);
 
@@ -250,7 +251,7 @@ const Section7 = props => {
           </Grid>
           <Grid container spacing={3}>
             {product.map(item => <Grid item lg={4} sm={6} xs={12} key={item.product_id}>
-                <ProductCard1 hoverEffect id={item.productId} slug={item.productId} title={item.productName} price={item.price} rating={4.9} imgUrl={"/assets/images/products/Package/"+item.img+".png"} discount={5} item={item} />
+                <ProductCard1 hoverEffect id={item.productId} slug={item.productId} title={item.productName} price={item.price} rating={4.9} imgUrl={`data:image/png;base64,${item.thumbnailImageBase64String}`} discount={5} item={item} />
               </Grid>)}
           </Grid>
         </Box>

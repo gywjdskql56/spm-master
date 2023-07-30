@@ -103,7 +103,7 @@ const ProductViewDialog = props => {
                 CATEGORY: {"category_name"}
               </Paragraph>
 
-              <H1 color="primary.main">{"₩"+(product.price)}</H1>
+              <H1 color="primary.main">{"US"+(product.price)}</H1>
 
               <FlexBox alignItems="center" gap={1}>
                 <BazaarRating color="warn" fontSize="1.25rem" value={4} readOnly />

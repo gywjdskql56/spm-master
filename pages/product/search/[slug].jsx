@@ -10,21 +10,29 @@ import ProductCard1List from "components/products/ProductCard1List";
 import ProductCard9List from "components/products/ProductCard9List";
 import ProductFilterCard from "components/products/ProductFilterCard";
 import productDatabase from "data/product-database";
+import { targetUrl, weburl, getAuth } from "components/config";
 
 const ProductSearchResult = () => {
   const [view, setView] = useState("grid");
   const [category, setCategory] = useState("");
   const [product, setProduct] = useState([]);
+  const [slug, setSlug] = useState("");
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
   const toggleView = useCallback(v => () => setView(v), []);
   useEffect(() => {
-    const slug = window.location.href.split("/").splice(-1);
-    setCategory(slug)
-    fetch(`http://localhost:5003/get_product_by_category/${slug}`)
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {console.log(data); setProduct(data)});
+    var slugV = window.location.href.split("/").splice(-1)[0];
+    console.log("SLUG")
+    setSlug(slugV)
+    console.log(slugV)
+    const res2 = fetch(targetUrl+`products/search?query=`+slugV,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }}).then(response => response.json())
+    .then(response => {setProduct(response.data)})
+
   },[])
   return <ShopLayout1>
       <Container sx={{
@@ -45,7 +53,7 @@ const ProductSearchResult = () => {
         }
       }}>
           <Box>
-            <H5>This is a search result for “ {category} ”</H5>
+            <H5>{"This is a search result for “ "+slug+" ”"}</H5>
             <Paragraph color="grey.600">{product.length} products</Paragraph>
           </Box>
 

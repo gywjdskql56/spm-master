@@ -31,7 +31,7 @@ const ProductDescription = ({explain}) => {
       </Button>)}
 
       <H5 mb={0}># Not Included</H5>
-      {explain.includedPartList.map(item=><Button key="1" color="error" variant="contained" sx={{
+      {explain.nonIncludedPartList.map(item=><Button key="1" color="error" variant="contained" sx={{
           mb: 4.5,
           px: "1.75rem",
           height: 30,
@@ -45,8 +45,8 @@ const ProductDescription = ({explain}) => {
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
         {explain.accommodationDetails.description}
         <FlexBox justifyContent="left" mb={3}>
-          <Image src={"/assets/images/products/Place/img_15.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
-          <Image src={"/assets/images/products/Place/img_14.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
+          {explain.accommodationDetails.imageList.map((url, ind) => <Image src={`data:image/png;base64,${url.imageBase64String}`} width={300} height={200} priority={true} sx={{borderRadius: 8, p:2}} />)}
+          {/*<Image src={"/assets/images/products/Place/img_14.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />*/}
           {/*<LazyImage alt={"title"} sx={{borderRadius: 8, p:2}} width={300} height={180} objectFit="contain" src={"/assets/images/products/Place/img_15.png"} />*/}
         </FlexBox>
       </Box>
@@ -55,9 +55,11 @@ const ProductDescription = ({explain}) => {
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
         {explain.hospitalDetails.description}
         <FlexBox justifyContent="left" mb={3}>
-        <div>
+          {explain.hospitalDetails.imageList.map((url, ind) => <Image src={`data:image/png;base64,${url.imageBase64String}`} width={300} height={200} priority={true} sx={{borderRadius: 8, p:2}} />)}
+
+        {/*<div>
            <Image src={"/assets/images/products/Hospital/img_2.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
-        </div>
+        </div>*/}
           {/*<LazyImage alt={"title"} width={200} height={200} loading="eager" objectFit="contain" src={"/assets/images/products/Hospital/img_2.png"} />*/}
         </FlexBox>
       </Box>
@@ -72,9 +74,7 @@ const ProductDescription = ({explain}) => {
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
         {item.description}
         <FlexBox justifyContent="left" mb={3}>
-        <div>
-          <Image src={"/assets/images/products/Place/img_1.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />
-        </div>
+          {item.imageList.map((url, ind) => <Image src={`data:image/png;base64,${url.imageBase64String}`} width={300} height={200} priority={true} sx={{borderRadius: 8, p:2}} />)}
         </FlexBox>
       </Box></div>))}
 

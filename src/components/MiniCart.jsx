@@ -209,7 +209,16 @@ useEffect(() => {
       </Box>
 
       {state.cart.length > 0 && <Box p={2.5}>
-          <Link href="/checkout-alternative" passHref>
+        <Button fullWidth color="primary" variant="contained" sx={{
+          mb: "0.75rem",
+          height: "40px"
+        }} onClick={()=>{if (typeof window !== "undefined") {
+     toggleSidenav
+    window.alert("결제기능은 준비중입니다.")
+    }} }>
+              바로 결제하기 ({currency(getTotalPrice())})
+            </Button>
+          {/*<Link href="/checkout-alternative" passHref>
             <Button fullWidth color="primary" variant="contained" sx={{
           mb: "0.75rem",
           height: "40px"
@@ -224,7 +233,7 @@ useEffect(() => {
         }} onClick={toggleSidenav}>
               장바구니 보기
             </Button>
-          </Link>
+          </Link>*/}
         </Box>}
     </Box>;
 };

@@ -35,6 +35,9 @@ const ProductIntro = ({
     slug,
     thumbnailImage
   } = product;
+
+  console.log("ProductIntro")
+  console.log(product)
 //  const {
 //    state,
 //    dispatch
@@ -83,7 +86,7 @@ useEffect(() => {
     getData()
 },[])
 
-  const [value, setValue] = useState(new Date())
+  const [value, setValue] = useState()
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectVariants, setSelectVariants] = useState({
     option: "option 1",
@@ -213,7 +216,7 @@ useEffect(() => {
 //      }
 //    });
   }else {
-  window.alert("장바구니 담기에 실패했습니다. 로그인 후 다시 시도해주세요.")
+  window.alert("회원만 장바구니 기능을 사용하실 수 있습니다. 로그인 후 다시 시도해주세요.")
   }
 
 
@@ -247,7 +250,7 @@ useEffect(() => {
       <Grid container spacing={3} justifyContent="space-around">
         <Grid item md={6} xs={12} alignItems="center">
           <FlexBox justifyContent="center" mb={6} onClick={handleOpen}>
-            <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={"/assets/images/products/Package/img.png"} />
+            <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.productDetails.imageList[selectedImage].imageBase64String}`} />
           </FlexBox>
           <Modal
             open={open}
@@ -256,20 +259,20 @@ useEffect(() => {
             aria-describedby="modal-modal-description"
           >
           <Box sx={style}>
-           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={"/assets/images/products/Package/img.png"} />
-{/*           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={product.images[selectedImage]} /> */}
+           {/*<LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.thumbnailImage.imageBase64String}`} />*/}
+           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.productDetails.imageList[selectedImage].imageBase64String}`} />
           </Box>
           </Modal>
 
-          {/*<FlexBox overflow="auto">
-            {images.map((url, ind) => <FlexRowCenter key={ind} width={64} height={64} minWidth={64} bgcolor="white" border="1px solid" borderRadius="10px" ml={ind === 0 ? "auto" : 0} style={{
+          <FlexBox overflow="auto">
+            {product.productDetails.imageList.map((url, ind) => <FlexRowCenter key={ind} width={64} height={64} minWidth={64} bgcolor="white" border="1px solid" borderRadius="10px" ml={ind === 0 ? "auto" : 0} style={{
             cursor: "pointer"
-          }} onClick={handleImageClick(ind)} mr={ind === images.length - 1 ? "auto" : "10px"} borderColor={selectedImage === ind ? "primary.main" : "grey.400"}>
-                <Avatar src={url} variant="square" sx={{
+          }} onClick={handleImageClick(ind)} mr={ind === product.productDetails.imageList.length - 1 ? "auto" : "10px"} borderColor={selectedImage === ind ? "primary.main" : "grey.400"}>
+                <Avatar src={`data:image/png;base64,${url.imageBase64String}`} variant="square" sx={{
               height: 40
             }} />
               </FlexRowCenter>)}
-          </FlexBox>*/}
+          </FlexBox>
         </Grid>
 
         <Grid item md={6} xs={12} alignItems="center">
@@ -283,9 +286,9 @@ useEffect(() => {
           <FlexBox alignItems="center" mb={2}>
             <Box lineHeight="1">Review:</Box>
             <Box mx={1} lineHeight="1">
-              <BazaarRating color="warn" fontSize="1.25rem" value={4} readOnly />
+              <BazaarRating color="warn" fontSize="1.25rem" value={0} readOnly />
             </Box>
-            <H6 lineHeight="1">(50)</H6>
+            <H6 lineHeight="1">({product.reviewList.length})</H6>
           </FlexBox>
 
           {(product.optionFeeList).map(variant =>
@@ -310,7 +313,7 @@ useEffect(() => {
 
           <Box pt={1} mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {"₩"+(price)}
+              {"US"+(price)}
             </H2>
           </Box>
           <Box mb={2}>
@@ -362,7 +365,7 @@ useEffect(() => {
             <FlexBox alignItems="center" mb={4.5}>
             <FlexBox alignItems="center">
              <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {"Total Price :  ₩"+(totalprice)+"      "}
+              {"Total Price :  US"+(totalprice)+"      "}
             </H2>
               <Button size="small" mb={4} mt={2} sx={{
             marginLeft: '20px',
@@ -394,12 +397,10 @@ useEffect(() => {
             </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
-            <Box>Vendor information:</Box>
-            <Link href="/shops/scarlett-beauty" passHref>
+            <Box>Vendor Contacts:</Box>
               <a>
-                <H6 ml={1}>하나투어 바로가기</H6>
+                <H6 ml={1}>hana@gmail.com</H6>
               </a>
-            </Link>
           </FlexBox>
         </Grid>
       </Grid>
