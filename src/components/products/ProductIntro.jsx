@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Add, Remove } from "@mui/icons-material";
 import { Avatar, Box, Button, Chip, Grid } from "@mui/material";
 import LazyImage from "components/LazyImage";
@@ -17,6 +17,7 @@ import { Calendar } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import { targetUrl, weburl } from "components/config";
 
 // ================================================================
 
@@ -25,20 +26,63 @@ import Typography from '@mui/material/Typography';
 const ProductIntro = ({
   product
 }) => {
-  console.log(product)
+//  console.log(product)
   const {
     productId,
     price,
     title,
     images,
     slug,
-    thumbnail
+    thumbnailImage
   } = product;
-  const {
-    state,
-    dispatch
-  } = useAppContext();
-  console.log(product.servicePeriodList)
+//  const {
+//    state,
+//    dispatch
+//  } = useAppContext();
+//  console.log(product.servicePeriodList)
+const [state, setState] = useState({'cart':[]});
+const getData = async () => {
+const res = await fetch(targetUrl+"/cart",{
+              credentials : 'include',
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+console.log(res)
+const data = await res.json();
+console.log("RENEW!!!!!!!!!!!!!!!!")
+console.log(data)
+if(data.status=="success"){
+    console.log(data.status)
+   console.log(data);
+   var cartval = data.data
+   for (var j=0; j<cartval.length; j++){
+       var total_option_fee = 0
+       cartval[j]["optionFee"] = 0
+       for (var i=0; i<cartval[j].optionFeeInfoList.length; i++){
+            total_option_fee += cartval[j].optionFeeInfoList[i].price
+   }
+   cartval[j]["optionFee"] = total_option_fee
+   console.log(j+'-----'+total_option_fee)
+   }
+   console.log(cartval)
+
+   cartval = cartval.map((item)=> ({
+   'option': item.optionFeeInfoList,
+   'qty': item.count,
+   'name': item.productName,
+   'id':item.cartId,
+   'price': item.price+item.optionFee
+   }))
+   setState({"cart": cartval})
+};
+
+}
+useEffect(() => {
+    getData()
+},[])
+
   const [value, setValue] = useState(new Date())
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectVariants, setSelectVariants] = useState({
@@ -50,43 +94,48 @@ const ProductIntro = ({
   const [totalprice, setTotalPrice] = useState(price);
   const [perprice, setPerPrice] = useState(price);
   const [option, setOption] = useState([])
+  const [optionID, setOptionID] = useState([])
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleClickOption = (e, val) =>{
+  const handleClickOption = (e, id, name, price) =>{
 
-    console.log("handleClickOption")
-    console.log(e)
-    console.log(val)
+//    console.log("handleClickOption")
+//    console.log(e)
+//    console.log(val)
     if (e.target.style.color!='red'){
-    console.log("Color Change!!!"+e.target.style.color)
+//    console.log("Color Change!!!"+e.target.style.color)
     e.target.style.color = 'red'
 //    setOption((prev)=>[...prev, e.target.value])
-    setOption((prev)=>[...prev, val])
-    setTotalPrice((prev)=>(prev + parseFloat(val.split("|||^^^")[1])*amt))
-    setPerPrice((prev)=>(prev + parseFloat(val.split("|||^^^")[1])))
+    setOption((prev)=>[...prev, name])
+    setOptionID((prev)=>[...prev, id])
+    setTotalPrice((prev)=>(prev + parseFloat(price)*amt))
+    setPerPrice((prev)=>(prev + parseFloat(price)))
     }
     else{
-    console.log("Color Not Change!!!"+e.target.style.color)
+//    console.log("Color Not Change!!!"+e.target.style.color)
     e.target.style.color = 'white'
     setOption(prev => {
-      return prev.filter(item => item !== val)
+      return prev.filter(item => item !== name)
     })
-    setTotalPrice((prev)=>(prev - val.split("|||^^^")[1]*amt))
-    setPerPrice((prev)=>(prev - val.split("|||^^^")[1]))
+    setOptionID(prev => {
+      return prev.filter(item => item !== id)
+    })
+    setTotalPrice((prev)=>(prev - price*amt))
+    setPerPrice((prev)=>(prev - price))
     }
 
   }
    function handleDates(value){
       //your modification on passed value ....
-      console.log(value)
+//      console.log(value)
       setValue(value)
      const date_list = []
      for (let i=0; i<value.length; i++) {
-        console.log(value[i])
-        console.log(value[i].format("YYYY-MM-DD"))
+//        console.log(value[i])
+//        console.log(value[i].format("YYYY-MM-DD"))
         date_list.push(value[i].format("YYYY-MM-DD"))
      }
-   console.log(date_list)
+//   console.log(date_list)
    }
   // HANDLE CHAMGE TYPE AND OPTIONS
   const handleChangeVariant = (variantName, value) => () => {
@@ -103,26 +152,72 @@ const ProductIntro = ({
   const handleImageClick = ind => () => setSelectedImage(ind);
 
   // HANDLE CHANGE CART
-  const handleCartAmountChange = amount => () => {
+  const handleCartAmountChange = async () => {
     console.log({
-        price : perprice,
+        price: perprice,
         qty: amt,
         name: product.productName,
-        imgUrl: thumbnail,
-        id : productId,
+        imgUrl: thumbnailImage.imageBase64String,
+        id: productId,
         slug : productId
       })
-    dispatch({
-      type: "CHANGE_CART_AMOUNT",
-      payload: {
-        price,
-        qty: amt,
-        name: product.productName,
-        imgUrl: thumbnail,
-        productId,
-        slug
-      }
-    });
+      console.log("value: ", value)
+
+   const res = await fetch(targetUrl+"/cart",{
+          method: 'POST',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+          },
+      body: JSON.stringify({
+        productId: productId,
+        optionFeeIdList: optionID,
+        serviceDateInfoList: [{"startDate" : "2023-07-05", "endDate" : "2023-07-05"},
+                             {"startDate" : "2023-07-05", "endDate" : "2023-07-05"},
+                             {"startDate" : "2023-07-05", "endDate" : "2023-07-05"}],
+        count : amt,
+      })
+    })
+  const data = await res.json();
+  if (data.status=="success"){
+  window.alert("장바구니에 담겼습니다.")
+  getData()
+
+//      fetch(targetUrl+"/cart",{
+//      credentials : 'include',
+//      method: 'GET',
+//      headers: {
+//        'Content-Type': 'application/json',
+//        "ngrok-skip-browser-warning": true,
+//    }})
+//    .then((response) =>
+//        response.json())
+//    .then((data) =>
+//        {if(data.status=="success"){
+//            setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))}});
+//    sessionStorage.setItem('id',values.email)
+//    sessionStorage.setItem('type',result.data[0]['authority'])
+
+//      dispatch({
+//      type: "CHANGE_CART_AMOUNT",
+//      payload: {
+//        price: perprice,
+//        qty: amt,
+//        name: product.productName,
+//        imgUrl: thumbnailImage.imageBase64String,
+//        id: productId,
+//        code: productId+option.sort().map(item => item).join(', '), //+value.sort().map(item => item).join(', '),
+//        slug : productId,
+//        option : option
+//      }
+//    });
+  }else {
+  window.alert("장바구니 담기에 실패했습니다. 로그인 후 다시 시도해주세요.")
+  }
+
+
+
   };
 
   const handleAmountChange = type => () => {
@@ -194,7 +289,7 @@ const ProductIntro = ({
           </FlexBox>
 
           {(product.optionFeeList).map(variant =>
-        <Button key={variant.id} color="success" variant="contained" value={variant.name+"|||^^^"+variant.price} onClick={(e)=>handleClickOption(e, variant.name+"|||^^^"+variant.price)} sx={{
+        <Button key={variant.id} color="success" variant="contained" onClick={(e)=>handleClickOption(e, variant.id, variant.name, variant.price)} sx={{
           mb: 4.5,
           px: "1.75rem",
           height: 40,
@@ -226,7 +321,7 @@ const ProductIntro = ({
           mapDays={({ date }) => {
               let isInclude = false;
               var todayDate = new Date().toISOString().slice(0, 10);
-              console.log(todayDate)
+//              console.log(todayDate)
               if (date.format("YYYY-MM-DD")>todayDate){
                   for (let i =0; i <product.servicePeriodList.length; i++){
                     if (!isInclude){
@@ -286,7 +381,7 @@ const ProductIntro = ({
                 <Add fontSize="small" />
               </Button>
               <FlexBox alignItems="center">
-              <Button color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
+              <Button color="primary" variant="contained" onClick={()=>handleCartAmountChange()} sx={{
                   mb: 0,
                   px: "1.75rem",
                   height: 40,

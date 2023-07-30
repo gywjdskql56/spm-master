@@ -66,7 +66,7 @@ const Login = () => {
   const [login, setLogin] = useState(false);
   const [types, setType] = useState("email");
   const [url, setUrl] = useState("/members/signin");
-  const [cart, setCart] = useState({'data':[]});
+  const [cart, setCart] = useState({'cart':[]});
     const [state, setState] = useState({
     cust: true,
     shop: false,
@@ -192,7 +192,7 @@ const Login = () => {
                 response.json())
             .then((data) =>
                 {if(data.status=="success"){
-                    setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))}});
+                    setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify({'cart':data.data}))}});
             sessionStorage.setItem('id',values.email)
             sessionStorage.setItem('type',result.data[0]['authority'])
             }

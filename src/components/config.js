@@ -38,7 +38,7 @@ export const getAuth = async () => {
         window.sessionStorage.setItem('id',auth_data.data[0]['authority'])
         window.sessionStorage.setItem('type',auth_data.data[0]['authority'])
     }
-
+    return ["success", ...auth_data.data];
     }
    else {
    console.log(auth_data);
@@ -46,10 +46,7 @@ export const getAuth = async () => {
      window.sessionStorage.removeItem('id')
      window.sessionStorage.removeItem('type')
    }
+   return ["fail", ""];
    }
-
-
-
-  return [auth.status, auth_data.data];
   }
 

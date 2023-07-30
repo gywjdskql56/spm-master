@@ -28,10 +28,89 @@ import { targetUrl, weburl, getAuth } from "components/config";
 //}];
 
 
+let INITIAL_CART = {'cart':[]}
+let AppContext = createContext({
+  state: INITIAL_CART,
+  dispatch: () => {}
+});
 
-let INITIAL_CART = {'data':[]}
+const getData = async () => {
+const res = await fetch(targetUrl+"/cart",{
+              credentials : 'include',
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+console.log(res)
+const data = await res.json();
+console.log("RENEW!!!!!!!!!!!!!!!!")
+console.log(data)
+if(data.status=="success"){
+    console.log(data.status)
+   console.log(data);
+   var cartval = data.data
+   for (var j=0; j<cartval.length; j++){
+       var total_option_fee = 0
+       cartval[j]["optionFee"] = 0
+       for (var i=0; i<cartval[j].optionFeeInfoList.length; i++){
+            total_option_fee += cartval[j].optionFeeInfoList[i].price
+   }
+   cartval[j]["optionFee"] = total_option_fee
+   console.log(j+'-----'+total_option_fee)
+   }
+   console.log(cartval)
 
-{/*//const res = await fetch(targetUrl+"/cart",{
+   cartval = cartval.map((item)=> ({
+   'option': item.optionFeeInfoList,
+   'qty': item.count,
+   'name': item.productName,
+   'id':item.cartId,
+   'price': item.price+item.optionFee
+   }))
+   return {"cart": cartval}, createContext({
+  state: INITIAL_CART,
+  dispatch: () => {}
+})
+};
+return {'cart':[]}, createContext({
+  state: INITIAL_CART,
+  dispatch: () => {}
+})
+
+}
+///////////////////////////////
+INITIAL_CART, AppContext = await getData()
+console.log("INITIAL_CART")
+console.log(INITIAL_CART)
+
+//let INITIAL_STATE= null;
+//console.log(INITIAL_CART)
+//const AppContext = createContext({
+//  state: INITIAL_CART,
+//  dispatch: () => {}
+//});
+
+//if (typeof window !== 'undefined' && window.sessionStorage.getItem("cart") !=null && window.sessionStorage.getItem("cart") !="undefined") {
+// console.log("window")
+// INITIAL_CART = window.sessionStorage.getItem("cart")
+// console.log(INITIAL_CART)
+// INITIAL_STATE = {
+//  cart: JSON.parse(INITIAL_CART)['cart']
+//};
+//
+//} else {
+//    INITIAL_STATE = {
+//      cart: (INITIAL_CART)['cart']
+//    };
+//}
+//
+//const INITIAL_STATE = {
+//      cart: (INITIAL_CART)['data']
+//    };
+
+//const AppContext2 = async () => {
+//const res = await fetch(targetUrl+"/cart",{
 //              credentials : 'include',
 //              method: 'GET',
 //              headers: {
@@ -39,45 +118,37 @@ let INITIAL_CART = {'data':[]}
 //                "ngrok-skip-browser-warning": true,
 //            }})
 //const data = res.json();
+//console.log(data)
 //if(data.status=="success"){
-//   INITIAL_CART = data; console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))
-//};*/}
-
-
-let INITIAL_STATE= null;
-console.log(INITIAL_CART)
-if (typeof window !== 'undefined' && window.sessionStorage.getItem("cart") !=null && window.sessionStorage.getItem("cart") !="undefined") {
- console.log("window")
- INITIAL_CART = window.sessionStorage.getItem("cart")
- console.log(INITIAL_CART)
- INITIAL_STATE = {
-  cart: JSON.parse(INITIAL_CART)['data']
-};
-
-} else {
-    INITIAL_STATE = {
-      cart: (INITIAL_CART)['data']
-    };
-}
-//
-//const INITIAL_STATE = {
-//      cart: (INITIAL_CART)['data']
-//    };
-const AppContext = createContext({
-  state: INITIAL_STATE,
-  dispatch: () => {}
-});
+//   INITIAL_CART = data; console.log(data);
+//   return createContext({
+//  state: INITIAL_CART,
+//  dispatch: () => {}
+//})
+//}else{
+//return createContext({
+//  state: {'cart':[]},
+//  dispatch: () => {}
+//});}}
 
 //console.log(AppContext)
 const reducer = (state, action) => {
+  console.log("state",state)
+  console.log("action",action)
   switch (action.type) {
     case "CHANGE_CART_AMOUNT":
+
       let cartList = state.cart;
       console.log(state)
       console.log(cartList)
+      console.log((action.payload))
+      console.log(action.payload)
       let cartItem = action.payload;
       let exist = cartList.find(item => item.id === cartItem.id);
-      console.log(exist)
+      exist = false
+      console.log("cartList: "+JSON.stringify(cartList))
+      console.log("cartItem: "+JSON.stringify(cartItem))
+      console.log("exist: "+JSON.stringify((exist)))
       if (cartItem.qty < 1) {
         const filteredCart = cartList.filter(item => item.id !== cartItem.id);
         return {
@@ -88,10 +159,56 @@ const reducer = (state, action) => {
 
       // IF PRODUCT ALREADY EXITS IN CART
       if (exist) {
+        console.log(cartList)
+        console.log(cartItem.qty)
+        var qty_new = cartList.qty + cartItem.qty
+
         const newCart = cartList.map(item => item.id === cartItem.id ? {
           ...item,
-          qty: cartItem.qty
+          qty: item.qty + cartItem.qty,
         } : item);
+
+//        window.sessionStorage.setItem('cart', JSON.stringify({
+//          ...state,
+//          cart: newCart
+//        }))
+        return {
+          ...state,
+          cart: newCart
+        };
+      }
+//      window.sessionStorage.setItem('cart', JSON.stringify({
+//        ...state,
+//        cart: [...cartList, cartItem]
+//      }))
+      return {
+        ...state,
+        cart: [...cartList, cartItem]
+      };
+
+    case "DELETE_CART_AMOUNT":
+      cartList = state.cart;
+//      console.log(state)
+//      console.log(cartList)
+//      console.log((action.payload))
+//      console.log(action.payload)
+      cartItem = action.payload;
+      exist = cartList.find(item => item.id === cartItem.id);
+
+//      console.log("cartList: "+JSON.stringify(cartList))
+//      console.log("cartItem: "+JSON.stringify(cartItem))
+//      console.log("exist: "+JSON.stringify((exist)))
+//      if (cartItem.qty < 1) {
+//        const filteredCart = cartList.filter(item => item.id !== cartItem.id);
+//        return {
+//          ...state,
+//          cart: filteredCart
+//        };
+//      }
+
+      // IF PRODUCT ALREADY EXITS IN CART
+      if (exist) {
+        const newCart = cartList.filter(item => item.id !== cartItem.id);
         return {
           ...state,
           cart: newCart
@@ -118,20 +235,64 @@ const reducer = (state, action) => {
 export const AppProvider = ({
   children
 }) => {
-//  const [cart, setCart] = useState([]);
-//    useEffect(() => {
-//        fetch("http://localhost:5003/get_cart_by_id/gywjdskql5915@gmail.com")
-//        .then((response) =>
-//            response.json())
-//        .then((data) =>
-//            {setCart(data); console.log(data)});
-//       }, []);
-  console.log(INITIAL_STATE)
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [cart, setCart] = useState(INITIAL_CART);
+  const [tf, setTF] = useState(false);
+
+  if (tf==false){
+        fetch(targetUrl+"/cart",{
+              credentials : 'include',
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+        .then((response) =>
+            response.json())
+        .then((data) =>
+            {console.log(data);
+            if(data.status=="success"){
+                console.log(data.status)
+               console.log(data);
+               var cartval = data.data
+               for (var j=0; j<cartval.length; j++){
+                   var total_option_fee = 0
+                   cartval[j]["optionFee"] = 0
+                   for (var i=0; i<cartval[j].optionFeeInfoList.length; i++){
+                        total_option_fee += cartval[j].optionFeeInfoList[i].price
+               }
+               cartval[j]["optionFee"] = total_option_fee
+               console.log(j+'-----'+total_option_fee)
+               }
+               console.log(cartval)
+
+               cartval = cartval.map((item)=> ({
+               'option': item.optionFeeInfoList,
+               'qty': item.count,
+               'name': item.productName,
+               'id':item.cartId,
+               'price': item.price+item.optionFee
+               }))
+               setCart({"cart": cartval})
+            }
+            setTF(true)
+            });
+   }
+  console.log("CART")
+  console.log(cart)
+  console.log(INITIAL_CART)
+  console.log(cart['cart'])
+  console.log(INITIAL_CART['cart'])
+  console.log(cart['cart'][0])
+  console.log(INITIAL_CART['cart'][0])
+  console.log(cart['cart'][0] == INITIAL_CART['cart'][0])
+  const [state, dispatch] = useReducer(reducer, INITIAL_CART);
+  console.log("state")
+  console.log(state)
   const contextValue = useMemo(() => ({
     state,
     dispatch
   }), [state, dispatch]);
+
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };
 export const useAppContext = () => useContext(AppContext);

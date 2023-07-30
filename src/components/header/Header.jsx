@@ -10,12 +10,11 @@ import clsx from "clsx";
 import Icon from "components/icons";
 import { layoutConstant } from "utils/constants";
 import Login from "pages-sections/sessions/Login";
-import { useAppContext } from "contexts/AppContext";
 import Image from "components/BazaarImage";
 import MiniCart from "components/MiniCart";
 import Category from "components/icons/Category";
 import { Paragraph } from "components/Typography";
-import MobileMenu from "components/navbar/MobileMenu";
+//import MobileMenu from "components/navbar/MobileMenu";
 import { FlexBetween, FlexBox, FlexRowCenter } from "components/flex-box";
 import CategoryMenu from "components/categories/CategoryMenu";
 import ShoppingBagOutlined from "components/icons/ShoppingBagOutlined";
@@ -27,6 +26,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import { Grid } from "@mui/material";
 import { targetUrl, weburl, getAuth } from "components/config";
+import { useAppContext } from "contexts/AppContext";
 // styled component
 export const HeaderWrapper = styled(Box)(({
   theme
@@ -58,22 +58,77 @@ const Header = ({
   searchInput
 }) => {
   const theme = useTheme();
-  const {
-    state
-  } = useAppContext();
-  console.log(state);
+//  const temp = useAppContext2()
+//  console.log(temp)
+const [state, setState] = useState({'cart':[]});
+const getData = async () => {
+const res = await fetch(targetUrl+"/cart",{
+              credentials : 'include',
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+console.log(res)
+const data = await res.json();
+console.log("RENEW!!!!!!!!!!!!!!!!")
+console.log(data)
+if(data.status=="success"){
+    console.log(data.status)
+   console.log(data);
+   var cartval = data.data
+   for (var j=0; j<cartval.length; j++){
+       var total_option_fee = 0
+       cartval[j]["optionFee"] = 0
+       for (var i=0; i<cartval[j].optionFeeInfoList.length; i++){
+            total_option_fee += cartval[j].optionFeeInfoList[i].price
+   }
+   cartval[j]["optionFee"] = total_option_fee
+   console.log(j+'-----'+total_option_fee)
+   }
+   console.log(cartval)
+
+   cartval = cartval.map((item)=> ({
+   'option': item.optionFeeInfoList,
+   'qty': item.count,
+   'name': item.productName,
+   'id':item.cartId,
+   'price': item.price+item.optionFee
+   }))
+   setState({'cart':cartval})
+};
+
+}
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [sidenavOpen, setSidenavOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const downMd = useMediaQuery(theme.breakpoints.down(1150));
-  const toggleDialog = () => setDialogOpen(!dialogOpen);
+  const toggleDialog = async () => {
+  var result = await getAuth()
+  console.log(result)
+  setDialogOpen(!dialogOpen)};
   const toggleSidenav = () => setSidenavOpen(!sidenavOpen);
   const toggleSearchBar = () => setSearchBarOpen(!searchBarOpen);
   const [value, setValue] = useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+//    const {
+//    state
+//  } = useAppContext();
+useEffect(() => {
+    getData()
+},[])
+useEffect(() => {
+    getData()
+},[dialogOpen])
+useEffect(() => {
+    getData()
+},[sidenavOpen])
+
+  console.log(state);
 
   const Logout = async () => {
 
@@ -154,13 +209,14 @@ const Header = ({
       color: "grey.600",
       fontSize: 20
     };
+
     return <HeaderWrapper className={clsx(className)}>
         <StyledContainer>
           <FlexBetween width="100%">
             {/* LEFT CONTENT - NAVIGATION ICON BUTTON */}
-            <Box flex={1}>
+             {/* <Box flex={1}>
               <MobileMenu />
-            </Box>
+            </Box> */}
 
             {/* MIDDLE CONTENT - LOGO */}
             <Link href="/">
@@ -180,9 +236,9 @@ const Header = ({
               </Box>
 
               <Box component={IconButton} onClick={toggleSidenav}>
-                <Badge badgeContent={state.cart.length} color="primary">
+                {state!=null? <Badge badgeContent={state.cart.length} color="primary">
                   <Icon.CartBag sx={ICON_STYLE} />
-                </Badge>
+                </Badge>:<div />}
               </Box>
             </FlexBox>
           </FlexBetween>
@@ -246,11 +302,11 @@ const Header = ({
             <PersonOutline />
           </Box>
 
-          <Badge badgeContent={state.cart.length} color="primary">
+          {state!=null? <Badge badgeContent={state.cart.length} color="primary">
             <Box p={1.25} bgcolor="grey.200" component={IconButton} onClick={toggleSidenav}>
               <ShoppingBagOutlined />
             </Box>
-          </Badge>
+          </Badge> : <div />}
         </FlexBox>
 
         {/* LOGIN FORM DIALOG AND CART SIDE BAR  */}

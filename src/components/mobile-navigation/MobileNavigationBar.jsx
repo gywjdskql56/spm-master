@@ -13,7 +13,7 @@ const MobileNavigationBar = () => {
   } = useAppContext();
   return width <= 900 ? <Wrapper>
       {list.map(item => <StyledNavLink href={item.href} key={item.title}>
-          {item.title === "Cart" ? <Badge badgeContent={state.cart.length} color="primary">
+          {item.title === "Cart" && state!=null ? <Badge badgeContent={state.cart.length} color="primary">
               <item.icon fontSize="small" sx={iconStyle} />
             </Badge> : <item.icon sx={iconStyle} fontSize="small" />}
 
