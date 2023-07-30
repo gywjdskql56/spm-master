@@ -98,7 +98,7 @@ const ProductCard9 = props => {
               {!cartItem?.qty && <Button color="primary" variant="contained" sx={{
               height: 32
             }} onClick={handleCartAmountChange(1)}>
-                  Add To Cart
+                  Add To Carts
                 </Button>}
 
               {!!cartItem?.qty && <FlexBetween>

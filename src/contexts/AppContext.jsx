@@ -1,4 +1,5 @@
-import { createContext, useContext, useMemo, useReducer, useEffect,useState } from "react";
+import { createContext, useContext, useMemo, useReducer, useEffect, useState } from "react";
+import { targetUrl, weburl, getAuth } from "components/config";
 
 // =================================================================================
 
@@ -26,11 +27,26 @@ import { createContext, useContext, useMemo, useReducer, useEffect,useState } fr
 //  imgUrl: "/assets/images/products/Fashion/Clothes/img_2.png"
 //}];
 
+
+
 let INITIAL_CART = {'data':[]}
+
+{/*//const res = await fetch(targetUrl+"/cart",{
+//              credentials : 'include',
+//              method: 'GET',
+//              headers: {
+//                'Content-Type': 'application/json',
+//                "ngrok-skip-browser-warning": true,
+//            }})
+//const data = res.json();
+//if(data.status=="success"){
+//   INITIAL_CART = data; console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))
+//};*/}
+
 
 let INITIAL_STATE= null;
 console.log(INITIAL_CART)
-if (typeof window !== 'undefined' && window.sessionStorage.getItem("cart") !=null) {
+if (typeof window !== 'undefined' && window.sessionStorage.getItem("cart") !=null && window.sessionStorage.getItem("cart") !="undefined") {
  console.log("window")
  INITIAL_CART = window.sessionStorage.getItem("cart")
  console.log(INITIAL_CART)

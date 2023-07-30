@@ -47,9 +47,10 @@ export default function SupportTickets() {
             "ngrok-skip-browser-warning": true,
         }})
   const data = await res.json();
+  console.log(data);
+
   setTicket(data.data)
   setText(data.data.answer)
-  console.log(data);
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")

@@ -90,12 +90,12 @@ const DashboardNavbar = ({
           <Box flexGrow={1} />
 
           <FlexBox alignItems="center" gap={2}>
-            <StyledInputBase placeholder="Search anything..." startAdornment={<Search sx={{
+            {/*<StyledInputBase placeholder="Search anything..." startAdornment={<Search sx={{
             color: "grey.500",
             mr: 1
-          }} />} />
+          }} />} />*/}
 
-            <NotificationsPopover />
+            {/*<NotificationsPopover />*/}
             <AccountPopover />
           </FlexBox>
         </StyledToolBar>

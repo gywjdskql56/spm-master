@@ -29,28 +29,77 @@ const ProductForm = props => {
     validationSchema,
     handleFormSubmit
   } = props;
-  const [files, setFiles] = useState({'상품':[],'병원':[],'숙소':[],1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[]});
-  const [main, setMain] = useState([]);
+
+  console.log(initialValues.data.productDetails.imageList)
+  var arrayP = initialValues.data.productDetails.imageList
+  arrayP = arrayP.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
+  var arrayH = initialValues.data.hospitalDetails.imageList
+  arrayH = arrayH.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
+  var arrayA = initialValues.data.accommodationDetails.imageList
+  arrayA = arrayA.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
+//  var array = initialValues.data.courseDetailsList.imageList
+//courseDetailsList
+  //imageBase64String
+  var arrayTotal = {}
+  for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
+    console.log(i)
+    var array = initialValues.data.courseDetailsList[i].imageList
+    console.log("array")
+    console.log(array)
+    array = array.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
+    console.log(array)
+//    setFiles(files =>({...files, i : array}))
+    arrayTotal[i] = array
+  }
+  arrayTotal["상품"] = arrayP
+  arrayTotal["병원"] = arrayH
+  arrayTotal["숙소"] = arrayA
+//  const [files, setFiles] = useState({'상품':arrayP,'병원':arrayH,'숙소':arrayA,0:[],1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[]});
+  const [files, setFiles] = useState(arrayTotal)
+
+  const [main, setMain] = useState([{
+      preview: `data:image/png;base64,${initialValues.img.imageBase64String}`
+    }]);
+  const [mainch, setMainch] = useState(false);
   const [thumb, setThumb] = useState([]);
-  const [desc, setDesc] = useState(["","","","","","","","","","","","","",]);
-  const [show, setShow] = useState(false);
+  const [desc, setDesc] = useState([initialValues.data.productDetails.description,
+                        initialValues.data.hospitalDetails.description,
+                        initialValues.data.accommodationDetails.description,
+                        "","","","","","","","","","",]);
+  const [show, setShow] = useState(initialValues.show);
   const [category, setCategory] = useState([]);
   const [categoryID, setCategoryID] = useState(null);
   const [region, setRegion] = useState([]);
   const [regionID, setRegionID] = useState(null);
-  const [optionI, setOptionI] = useState([]);
-  const [optionN, setOptionN] = useState([]);
-  const [option, setOption] = useState([]);
-  const [optionNew, setOptionNew] = useState([]);
-  const [optionT, setOptionT] = useState([]);
+  const [optionI, setOptionI] = useState(initialValues.included);
+  const [optionN, setOptionN] = useState(initialValues.not_included);
+  const [option, setOption] = useState(initialValues.option);
+  const [optionNew, setOptionNew] = useState(initialValues.optionNew);
+  const [optionT, setOptionT] = useState(initialValues.tags);
   const [cateid, setCateid] = useState(1);
   const [product, setProduct] = useState(null);
-  const [state, setState] = useState({
+  var [state, setState] = useState(null);
+  if (initialValues.type==1){
+   [state, setState] = useState({
     cust: true,
     shop: false,
-  });
+  });}
+  else{
+   [state, setState] = useState({
+    cust: false,
+    shop: true,
+  });}
+  var dayn = []
+  for (var i=0; i< initialValues.data.courseDetailsList.length; i++){
+    dayn.push(i)
+  }
+  console.log("dayn")
+  console.log(dayn)
+  console.log(typeof(dayn))
+  console.log([1,2,3])
+  console.log(typeof([1,2,3]))
   const [list, setList] = useState(['상품','병원','숙소']);
-  const [listn, setListn] = useState(['상품','병원','숙소']);
+  const [listn, setListn] = useState(dayn);
   const { cust, shop } = state;
     const handleChange_check = (event) => {
       if (event.target.name=='cust'){
@@ -67,7 +116,7 @@ const ProductForm = props => {
         setList(['상품','병원'])
       }
   };
-  const [day, setDay] = useState(0);
+  const [day, setDay] = useState(initialValues.description.length);
   const handleChange_day = (event) => {
     setDay(event.target.value);
     console.log(event.target.value)
@@ -141,6 +190,7 @@ const [dates, setDates] = useState([
       preview: URL.createObjectURL(file)
     }));
     setMain([files_list[0]])
+    setMainch(true)
     }
 
     const handleChangeDropZoneMain2 = (event) => {
@@ -169,6 +219,8 @@ const [dates, setDates] = useState([
     setFiles(prev=>({...prev, "병원":files_list}));
     }else if(index=='숙소'){
     setFiles(prev=>({...prev, "숙소":files_list}));
+    }else if(index==0){
+    setFiles(prev=>({...prev, 0:files_list}));
     }else if(index==1){
     setFiles(prev=>({...prev, 1:files_list}));
     }else if(index==2){
@@ -238,6 +290,16 @@ const [dates, setDates] = useState([
    useEffect(() => {
         getCategory()
         getRegion()
+   {/*for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
+    console.log(i)
+    var array = initialValues.data.courseDetailsList[i].imageList
+    console.log("array")
+    console.log(array)
+    array = array.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
+    console.log(array)
+    setFiles(files =>({...files, i : array}))
+    console.log(files)
+  }*/}
    }, []);
   // HANDLE DELETE UPLOAD IMAGE
     const handleFileDeleteMain = (file) => () => {
@@ -253,6 +315,8 @@ const [dates, setDates] = useState([
     setFiles(prev=>({...prev, "병원":files[index].filter(item => item.name !== file.name)}));
     }else if(index=='숙소'){
     setFiles(prev=>({...prev, "숙소":files[index].filter(item => item.name !== file.name)}));
+    }else if(index==0){
+    setFiles(prev=>({...prev, 0:files[index].filter(item => item.name !== file.name)}));
     }else if(index==1){
     setFiles(prev=>({...prev, 1:files[index].filter(item => item.name !== file.name)}));
     }else if(index==2){
@@ -389,9 +453,9 @@ const [dates, setDates] = useState([
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetails" : desc[2],
-    "hospitalDetails" : desc[0],
-    "accommodationDetails" : desc[1],
+    "productDetails" : desc[0],
+    "hospitalDetails" : desc[1],
+    "accommodationDetails" : desc[2],
     "tourDescriptionList" : day_item_list,
     "tagList" : optionT,
     "price" : values.price,
@@ -587,21 +651,36 @@ const [dates, setDates] = useState([
              {/* <input type="file" id="file" onChange={e => handleChangeDropZoneMain2(e)}></input>*/}
                 <DropZone onChange={e => handleChangeDropZoneMain(e)} />
                 <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
-                  {main.map((file, index) => {
+                  {/*mainch? (main.map((file, index) => {
                 return <UploadImageBox key={index}>
                         <BazaarImage src={file.preview} width="100%" />
                         <StyledClear onClick={handleFileDeleteMain(file)} />
-                      </UploadImageBox>;
-              })}
+                      </UploadImageBox>
+              }))
+                  :
+                  <UploadImageBox key={"7"}>
+                        <img src={`data:image/png;base64,${initialValues.img.imageBase64String}`} width="100%"/>
+                        <BazaarImage src={`data:image/png;base64,${initialValues.img.imageBase64String}`} width="100%" />
+                        <StyledClear onClick={handleFileDeleteMain()} />
+                      </UploadImageBox>*/}
+                  {/*main.map((file, index) => {
+                return <UploadImageBox key={index}>
+                        <BazaarImage src={file.preview} width="100%" />
+                        <StyledClear onClick={handleFileDeleteMain(file)} />
+                      </UploadImageBox>
+              })*/}
+{/*              <img src={`data:image/png;base64,${initialValues.img.imageBase64String}`}/> */}
                 </FlexBox>
               </Grid>
-              <Grid item xs={6}>
-             {main.map((file, index) => {
+              <Grid item lg={1} xs={1} />
+              <Grid item lg={4} xs={4}>
+              <img src={main[0].preview} style={{ width: 200, height: 200 }} />
+             {/*main.map((file, index) => {
                 return <UploadImageBox key={index}>
                         <BazaarImage src={file.preview} width="100%" />
                         <StyledClear onClick={handleFileDeleteMain(file)} />
-                      </UploadImageBox>;
-              })}
+                      </UploadImageBox>
+              })*/}
               </Grid>
               </Grid>
 
@@ -625,7 +704,7 @@ const [dates, setDates] = useState([
                 return <UploadImageBox key={index}>
                         <BazaarImage src={file.preview} width="100%" />
                         <StyledClear onClick={handleFileDelete(file, n)} />
-                      </UploadImageBox>;
+                      </UploadImageBox>
               })}
                 </FlexBox>
               </Grid>
@@ -723,13 +802,13 @@ const [dates, setDates] = useState([
                 </Button>
               </Grid>)}
 
-              {values.optionNew.map(o =>
+              {/*values.optionNew.map(o =>
               <Grid item sm={2} xs={12}>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
                   {o.name+"("+o.price+")"}{" "}&nbsp;
                     <BiXCircle size={25} onClick={() => handleOption(o)} />
                 </Button>
-              </Grid>)}
+              </Grid>)*/}
               <Grid container spacing={3}>
               <Grid item sm={6} xs={6}>
                 <FormControlLabel control={<Switch defaultChecked value={values.show} onChange={handleChange} />} label="판매상품 공개하기" />
@@ -737,7 +816,7 @@ const [dates, setDates] = useState([
               </Grid>
               <Grid item sm={6} xs={6}>
                 <Button variant="contained" color="info" type="submit" onClick={()=>submit()}>
-                  저장하기
+                  수정하기
                 </Button>
               </Grid>
             </Grid>

@@ -60,6 +60,7 @@ const ProductViewDialog = props => {
     state,
     dispatch
   } = useAppContext();
+  console.log(product)
   const cartItem = state.cart.find(item => item.id === product.id);
   const handleCartAmountChange = amount => () => {
     dispatch({

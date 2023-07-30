@@ -51,17 +51,17 @@ const ProductRow = ({
       <StyledTableCell align="left">{currency(price)}</StyledTableCell>
 
       <StyledTableCell align="left">
-        <BazaarSwitch color="info" checked={productPulish} onChange={() => setProductPublish(state => !state)} />
+        <BazaarSwitch color="info" checked={productPulish} /> {/*() => setProductPublish(state => !state)*/}
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton onClick={() => router.push(`/admin/products/${slug}`)}>
+        <StyledIconButton onClick={() => router.push(`/vendor/products/${slug}`)}>
           <Edit />
         </StyledIconButton>
 
-        <StyledIconButton>
+        {/*<StyledIconButton>
           <RemoveRedEye />
-        </StyledIconButton>
+        </StyledIconButton>*/}
 
         <StyledIconButton>
           <Delete />

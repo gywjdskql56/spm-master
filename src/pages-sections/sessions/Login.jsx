@@ -181,11 +181,18 @@ const Login = () => {
             window.alert("고객 로그인에 성공했습니다.")
             window.location.href =  weburl
             sessionStorage.setItem('type', 'cust')
-            fetch("http://localhost:5003/get_cart_by_id/"+window.sessionStorage.getItem('id'))
+            fetch(targetUrl+"/cart",{
+              credentials : 'include',
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
             .then((response) =>
                 response.json())
             .then((data) =>
-                {setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))});
+                {if(data.status=="success"){
+                    setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))}});
             sessionStorage.setItem('id',values.email)
             sessionStorage.setItem('type',result.data[0]['authority'])
             }

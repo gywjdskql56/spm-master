@@ -25,8 +25,9 @@ import Typography from '@mui/material/Typography';
 const ProductIntro = ({
   product
 }) => {
+  console.log(product)
   const {
-    id,
+    productId,
     price,
     title,
     images,
@@ -45,8 +46,36 @@ const ProductIntro = ({
     type: "type 1"
   });
   const [open, setOpen] = useState(false);
+  const [amt, setAmt] = useState(1);
+  const [totalprice, setTotalPrice] = useState(price);
+  const [perprice, setPerPrice] = useState(price);
+  const [option, setOption] = useState([])
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleClickOption = (e, val) =>{
+
+    console.log("handleClickOption")
+    console.log(e)
+    console.log(val)
+    if (e.target.style.color!='red'){
+    console.log("Color Change!!!"+e.target.style.color)
+    e.target.style.color = 'red'
+//    setOption((prev)=>[...prev, e.target.value])
+    setOption((prev)=>[...prev, val])
+    setTotalPrice((prev)=>(prev + parseFloat(val.split("|||^^^")[1])*amt))
+    setPerPrice((prev)=>(prev + parseFloat(val.split("|||^^^")[1])))
+    }
+    else{
+    console.log("Color Not Change!!!"+e.target.style.color)
+    e.target.style.color = 'white'
+    setOption(prev => {
+      return prev.filter(item => item !== val)
+    })
+    setTotalPrice((prev)=>(prev - val.split("|||^^^")[1]*amt))
+    setPerPrice((prev)=>(prev - val.split("|||^^^")[1]))
+    }
+
+  }
    function handleDates(value){
       //your modification on passed value ....
       console.log(value)
@@ -68,24 +97,44 @@ const ProductIntro = ({
   };
 
   // CHECK PRODUCT EXIST OR NOT IN THE CART
-  const cartItem = state.cart.find(item => item.id === id);
+  const cartItem = state.cart.find(item => item.productId === productId);
 
   // HANDLE SELECT IMAGE
   const handleImageClick = ind => () => setSelectedImage(ind);
 
   // HANDLE CHANGE CART
   const handleCartAmountChange = amount => () => {
+    console.log({
+        price : perprice,
+        qty: amt,
+        name: product.productName,
+        imgUrl: thumbnail,
+        id : productId,
+        slug : productId
+      })
     dispatch({
       type: "CHANGE_CART_AMOUNT",
       payload: {
         price,
-        qty: amount,
-        name: title,
+        qty: amt,
+        name: product.productName,
         imgUrl: thumbnail,
-        id,
+        productId,
         slug
       }
     });
+  };
+
+  const handleAmountChange = type => () => {
+    if (type=="sub"){
+        var amt_c = (amt>1? (amt-1): 1)
+        setAmt((amt)=>(amt>1? (amt-1): 1))
+        setTotalPrice((tot)=>(tot*(amt_c)))
+    }else {
+       var amt_c = amt+1
+       setAmt((amt)=>(amt+1))
+       setTotalPrice((tot)=>(tot*(amt_c)))
+    }
   };
   const style = {
   position: 'absolute',
@@ -145,7 +194,7 @@ const ProductIntro = ({
           </FlexBox>
 
           {(product.optionFeeList).map(variant =>
-        <Button key={variant.id} color="success" variant="contained" sx={{
+        <Button key={variant.id} color="success" variant="contained" value={variant.name+"|||^^^"+variant.price} onClick={(e)=>handleClickOption(e, variant.name+"|||^^^"+variant.price)} sx={{
           mb: 4.5,
           px: "1.75rem",
           height: 40,
@@ -204,7 +253,8 @@ const ProductIntro = ({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }} />
         </LocalizationProvider>*/}
-          {!cartItem?.qty ?
+
+          {/*!cartItem?.qty ?
           <Button color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
           mb: 4.5,
           px: "1.75rem",
@@ -213,22 +263,26 @@ const ProductIntro = ({
         }}>
               장바구니에 추가하기
             </Button>
-            :
+            :*/}
             <FlexBox alignItems="center" mb={4.5}>
             <FlexBox alignItems="center">
-              <Button size="small" sx={{
+             <H2 color="primary.main" mb={0.5} lineHeight="1">
+              {"Total Price :  ₩"+(totalprice)+"      "}
+            </H2>
+              <Button size="small" mb={4} mt={2} sx={{
+            marginLeft: '20px',
             p: 1
-          }} color="primary" variant="outlined" onClick={handleCartAmountChange(cartItem?.qty - 1)}>
+          }} color="primary" variant="outlined" onClick={handleAmountChange("sub")}>
                 <Remove fontSize="small" />
               </Button>
 
               <H3 fontWeight="600" mx={2.5}>
-                {cartItem?.qty.toString().padStart(2, "0")}
+                {amt}
               </H3>
 
               <Button size="small" sx={{
             p: 1
-          }} color="primary" variant="outlined" onClick={handleCartAmountChange(cartItem?.qty + 1)}>
+          }} color="primary" variant="outlined" onClick={handleAmountChange("add")}>
                 <Add fontSize="small" />
               </Button>
               <FlexBox alignItems="center">
@@ -242,7 +296,7 @@ const ProductIntro = ({
             </Button>
             </FlexBox>
             </FlexBox>
-            </FlexBox>}
+            </FlexBox>
 
           <FlexBox alignItems="center" mb={2}>
             <Box>Vendor information:</Box>

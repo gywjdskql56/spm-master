@@ -11,6 +11,7 @@ CreateProduct.getLayout = function getLayout(page) {
 // =============================================================================
 
 export default function CreateProduct() {
+
   const INITIAL_VALUES = {
     name: "",
     tags: "",

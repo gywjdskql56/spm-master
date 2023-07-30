@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Box, IconButton, Menu, MenuItem, styled } from "@mui/material";
 import { H6, Small } from "components/Typography";
+import { targetUrl, weburl } from "components/config";
 
 // styled components
 const Divider = styled(Box)(({
@@ -14,6 +15,32 @@ const AccountPopover = () => {
   const open = Boolean(anchorEl);
   const handleClose = () => setAnchorEl(null);
   const handleClick = event => setAnchorEl(event.currentTarget);
+    function Logout(){
+    console.log('logout')
+    fetch(targetUrl+"/logout",{
+          method: 'POST',
+          credentials:'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }}).then((response) =>
+        response.json())
+        .then((data) =>
+        {console.log(data)
+        if (data.status=='success'){
+            if (typeof window !== "undefined") {
+                window.alert("로그아웃에 성공했습니다.")
+                window.location.href =  weburl
+                sessionStorage.removeItem('id')
+            }
+        } else {
+            if (typeof window !== "undefined") {
+                window.alert("로그아웃에 실패했습니다. 다시 시도해주세요.")
+                window.location.reload()
+            }
+        }
+        });
+  }
   return <Box>
       <IconButton sx={{
       padding: 0
@@ -62,13 +89,13 @@ const AccountPopover = () => {
           <Small color="grey.500">{typeof window !== 'undefined'? sessionStorage.getItem('type') : "VENDOR"}</Small>
         </Box>
 
-        <Divider />
+        {/*<Divider />
         <MenuItem>마이 페이지</MenuItem>
         <MenuItem>내 주문</MenuItem>
-        <MenuItem>설정</MenuItem>
+        <MenuItem>설정</MenuItem>*/}
 
         <Divider />
-        <MenuItem>로그아웃</MenuItem>
+        <MenuItem onClick={()=>Logout()}>로그아웃</MenuItem>
       </Menu>
     </Box>;
 };

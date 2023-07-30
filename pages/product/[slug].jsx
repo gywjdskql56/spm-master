@@ -6,11 +6,11 @@ import ShopLayout1 from "components/layouts/ShopLayout1";
 import ProductIntro from "components/products/ProductIntro";
 import ProductReview from "components/products/ProductReview";
 import ProductFAQ from "components/products/ProductFAQ";
-import AvailableShops from "components/products/AvailableShops";
-import RelatedProducts from "components/products/RelatedProducts";
-import FrequentlyBought from "components/products/FrequentlyBought";
+//import AvailableShops from "components/products/AvailableShops";
+//import RelatedProducts from "components/products/RelatedProducts";
+//import FrequentlyBought from "components/products/FrequentlyBought";
 import ProductDescription from "components/products/ProductDescription";
-import { getFrequentlyBought, getRelatedProducts } from "utils/__api__/related-products";
+//import { getFrequentlyBought, getRelatedProducts } from "utils/__api__/related-products";
 import api from "utils/__api__/products";
 import { targetUrl, weburl } from "components/config";
 
@@ -35,8 +35,8 @@ const StyledTabs = styled(Tabs)(({
 
 const ProductDetails = props => {
   const {
-    frequentlyBought,
-    relatedProducts,
+//    frequentlyBought,
+//    relatedProducts,
     products
   } = props;
   const router = useRouter();
@@ -45,7 +45,7 @@ const ProductDetails = props => {
   const [FAQ, setFAQ] = useState(0);
   const [id, setId] = useState(null);
   const handleOptionClick = (_, value) => setSelectedOption(value);
-  console.log(product)
+  console.log(products)
 
   useEffect(() => {
     const product_id = window.location.href.split("/").splice(-1);
@@ -120,14 +120,14 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params
 }) => {
-  const relatedProducts = await getRelatedProducts();
-  const frequentlyBought = await getFrequentlyBought();
+//  const relatedProducts = await getRelatedProducts();
+//  const frequentlyBought = await getFrequentlyBought();
   console.log(params.slug)
   const product = await api.getProduct('test-product');
   return {
     props: {
-      frequentlyBought,
-      relatedProducts,
+//      frequentlyBought,
+//      relatedProducts,
       product
     }
   };

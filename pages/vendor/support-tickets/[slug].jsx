@@ -1,13 +1,13 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Box, Card, Stack, Table, TableContainer } from "@mui/material";
+import { Box, Card, Stack, Table, TableContainer, Grid } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableHeader from "components/data-table/TableHeader";
 import TablePagination from "components/data-table/TablePagination";
-import VendorDashboardLayout from "components/layouts/vendor-dashboard";
+import AdminDashboardLayout from "components/layouts/vendor-dashboard";
 import Scrollbar from "components/Scrollbar";
 import SearchInput from "components/SearchInput";
 import useMuiTable from "hooks/useMuiTable";
-import { StatusWrapper, StyledTableRow, StyledTableCell, StyledIconButton } from "pages-sections/admin";
+import { StatusWrapper, StyledTableRow, StyledTableCell, StyledIconButton } from "pages-sections/vendor";
 import api from "utils/__api__/ticket";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -19,10 +19,11 @@ import FormGroup from '@mui/material/FormGroup';
 import { H3, H5, Span } from "components/Typography";
 import { FlexBox } from "components/flex-box";
 import { format } from "date-fns";
+import { targetUrl, weburl, getAuth } from "components/config";
 
 // =============================================================================
 SupportTickets.getLayout = function getLayout(page) {
-  return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
+  return <AdminDashboardLayout>{page}</AdminDashboardLayout>;
 };
 // =============================================================================
 
@@ -32,22 +33,81 @@ export default function SupportTickets() {
 
   const router = useRouter();
 
+  const [ticket, setTicket] = useState([]);
+  const [id, setId] = useState([]);
+
+  const getTicket = async () => {
+  const ticket_id = window.location.href.split("/").splice(-1);
+  setId(ticket_id)
+  const res = await fetch(targetUrl+"/sysqnas/"+ticket_id,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+  const data = await res.json();
+  console.log(data);
+
+  setTicket(data.data)
+  setText(data.data.answer)
+  if (data.status =="error"){
+    if (typeof window !== "undefined") {
+    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.location.href =  weburl
+    }
+  }
+  console.log(data.data);
+  setTicket((data.data))
+  return data;
+  }
+
+   const DeleteFAQ = async (id) => {
+        getAuth()
+        console.log(id)
+      const res = await fetch(targetUrl+"/sysqnas/answer/"+id,{
+              method: 'DELETE',
+              credentials : 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": true,
+            }})
+      const data = await res.json();
+      console.log(data);
+      if (data.status =="success"){
+        if (typeof window !== "undefined") {
+        window.alert("성공적으로 삭제되었습니다.")
+        window.location.href =  weburl+"/vendor/support-tickets"
+        }
+      } else {
+        if (typeof window !== "undefined") {
+        window.alert("문의글 삭제에 실패했습니다.")
+        window.location.reload()
+        }
+      }
+    console.log(id)
+  }
+
+
+
   // HANDLE FORM SUBMIT
+    const cors = require("cors");
+//    const app = express();
+//    app.use(cors());
   const handleFormSubmit = event => {
-    event.preventDefault();
-    console.log(text)
-    fetch('http://localhost:5003/insert_ticket',{
-      method: 'POST',
+
+    {/*fetch(targetUrl + '/members/vendor-approve/1',{
+      method: "PATCH",
+      credentials : 'include',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
     },
-      body: JSON.stringify({'id': window.location.href.split("/").splice(-1)[0],
+      body: JSON.stringify({
       'answer': text})
     })
     .then(response => response.json())
     .then(response => {console.log(response); console.log(response.response);
-    if(response.response=='success'){
+    if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
         }
@@ -55,21 +115,45 @@ export default function SupportTickets() {
         if (typeof window !== "undefined") {
             window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
             }
+    }})*/}
+
+    event.preventDefault();
+    console.log(text)
+    fetch(targetUrl + '/sysqnas/answer/'+id,{
+      method: 'PATCH',
+      credentials : 'include',
+      headers: {
+         "Content-Type": "application/json",
+    },
+      body: JSON.stringify({
+      'answer': text})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.status=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 등록되었습니다.")
+            window.location.href =  weburl+"/admin/support-tickets"
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("수정에 실패하였습니다. 다시 시도해주세요.")
+            }
     }})
   };
 
   const [text, setText] = useState("");
-  const [ticket, setTicket] = useState(null);
 
   useEffect(() => {
     const ticket_id = window.location.href.split("/").splice(-1);
     console.log(ticket_id[0]);
-    fetch(`http://localhost:5003/get_ticket_by_id/${window.location.href.split("/").splice(-1)[0]}`)
+    {/*fetch(`http://localhost:5003/get_ticket_by_id/${window.location.href.split("/").splice(-1)[0]}`)
     .then((response) =>
         response.json())
     .then((data) =>
         {setTicket(data['data']);console.log(data);setText(data['data'].answer)}
-    );
+    );*/}
+    getTicket()
   },[])
 
   // Show a loading state when the fallback is rendered
@@ -101,12 +185,12 @@ export default function SupportTickets() {
     }} />*/}
     <H3 mb={2}>Edit Support-tickets</H3>
 
-            <Divider sx={{
+     <Divider sx={{
       mb: 4,
       borderColor: "grey.300"
     }} />
 
-      <Link href="admin/insert_ticket_answer" passHref>
+      <Link href={weburl+"/vendor/support-tickets"} passHref>
       <Button color="primary" sx={{
       px: 4, mb: 3,
       bgcolor: "primary.light"
@@ -119,15 +203,15 @@ export default function SupportTickets() {
 
           {ticket!=null? <Box>
             <H5 fontWeight="600" mt={0} mb={0}>
-              QUESTION
+              {ticket.title}
             </H5>
 
             <Span color="grey.600">
-              {ticket.email}{" | "}{format(new Date(ticket.date), "hh:mm:a | dd MMM yyyy")}
+              {ticket.email}{" | "}{ticket.writeDate}}
             </Span>
 
-            <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-              {ticket.question}
+            <Box borderRadius="10px" bgcolor="grey.400" p={2} mt={2}>
+              {ticket.contents}
             </Box>
           </Box>: <div />}
         </FlexBox>
@@ -162,13 +246,26 @@ export default function SupportTickets() {
         }
         label="Private"
       />*/}
-
+      <Grid container spacing={1}>
+      <Grid item lg={10} md={10} xs={10} />
+      <Grid item lg={1} md={1} xs={1} >
         <Button type="submit" color="primary" variant="contained" sx={{
         ml: "auto",
         display: "block"
       }}>
           수정
         </Button>
+        </Grid>
+        <Grid item lg={1} md={1} xs={1} >
+        <Button color="success" variant="contained" onClick={() => DeleteFAQ(ticket.sysqnaId)}
+        sx={{
+        ml: "auto",
+        display: "block"
+      }}>
+          삭제
+        </Button>
+        </Grid>
+        </Grid>
       </form>
 {/*//        <Scrollbar>
 //          <TableContainer sx={{

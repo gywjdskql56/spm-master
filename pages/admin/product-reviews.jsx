@@ -42,6 +42,9 @@ ProductReviews.getLayout = function getLayout(page) {
 export default function ProductReviews({
   reviews
 }) {
+    console.log(reviews)
+
+
   // RESHAPE THE REVIEW LIST BASED TABLE HEAD CELL ID
   const filteredrReviews = reviews.map(item => ({
     id: item.id,

@@ -43,6 +43,7 @@ Reviews.getLayout = function getLayout(page) {
 export default function Reviews({
   reviews
 }) {
+ console.log(reviews)
   const {
     order,
     orderBy,

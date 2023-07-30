@@ -28,7 +28,8 @@ const brands = async () => {
   return response.data;
 };
 const reviews = async () => {
-  const response = await axios.get("/api/admin/reviews");
+  const response = await axios.get(targetUrl+"/sysqnas" );
+  console.log(response)
   return response.data;
 };
 

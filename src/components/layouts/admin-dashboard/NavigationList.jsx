@@ -22,10 +22,12 @@ export const navigations = [{
   children: [{
     name: "카테고리 리스트",
     path: "/admin/categories"
-  }, {
-    name: "카테고리 추가하기",
-    path: "/admin/categories/create"
-  }]
+  },
+//  {
+//    name: "카테고리 추가하기",
+//    path: "/admin/categories/create"
+//  }
+  ]
 },
 //{
 //  name: "브랜드",
@@ -91,8 +93,9 @@ export const navigations = [{
     path: "/admin/payout-request"
   }]
 },
-{
-  name: "로그아웃",
-  icon: duotone.Session,
-  path: "/"
-}];
+//{
+//  name: "로그아웃",
+//  icon: duotone.Session,
+//  path: "/"
+//}
+];

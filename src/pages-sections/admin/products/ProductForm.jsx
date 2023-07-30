@@ -417,6 +417,7 @@ const [dates, setDates] = useState([
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
+            window.location.href = weburl + "/vendor/products"
         }
     }else{
         if (typeof window !== "undefined") {

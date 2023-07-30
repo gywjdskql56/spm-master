@@ -3,11 +3,13 @@ import { useRouter } from "next/router";
 import { Box } from "@mui/material";
 import * as yup from "yup";
 import { H3 } from "components/Typography";
-import { ProductForm } from "pages-sections/admin";
+import { ProductForm } from "pages-sections/vendor";
 import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 // import api from "utils/__api__/products";
 import DateObject from "react-date-object";
 import dynamic from 'next/dynamic'
+import { targetUrl, weburl } from "components/config";
+
 // =============================================================================
 EditProduct.getLayout = function getLayout(page) {
   return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
@@ -34,37 +36,53 @@ export default function EditProduct() {
    useEffect(() => {
     const product_id = window.location.href.split("/").splice(-1);
     console.log(product_id)
-     fetch("http://localhost:5003/get_product_by_id/"+product_id)
+     fetch(targetUrl+"/vendor-productDetails?productId="+product_id,{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
     .then((response) =>
         response.json())
-    .then((data) =>
-        {console.log(data);
-        console.log(data[product_id]);
-        console.log(data[product_id].date_list);
-          const date_list = []
-          for (let i=0; i<data[product_id].date_list.length; i++) {
-            if (data[product_id].date_list[i].length>1){
-                date_list.push([new DateObject(data[product_id].date_list[i][0]),new DateObject(data[product_id].date_list[i][1])])
-            } else if (data[product_id].date_list[i].length==1){
-                date_list.push([new DateObject(data[product_id].date_list[i][0])])
+    .then((res) =>
+        {console.log(res);
+        const data = res.data
+        const date_list = []
+        for (let i=0; i<data.servicePeriodList.length; i++) {
+            if (data.servicePeriodList[i].length>1){
+                date_list.push([new DateObject(data.servicePeriodList[i].startDate),new DateObject(data.servicePeriodList[i].endDate)])
+            } else if (data.servicePeriodList[i].length==1){
+                date_list.push([new DateObject(data.servicePeriodList[i].startDate)])
             }
+        }
+        const option_list = []
+        for (let i=0; i<data.optionFeeList.length; i++) {
+            option_list.push(data.optionFeeList[i].name+"("+data.optionFeeList[i].price+")")
+        }
+        const productval = {
+          name: data.productName,
+          tags: data.tagList,
+          price: data.price,
+          sale_price: data.salePrice,
+          category1: data.category.categoryId,
+          category2: data.region.regionId,
+          description: data.productDetails.description,
+          option: option_list,
+          optionNew: option_list,
+          not_included: data.nonIncludedPartList,
+          included: data.includedPartList,
+          description: data.courseDetailsList,
+          img: data.thumbnailImage,
+          show: data.open,
+          dates : date_list,
+          type : data.type,
+          data: data
           }
-          console.log(date_list)
-        setProduct(
-        {
-          name: data[product_id].product_name,
-          tags: data[product_id].tags,
-          price: data[product_id].price,
-          sale_price: data[product_id].sale_price,
-          category1: data[product_id].category_name,
-          category2: data[product_id].region_name,
-          description: data[product_id].detail,
-          option: data[product_id].option.split('|'),
-          img: data[product_id].img,
-          show: data[product_id].public=='Y'?true:false,
-          dates : date_list}
-        )
+        setProduct( productval )
+        console.log(product)
         })
+
 
  }, []);
 

@@ -183,7 +183,7 @@ export default function CategoryList(props) {
   return <Box py={4}>
       <H3 mb={2}>상품 카테고리</H3>
 
-      <SearchArea handleSearch={() => {}} buttonText="카테고리 추가" searchPlaceholder="카테고리 검색" handleBtnClick={() => Router.push("/admin/categories/create")} />
+      {/*<SearchArea handleSearch={() => {}} buttonText="카테고리 추가" searchPlaceholder="카테고리 검색" handleBtnClick={() => Router.push("/admin/categories/create")} />*/}
        {open2?
       <Card>
         <Scrollbar>

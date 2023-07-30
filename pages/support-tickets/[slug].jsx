@@ -81,18 +81,7 @@ const SupportTicketDetails = () => {
       </Button>
     </Link>;
 
-  {/*const [ticket, setTicket] = useState(null);
 
-  useEffect(() => {
-    const ticket_id = window.location.href.split("/").splice(-1);
-    console.log(ticket_id[0]);
-    fetch(`http://localhost:5003/get_ticket_by_id/${window.location.href.split("/").splice(-1)[0]}`)
-    .then((response) =>
-        response.json())
-    .then((data) =>
-        {setTicket(data['data']);console.log(data)}
-    );
-  },[])*/}
 
   // Show a loading state when the fallback is rendered
   if (router.isFallback) {

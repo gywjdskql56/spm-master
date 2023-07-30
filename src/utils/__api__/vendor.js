@@ -1,5 +1,9 @@
 import axios from "axios";
+import { targetUrl, weburl } from "components/config";
+
 const getAllProductReviews = async () => {
+//  const response = await axios.get(targetUrl+"/sysqnas");
+//  console.log(response.json().data)
   const response = await axios.get("/api/vendor/product-reviews");
   return response.data;
 };

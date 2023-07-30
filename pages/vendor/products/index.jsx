@@ -95,7 +95,7 @@ export default function ProductList(props) {
   return <Box py={4}>
       <H3 mb={2}>상품 리스트</H3>
 
-      <SearchArea handleSearch={() => {}} buttonText="상품 추가하기" searchPlaceholder="상품 검색하기..." handleBtnClick={() => Router.push("/vendor/products/create")} />
+      {/*<SearchArea handleSearch={() => {}} buttonText="상품 추가하기" searchPlaceholder="상품 검색하기..." handleBtnClick={() => Router.push("/vendor/products/create")} />*/}
 
       <Card>
         <Scrollbar autoHide={false}>
