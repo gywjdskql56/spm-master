@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { FlexBox, FlexRowCenter } from "components/flex-box";
 import { H1, H6 } from "components/Typography";
-import { targetUrl } from "components/config";
 import BazaarImage from "components/BazaarImage";
 import BazaarTextField from "components/BazaarTextField";
 import { Wrapper } from "./Login";
