@@ -18,7 +18,6 @@ import Section12 from "pages-sections/info/Section12";
 import Section13 from "pages-sections/info/Section13";
 import Typography from '@mui/material/Typography';
 import { H1, H6 } from "components/Typography";
-import api from "utils/__api__/market-1";
 import BazaarImage from "components/BazaarImage";
 import LazyImage from "components/LazyImage";
 import Image from "components/BazaarImage";
@@ -124,46 +123,10 @@ const MarketShop = props => {
 export const getStaticProps = async ({
   locale
 }) => {
-  const carList = await api.getCarList();
-  const carBrands = await api.getCarBrands();
-  const moreItems = await api.getMoreItems();
-  const mobileList = await api.getMobileList();
-  const opticsList = await api.getOpticsList();
-  const mobileShops = await api.getMobileShops();
-  const opticsShops = await api.getOpticsShops();
-  const serviceList = await api.getServiceList();
-  const mobileBrands = await api.getMobileBrands();
-  const flashDealsData = await api.getFlashDeals();
-  const opticsBrands = await api.getOpticsBrands();
-  const bottomCategories = await api.getCategories();
-  const topCategories = await api.getTopCategories();
-  const topRatedBrands = await api.getTopRatedBrand();
-  const mainCarouselData = await api.getMainCarousel();
-  const newArrivalsList = await api.getNewArrivalList();
-  const bigDiscountList = await api.getBigDiscountList();
-  const topRatedProducts = await api.getTopRatedProduct();
   let locales = await serverSideTranslations(locale ?? "en", ["common"]);
   return {
     props: {
       ...locales,
-      carList,
-      carBrands,
-      moreItems,
-      mobileList,
-      opticsList,
-      serviceList,
-      mobileShops,
-      opticsShops,
-      mobileBrands,
-      opticsBrands,
-      topCategories,
-      flashDealsData,
-      topRatedBrands,
-      newArrivalsList,
-      bigDiscountList,
-      mainCarouselData,
-      topRatedProducts,
-      bottomCategories
     }
   };
 };

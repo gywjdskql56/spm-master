@@ -29,8 +29,10 @@ const StyledChip = styled(Chip)(({
 
 // =============================================
 
-const TicketList = () => {
-    const [ticketList, setTicketList] = useState(null);
+const TicketList = ({ticket}) => {
+    console.log("ticket")
+    console.log(ticket)
+    const [ticketList, setTicketList] = useState(ticket.data);
     const getTicket = async () => {
     const res = await fetch(targetUrl+"/sysqnas",{
           method: 'GET',
@@ -112,5 +114,20 @@ const TicketList = () => {
       </FlexBox>
     </CustomerDashboardLayout>;
 };
+export const getStaticProps = async () => {
+  const ticketRes = await fetch(targetUrl+"/sysqnas",{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true,
+  }})
+const ticket = await ticketRes.json();
 
+
+return {
+  props: {
+    ticket
+  }
+};
+}
 export default TicketList;

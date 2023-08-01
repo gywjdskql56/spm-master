@@ -12,7 +12,8 @@
     "fix:prettier": "prettier --write . '!.next' '!.node_modules'",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prod": "next export"
   },
   "browser": {
     "fs": false,

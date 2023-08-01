@@ -1,5 +1,6 @@
 export const targetUrl = "https://a2a3-211-178-9-143.ngrok-free.app/api";
-export const weburl = 'https://allmeditrip.com/';
+// export const weburl = 'https://allmeditrip.com/';
+export const weburl = 'http://localhost:3000';
 export const getAuth = async () => {
   const auth = await fetch(targetUrl+"/members/auth",{
           method: 'GET',

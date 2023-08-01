@@ -15,50 +15,24 @@ import { targetUrl, weburl } from "components/config";
 // ============================================================
 
 const Profile = ({
-  user
+  profiles
 }) => {
+  console.log(profiles)
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
   const [users, setUsers] = useState({"memberId":"0","firstName":"-","lastName":"-"});
   const [open, setOpen] = useState(false);
 
-  const getUser = async (a) => {
-  console.log(a)
-
-  {/*const auth = await fetch(targetUrl+"/members/auth",{
-          method: 'GET',
-          credentials : 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            "ngrok-skip-browser-warning": true,
-        }})
-
-  console.log(auth);
-  const auth_data = await auth.json();
-  console.log(auth_data.data);*/}
-
-  const res = await fetch(targetUrl+"/members/myinfo",{
-          method: 'GET',
-          credentials : 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            "ngrok-skip-browser-warning": true,
-        }})
-  const data = await res.json();
-  setUsers(data.data)
-  console.log(data);
-  if (data.status =="error"){
-    if (typeof window !== "undefined") {
-    window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
-    window.location.href =  weburl
-    }
-  }
-  console.log(data.data);
-  setUsers(data.data)
-  return data;
-  }
 
   useEffect(() => {
-    getUser("1")
+    if (profiles.status =="error"){
+      if (typeof window !== "undefined") {
+        setUsers({"memberId":"0","firstName":"-","lastName":"-"})
+       window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
+       window.location.href =  weburl
+      }
+    } else {
+      setUsers(profiles.data)
+    }
     setOpen(true)
   },[open])
 
@@ -176,11 +150,23 @@ const TableRowItem = ({
     </FlexBox>;
 };
 export const getStaticProps = async () => {
-  const user = await api.getUser();
-  return {
-    props: {
-      user
-    }
-  };
+  const profileRes = await fetch(targetUrl+"/members/myinfo",{
+    method: 'GET',
+    credentials : 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true,
+  }})
+const profile = await profileRes.json();
+console.log("profile")
+console.log(profile)
+
+return {
+  props: {
+    profiles : profile
+  }
+};
+
+// {"status":"error", "data": {"memberId":"0","firstName":"-","lastName":"-"}
 };
 export default Profile;
