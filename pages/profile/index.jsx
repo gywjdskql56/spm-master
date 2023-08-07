@@ -8,8 +8,6 @@ import { FlexBetween, FlexBox } from "components/flex-box";
 import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
-import { currency } from "lib";
-import api from "utils/__api__/users";
 import { useState, useEffect } from "react";
 import { targetUrl, weburl } from "components/config";
 // ============================================================

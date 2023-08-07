@@ -22,7 +22,7 @@ const CarouselSection = ({
   };
   return <Box mt={-0.5} mb={-0.5}>
       <Carousel infinite={true} visibleSlides={visibleSlides} totalSlides={productList.length} leftButtonStyle={arrowButtonStyle} rightButtonStyle={arrowButtonStyle}>
-        {productList.map((item, ind) => <ProductCard3 key={ind} slug={item.slug} title={item.title} price={item.price} off={item.discount} rating={item.rating} imgUrl={item.thumbnail} hideFavoriteIcon />)}
+        {productList.map((item, ind) => <ProductCard3 key={ind} slug={item.slug} title={item.title} price={item.price} off={item.discount} rating={item.rating} imgUrl={item.imgUrl} hideFavoriteIcon />)}
       </Carousel>
     </Box>;
 };

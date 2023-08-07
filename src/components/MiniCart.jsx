@@ -7,7 +7,7 @@ import { H5, Paragraph, Tiny } from "components/Typography";
 import CartBag from "components/icons/CartBag";
 import { useAppContext } from "contexts/AppContext";
 import { currency } from "lib";
-import { targetUrl, weburl, getAuth } from "components/config";
+import { targetUrl, getAuth } from "components/config";
 import { Fragment, useState, useEffect } from "react";
 
 // =========================================================
@@ -209,7 +209,7 @@ useEffect(() => {
       </Box>
 
       {state.cart.length > 0 && <Box p={2.5}>
-        <Button fullWidth color="primary" variant="contained" sx={{
+        {/* <Button fullWidth color="primary" variant="contained" sx={{
           mb: "0.75rem",
           height: "40px"
         }} onClick={()=>{if (typeof window !== "undefined") {
@@ -217,23 +217,23 @@ useEffect(() => {
     window.alert("결제기능은 준비중입니다.")
     }} }>
               바로 결제하기 ({currency(getTotalPrice())})
-            </Button>
-          {/*<Link href="/checkout-alternative" passHref>
+            </Button> */}
+          {/* <Link href="/checkout-alternative" passHref>
             <Button fullWidth color="primary" variant="contained" sx={{
           mb: "0.75rem",
           height: "40px"
         }} onClick={toggleSidenav}>
               바로 결제하기 ({currency(getTotalPrice())})
             </Button>
-          </Link>
+          </Link> */}
 
           <Link href="/cart" passHref>
             <Button fullWidth color="primary" variant="outlined" sx={{
           height: 40
         }} onClick={toggleSidenav}>
-              장바구니 보기
+               Checkout ({currency(getTotalPrice())})
             </Button>
-          </Link>*/}
+          </Link>
         </Box>}
     </Box>;
 };

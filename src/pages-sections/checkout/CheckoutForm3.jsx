@@ -11,12 +11,19 @@ import countryList from "data/countryList";
 import { FlexBetween, FlexBox } from "components/flex-box";
 import { Span } from "components/Typography";
 
-const CheckoutForm = () => {
+const CheckoutForm = ( {itemList} ) => {
   const [comment, setComment] = useState("");
   const router = useRouter();
   const [sameAsShipping, setSameAsShipping] = useState(false);
+
+  console.log("itemList")
+  console.log(itemList)
   const handleFormSubmit = async values => {
-    router.push("/payment");
+    router.push({
+      pathname: '/payment',
+      query: { result: JSON.stringify(itemList)} 
+    },
+    "/payment")
   };
   const handleCheckboxChange = (values, setFieldValue) => (e, _) => {
     const checked = e.currentTarget.checked;

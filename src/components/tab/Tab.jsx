@@ -61,7 +61,7 @@ const MenuTab = ({
   const [sidenavOpen, setSidenavOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const downMd = useMediaQuery(theme.breakpoints.down(1150));
+  const downMd = useMediaQuery(theme.breakpoints.down(900));
   const toggleDialog = () => setDialogOpen(!dialogOpen);
   const toggleSidenav = () => setSidenavOpen(!sidenavOpen);
   const toggleSearchBar = () => setSearchBarOpen(!searchBarOpen);
@@ -79,31 +79,29 @@ const MenuTab = ({
     };
     return <HeaderWrapper className={clsx(className)}>
       <StyledContainer>
-        <Box sx={{ width: '100%'}} style={{color:"#4D87E2"}}>
+        <Box sx={{ width: '100%'}} > 
+        {/* <Image width="96px" height="44px" src="/assets/images/logo_new3.png" alt="logo" /> */}
           <Tabs
             value={value}
             onChange={handleChange}
 //            textColor="#4D87E2"
             indicatorColor="secondary"
             aria-label="secondary tabs example"
-            style={{color:"#4D87E2"}}
-          >
+            // style={{color:"#4D87E2"}}
+           >
           <Link href={`/`}>
             <Tab value={0} label="HOME" />
           </Link>
           <Link href={`/info`}>
-            <Tab value={1} label="ABOUT ALLMEDITRIP" />
+            <Tab value={1} label="ABOUT US" />
           </Link>
-          {/*<Link href={`/`}>
-            <Tab value={2} label="HOSPITAL" />
-          </Link>*/}
           <Link href={`/profile`}>
             <Tab value={3} label="PROFILE" />
           </Link>
           <Link href={`/support-tickets`}>
-            <Tab value={4} label="SERVICE CENTER" />
+            <Tab value={4} label="FAQ" />
           </Link>
-          </Tabs>
+          </Tabs> 
         </Box>
       </StyledContainer>
       </HeaderWrapper>;

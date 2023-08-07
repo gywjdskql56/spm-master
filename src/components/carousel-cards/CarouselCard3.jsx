@@ -50,7 +50,7 @@ const CarouselCard3 = ({
         </Link>
       </StyledFlexBox>
 
-      <BazaarImage width="100%" src={product.thumbnail} alt="shoes" />
+      <BazaarImage width="100%" src={product.imgUrl} alt="shoes" />
     </ContentWrapper>;
 };
 export default CarouselCard3;

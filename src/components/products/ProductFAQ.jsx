@@ -9,7 +9,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { H2, H5 } from "components/Typography";
 import { useCallback, useState, useEffect } from "react";
 import Select from 'react-select'
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const ProductFAQ = ({faq, product_id}) => {
   const options = [

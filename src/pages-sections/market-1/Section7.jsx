@@ -13,7 +13,7 @@ import BazaarCard from "components/BazaarCard";
 import ProductCategoryItem from "./ProductCategoryItem";
 import ProductCard1 from "components/product-cards/ProductCard1";
 import CategorySectionHeader from "components/CategorySectionHeader";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 import Link from "next/link";
 
 const sortOptions = [

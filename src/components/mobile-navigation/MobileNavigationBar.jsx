@@ -26,9 +26,10 @@ const list = [{
   icon: Home,
   href: "/"
 }, {
-  title: "Category",
+  title: "FAQ",
   icon: CategoryOutlined,
-  href: "/mobile-category-nav"
+  href: "/support-tickets"
+  // href: "/mobile-category-nav"
 }, {
   title: "Cart",
   icon: ShoppingBagOutlined,

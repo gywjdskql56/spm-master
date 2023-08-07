@@ -5,7 +5,7 @@ import BazaarCard from "components/BazaarCard";
 import CategoryIcon from "components/icons/Category";
 import CategorySectionHeader from "components/CategorySectionHeader";
 import { useEffect, useState } from 'react';
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const StyledBazaarCard = styled(BazaarCard)(({
   theme
@@ -50,7 +50,7 @@ const Section10 = ({
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);
@@ -82,7 +82,7 @@ const Section10 = ({
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);

@@ -15,14 +15,14 @@ import ProductCard1 from "components/product-cards/ProductCard1";
 import CategorySectionHeader from "components/CategorySectionHeader";
 // import LazyImage from "components/LazyImage";
 // import CategoryIcon from "components/icons/Category";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 import Link from "next/link";
 
 const sortOptions = [
-  {
-    label: "Relevance",
-    value: "Relevance",
-  },
+  // {
+  //   label: "Relevance",
+  //   value: "Relevance",
+  // },
   {
     label: "Date",
     value: "Date",
@@ -115,7 +115,7 @@ const Section7 = (props) => {
       />
       <Grid container spacing={3}>
         {Object.values(categories).map((item, ind) => (
-          <Grid item lg={2} md={3} sm={4} xs={12} key={ind}>
+          <Grid item lg={2} md={3} sm={4} xs={6} key={ind}>
             {/*<Link href={`/product/search/${item.name}`} passHref>*/}
             <a>
               <StyledBazaarCard

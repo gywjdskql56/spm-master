@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Box, IconButton, Menu, MenuItem, styled } from "@mui/material";
 import { H6, Small } from "components/Typography";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // styled components
 const Divider = styled(Box)(({
@@ -30,7 +30,7 @@ const AccountPopover = () => {
         if (data.status=='success'){
             if (typeof window !== "undefined") {
                 window.alert("로그아웃에 성공했습니다.")
-                window.location.href =  weburl
+                window.location.href =  "/"
                 sessionStorage.removeItem('id')
             }
         } else {

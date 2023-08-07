@@ -16,8 +16,11 @@ import ShopLayout1 from "./ShopLayout1";
 // ======================================================
 
 const CheckoutNavLayout = ({
-  children
+  children,
+  itemList
 }) => {
+  console.log("CheckoutNavLayout")
+  console.log(itemList)
   const [selectedStep, setSelectedStep] = useState(0);
   const router = useRouter();
   const {
@@ -29,13 +32,26 @@ const CheckoutNavLayout = ({
         router.push("/cart");
         break;
       case 1:
-        router.push("/checkout");
+        // router.push("/checkout");
+        router.push({
+          pathname: '/checkout',
+          query: { result: JSON.stringify(itemList)} 
+        },
+            "/checkout");
         break;
       case 2:
-        router.push("/payment");
+        router.push({
+          pathname: '/payment',
+          query: { result: JSON.stringify(itemList)} 
+        },     "/payment");
+        // router.push("/payment");
         break;
       case 3:
-        router.push("/orders");
+        router.push({
+          pathname: '/orders',
+          query: { result: JSON.stringify(itemList)} 
+        },     "/orders");
+        // router.push("/orders");
         break;
       default:
         break;

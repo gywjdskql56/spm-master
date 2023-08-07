@@ -32,10 +32,10 @@ const OrderConfirmation = () => {
           </H1>
 
           <Paragraph color="grey.800" mt="0.3rem">
-            You will be receiving confirmation email with order details.
+            You can check your order in profile page
           </Paragraph>
 
-          <Link href="/market-1" passHref>
+          <Link href="/" passHref>
             <StyledButton color="primary" disableElevation variant="contained" className="button-link">
               Browse products
             </StyledButton>

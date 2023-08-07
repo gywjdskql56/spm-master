@@ -9,7 +9,7 @@ import Card1 from "components/Card1";
 import { FlexBox } from "components/flex-box";
 import { Paragraph } from "components/Typography";
 import useWindowSize from "hooks/useWindowSize";
-const PaymentForm = () => {
+const PaymentForm = ({itemList}) => {
   const [paymentMethod, setPaymentMethod] = useState("credit-card");
   const width = useWindowSize();
   const router = useRouter();
@@ -26,7 +26,7 @@ const PaymentForm = () => {
       <Card1 sx={{
       mb: 4
     }}>
-        <FormControlLabel sx={{
+        {/* <FormControlLabel sx={{
         mb: 3
       }} name="credit-card" onChange={handlePaymentMethodChange} label={<Paragraph fontWeight={600}>Pay with credit card</Paragraph>} control={<Radio checked={paymentMethod === "credit-card"} color="primary" size="small" />} />
 
@@ -72,7 +72,7 @@ const PaymentForm = () => {
             mx: -4
           }} />
               </form>}
-          </Formik>}
+          </Formik>} */}
 
         <FormControlLabel name="paypal" sx={{
         mb: 3
@@ -83,7 +83,8 @@ const PaymentForm = () => {
         mx: -4
       }} />
 
-        {paymentMethod === "paypal" && <Fragment>
+        {/* {paymentMethod === "paypal" && <Fragment> */}
+        {true && <Fragment>
             <FlexBox alignItems="flex-end" mb={4}>
               <TextField fullWidth name="email" type="email" label="Paypal Email" sx={{
             mr: isMobile ? "1rem" : "30px"
@@ -99,24 +100,28 @@ const PaymentForm = () => {
         }} />
           </Fragment>}
 
-        <FormControlLabel name="cod" onChange={handlePaymentMethodChange} label={<Paragraph fontWeight={600}>Cash On Delivery</Paragraph>} control={<Radio checked={paymentMethod === "cod"} color="primary" size="small" />} />
+        {/* <FormControlLabel name="cod" onChange={handlePaymentMethodChange} label={<Paragraph fontWeight={600}>Cash On Delivery</Paragraph>} control={<Radio checked={paymentMethod === "cod"} color="primary" size="small" />} /> */}
       </Card1>
 
       <Grid container spacing={7}>
         <Grid item sm={6} xs={12}>
-          <Link href="/checkout" passHref>
-            <Button variant="outlined" color="primary" type="button" fullWidth>
+          {/* <Link href="/checkout" passHref> */}
+            <Button variant="outlined" color="primary" type="button" onClick={()=>{router.push({
+      pathname: '/checkout',
+      query: { result: JSON.stringify(itemList)} 
+        },
+        "/checkout")}} fullWidth>
               Back to checkout details
             </Button>
-          </Link>
+          {/* </Link> */}
         </Grid>
 
         <Grid item sm={6} xs={12}>
-          <Link href="/orders" passHref>
+          {/* <Link href="/orders" passHref>
             <Button variant="contained" color="primary" type="submit" fullWidth>
               Complete
             </Button>
-          </Link>
+          </Link> */}
         </Grid>
       </Grid>
     </Fragment>;

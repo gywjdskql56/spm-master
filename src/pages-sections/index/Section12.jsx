@@ -40,7 +40,7 @@ const Section12 = () => {
       <Grid container spacing={3}>
         {serviceList.map((item, ind) => {
         const Icon = appIcons[item.icon];
-        return <Grid item lg={3} md={6} xs={12} key={item.id}>
+        return <Grid item lg={3} md={6} xs={6} key={item.id}>
               <BazaarCard hoverEffect sx={CARD_STYLE}>
                 <IconButton sx={{
               width: 64,

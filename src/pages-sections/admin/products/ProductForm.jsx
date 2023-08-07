@@ -18,7 +18,7 @@ import FormLabel from '@mui/material/FormLabel';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 // ================================================================
 
 // ================================================================
@@ -208,7 +208,7 @@ const [dates, setDates] = useState([
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);
@@ -229,7 +229,7 @@ const [dates, setDates] = useState([
   {/*if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }*/}
   return data;
@@ -417,7 +417,7 @@ const [dates, setDates] = useState([
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
-            window.location.href = weburl + "/vendor/products"
+            window.location.href =  "/vendor/products"
         }
     }else{
         if (typeof window !== "undefined") {

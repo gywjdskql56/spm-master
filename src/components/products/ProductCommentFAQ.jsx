@@ -10,7 +10,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Select from 'react-select'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const ProductComment = props => {
 

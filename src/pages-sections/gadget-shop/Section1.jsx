@@ -11,6 +11,10 @@ const Section1 = ({
   topPickList,
   mainCarousel
 }) => {
+  console.log("topPickList")
+  console.log(topPickList)
+  console.log("mainCarousel")
+  console.log(mainCarousel)
   const {
     settings
   } = useSettings();

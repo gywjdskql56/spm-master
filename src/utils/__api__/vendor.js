@@ -1,5 +1,4 @@
 import axios from "axios";
-import { targetUrl, weburl } from "components/config";
 
 const getAllProductReviews = async () => {
 //  const response = await axios.get(targetUrl+"/sysqnas");

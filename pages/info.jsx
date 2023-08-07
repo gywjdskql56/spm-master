@@ -21,11 +21,19 @@ import { H1, H6 } from "components/Typography";
 import BazaarImage from "components/BazaarImage";
 import LazyImage from "components/LazyImage";
 import Image from "components/BazaarImage";
+import Slider from "react-slick";
 
 
 // =================================================================
 
 const MarketShop = props => {
+      const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+          };
   return <ShopLayout1>
       <SEO title="Market v1" />
 
@@ -72,6 +80,10 @@ const MarketShop = props => {
           </Box>
           </Grid>
       </Grid>
+      <Typography variant="h7" fontWeight="100" mb={1}>
+         
+      </Typography>
+      <Section1 />
 </Container>
       {/* CATEGORIES */}
 {/*      <Section10 categories={props.bottomCategories} />*/}

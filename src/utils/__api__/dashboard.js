@@ -1,5 +1,5 @@
 import axios from "axios";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 // dashboard
 const getAllCard = async () => {
   const response = await axios.get("/api/admin/dashboard-cards");

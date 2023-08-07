@@ -6,7 +6,7 @@ import BazaarSwitch from "components/BazaarSwitch";
 import { Paragraph, Small } from "components/Typography";
 import { StyledIconButton, StyledTableCell, StyledTableRow } from "../StyledComponents";
 import { currency } from "lib";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 // ========================================================================
 
 // ========================================================================

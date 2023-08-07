@@ -16,9 +16,7 @@ import DatePicker from "react-multi-date-picker"
 import { Calendar } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
-import { targetUrl, weburl } from "components/config";
-
+import { targetUrl } from "components/config";
 // ================================================================
 
 // ================================================================
@@ -87,6 +85,7 @@ useEffect(() => {
 },[])
 
   const [value, setValue] = useState()
+  const [dates, setDates] = useState([])
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectVariants, setSelectVariants] = useState({
     option: "option 1",
@@ -136,8 +135,10 @@ useEffect(() => {
      for (let i=0; i<value.length; i++) {
 //        console.log(value[i])
 //        console.log(value[i].format("YYYY-MM-DD"))
-        date_list.push(value[i].format("YYYY-MM-DD"))
+        date_list.push({startDate: value[i].format("YYYY-MM-DD"), endDate: value[i].format("YYYY-MM-DD")} )
      }
+     setDates(date_list)
+
 //   console.log(date_list)
    }
   // HANDLE CHAMGE TYPE AND OPTIONS
@@ -165,7 +166,7 @@ useEffect(() => {
         slug : productId
       })
       console.log("value: ", value)
-
+  
    const res = await fetch(targetUrl+"/cart",{
           method: 'POST',
           credentials : 'include',
@@ -176,9 +177,7 @@ useEffect(() => {
       body: JSON.stringify({
         productId: productId,
         optionFeeIdList: optionID,
-        serviceDateInfoList: [{"startDate" : "2023-07-05", "endDate" : "2023-07-05"},
-                             {"startDate" : "2023-07-05", "endDate" : "2023-07-05"},
-                             {"startDate" : "2023-07-05", "endDate" : "2023-07-05"}],
+        serviceDateInfoList: dates,
         count : amt,
       })
     })
@@ -365,7 +364,7 @@ useEffect(() => {
             <FlexBox alignItems="center" mb={4.5}>
             <FlexBox alignItems="center">
              <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {"Total Price :  US"+(totalprice)+"      "}
+              {"Total Price :  "+currency(totalprice)+"      "}
             </H2>
               <Button size="small" mb={4} mt={2} sx={{
             marginLeft: '20px',

@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { FlexBox, FlexRowCenter } from "components/flex-box";
 import { H1, H6 } from "components/Typography";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 import BazaarImage from "components/BazaarImage";
 import BazaarTextField from "components/BazaarTextField";
 import { Wrapper } from "./Login";
@@ -231,7 +231,7 @@ const Signup = () => {
         .then(response => {console.log(response);
         if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
-            window.location.href =  weburl
+            window.location.href =  "/"
             }}
             else {
                 if (typeof window !== "undefined") {
@@ -293,7 +293,7 @@ const Signup = () => {
         .then(response => {console.log(response);
         if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
-            window.location.href =  weburl
+            window.location.href =  "/"
             }}
             else {
                 if (typeof window !== "undefined") {

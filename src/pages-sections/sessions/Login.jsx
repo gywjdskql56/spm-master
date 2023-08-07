@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import { FlexBox, FlexRowCenter } from "components/flex-box";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const fbStyle = {
   background: "#3B5998",
@@ -179,7 +179,7 @@ const Login = () => {
       else if (result.data[0]['authority']=="ROLE_MEMBER"){
       if (typeof window !== "undefined") {
             window.alert("고객 로그인에 성공했습니다.")
-            window.location.href =  weburl
+            window.location.href =  "/"
             sessionStorage.setItem('type', 'cust')
             fetch(targetUrl+"/cart",{
               credentials : 'include',
@@ -200,7 +200,7 @@ const Login = () => {
       else if (result.data[0]['authority']=="ROLE_VENDOR") {
         if (typeof window !== "undefined") {
             window.alert("판매자 로그인에 성공했습니다.")
-            window.location.href =  weburl+'/vendor/dashboard'
+            window.location.href =  '/vendor/dashboard'
             sessionStorage.setItem('type', result.data[0]['authority'])
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             sessionStorage.setItem('id',values.email)
@@ -209,7 +209,7 @@ const Login = () => {
       } else if (result.data[0]['authority']=="ROLE_SYSADMIN") {
         if (typeof window !== "undefined") {
             window.alert("관리자 로그인에 성공했습니다.")
-            window.location.href = weburl+'/admin/dashboard'
+            window.location.href = '/admin/dashboard'
             sessionStorage.setItem('type', result.data[0]['authority'])
             window.sessionStorage.setItem('cart', JSON.stringify(cart))
             sessionStorage.setItem('id',values.email)

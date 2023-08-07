@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Avatar, Box, Chip, IconButton, Pagination, styled, Typography, Button } from "@mui/material";
+import { Box, Chip, IconButton, Pagination, styled, Typography, Button } from "@mui/material";
 import { East } from "@mui/icons-material";
 import { format } from "date-fns";
 import TableRow from "components/TableRow";
@@ -10,7 +10,6 @@ import CustomerService from "components/icons/CustomerService";
 import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
-import api from "utils/__api__/ticket";
 import { targetUrl, weburl } from "components/config";
 
 // styled components

@@ -109,7 +109,7 @@ const Section7 = props => {
           <CategorySectionHeader title={title} seeMoreLink="#" />
 
           <Grid container spacing={3}>
-            {product.map(item => <Grid item lg={4} sm={6} xs={12} key={item.product_id}>
+            {product.map(item => <Grid item lg={4} sm={6} xs={6} key={item.product_id}>
                 {/*todo:slug={item.slug}*/}
                 <ProductCard1 hoverEffect id={item.product_id} slug={item.product_id} title={item.product_name} price={item.price} rating={4.9} imgUrl={"/assets/images/products/Package/"+item.img+".png"} discount={item.discount} item={item} />
               </Grid>)}

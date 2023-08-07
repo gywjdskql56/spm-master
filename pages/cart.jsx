@@ -12,12 +12,15 @@ import countryList from "data/countryList";
 import { currency } from "lib";
 import { useState, useEffect } from "react";
 import { targetUrl, weburl, getAuth } from "components/config";
+import { useNavigate, BrowserRouter as Router } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
 //  const {
 //    state
 //  } = useAppContext();
-
+// const navigate = useNavigate();
+const router = useRouter()
 const [state, setState] = useState({'cart':[]});
 const getData = async () => {
 const res = await fetch(targetUrl+"/cart",{
@@ -51,7 +54,8 @@ if(data.status=="success"){
    'qty': item.count,
    'name': item.productName,
    'id':item.cartId,
-   'price': item.price+item.optionFee
+   'price': item.price+item.optionFee,
+   'dates':item.serviceDateInfoList
    }))
    setState({"cart": cartval})
 };
@@ -69,9 +73,16 @@ useEffect(() => {
         console.log(JSON.parse(window.sessionStorage.getItem('order')))
         window.sessionStorage.setItem('total_price', getTotalPrice());
     }
+    
+    router.push({
+      pathname: '/checkout',
+      query: { result: JSON.stringify(state.cart)} 
+    },
+        "/checkout");
+    // navigate('/page',{state: state.cart});
   }
   const getTotalPrice = () => state.cart.reduce((accum, item) => accum + item.price * item.qty, 0);
-  return <CheckoutNavLayout>
+  return <CheckoutNavLayout itemList={state.cart}>
       <SEO title="Cart" />
 
       <Grid container spacing={3}>
@@ -146,11 +157,11 @@ useEffect(() => {
               Calculate Shipping
             </Button>*/}
 
-            <Link href="/checkout" passHref legacyBehavior>
+            {/* <Link href="/checkout" passHref state={state.cart} legacyBehavior> */}
               <Button variant="contained" color="primary" onClick={()=>checkout()} fullWidth>
                 Checkout Now
               </Button>
-            </Link>
+            {/* </Link> */}
           </Card>
         </Grid>
       </Grid>
