@@ -11,7 +11,7 @@ import Scrollbar from "components/Scrollbar";
 import { CategoryRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
 import { useState, useEffect } from "react";
-import { targetUrl, weburl, getAuth, } from "components/config";
+import { targetUrl, getAuth, } from "components/config";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [{
@@ -106,7 +106,7 @@ export default function CategoryList(props) {
    if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);

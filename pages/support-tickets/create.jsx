@@ -14,7 +14,7 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import Select from 'react-select'
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // ==========================================================
 
@@ -62,7 +62,7 @@ const SupportTicketDetails = ({
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
-            window.location.href = weburl
+            window.location.href = "/"
         }
     }else{
         if (typeof window !== "undefined") {

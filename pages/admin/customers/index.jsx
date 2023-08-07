@@ -9,7 +9,7 @@ import AdminDashboardLayout from "components/layouts/admin-dashboard";
 import useMuiTable from "hooks/useMuiTable";
 import { CustomerRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 import { useEffect, useState } from "react";
 
 const customers_new = [{
@@ -102,7 +102,7 @@ console.log(customers)
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);

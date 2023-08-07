@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { useCallback, useState, useEffect } from "react";
 import { StatusWrapper, StyledTableRow, StyledTableCell, StyledIconButton } from "pages-sections/admin";
 import api from "utils/__api__/ticket";
-import { targetUrl, weburl, getAuth } from "components/config";
+import { targetUrl, getAuth } from "components/config";
 
 const tableHeading = [{
   id: "title",
@@ -67,7 +67,7 @@ export default function SupportTickets({
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);

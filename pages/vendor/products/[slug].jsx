@@ -8,7 +8,7 @@ import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 // import api from "utils/__api__/products";
 import DateObject from "react-date-object";
 import dynamic from 'next/dynamic'
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // =============================================================================
 EditProduct.getLayout = function getLayout(page) {

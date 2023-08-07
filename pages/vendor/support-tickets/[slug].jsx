@@ -19,7 +19,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { H3, H5, Span } from "components/Typography";
 import { FlexBox } from "components/flex-box";
 import { format } from "date-fns";
-import { targetUrl, weburl, getAuth } from "components/config";
+import { targetUrl, getAuth } from "components/config";
 
 // =============================================================================
 SupportTickets.getLayout = function getLayout(page) {
@@ -54,7 +54,7 @@ export default function SupportTickets() {
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);
@@ -77,7 +77,7 @@ export default function SupportTickets() {
       if (data.status =="success"){
         if (typeof window !== "undefined") {
         window.alert("성공적으로 삭제되었습니다.")
-        window.location.href =  weburl+"/vendor/support-tickets"
+        window.location.href =  "/vendor/support-tickets"
         }
       } else {
         if (typeof window !== "undefined") {
@@ -133,7 +133,7 @@ export default function SupportTickets() {
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
-            window.location.href =  weburl+"/admin/support-tickets"
+            window.location.href =  "/admin/support-tickets"
         }
     }else{
         if (typeof window !== "undefined") {
@@ -190,7 +190,7 @@ export default function SupportTickets() {
       borderColor: "grey.300"
     }} />
 
-      <Link href={weburl+"/vendor/support-tickets"} passHref>
+      <Link href={"/vendor/support-tickets"} passHref>
       <Button color="primary" sx={{
       px: 4, mb: 3,
       bgcolor: "primary.light"

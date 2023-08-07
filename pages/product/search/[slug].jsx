@@ -10,7 +10,7 @@ import ProductCard1List from "components/products/ProductCard1List";
 import ProductCard9List from "components/products/ProductCard9List";
 import ProductFilterCard from "components/products/ProductFilterCard";
 import productDatabase from "data/product-database";
-import { targetUrl, weburl, getAuth } from "components/config";
+import { targetUrl, getAuth } from "components/config";
 
 const ProductSearchResult = () => {
   const [view, setView] = useState("grid");

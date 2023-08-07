@@ -3,7 +3,7 @@ import PaymentForm from "pages-sections/payment/PaymentForm";
 import PaymentSummary from "pages-sections/payment/PaymentSummary";
 import CheckoutNavLayout from "components/layouts/CheckoutNavLayout";
 import { useRouter } from 'next/router';
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const Checkout = () => {
   const router = useRouter();

@@ -5,8 +5,11 @@ import Section1 from "pages-sections/index/Section1";
 import Section7 from "pages-sections/index/Section7";
 import Section12 from "pages-sections/index/Section12";
 import { targetUrl } from "components/config";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const MarketShop = (props) => {
+  console.log("props")
+  console.log(props)
   return (
     <ShopLayout1>
       <SEO title="Market v1" />

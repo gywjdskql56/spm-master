@@ -10,7 +10,7 @@ import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import api from "utils/__api__/ticket";
-import { targetUrl, weburl, getAuth } from "components/config";
+import { targetUrl, getAuth } from "components/config";
 
 // ==========================================================
 
@@ -48,12 +48,12 @@ const SupportTicketDetails = () => {
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("Try again")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }else {
     if (data.data.open==false && data.data.email!=window.sessionStorage.getItem('id')){
         window.alert("You do not have access to private posts. Please log in with that account.")
-        window.location.href =  weburl + "/support-tickets"
+        window.location.href =  "/support-tickets"
     }
     else {
         setTicket(data.data)

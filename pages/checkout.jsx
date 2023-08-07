@@ -8,7 +8,7 @@ import { FlexBetween, FlexBox } from "components/flex-box";
 import { Span } from "components/Typography";
 import { useLocation } from 'react-router-dom';
 import { useRouter } from 'next/router';
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const Checkout = () => {
   
@@ -21,7 +21,7 @@ const Checkout = () => {
   if (router.query==''|| router.query.result==undefined || router.query.result==null){
     if (typeof window !== "undefined") {
       window.alert('Invalid approach')
-      window.location.href = weburl+"/cart"
+      window.location.href = "/cart"
     }
   } else {
     itemList = JSON.parse(router.query.result)

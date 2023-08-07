@@ -9,7 +9,7 @@ import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import { useState, useEffect } from "react";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 // ============================================================
 
 const Profile = ({
@@ -26,7 +26,7 @@ const Profile = ({
       if (typeof window !== "undefined") {
         setUsers({"memberId":"0","firstName":"-","lastName":"-"})
        window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
-       window.location.href =  weburl
+       window.location.href =  '/'
       }
     } else {
       setUsers(profiles.data)

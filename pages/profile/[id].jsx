@@ -14,7 +14,7 @@ import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import api from "utils/__api__/users";
 import { useState, useEffect } from "react";
-import { targetUrl, weburl, getAuth, } from "components/config";
+import { targetUrl, getAuth, } from "components/config";
 import countryList from "data/countryList";
 import Autocomplete from "@mui/material/Autocomplete";
 
@@ -75,7 +75,7 @@ const ProfileEditor = ({
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);

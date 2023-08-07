@@ -11,7 +11,7 @@ import useMuiTable from "hooks/useMuiTable";
 import Scrollbar from "components/Scrollbar";
 import { ProductRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [{

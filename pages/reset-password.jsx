@@ -3,7 +3,7 @@ import SEO from "components/SEO";
 import { Box, Button, Card, TextField, FormControlLabel, Grid, Checkbox } from "@mui/material";
 import { H1, H6 } from "components/Typography";
 import { FlexBox, FlexRowCenter } from "components/flex-box";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 import { useState, useEffect } from "react";
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -74,7 +74,7 @@ const ResetPassword = () => {
   if(data.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("비밀번호가 성공적으로 변경되었습니다.")
-            window.location.href = weburl
+            window.location.href = "/"
         }
     }else{
         if (typeof window !== "undefined") {

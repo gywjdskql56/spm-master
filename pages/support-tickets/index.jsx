@@ -10,7 +10,7 @@ import CustomerService from "components/icons/CustomerService";
 import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // styled components
 const StyledChip = styled(Chip)(({
@@ -45,7 +45,7 @@ const TicketList = ({ticket}) => {
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);
@@ -58,7 +58,7 @@ const TicketList = ({ticket}) => {
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
       <UserDashboardHeader title="Service Center" icon={CustomerService} navigation={<CustomerDashboardNavigation />} />
-     <Link href={weburl+"/support-tickets/create"} passHref>
+     <Link href={"/support-tickets/create"} passHref>
       <Button color="primary" sx={{
       px: 4, mb: 3,
       bgcolor: "primary.light"

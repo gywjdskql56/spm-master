@@ -10,7 +10,7 @@ import useMuiTable from "hooks/useMuiTable";
 import { SellerRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
 import { useEffect, useState } from "react";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // table column list
 const tableHeading = [{
@@ -87,7 +87,7 @@ export default function SellerList({
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
-    window.location.href =  weburl
+    window.location.href =  "/"
     }
   }
   console.log(data.data);

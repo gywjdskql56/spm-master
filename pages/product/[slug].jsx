@@ -12,7 +12,7 @@ import ProductFAQ from "components/products/ProductFAQ";
 import ProductDescription from "components/products/ProductDescription";
 //import { getFrequentlyBought, getRelatedProducts } from "utils/__api__/related-products";
 import api from "utils/__api__/products";
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 // styled component
 const StyledTabs = styled(Tabs)(({
