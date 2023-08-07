@@ -11,7 +11,7 @@ import { useAppContext } from "contexts/AppContext";
 import countryList from "data/countryList";
 import { currency } from "lib";
 import { useState, useEffect } from "react";
-import { targetUrl, weburl, getAuth } from "components/config";
+import { targetUrl, getAuth } from "components/config";
 import { useNavigate, BrowserRouter as Router } from 'react-router-dom';
 import { useRouter } from 'next/router';
 
