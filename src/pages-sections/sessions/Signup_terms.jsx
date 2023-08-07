@@ -23,7 +23,7 @@ import AlertPopup from 'react-popup-alert'
 import Autocomplete from "@mui/material/Autocomplete";
 import countryList from "data/countryList";
 import {ScrollBox, ScrollAxes, FastTrack} from 'react-scroll-box';
-import { targetUrl, weburl } from "components/config";
+import { targetUrl } from "components/config";
 
 const Signup = () => {
   const googleTranslateElementInit = () => {
@@ -231,7 +231,7 @@ const Signup = () => {
         .then(response => {console.log(response);
         if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
-            window.location.href =  weburl
+            window.location.href =  "/"
             }}
             else {
                 if (typeof window !== "undefined") {
