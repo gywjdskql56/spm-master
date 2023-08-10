@@ -10,28 +10,57 @@ import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import { useState, useEffect } from "react";
 import { targetUrl } from "components/config";
+import fetch from "isomorphic-fetch";
 // ============================================================
 
-const Profile = ({
-  profiles
-}) => {
-  console.log(profiles)
+const Profile = (
+) => {
+  // console.log(props)
+  // console.log(props.profiles)
+
+  const getData = async () => {
+    const profileRes = await fetch(targetUrl+"/members/myinfo",{
+    method: 'GET',
+    credentials : 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true,
+  }})
+const profile = await profileRes.json();
+console.log(profile)
+
+if (profile.status =="error"){
+  if (typeof window !== "undefined") {
+    setUsers({"memberId":"0","firstName":"-","lastName":"-"})
+   window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
+  //  window.location.href =  '/'
+  }
+} else {
+  setUsers(profile.data)
+  setOpen(true)
+}
+return profile
+}
   const downMd = useMediaQuery(theme => theme.breakpoints.down("md"));
   const [users, setUsers] = useState({"memberId":"0","firstName":"-","lastName":"-"});
   const [open, setOpen] = useState(false);
 
-
   useEffect(() => {
-    if (profiles.status =="error"){
-      if (typeof window !== "undefined") {
-        setUsers({"memberId":"0","firstName":"-","lastName":"-"})
-       window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
-       window.location.href =  '/'
-      }
-    } else {
-      setUsers(profiles.data)
-    }
-    setOpen(true)
+    getData()
+  },[])
+  useEffect(() => {
+     getData()
+    // console.log(data)
+    // if (props.profiles.status =="error"){
+    //   if (typeof window !== "undefined") {
+    //     setUsers({"memberId":"0","firstName":"-","lastName":"-"})
+    //    window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
+    //   //  window.location.href =  '/'
+    //   }
+    // } else {
+    //   setUsers(props.profiles.data)
+    // }
+    // setOpen(true)
   },[open])
 
   // SECTION TITLE HEADER LINK
@@ -147,24 +176,24 @@ const TableRowItem = ({
       <span>{value}</span>
     </FlexBox>;
 };
-export const getStaticProps = async () => {
-  const profileRes = await fetch(targetUrl+"/members/myinfo",{
-    method: 'GET',
-    credentials : 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      "ngrok-skip-browser-warning": true,
-  }})
-const profile = await profileRes.json();
-console.log("profile")
-console.log(profile)
+// export const getStaticProps = async () => {
+//   const profileRes = await fetch(targetUrl+"/members/myinfo",{
+//     method: 'GET',
+//     credentials : 'include',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       "ngrok-skip-browser-warning": true,
+//   }})
+// const profile = await profileRes.json();
+// // console.log("profile")
+// // console.log(profile)
 
-return {
-  props: {
-    profiles : profile
-  }
-};
+// return {
+//   props: {
+//     profiles : profile
+//   }
+// };
 
-// {"status":"error", "data": {"memberId":"0","firstName":"-","lastName":"-"}
-};
+// // {"status":"error", "data": {"memberId":"0","firstName":"-","lastName":"-"}
+// };
 export default Profile;

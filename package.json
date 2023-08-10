@@ -55,6 +55,7 @@
     "i18next": "^22.4.15",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.2.0",
+    "isomorphic-fetch": "^3.0.0",
     "merge": "^2.1.1",
     "mui-image": "^1.0.7",
     "next": "^12.2.2",

@@ -12,10 +12,12 @@ export const navigations = [{
   children: [{
     name: "상품 리스트",
     path: "/admin/products"
-}, {
-    name: "리뷰",
-    path: "/admin/product-reviews"
-  }]
+},
+//{
+//    name: "리뷰",
+//    path: "/admin/product-reviews"
+//}
+  ]
 }, {
   name: "카테고리",
   icon: duotone.Accounts,

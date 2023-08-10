@@ -122,19 +122,19 @@ const UserInfo = () => {
       } else if (result=='cust') {
         if (typeof window !== "undefined") {
             window.alert("고객 로그인에 성공했습니다.")
-            window.location.href =  'http://localhost:3000'
+            window.location.href =  '/'
             sessionStorage.setItem('type', 'cust')
             }
       } else if (result=='vendor') {
         if (typeof window !== "undefined") {
             window.alert("판매자 로그인에 성공했습니다.")
-            window.location.href =  'http://localhost:3000/vendor/dashboard'
+            window.location.href =  '/vendor/dashboard'
             sessionStorage.setItem('type', 'vendor')
             }
       } else if (result=='admin') {
         if (typeof window !== "undefined") {
             window.alert("관리자 로그인에 성공했습니다.")
-            window.location.href =  'http://localhost:3000/admin/dashboard'
+            window.location.href =  '/admin/dashboard'
             sessionStorage.setItem('type', 'admin')
             }
       }

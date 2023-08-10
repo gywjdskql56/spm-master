@@ -226,11 +226,11 @@ useEffect(() => {
     if (type=="sub"){
         var amt_c = (amt>1? (amt-1): 1)
         setAmt((amt)=>(amt>1? (amt-1): 1))
-        setTotalPrice((tot)=>(tot*(amt_c)))
+        setTotalPrice((tot)=>(perprice*(amt_c)))
     }else {
        var amt_c = amt+1
        setAmt((amt)=>(amt+1))
-       setTotalPrice((tot)=>(tot*(amt_c)))
+       setTotalPrice((tot)=>(perprice*(amt_c)))
     }
   };
   const style = {

@@ -51,7 +51,7 @@ const ProductRow = ({
       <StyledTableCell align="left">{currency(price)}</StyledTableCell>
 
       <StyledTableCell align="left">
-        <BazaarSwitch color="info" checked={productPulish} onChange={() => setProductPublish(state => !state)} />
+        <BazaarSwitch color="info" checked={productPulish} /> {/* onChange={() => setProductPublish(state => !state)} /> */}
       </StyledTableCell>
 
       {/*<StyledTableCell align="center">
