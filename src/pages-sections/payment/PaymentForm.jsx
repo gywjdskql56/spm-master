@@ -26,7 +26,7 @@ const PaymentForm = ({itemList}) => {
       <Card1 sx={{
       mb: 4
     }}>
-        {/* <FormControlLabel sx={{
+         <FormControlLabel sx={{
         mb: 3
       }} name="credit-card" onChange={handlePaymentMethodChange} label={<Paragraph fontWeight={600}>Pay with credit card</Paragraph>} control={<Radio checked={paymentMethod === "credit-card"} color="primary" size="small" />} />
 
@@ -72,7 +72,7 @@ const PaymentForm = ({itemList}) => {
             mx: -4
           }} />
               </form>}
-          </Formik>} */}
+          </Formik>}
 
         <FormControlLabel name="paypal" sx={{
         mb: 3

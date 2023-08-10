@@ -312,14 +312,14 @@ useEffect(() => {
 
           <Box pt={1} mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {"US"+(price)}
+              {currency(price)}
             </H2>
           </Box>
           <Box mb={2}>
-          <H6 mb={1}>Select reservation date (Multiple selection possible)</H6>
+          <H6 mb={1}>Select reservation date</H6>
           </Box>
         <Calendar
-          multiple
+//          multiple
           mapDays={({ date }) => {
               let isInclude = false;
               var todayDate = new Date().toISOString().slice(0, 10);
@@ -366,7 +366,7 @@ useEffect(() => {
              <H2 color="primary.main" mb={0.5} lineHeight="1">
               {"Total Price :  "+currency(totalprice)+"      "}
             </H2>
-              <Button size="small" mb={4} mt={2} sx={{
+              {/* <Button size="small" mb={4} mt={2} sx={{
             marginLeft: '20px',
             p: 1
           }} color="primary" variant="outlined" onClick={handleAmountChange("sub")}>
@@ -375,13 +375,13 @@ useEffect(() => {
 
               <H3 fontWeight="600" mx={2.5}>
                 {amt}
-              </H3>
+              </H3> */}
 
-              <Button size="small" sx={{
+              {/* <Button size="small" sx={{
             p: 1
           }} color="primary" variant="outlined" onClick={handleAmountChange("add")}>
                 <Add fontSize="small" />
-              </Button>
+              </Button> */}
               <FlexBox alignItems="center">
               <Button color="primary" variant="contained" onClick={()=>handleCartAmountChange()} sx={{
                   mb: 0,

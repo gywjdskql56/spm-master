@@ -95,7 +95,7 @@ const ProductCard7 = ({
         <FlexBox gap={1} flexWrap="wrap" alignItems="center">
         <Grid container spacing={3}>
         {(dates).map(variant =>
-        <Grid item lg={2} md={3} xs={3} alignItems="center">
+        <Grid item lg={2.5} md={3} xs={3} alignItems="center">
         <Button key={dates.startDate} color="error" variant="contained" sx={{
           mb: 0.5,
           px: "1.rem",
@@ -105,10 +105,11 @@ const ProductCard7 = ({
               <H6 mb={1} style={{color:'white'}}>{variant.startDate}</H6>
         </Button>
         </Grid>
-        )}</Grid></FlexBox>
+        )}
+        {/*</Grid></FlexBox>
 
         <FlexBox gap={1} flexWrap="wrap" alignItems="center">
-        <Grid container spacing={3}>
+        <Grid container spacing={3}>*/}
         {(option).map(variant =>
         <Grid item lg={2} md={3} xs={3} alignItems="center">
         <Button key={variant.name} color="success" variant="contained" sx={{

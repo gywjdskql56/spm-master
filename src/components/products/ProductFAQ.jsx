@@ -10,11 +10,13 @@ import { H2, H5 } from "components/Typography";
 import { useCallback, useState, useEffect } from "react";
 import Select from 'react-select'
 import { targetUrl } from "components/config";
+import FAQForm from "./FAQForm";
 
 const ProductFAQ = ({faq, product_id}) => {
   const options = [
-  { value: '회원가입/로그인', label: 'Signup/Login' },
-  { value: '예약/결제', label: 'Booking/Pay' },
+  { value: '예약', label: 'Booking' },
+  { value: '결제', label: 'Pay' },
+  { value: '상품', label: 'Product' },
   { value: '환불/교환', label: 'Refund/Exchange' },
   { value: '기타', label: 'Etc' }
 ]
@@ -38,6 +40,7 @@ const handleFormSubmit = async (values, {
         if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
+            window.location.reload()
         }
     }else{
         if (typeof window !== "undefined") {
@@ -79,11 +82,12 @@ const handleFormSubmit = async (values, {
   const [open, setOpen] = useState(true);
 
   return <Box>
-      {faq.map((item, ind) => <Grid container spacing={2}>
+      {/*faq.map((item, ind) => <Grid container spacing={2}>
       <Grid item lg={12} md={12} sm={12} xs={12}>
       <ProductCommentFAQ {...item} key={ind} />
       </Grid>
-      </Grid>)}
+      </Grid>)*/}
+      <FAQForm itemList={faq} />
 
       <H2 fontWeight="600" mt={7} mb={2.5}>
         Please write your question about the product.

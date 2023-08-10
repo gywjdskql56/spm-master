@@ -7,6 +7,7 @@ import Carousel from "components/carousel/Carousel";
 import { H1, H2, H3, H6, Paragraph } from "components/Typography";
 import { useAppContext } from "contexts/AppContext";
 import { currency } from "lib";
+import Link from "next/link";
 
 // styled components
 const ContentWrapper = styled(Box)(({
@@ -118,11 +119,15 @@ const ProductViewDialog = props => {
               mb: 2
             }} />
 
-              {!cartItem?.qty ? <Button size="large" color="primary" variant="contained" onClick={handleCartAmountChange(1)} sx={{
+              {/* {!cartItem?.qty ? */}
+              <Link href={`/product/${product.id}`}>
+              <Button size="large" color="primary" variant="contained" sx={{
               height: 45
             }}>
-                  Add to Cart
-                </Button> : <FlexBox alignItems="center">
+                  View Detail
+                </Button> 
+                </Link>
+                {/* : <FlexBox alignItems="center">
                   <Button size="small" color="primary" variant="outlined" sx={{
                 p: ".6rem",
                 height: 45
@@ -140,7 +145,7 @@ const ProductViewDialog = props => {
               }} onClick={handleCartAmountChange(cartItem?.qty + 1)}>
                     <Add fontSize="small" />
                   </Button>
-                </FlexBox>}
+                </FlexBox>} */}
             </Grid>
           </Grid>
         </ContentWrapper>
