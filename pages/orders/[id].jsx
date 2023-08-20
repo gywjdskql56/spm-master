@@ -7,14 +7,16 @@ import TableRow from "components/TableRow";
 import Delivery from "components/icons/Delivery";
 import PackageBox from "components/icons/PackageBox";
 import TruckFilled from "components/icons/TruckFilled";
-import { H5, H6, Paragraph } from "components/Typography";
+import { H5, H6, H7, Paragraph } from "components/Typography";
 import { FlexBetween, FlexBox } from "components/flex-box";
 import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import useWindowSize from "hooks/useWindowSize";
 import { currency } from "lib";
+import { useState, useEffect } from "react";
 import api from "utils/__api__/orders";
+import { targetUrl, getAuth } from "components/config";
 
 // styled components
 const StyledFlexbox = styled(FlexBetween)(({
@@ -42,6 +44,11 @@ const StyledFlexbox = styled(FlexBetween)(({
 const OrderDetails = ({
   order
 }) => {
+  console.log("order")
+  console.log(order)
+  const [itemList, setItemList] = useState(null);
+  const [refund, setRefund] = useState(null);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const width = useWindowSize();
   const orderStatus = "Shipping";
@@ -49,22 +56,72 @@ const OrderDetails = ({
   const stepIconList = [PackageBox, TruckFilled, Delivery];
   const breakpoint = 350;
   const statusIndex = orderStatusList.indexOf(orderStatus);
+  function getRefund() {
+    console.log("Click")
+    if (format(new Date(), "yyyy-MM-dd")>itemList.travelStartDate){
+        window.alert("REFUND IS NOT AVAILABLE AFTER THE TRAVEL START DATE")
+    }else{
+    if(window.confirm()){
+    fetch(targetUrl + "/checkout/refund/"+itemList.payId, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+  }).then(response => response.json())
+    .then(response => {console.log(response); if (response.status=="success") {"$"+window.alert(response.data.refundedPrice+" is refunded")} else {window.alert(response.message)}})
+  }else{
+  console.log("no")
+  }
+  }}
+  function checkRefund() {
+    console.log("check")
+    console.log(itemList.travelStartDate)
+    console.log(format(new Date(), "yyyy-MM-dd"))
+    console.log(format(new Date(), "yyyy-MM-dd")>itemList.travelStartDate)
+    if (format(new Date(), "yyyy-MM-dd")>itemList.travelStartDate){
+        window.alert("REFUND IS NOT AVAILABLE AFTER THE TRAVEL START DATE")
+    }else{
+    fetch(targetUrl + "/checkout/refundable/"+itemList.payId, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+  }).then(response => response.json())
+    .then(response => {console.log(response); if (response.status=="success") {setRefund(response.data); setOpen(true)}})}
+  }
 
   // SECTION TITLE HEADER
-  const HEADER_BUTTON = <Button color="primary" sx={{
+  const HEADER_BUTTON = <Button color="primary" onClick={() => {if (typeof window !== "undefined") {window.location.href="/orders"}}} sx={{
     bgcolor: "primary.light",
     px: 4
   }}>
-      재주문하기
+      Back To List
     </Button>;
+useEffect(() => {
+  if (router.query==''|| router.query.result==undefined || router.query.result==null){
+    if (typeof window !== "undefined") {
+      window.alert('Invalid approach')
+      window.location.href = "/orders"
+    }
+  } else {
+    setItemList(JSON.parse(router.query.result))
+    console.log("router.query.result")
+    console.log(JSON.parse(router.query.result))
+  }
+  },[])
 
   // Show a loading state when the fallback is rendered
-  if (router.isFallback) {
+  if (router.isFallback||router.query==''|| router.query.result==undefined || router.query.result==null) {
     return <h1>Loading...</h1>;
   }
+
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader icon={ShoppingBag} title="주문 상세" navigation={<CustomerDashboardNavigation />} button={HEADER_BUTTON} />
+      <UserDashboardHeader icon={ShoppingBag} title="Order Details" navigation={<CustomerDashboardNavigation />} button={HEADER_BUTTON} />
 
       {/* ORDER PROGRESS AREA */}
       <Card sx={{
@@ -104,14 +161,14 @@ const OrderDetails = ({
         </StyledFlexbox>
 
         <FlexBox justifyContent={width < breakpoint ? "center" : "flex-end"}>
-          <Typography p="0.5rem 1rem" textAlign="center" borderRadius="300px" color="primary.main" bgcolor="primary.light">
-             <b>4일 뒤에</b> 예약확정 예정입니다.
-          </Typography>
+          {itemList!=null? <Typography p="0.5rem 1rem" textAlign="center" borderRadius="300px" color="primary.main" bgcolor="primary.light">
+             <b>{itemList.paypalOrderStatus}</b>
+          </Typography>:<div />}
         </FlexBox>
       </Card>
 
       {/* ORDERED PRODUCT LIST */}
-      <Card sx={{
+      {itemList!=null? <Card sx={{
       p: 0,
       mb: "30px"
     }}>
@@ -123,68 +180,72 @@ const OrderDetails = ({
       }}>
           <FlexBox className="pre" m={0.75} alignItems="center">
             <Typography fontSize={14} color="grey.600" mr={0.5}>
-              주문 고유번호:
+              Order ID:
             </Typography>
 
-            <Typography fontSize={14}>{order.id}</Typography>
+            <Typography fontSize={14}>{itemList.payId}</Typography>
           </FlexBox>
 
           <FlexBox className="pre" m={0.75} alignItems="center">
             <Typography fontSize={14} color="grey.600" mr={0.5}>
-              주문 일시:
+              Order Created At:
             </Typography>
 
             <Typography fontSize={14}>
-              {format(new Date(order.createdAt), "yyyy-MM-dd")}
+              {format(new Date(itemList.orderCreatedDate), "yyyy-MM-dd")}
             </Typography>
           </FlexBox>
 
           <FlexBox className="pre" m={0.75} alignItems="center">
             <Typography fontSize={14} color="grey.600" mr={0.5}>
-              도착 예정:
+              Travel Start Date:
             </Typography>
 
             <Typography fontSize={14}>
-              {format(new Date(), "yyyy-MM-dd")}
+              {format(new Date(itemList.travelStartDate), "yyyy-MM-dd")}
             </Typography>
           </FlexBox>
         </TableRow>
 
         <Box py={1}>
-          {order.items.map((item, ind) => <FlexBox px={2} py={1} flexWrap="wrap" alignItems="center" key={ind}>
+          <FlexBox px={2} py={1} flexWrap="wrap" alignItems="center" key={"1"}>
               <FlexBox flex="2 2 260px" m={0.75} alignItems="center">
-                <Avatar src={item.product_img} sx={{
+               {/* <Avatar src={itemList.product_img} sx={{
               height: 64,
               width: 64
-            }} />
+            }} />*/}
                 <Box ml={2.5}>
-                  <H6 my="0px">{item.product_name}</H6>
+                  <H6 my="0px">{itemList.productName}</H6>
 
                   <Typography fontSize="14px" color="grey.600">
-                    {currency(item.product_price)} x {item.product_quantity}
+                    {currency(itemList.productSalePrice)} x {1}
                   </Typography>
                 </Box>
               </FlexBox>
 
               <FlexBox flex="1 1 260px" m={0.75} alignItems="center">
                 <Typography fontSize="14px" color="grey.600">
-                  상품 옵션: 비즈니스석, 필러 추가
+                  Options :
                 </Typography>
+                {itemList.optionFeeInfoList.map((val, idx)=>
+                <Typography fontSize="14px" color="grey.600">
+                  {val.name+", "}
+                </Typography>)}
               </FlexBox>
 
-              <FlexBox flex="160px" m={0.75} alignItems="center">
+              {/*<FlexBox flex="160px" m={0.75} alignItems="center">
                 <Button variant="text" color="primary">
                   <Typography fontSize="14px">리뷰 작성</Typography>
                 </Button>
-              </FlexBox>
-            </FlexBox>)}
+              </FlexBox>*/}
+            </FlexBox>
         </Box>
-      </Card>
+      </Card>:
+      <div />}
 
 
       <Grid container spacing={3}>
-      {/* SHIPPING AND ORDER SUMMERY
-        <Grid item lg={6} md={6} xs={12}>
+       {/*} <Grid item lg={6} md={6} xs={12}>
           <Card sx={{
           p: "20px 30px"
         }}>
@@ -199,35 +260,37 @@ const OrderDetails = ({
         </Grid>*/}
 
         <Grid item lg={6} md={6} xs={12}>
-          <Card sx={{
+          {itemList!=null?<Card sx={{
           p: "20px 30px"
         }}>
             <H5 mt={0} mb={2}>
-              결제 금액
+              Amount of payment
             </H5>
 
             <FlexBetween mb={1}>
               <Typography fontSize={14} color="grey.600">
-                상품 가격 합계:
+                Product price:
               </Typography>
 
               <H6 my="0px">{currency(order.totalPrice)}</H6>
             </FlexBetween>
 
+
+              {itemList.optionFeeInfoList.map((val, idx)=>
+              <FlexBetween mb={1}>
+              <Typography fontSize={14} color="grey.600">
+                {"Option("+val.name+"):"}
+              </Typography>
+
+              <H6 my="0px">{currency(val.price)}</H6>
+            </FlexBetween>)}
+
             <FlexBetween mb={1}>
               <Typography fontSize={14} color="grey.600">
-                추가 상품 비용:
+                Discount:
               </Typography>
 
               <H6 my="0px">{currency(0)}</H6>
-            </FlexBetween>
-
-            <FlexBetween mb={1}>
-              <Typography fontSize={14} color="grey.600">
-                할인:
-              </Typography>
-
-              <H6 my="0px">{currency(order.discount)}</H6>
             </FlexBetween>
 
             <Divider sx={{
@@ -235,12 +298,58 @@ const OrderDetails = ({
           }} />
 
             <FlexBetween mb={2}>
-              <H6 my="0px">총 합계</H6>
-              <H6 my="0px">{currency(order.totalPrice)}</H6>
+              <H6 my="0px">Total</H6>
+              <H6 my="0px">{currency(itemList.payedTotalPrice)}</H6>
             </FlexBetween>
 
-            <Typography fontSize={14}>신용카드 결제</Typography>
-          </Card>
+          </Card>:<div />}
+
+        </Grid>
+                  <Grid item lg={6} md={6} xs={12}>
+          <Card sx={{
+          p: "20px 30px"
+        }}>
+         <H5 mt={0} mb={2}>
+              Refund
+            </H5>
+            <div>
+            <Button color="primary" onClick={()=>checkRefund()} sx={{
+                bgcolor: "primary.light",
+                px: 4
+              }}>
+                  Check Refundable Amount
+                </Button>
+                </div>
+
+            {open? <div>
+            <H6 mt={0} mb={2}>
+            {" "}
+            </H6>
+            <H6 mt={0} mb={2} color="gray" >
+              {"Standard Time(KST) : "+refund.now}
+            </H6>
+            <H6 mt={0} mb={2} color="gray" >
+              {"Time Left Until Departure : "+refund.leftDays+"Days - T"+refund.leftHours+":"+refund.leftMins+":"+refund.leftSecs}
+            </H6>
+            <H6 mt={0} mb={2} color="gray" >
+              {"Refundable Percent : "+refund.refundablePercent}
+            </H6>
+            <H6 mt={0} mb={2} color="gray" >
+              {"Refundable Amount : "+refund.refundablePrice}
+            </H6></div>: <div />}
+            <H6 mt={0} mb={2}>
+            {" "}
+            </H6>
+
+                <div>
+              <Button color="error" onClick={()=>getRefund()} sx={{
+                bgcolor: "error.light",
+                px: 4
+              }}>
+                  Get Refund
+              </Button>
+              </div>
+        </Card>
         </Grid>
       </Grid>
     </CustomerDashboardLayout>;
@@ -257,7 +366,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params
 }) => {
-  const order = await api.getOrder(String(params.id));
+  const order = await api.getOrder(String("f0ba538b-c8f3-45ce-b6c1-209cf07ba5f8"));
   return {
     props: {
       order

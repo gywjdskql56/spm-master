@@ -183,16 +183,29 @@ useEffect(() => {
    if(auth[0]=="success" && auth[1]=="ROLE_MEMBER"){
      console.log("createOrder")
     var uriString = targetUrl;
-    uriString+="/createOrder?productId=1&productSalePrice=400&startDate=2023-07-05&endDate=2023-07-09&";
-    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
+    uriString+="/createOrder?productId="+productId+"&productSalePrice="+product.price+"&startDate="+product.servicePeriodList[0].startDate+"&endDate="+product.servicePeriodList[0].endDate+"&";
+    {/*uriString+="optionFee="+encodeURIComponent(product.optionFeeList[0].price+","+product.optionFeeList[0].name)+"&"
     +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
     +"optionFee="+encodeURIComponent("10,옵션비용테스트3")+"&";
+    uriString+="/createOrder?productId="+productId+"&productSalePrice="+product.price+"&startDate="+product.servicePeriodList[0].startDate+"&endDate="+product.servicePeriodList[0].endDate+"&";
+    console.log(product.optionFeeList)
+    console.log(product.optionFeeList.length)*/}
+    for (var i=0; i < product.optionFeeList.length; i++){
+    console.log(product.optionFeeList[i].price+","+product.optionFeeList[i].name)
+    console.log(encodeURIComponent(product.optionFeeList[i].price+","+product.optionFeeList[i].name))
+    uriString+= "optionFee="+encodeURIComponent(encodeURIComponent(product.optionFeeList[i].price+","+product.optionFeeList[i].name))+"&"
+    }
+//    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
+//    +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
+//    +"optionFee="+encodeURIComponent("10,옵션비용테스트3")+"&";
     uriString+="additionalComments=additionalCommentsTest&";
     uriString+="firstName=firstNameTest&";
     uriString+="lastName=lastNameTest&";
     uriString+="phoneNumber=phoneNumberTest&";
     uriString+="email=emailTest&";
     uriString+="country=countryTest";
+    console.log("uriString")
+    console.log(uriString)
     const pop = window.open(uriString,'pop01','top=10,left=10,width=500,height=600,status=no,menubar=no,toolbar=no,resizable=no', "paypal");
     setPopup(pop)
    }else{
@@ -207,7 +220,7 @@ useEffect(() => {
 
 
 
-   function createOrder() {
+   {/*function createOrder() {
     // replace this url with your server
     if (value==null){
         window.alert('Please select dates.')
@@ -239,7 +252,7 @@ useEffect(() => {
             console.log(order)
             return 1;
         });
-}}
+}}*/}
   // HANDLE CHAMGE TYPE AND OPTIONS
   const handleChangeVariant = (variantName, value) => () => {
     setSelectVariants(state => ({
