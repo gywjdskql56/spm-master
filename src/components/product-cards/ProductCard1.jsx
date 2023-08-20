@@ -168,7 +168,7 @@ const ProductCard1 = ({
               </Box>
 
               {!!discount && <Box color="grey.600" fontWeight="600">
-                  <del>{"US"+(price)}</del>
+                  <del>{currency(price)}</del>
                 </Box>}
             </FlexBox>
           </Box>

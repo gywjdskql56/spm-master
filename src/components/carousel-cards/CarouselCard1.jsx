@@ -64,14 +64,14 @@ const CarouselCard1 = ({
             {description}
           </Paragraph>
 
-          <a href={buttonLik}>
+          {/*<a href={buttonLik}>
             <Button size="large" color={buttonColor} disableElevation variant="contained" className="button-link" sx={{
             height: 44,
             borderRadius: "4px"
           }}>
               {buttonText}
             </Button>
-          </a>
+          </a>*/}
         </Grid>
 
         <Grid item sm={5} xs={12}>

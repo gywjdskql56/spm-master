@@ -195,8 +195,12 @@ useEffect(() => {
                 {currency(item.price)} x {item.qty}
               </Tiny>
 
+              <Tiny color="grey.600">
+                {currency(item.price)} x {item.qty}
+              </Tiny>
+
               <Box fontWeight={600} fontSize="14px" color="primary.main" mt={0.5}>
-                {currency(item.qty * item.price)}
+                {item.date}
               </Box>
             </Box>
 
@@ -231,7 +235,7 @@ useEffect(() => {
             <Button fullWidth color="primary" variant="outlined" sx={{
           height: 40
         }} onClick={toggleSidenav}>
-               Checkout ({currency(getTotalPrice())})
+               Checkout {/* ({currency(getTotalPrice())})*/}
             </Button>
           </Link>
         </Box>}

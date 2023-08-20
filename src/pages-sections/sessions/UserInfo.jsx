@@ -122,7 +122,7 @@ const UserInfo = () => {
       } else if (result=='cust') {
         if (typeof window !== "undefined") {
             window.alert("고객 로그인에 성공했습니다.")
-            window.location.href =  '/'
+            window.location.reload()
             sessionStorage.setItem('type', 'cust')
             }
       } else if (result=='vendor') {

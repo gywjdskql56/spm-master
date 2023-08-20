@@ -8,7 +8,7 @@ import { useAppContext } from "contexts/AppContext";
 import { currency } from "lib";
 import { H1, H2, H3, H6 } from "components/Typography";
 import { targetUrl, getAuth } from "components/config";
-
+import { useRouter } from 'next/router';
 // styled components
 const Wrapper = styled(Card)(({
   theme
@@ -44,12 +44,22 @@ const ProductCard7 = ({
   option,
   dates
 }) => {
+const router = useRouter()
    console.log("imgUrl")
    console.log(imgUrl)
   const {
     dispatch
   } = useAppContext();
   // handle change cart
+    function checkout() {
+
+    router.push({
+      pathname: '/checkout',
+      query: { result: JSON.stringify([{id:id, name:name, qty:qty, price:price, imgUrl:imgUrl,slug:slug, option:option, dates:dates}])}
+    },
+        "/checkout");
+    // navigate('/page',{state: state.cart});
+  }
   const handleCartAmountChange = amount => () => {
     fetch(targetUrl+'/cart/'+id,{
       method: 'DELETE',
@@ -155,6 +165,9 @@ const ProductCard7 = ({
 <Span fontWeight={600} color="primary.main">
             {currency(price * qty)}
   </Span>
+  <Button variant="contained" color="primary" onClick={()=>checkout()} fullWidth> {/*onClick={()=>checkout()}*/}
+       Checkout Now
+  </Button>
 </FlexBox>
 
         {/* <FlexBox gap={1} flexWrap="wrap" alignItems="center">

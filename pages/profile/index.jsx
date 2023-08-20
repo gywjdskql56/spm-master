@@ -47,21 +47,9 @@ return profile
 
   useEffect(() => {
     getData()
+//    window.location.href =  '/'
   },[])
-  useEffect(() => {
-     getData()
-    // console.log(data)
-    // if (props.profiles.status =="error"){
-    //   if (typeof window !== "undefined") {
-    //     setUsers({"memberId":"0","firstName":"-","lastName":"-"})
-    //    window.alert("권한이 없습니다. 회원으로 로그인해주세요. ")
-    //   //  window.location.href =  '/'
-    //   }
-    // } else {
-    //   setUsers(props.profiles.data)
-    // }
-    // setOpen(true)
-  },[open])
+
 
   // SECTION TITLE HEADER LINK
   const HEADER_LINK = <Link href={`/profile/${users.memberId}`} passHref>

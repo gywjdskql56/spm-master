@@ -17,6 +17,7 @@ const FAQForm = ({itemList}) => {
   console.log(itemList)
   const [faqId, setFAQID] = useState(null);
   const [secret, setSecret] = useState([]);
+  const [itemLists, setItemLists] = useState(itemList);
   const width = useWindowSize();
   const router = useRouter();
   const isMobile = width < 769;
@@ -46,6 +47,25 @@ const FAQForm = ({itemList}) => {
         if (typeof window !== "undefined") {
             window.alert("접근권한이 있습니다.")
             setSecret((prev)=>[...prev, productQnaId])
+            var new_itemLists = []
+            console.log(itemLists.length)
+            for (var i=0; i<itemLists.length; i++){
+                if(itemLists[i].productQnaId!=productQnaId){
+                    console.log(i)
+                    new_itemLists.push(itemLists[i])
+                }else{
+                    console.log("new_"+i)
+                    response.data['memberEmail'] = response.data.email
+                    response.data['productQnaId'] = response.data.productqnaId
+                    console.log(response.data)
+
+                    new_itemLists.push(response.data)
+
+                }
+            }
+            setItemLists(prev=>new_itemLists)
+        console.log(new_itemLists)
+        console.log(response)
         }
     }else{
         if (typeof window !== "undefined") {
@@ -81,7 +101,7 @@ const FAQForm = ({itemList}) => {
       <Card1 sx={{
       mb: 4
     }}>
-         {itemList.map((faqItem)=><div>
+         {itemLists.map((faqItem)=><div>
             <FormControlLabel sx={{ mb: 3, mt : 3 }} name={faqItem.productQnaId} onChange={handleChangeFAQ} disabled={!faqItem.open && !secret.includes(faqItem.productQnaId)}
             label={<div><Paragraph fontWeight={600}>{"Q: " + faqItem.title}</Paragraph><Paragraph fontWeight={100}>{faqItem.updateDate==null?
            <Span sx={{textAlign: "right"}}>{faqItem.memberEmail+" | "+ getDateDifference(faqItem.writeDate)}</Span>

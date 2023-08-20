@@ -55,7 +55,7 @@ export default function SupportTickets({
   const [ticket, setTicket] = useState([]);
 
     const getTicket = async () => {
-    const res = await fetch(targetUrl+"/sysqnas",{
+    const res = await fetch(targetUrl+"/productqnas",{
           method: 'GET',
           credentials : 'include',
           headers: {
@@ -67,7 +67,7 @@ export default function SupportTickets({
   console.log(data);
   if (data.status =="error"){
     if (typeof window !== "undefined") {
-    window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
+    window.alert("권한이 없습니다. 판매자로 로그인해주세요. ")
     window.location.href =  "/"
     }
   }
@@ -131,7 +131,8 @@ export default function SupportTickets({
               <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={ticketList.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
 
               <TableBody>
-                {filteredList.map((ticket, index) => <StyledTableRow role="checkbox" key={index}>
+                {filteredList.map((tickets, indexs) => filteredList[indexs].productqnaInfo.map((ticket, index)=>
+                    <StyledTableRow role="checkbox" key={index}>
                     <StyledTableCell align="left">
                       {ticket.title}
                     </StyledTableCell>
@@ -162,14 +163,14 @@ export default function SupportTickets({
 
 
                     <StyledTableCell align="center">
-                      <StyledIconButton onClick={() => router.push(`/vendor/support-tickets/${ticket.sysqnaId}`)}>
+                      <StyledIconButton onClick={() => router.push(`/vendor/support-tickets/${ticket.productqnaId}`)}>
                         <Edit />
                       </StyledIconButton>
                       {/*<StyledIconButton>
                         <Delete />
                       </StyledIconButton>*/}
                     </StyledTableCell>
-                  </StyledTableRow>)}
+                  </StyledTableRow>))}
               </TableBody>
             </Table>
           </TableContainer>

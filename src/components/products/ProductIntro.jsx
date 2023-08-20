@@ -16,7 +16,10 @@ import DatePicker from "react-multi-date-picker"
 import { Calendar } from "react-multi-date-picker"
 import DatePanel from "react-multi-date-picker/plugins/date_panel"
 import Modal from '@mui/material/Modal';
-import { targetUrl } from "components/config";
+import { targetUrl, getAuth } from "components/config";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import Image from "components/BazaarImage";
+
 // ================================================================
 
 // ================================================================
@@ -36,11 +39,7 @@ const ProductIntro = ({
 
   console.log("ProductIntro")
   console.log(product)
-//  const {
-//    state,
-//    dispatch
-//  } = useAppContext();
-//  console.log(product.servicePeriodList)
+
 const [state, setState] = useState({'cart':[]});
 const getData = async () => {
 const res = await fetch(targetUrl+"/cart",{
@@ -80,11 +79,35 @@ if(data.status=="success"){
 };
 
 }
+
+console.log(popup)
+const currentUrl = window.location.href;
+console.log(currentUrl)
+const searchParams = new URL(currentUrl).searchParams;
+console.log(searchParams)
+const code = searchParams.get("success");
+console.log(code)
+if (code) {
+  window.opener.postMessage({ code }, window.location.origin);
+}
+
 useEffect(() => {
     getData()
+
+    console.log(popup)
+    const currentUrl = window.location.href;
+    console.log(currentUrl)
+    const searchParams = new URL(currentUrl).searchParams;
+    console.log(searchParams)
+    const code = searchParams.get("success");
+    console.log(code)
+    if (code) {
+      window.opener.postMessage({ code }, window.location.origin);
+    }
 },[])
 
-  const [value, setValue] = useState()
+  const [popup, setPopup] = useState()
+  const [value, setValue] = useState(null)
   const [dates, setDates] = useState([])
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectVariants, setSelectVariants] = useState({
@@ -128,19 +151,95 @@ useEffect(() => {
 
   }
    function handleDates(value){
+   console.log("handleDates")
+   console.log(value)
+   console.log(value.length)
       //your modification on passed value ....
 //      console.log(value)
       setValue(value)
      const date_list = []
+     if (value.length!=undefined){
      for (let i=0; i<value.length; i++) {
 //        console.log(value[i])
 //        console.log(value[i].format("YYYY-MM-DD"))
+        console.log(value[i].format("YYYY-MM-DD"))
         date_list.push({startDate: value[i].format("YYYY-MM-DD"), endDate: value[i].format("YYYY-MM-DD")} )
      }
      setDates(date_list)
-
+}
 //   console.log(date_list)
    }
+   const imageClick = async () => {
+   if (value==null){
+        window.alert('Please select dates.')
+   }
+   else{
+   const auth = await getAuth()
+   console.log("auth")
+   console.log(auth)
+   console.log(auth[0])
+   console.log(auth[0]=="success")
+   console.log(auth[1]=="ROLE_MEMBER")
+   if(auth[0]=="success" && auth[1]=="ROLE_MEMBER"){
+     console.log("createOrder")
+    var uriString = targetUrl;
+    uriString+="/createOrder?productId=1&productSalePrice=400&startDate=2023-07-05&endDate=2023-07-09&";
+    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
+    +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
+    +"optionFee="+encodeURIComponent("10,옵션비용테스트3")+"&";
+    uriString+="additionalComments=additionalCommentsTest&";
+    uriString+="firstName=firstNameTest&";
+    uriString+="lastName=lastNameTest&";
+    uriString+="phoneNumber=phoneNumberTest&";
+    uriString+="email=emailTest&";
+    uriString+="country=countryTest";
+    const pop = window.open(uriString,'pop01','top=10,left=10,width=500,height=600,status=no,menubar=no,toolbar=no,resizable=no', "paypal");
+    setPopup(pop)
+   }else{
+   window.alert('Please login as a member ')
+
+    }
+    }
+   }
+
+
+
+
+
+
+   function createOrder() {
+    // replace this url with your server
+    if (value==null){
+        window.alert('Please select dates.')
+   }else{
+    console.log("createOrder")
+    var uriString = targetUrl;
+    uriString+="/createOrder?productId=1&productSalePrice=400&startDate=2023-07-05&endDate=2023-07-09&";
+    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
+    +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
+    +"optionFee="+encodeURIComponent("10,옵션비용테스트3")+"&";
+    uriString+="additionalComments=additionalCommentsTest&";
+    uriString+="firstName=firstNameTest&";
+    uriString+="lastName=lastNameTest&";
+    uriString+="phoneNumber=phoneNumberTest&";
+    uriString+="email=emailTest&";
+    uriString+="country=countryTest";
+    window.open(uriString,'pop01','top=10,left=10,width=500,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+    return fetch(uriString, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": true,
+        },
+    })
+        .then((response) => response.json())
+        .then((order) => {
+            // Your code here after create the order
+            console.log(order)
+            return 1;
+        });
+}}
   // HANDLE CHAMGE TYPE AND OPTIONS
   const handleChangeVariant = (variantName, value) => () => {
     setSelectVariants(state => ({
@@ -157,6 +256,9 @@ useEffect(() => {
 
   // HANDLE CHANGE CART
   const handleCartAmountChange = async () => {
+    if (value==null){
+        window.alert('Please select date')
+    }else{
     console.log({
         price: perprice,
         qty: amt,
@@ -166,7 +268,8 @@ useEffect(() => {
         slug : productId
       })
       console.log("value: ", value)
-  
+      console.log("dates: ", dates)
+
    const res = await fetch(targetUrl+"/cart",{
           method: 'POST',
           credentials : 'include',
@@ -186,39 +289,11 @@ useEffect(() => {
   window.alert("장바구니에 담겼습니다.")
   getData()
 
-//      fetch(targetUrl+"/cart",{
-//      credentials : 'include',
-//      method: 'GET',
-//      headers: {
-//        'Content-Type': 'application/json',
-//        "ngrok-skip-browser-warning": true,
-//    }})
-//    .then((response) =>
-//        response.json())
-//    .then((data) =>
-//        {if(data.status=="success"){
-//            setCart(data); console.log(data); window.sessionStorage.setItem('cart', JSON.stringify(data))}});
-//    sessionStorage.setItem('id',values.email)
-//    sessionStorage.setItem('type',result.data[0]['authority'])
-
-//      dispatch({
-//      type: "CHANGE_CART_AMOUNT",
-//      payload: {
-//        price: perprice,
-//        qty: amt,
-//        name: product.productName,
-//        imgUrl: thumbnailImage.imageBase64String,
-//        id: productId,
-//        code: productId+option.sort().map(item => item).join(', '), //+value.sort().map(item => item).join(', '),
-//        slug : productId,
-//        option : option
-//      }
-//    });
   }else {
   window.alert("회원만 장바구니 기능을 사용하실 수 있습니다. 로그인 후 다시 시도해주세요.")
   }
 
-
+}
 
   };
 
@@ -392,9 +467,28 @@ useEffect(() => {
               Add to cart
             </Button>
             </FlexBox>
-            </FlexBox>
+
             </FlexBox>
 
+            </FlexBox>
+            <Grid container spacing={3} justifyContent="space-around">
+                 {/*<Grid item md={10} xs={10}>
+                <PayPalScriptProvider options={{ clientId: "test", currency: "USD", intent: "capture", }}>
+                    <PayPalButtons style={{ layout: "horizontal" }} createOrder={createOrder} />
+                </PayPalScriptProvider>
+                </Grid>*/}
+                </Grid>
+
+              <Grid item md={4} xs={4}/>
+
+            <Grid item md={10} xs={10}>
+            <Button size="medium" onClick={()=>imageClick()} fullWidth sx={{
+              height: 44, backgroundColor:"#F5C657"}}>
+              <Image src="/assets/images/payment-card/paypal.png" alt="facebook" />
+                <Box fontSize="12px" ml={1}>
+                </Box>
+              </Button>
+              </Grid>
           <FlexBox alignItems="center" mb={2}>
             <Box>Vendor Contacts:</Box>
               <a>

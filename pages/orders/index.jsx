@@ -8,14 +8,31 @@ import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import api from "utils/__api__/orders";
-
+import { targetUrl } from "components/config";
+import { Fragment, useState, useEffect } from "react";
 // ====================================================
 
 // ====================================================
 
 const Orders = ({
-  orderList
+  orderList,
+  order
 }) => {
+    const [orders, setOrders] = useState([]);
+    console.log("order")
+    console.log(orderList)
+    console.log(order)
+    useEffect(() => {
+    const orderRes = fetch(targetUrl + "/checkout/member", {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+  }).then(response => response.json())
+    .then(response => {console.log(response); if (response.status=="success") {setOrders(response.data)}});}, [])
+
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
       <UserDashboardHeader title="주문/예약" icon={ShoppingBag} navigation={<CustomerDashboardNavigation />} />
@@ -51,7 +68,7 @@ const Orders = ({
       }} />
       </TableRow>
 
-      {orderList.map(order => <OrderRow order={order} key={order.id} />)}
+      {orders!=[]? orders.map(order => <OrderRow order={order} key={order.payId} />): <div />}
 
       <FlexBox justifyContent="center" mt={5}>
         <Pagination count={5} color="primary" variant="outlined" onChange={data => console.log(data)} />
@@ -60,9 +77,20 @@ const Orders = ({
 };
 export const getStaticProps = async () => {
   const orderList = await api.getOrders();
+  const orderRes = await fetch(targetUrl + "/checkout/member", {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+  });
+  const order = await orderRes.json();
+  console.log(order)
   return {
     props: {
-      orderList
+      orderList,
+      order
     }
   };
 };
