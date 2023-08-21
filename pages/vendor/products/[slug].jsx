@@ -56,6 +56,10 @@ export default function EditProduct() {
                 date_list.push([new DateObject(data.servicePeriodList[i].startDate)])
             }
         }
+        console.log("date_list")
+        console.log(date_list)
+        console.log(data.servicePeriodList)
+        console.log(data.courseDetailsList)
         const option_list = []
         for (let i=0; i<data.optionFeeList.length; i++) {
             option_list.push(data.optionFeeList[i].name+"("+data.optionFeeList[i].price+")")

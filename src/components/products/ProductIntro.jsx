@@ -34,7 +34,8 @@ const ProductIntro = ({
     title,
     images,
     slug,
-    thumbnailImage
+    thumbnailImage,
+    courseDetailsList
   } = product;
 
   console.log("ProductIntro")
@@ -120,6 +121,7 @@ useEffect(() => {
   const [perprice, setPerPrice] = useState(price);
   const [option, setOption] = useState([])
   const [optionID, setOptionID] = useState([])
+  const [optionT, setOptionT] = useState([])
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleClickOption = (e, id, name, price) =>{
@@ -133,6 +135,7 @@ useEffect(() => {
 //    setOption((prev)=>[...prev, e.target.value])
     setOption((prev)=>[...prev, name])
     setOptionID((prev)=>[...prev, id])
+    setOptionT((prev)=>[...prev, {"price":price, "id":id, "name":name}])
     setTotalPrice((prev)=>(prev + parseFloat(price)*amt))
     setPerPrice((prev)=>(prev + parseFloat(price)))
     }
@@ -145,6 +148,10 @@ useEffect(() => {
     setOptionID(prev => {
       return prev.filter(item => item !== id)
     })
+    setOptionT(prev => {
+      return prev.filter(item => item !== {"price":price, "id":id, "name":name})
+    })
+
     setTotalPrice((prev)=>(prev - price*amt))
     setPerPrice((prev)=>(prev - price))
     }
@@ -153,22 +160,35 @@ useEffect(() => {
    function handleDates(value){
    console.log("handleDates")
    console.log(value)
-   console.log(value.length)
-      //your modification on passed value ....
-//      console.log(value)
+   console.log(value.year)
+   console.log(value.day)
+   console.log(value.monthIndex)
+   console.log(value.format("YYYY-MM-DD"))
+   console.log(new Date(value.format("YYYY-MM-DD")))
+   var endDate = new Date(value.format("YYYY-MM-DD"))
+   endDate.setDate(endDate.getDate() + courseDetailsList.length)
+   console.log(endDate)
+   var endDate2 = new Date(value)
+   endDate2.setDate(endDate2.getDate() + courseDetailsList.length)
+   console.log(endDate2)
+   console.log(endDate2.toISOString().split('T')[0])
+
+//   console.log(new Date(new Date().setDate(value.format("YYYY-MM-DD").getDate() - 5)))
+   console.log(new Date(new Date().setDate(value - 5)))
+
       setValue(value)
-     const date_list = []
+{/*     const date_list = []
      if (value.length!=undefined){
      for (let i=0; i<value.length; i++) {
 //        console.log(value[i])
 //        console.log(value[i].format("YYYY-MM-DD"))
         console.log(value[i].format("YYYY-MM-DD"))
-        date_list.push({startDate: value[i].format("YYYY-MM-DD"), endDate: value[i].format("YYYY-MM-DD")} )
-     }
-     setDates(date_list)
-}
-//   console.log(date_list)
+        date_list.push({startDate: value.format("YYYY-MM-DD"), endDate: value[i].format("YYYY-MM-DD")} )
+     }*/}
+     setDates([{startDate: value.format("YYYY-MM-DD"), endDate: endDate.toISOString().split('T')[0]}])
    }
+
+
    const imageClick = async () => {
    if (value==null){
         window.alert('Please select dates.')
@@ -190,10 +210,10 @@ useEffect(() => {
     uriString+="/createOrder?productId="+productId+"&productSalePrice="+product.price+"&startDate="+product.servicePeriodList[0].startDate+"&endDate="+product.servicePeriodList[0].endDate+"&";
     console.log(product.optionFeeList)
     console.log(product.optionFeeList.length)*/}
-    for (var i=0; i < product.optionFeeList.length; i++){
-    console.log(product.optionFeeList[i].price+","+product.optionFeeList[i].name)
-    console.log(encodeURIComponent(product.optionFeeList[i].price+","+product.optionFeeList[i].name))
-    uriString+= "optionFee="+encodeURIComponent(encodeURIComponent(product.optionFeeList[i].price+","+product.optionFeeList[i].name))+"&"
+    for (var i=0; i < optionT.length; i++){
+    console.log(optionT[i].price+","+optionT[i].name)
+    console.log(encodeURIComponent(optionT[i].price+","+optionT[i].name))
+    uriString+= "optionFee="+encodeURIComponent(encodeURIComponent(optionT[i].price+","+optionT[i].name))+"&"
     }
 //    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
 //    +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
@@ -375,7 +395,7 @@ useEffect(() => {
             <Box mx={1} lineHeight="1">
               <BazaarRating color="warn" fontSize="1.25rem" value={0} readOnly />
             </Box>
-            <H6 lineHeight="1">({product.reviewList.length})</H6>
+            <H6 lineHeight="1">({product.reviewInfos.length})</H6>
           </FlexBox>
 
           {(product.optionFeeList).map(variant =>

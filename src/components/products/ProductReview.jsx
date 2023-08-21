@@ -5,6 +5,7 @@ import { FlexBox } from "components/flex-box";
 import ProductComment from "./ProductComment";
 import { H2, H5 } from "components/Typography";
 import { useCallback, useState, useEffect } from "react";
+import { targetUrl, getAuth } from "components/config";
 // ===================================================
 
 // ===================================================
@@ -21,8 +22,8 @@ const handleFormSubmit = async (values, {
     else{
     console.log('complete')
     console.log(values)
-    fetch('http://localhost:5003/insert_review',{
-      method: 'POST',
+    fetch(targetUrl+"/productDetails?productId="+product_id,{
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -61,7 +62,7 @@ const handleFormSubmit = async (values, {
   return <Box>
       {review.map((item, ind) => <ProductComment {...item} key={ind} />)}
 
-      <H2 fontWeight="600" mt={7} mb={2.5}>
+      {/*<H2 fontWeight="600" mt={7} mb={2.5}>
         Please tell us your review about the product.
       </H2>
 
@@ -87,7 +88,7 @@ const handleFormSubmit = async (values, {
         <Button variant="contained" color="primary" type="submit" disabled={!(dirty && isValid)}>
           저장
         </Button>
-      </form>
+      </form>*/}
     </Box>;
 };
 

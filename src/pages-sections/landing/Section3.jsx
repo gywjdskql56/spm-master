@@ -278,7 +278,7 @@ const vendorPageList = [{
 }, {
   imgUrl: "/assets/images/landing/vendor/refund-request.jpg",
   previewUrl: "/admin/refund-request",
-  title: "환불 요청",
+  title: "결제 내역",
   status: "New",
   page: "admin"
 }, {

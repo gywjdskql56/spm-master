@@ -13,59 +13,60 @@ const RefundRequestRow = ({
   request
 }) => {
   const {
-    name,
-    image,
-    orderNo,
-    shopName,
-    amount,
-    status
+    productName,
+    travelStartDate,
+    payId,
+    payedMemberEmail,
+    payedTotalPrice,
+    paypalOrderStatus
+//    productName, payId, payedMemberEmail, payedTotalPrice, paypalOrderStatus
+//            productName : response.data[i].productName,
+//            payId : response.data[i].payId,
+//            payedMemberEmail : response.data[i].payedMemberEmail,
+//            payedTotalPrice : response.data[i].payedTotalPrice,
+//            paypalOrderStatus : response.data[i].paypalOrderStatus,
+//            travelStartDate : response.data[i].travelStartDate,
   } = request;
   return <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        #{orderNo}
+        #{payId}
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        {shopName}
+        {payedMemberEmail}
       </StyledTableCell>
 
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
-          <Avatar src={image} sx={{
+          {/*<Avatar src={image} sx={{
           borderRadius: "8px"
-        }} />
-          <Paragraph>{name}</Paragraph>
+        }} />*/}
+          <Paragraph>{productName}</Paragraph>
         </FlexBox>
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        {currency(amount)}
+        {currency(payedTotalPrice)}
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        <StatusWrapper status={status}>{status}</StatusWrapper>
+        <StatusWrapper status={paypalOrderStatus}>{paypalOrderStatus}</StatusWrapper>
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
-          <Edit />
-        </StyledIconButton>
 
         <StyledIconButton>
           <RemoveRedEye />
         </StyledIconButton>
 
-        <StyledIconButton>
-          <Delete />
-        </StyledIconButton>
       </StyledTableCell>
     </StyledTableRow>;
 };

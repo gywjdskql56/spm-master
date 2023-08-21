@@ -26,7 +26,7 @@ export default function CreateProduct() {
     description: ["","","","","","","","","","","","","",],
     show: false,
     img: "",
-    dates: [[new DateObject("2023-07-23"),new DateObject("2023-07-27")]]//[[new DateObject().set({ day: 19 }), new DateObject().set({ day: 23 })]],
+    dates: [[]]//new DateObject("2023-07-23"),new DateObject("2023-07-27") //[[new DateObject().set({ day: 19 }), new DateObject().set({ day: 23 })]],
   };
   const validationSchema = yup.object().shape({
     name: yup.string().required("required"),

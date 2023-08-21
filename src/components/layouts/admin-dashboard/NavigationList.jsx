@@ -66,7 +66,7 @@ export const navigations = [{
   name: "환불",
   icon: duotone.Refund,
   children: [{
-    name: "환불 요청",
+    name: "결제 내역",
     path: "/admin/refund-request"
   }, {
     name: "환불 규정",

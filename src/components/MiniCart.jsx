@@ -58,7 +58,8 @@ if(data.status=="success"){
    'qty': item.count,
    'name': item.productName,
    'id':item.cartId,
-   'price': item.price+item.optionFee
+   'price': item.price+item.optionFee,
+   'dates': item.serviceDateInfoList[0],
    }))
    setState({"cart": cartval})
 };
@@ -190,18 +191,24 @@ useEffect(() => {
                 {opt.name+"("+opt.price+")"+", "}
               </Tiny>)}
               </div>
-
+              <div>
               <Tiny color="grey.600">
                 {currency(item.price)} x {item.qty}
               </Tiny>
-
+              </div>
+              <div>
               <Tiny color="grey.600">
-                {currency(item.price)} x {item.qty}
+                {"startDate : "+item.dates.startDate}
               </Tiny>
-
-              <Box fontWeight={600} fontSize="14px" color="primary.main" mt={0.5}>
+              </div>
+              <div>
+              <Tiny color="grey.600">
+                {"endDate : "+item.dates.endDate}
+              </Tiny>
+              </div>
+              {/*<Box fontWeight={600} fontSize="14px" color="primary.main" mt={0.5}>
                 {item.date}
-              </Box>
+              </Box>*/}
             </Box>
 
             <IconButton size="small" onClick={handleCartAmountDelete(item)} sx={{

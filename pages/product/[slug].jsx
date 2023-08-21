@@ -90,13 +90,13 @@ const ProductDetails = props => {
         {/* PRODUCT DESCRIPTION AND REVIEW */}
         <StyledTabs textColor="primary" value={selectedOption} indicatorColor="primary" onChange={handleOptionClick}>
           <Tab className="inner-tab" label="Description" />
-          {product ? <Tab className="inner-tab" label={"Review ("+product.reviewList.length+")"} /> : <Tab className="inner-tab" label={"Review"} />}
+          {product ? <Tab className="inner-tab" label={"Review ("+product.reviewInfos.length+")"} /> : <Tab className="inner-tab" label={"Review"} />}
           {product ? <Tab className="inner-tab" label={"FAQ ("+product.productQnaInfoList.length+")"} /> : <Tab className="inner-tab" label={"FAQ"} />}
         </StyledTabs>
 
         <Box mb={6}>
           {product!=null && selectedOption === 0 && <ProductDescription explain={product} />}
-          {product!=null && selectedOption === 1 && <ProductReview review={product.reviewList} product_id={product.productId} />}
+          {product!=null && selectedOption === 1 && <ProductReview review={product.reviewInfos} product_id={product.productId} />}
           {product!=null && selectedOption === 2 && <ProductFAQ faq={product.productQnaInfoList} product_id={product.productId} />}
         </Box>
 

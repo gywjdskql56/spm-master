@@ -1,4 +1,4 @@
-// export const targetUrl = "https://a2a3-211-178-9-143.ngrok-free.app/api";
+// export const targetUrl = "https://dc77-115-93-67-106.ngrok-free.app/api";
  export const targetUrl = "https://allmeditrip.com/api";
 // export const weburl = 'https://allmeditrip.com/';
 // export const weburl = 'http://localhost:3000';
@@ -23,7 +23,7 @@ export const getAuth = async () => {
         window.sessionStorage.setItem('id',auth_data.data[0]['authority'])
         window.sessionStorage.setItem('type',auth_data.data[0]['authority'])
     }
-    return ["success", ...auth_data.data];
+    return ["success", auth_data.data[0]['authority']];
     }
    else {
    console.log(auth_data);

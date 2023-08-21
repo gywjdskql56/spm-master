@@ -36,7 +36,7 @@ export const navigations = [{
 //  }]
 //},
 {
-  name: "환불 요청",
+  name: "구매 내역",
   icon: duotone.Refund,
   path: "/vendor/refund-request"
 }, {

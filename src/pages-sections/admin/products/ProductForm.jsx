@@ -597,12 +597,12 @@ const [dates, setDates] = useState([
                 </FlexBox>
               </Grid>
               <Grid item xs={6}>
-             {main.map((file, index) => {
+             {/*main.map((file, index) => {
                 return <UploadImageBox key={index}>
                         <BazaarImage src={file.preview} width="100%" />
                         <StyledClear onClick={handleFileDeleteMain(file)} />
                       </UploadImageBox>;
-              })}
+              })*/}
               </Grid>
               </Grid>
 

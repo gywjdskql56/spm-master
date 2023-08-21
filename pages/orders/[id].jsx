@@ -1,13 +1,14 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 import { format } from "date-fns";
+import * as yup from "yup";
 import { Done, ShoppingBag } from "@mui/icons-material";
-import { Avatar, Box, Button, Card, Divider, Grid, Typography, styled } from "@mui/material";
+import { Avatar, Box, Button, Card, Divider, Grid, Typography, styled, Rating, TextField } from "@mui/material";
 import TableRow from "components/TableRow";
 import Delivery from "components/icons/Delivery";
 import PackageBox from "components/icons/PackageBox";
 import TruckFilled from "components/icons/TruckFilled";
-import { H5, H6, H7, Paragraph } from "components/Typography";
+import { H2, H5, H6, Paragraph } from "components/Typography";
 import { FlexBetween, FlexBox } from "components/flex-box";
 import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
@@ -17,7 +18,7 @@ import { currency } from "lib";
 import { useState, useEffect } from "react";
 import api from "utils/__api__/orders";
 import { targetUrl, getAuth } from "components/config";
-
+import { useFormik } from "formik";
 // styled components
 const StyledFlexbox = styled(FlexBetween)(({
   theme
@@ -49,6 +50,9 @@ const OrderDetails = ({
   const [itemList, setItemList] = useState(null);
   const [refund, setRefund] = useState(null);
   const [open, setOpen] = useState(false);
+  const [review, setReview] = useState(false);
+  const [review2, setReview2] = useState(false);
+  const [reviews, setReviews] = useState([]);
   const router = useRouter();
   const width = useWindowSize();
   const orderStatus = "Shipping";
@@ -61,7 +65,7 @@ const OrderDetails = ({
     if (format(new Date(), "yyyy-MM-dd")>itemList.travelStartDate){
         window.alert("REFUND IS NOT AVAILABLE AFTER THE TRAVEL START DATE")
     }else{
-    if(window.confirm()){
+    if(window.confirm("Do you want to get a refund?")){
     fetch(targetUrl + "/checkout/refund/"+itemList.payId, {
     method: "POST",
     credentials: "include",
@@ -70,11 +74,83 @@ const OrderDetails = ({
       "ngrok-skip-browser-warning": true,
     },
   }).then(response => response.json())
-    .then(response => {console.log(response); if (response.status=="success") {"$"+window.alert(response.data.refundedPrice+" is refunded")} else {window.alert(response.message)}})
+    .then(response => {console.log(response); if (response.status=="success") {window.alert("$"+response.data.refundedPrice+" is refunded")} else {window.alert(response.message)}})
   }else{
   console.log("no")
   }
   }}
+  function getReview() {
+  console.log("review")
+  fetch(targetUrl + "/review/member/"+itemList.payId, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+  }).then(response => response.json())
+    .then(response => {console.log(response); if (response.status=="success") {console.log(response.data);setReviews(response.data); setReview2(true)} else {console.log("Review not exist");setReview(true)}})
+  }
+
+  const handleFormSubmit = async (values, {
+    resetForm
+  }) => {
+  console.log(values.rating)
+  console.log(values.comment)
+  fetch(targetUrl + "/review", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+     body: JSON.stringify({"payId" : itemList.payId,
+    "rating" : values.rating,
+    "contents" : values.comment })
+  }).then(response => response.json())
+    .then(response => {console.log(response); if (response.status=="success") {window.alert("Your review has been registered")} else {window.alert("Review registration failed")}})
+    {/*if (window.sessionStorage.getItem('id')==null){
+        window.alert("Please try again after logging in.")
+    }
+    else{
+    console.log('complete')
+    console.log(values)
+    fetch('http://localhost:5003/insert_review',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({'date': values.date,'review': values.comment,'rating': values.rating, 'email':window.sessionStorage.getItem('id'), 'product_id':product_id})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.response=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("Your comment has successfully registered.")
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("Comment registration failed. please try again.")
+            }
+    }})}*/}
+    resetForm();
+  }
+    const {
+    dirty,
+    values,
+    errors,
+    touched,
+    isValid,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue
+  } = useFormik({
+    onSubmit: handleFormSubmit,
+    initialValues: initialValues,
+    validationSchema: reviewSchema
+  });
   function checkRefund() {
     console.log("check")
     console.log(itemList.travelStartDate)
@@ -305,7 +381,7 @@ useEffect(() => {
           </Card>:<div />}
 
         </Grid>
-                  <Grid item lg={6} md={6} xs={12}>
+       <Grid item lg={6} md={6} xs={12}>
           <Card sx={{
           p: "20px 30px"
         }}>
@@ -351,6 +427,73 @@ useEffect(() => {
               </div>
         </Card>
         </Grid>
+
+        <Grid item lg={6} md={6} xs={12}>
+          <Card sx={{
+          p: "20px 30px"
+        }}>
+         <H5 mt={0} mb={2}>
+              Review
+            </H5>
+            {review2?
+             <div>
+        <div>
+        <Card sx={{
+          p: "20px 30px"
+        }}>
+        <H6 mt={0} mb={2}>
+              {"Rating: "+reviews.rating}
+            </H6>
+            </Card>
+            </div>
+        <div>
+        <Card sx={{
+          p: "20px 30px"
+        }}>
+        <H6 mt={0} mb={2}>
+              {reviews.contents}
+            </H6>
+            </Card>
+            </div>
+            </div>:
+            <div />}
+            {itemList!=null && itemList.paypalOrderStatus=="COMPLETED" && itemList.travelEndDate<format(new Date(), "yyyy-MM-dd")? <Button color="error" onClick={()=>getReview()} sx={{
+                bgcolor: "error.light",
+                px: 4
+              }}>
+                  Write Review
+              </Button>
+              :<div/>}
+
+
+              {review? <Box>
+
+      <form onSubmit={handleSubmit}>
+        <Box mb={2.5}>
+          <FlexBox mb={1.5} gap={0.5}>
+            <H5 color="grey.700">Service satisfaction</H5>
+            <H5 color="error.main">*</H5>
+          </FlexBox>
+
+          <Rating color="warn" size="medium" value={values.rating} onChange={(_, value) => {setFieldValue("rating", value); console.log(values)}} />
+        </Box>
+
+        <Box mb={3}>
+          <FlexBox mb={1.5} gap={0.5}>
+            <H5 color="grey.700">Write a review</H5>
+            <H5 color="error.main">*</H5>
+          </FlexBox>
+
+          <TextField rows={8} multiline fullWidth name="comment" variant="outlined" onBlur={handleBlur} value={values.comment} onChange={handleChange} placeholder="If you leave a detailed review, it will help others!" error={!!touched.comment && !!errors.comment} helperText={touched.comment && errors.comment} />
+        </Box>
+
+        <Button variant="contained" color="primary" type="submit" disabled={!(dirty && isValid)}>
+          저장
+        </Button>
+      </form>
+    </Box>:<div />}
+         </Card>
+        </Grid>
       </Grid>
     </CustomerDashboardLayout>;
 };
@@ -362,6 +505,15 @@ export const getStaticPaths = async () => {
     fallback: "blocking" //indicates the type of fallback
   };
 };
+const initialValues = {
+  rating: 0,
+  comment: "",
+  date: new Date().toISOString()
+};
+const reviewSchema = yup.object().shape({
+  rating: yup.number().required("required"),
+  comment: yup.string().required("required")
+});
 
 export const getStaticProps = async ({
   params
