@@ -207,7 +207,7 @@ export default function SupportTickets() {
             </H5>
 
             <Span color="grey.600">
-              {ticket.email}{" | "}{ticket.writeDate}}
+              {ticket.email}{" | "}{ticket.writeDate}
             </Span>
 
             <Box borderRadius="10px" bgcolor="grey.400" p={2} mt={2}>

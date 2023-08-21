@@ -10,6 +10,9 @@ import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 import useMuiTable from "hooks/useMuiTable";
 import { StyledIconButton, StyledTableCell, StyledTableRow } from "pages-sections/admin";
 import api from "utils/__api__/vendor";
+import { useState, useEffect } from "react";
+import { targetUrl, getAuth } from "components/config";
+
 const tableHeading = [{
   id: "name",
   label: "상품명",
@@ -43,6 +46,19 @@ Reviews.getLayout = function getLayout(page) {
 export default function Reviews({
   reviews
 }) {
+  const [open, setOpen] = useState(false);
+const [list, setList] = useState([]);
+useEffect(() => {fetch(targetUrl+"/review/vendor",{
+          credentials : 'include',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {if(data.status=='success'){console.log(data.data); setList(data.data);setOpen(true)} })},[])
  console.log(reviews)
   const {
     order,
@@ -53,12 +69,12 @@ export default function Reviews({
     handleChangePage,
     handleRequestSort
   } = useMuiTable({
-    listData: reviews
+    listData: list
   });
   return <Box py={4}>
       <H3 mb={2}>상품 후기</H3>
 
-      <Card>
+      {open? <Card>
         <Scrollbar>
           <TableContainer sx={{
           minWidth: 1000
@@ -103,7 +119,7 @@ export default function Reviews({
         <Stack alignItems="center" my={4}>
           <TablePagination onChange={handleChangePage} count={Math.ceil(reviews.length / rowsPerPage)} />
         </Stack>
-      </Card>
+      </Card>:<div />}
     </Box>;
 }
 export const getStaticProps = async () => {

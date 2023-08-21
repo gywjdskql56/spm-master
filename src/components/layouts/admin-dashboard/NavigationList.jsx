@@ -62,17 +62,19 @@ export const navigations = [{
     name: "고객센터",
     path: "/admin/support-tickets"
   }]
-}, {
-  name: "환불",
-  icon: duotone.Refund,
-  children: [{
-    name: "결제 내역",
-    path: "/admin/refund-request"
-  }, {
-    name: "환불 규정",
-    path: "/admin/refund-setting"
-  }]
-}, {
+},
+//{
+//  name: "환불",
+//  icon: duotone.Refund,
+//  children: [{
+//    name: "결제 내역",
+//    path: "/admin/refund-request"
+//  }, {
+//    name: "환불 규정",
+//    path: "/admin/refund-setting"
+//  }]
+//},
+{
   name: "판매자",
   icon: duotone.Seller,
   children: [{

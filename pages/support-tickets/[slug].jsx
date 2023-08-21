@@ -77,7 +77,7 @@ const SupportTicketDetails = () => {
       px: 4,
       bgcolor: "primary.light"
     }}>
-        고객센터 목록으로 돌아가기
+        Back to List
       </Button>
     </Link>;
 

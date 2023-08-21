@@ -9,6 +9,8 @@ import AdminDashboardLayout from "components/layouts/admin-dashboard";
 import useMuiTable from "hooks/useMuiTable";
 import { OrderRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
+import { useState, useEffect } from "react";
+import { targetUrl, getAuth } from "components/config";
 // TABLE HEADING DATA LIST
 const tableHeading = [{
   id: "id",
@@ -24,7 +26,7 @@ const tableHeading = [{
   align: "left"
 }, {
   id: "billingAddress",
-  label: "수수료율",
+  label: "구매자",
   align: "left"
 }, {
   id: "amount",
@@ -51,14 +53,27 @@ OrderList.getLayout = function getLayout(page) {
 export default function OrderList({
   orders
 }) {
+const [open, setOpen] = useState(false);
+const [list, setList] = useState([]);
+useEffect(() => {fetch(targetUrl+"/checkout/sysadmin",{
+          credentials : 'include',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {if(data.status=='success'){console.log(data.data); setList(data.data);setOpen(true)} })},[])
   // RESHAPE THE ORDER LIST BASED TABLE HEAD CELL ID
-  const filteredOrders = orders.map(item => ({
-    id: item.id,
-    qty: item.items.length,
-    purchaseDate: item.createdAt,
-    billingAddress: item.shippingAddress,
-    amount: item.totalPrice,
-    status: item.status
+  const filteredOrders = list.map(item => ({
+    id: item.payId,
+    qty: 1,
+    purchaseDate: item.orderCreatedDate,
+    billingAddress: item.payedMemberEmail,
+    amount: item.productSalePrice,
+    status: item.paypalOrderStatus
   }));
   const {
     order,
@@ -69,16 +84,14 @@ export default function OrderList({
     handleChangePage,
     handleRequestSort
   } = useMuiTable({
-    listData: filteredOrders,
+    listData: list,
     defaultSort: "purchaseDate",
     defaultOrder: "desc"
   });
   return <Box py={4}>
       <H3 mb={2}>주문내역</H3>
 
-      <SearchArea handleSearch={() => {}} buttonText="주문 생성" handleBtnClick={() => {}} searchPlaceholder="주문내역 검색" />
-
-      <Card>
+      {open? <Card>
         <Scrollbar>
           <TableContainer sx={{
           minWidth: 900
@@ -96,7 +109,7 @@ export default function OrderList({
         <Stack alignItems="center" my={4}>
           <TablePagination onChange={handleChangePage} count={Math.ceil(filteredList.length / rowsPerPage)} />
         </Stack>
-      </Card>
+      </Card> : <div />}
     </Box>;
 }
 export const getStaticProps = async () => {

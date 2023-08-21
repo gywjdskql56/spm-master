@@ -39,7 +39,7 @@ export default function SupportTickets() {
   const getTicket = async () => {
   const ticket_id = window.location.href.split("/").splice(-1);
   setId(ticket_id)
-  const res = await fetch(targetUrl+"/sysqnas/"+ticket_id,{
+  const res = await fetch(targetUrl+"/productqnas/",{
           method: 'GET',
           credentials : 'include',
           headers: {
@@ -48,9 +48,19 @@ export default function SupportTickets() {
         }})
   const data = await res.json();
   console.log(data);
+  console.log(data.data);
+for ( let i = 0; i < data.data.length; i++) {
+    if (data.data[i].productId == ticket_id){
+        console.log("Ticket")
+        console.log(data.data[i])
+        setTicket(data.data[i])
+        setText(data.data[i].answer)
+    }
+}
 
-  setTicket(data.data)
-  setText(data.data.answer)
+
+//  setTicket(data.data)
+//  setText(data.data[ticket_id].answer)
   if (data.status =="error"){
     if (typeof window !== "undefined") {
     window.alert("권한이 없습니다. 관리자로 로그인해주세요. ")
@@ -58,7 +68,7 @@ export default function SupportTickets() {
     }
   }
   console.log(data.data);
-  setTicket((data.data))
+//  setTicket((data.data[ticket_id]))
   return data;
   }
 

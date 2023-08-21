@@ -8,31 +8,33 @@ import Scrollbar from "components/Scrollbar";
 import useMuiTable from "hooks/useMuiTable";
 import { RefundRequestRow } from "pages-sections/admin";
 import api from "utils/__api__/vendor";
+import { useState, useEffect } from "react";
+import { targetUrl, getAuth } from "components/config";
 
 // table column list
 const tableHeading = [{
-  id: "orderNo",
+  id: "payId",
   label: "주문번호",
   align: "left"
 }, {
-  id: "shopName",
-  label: "판매사",
+  id: "payedMemberEmail",
+  label: "주문자",
   align: "left"
 }, {
-  id: "product",
+  id: "productName",
   label: "상품 정보",
   align: "left"
 }, {
-  id: "amount",
+  id: "productSalePrice",
   label: "금액",
   align: "left"
 }, {
-  id: "status",
+  id: "paypalOrderStatus",
   label: "처리상태",
   align: "left"
 }, {
   id: "action",
-  label: "수정/삭제",
+  label: "자세히",
   align: "center"
 }];
 
@@ -47,6 +49,20 @@ RefundRequest.getLayout = function getLayout(page) {
 export default function RefundRequest({
   requests
 }) {
+const [open, setOpen] = useState(false);
+const [list, setList] = useState([]);
+useEffect(() => {fetch(targetUrl+"/checkout/vendor",{
+          credentials : 'include',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {if(data.status=='success'){console.log(data.data); setList(data.data);setOpen(true)} })},[])
+
   const {
     order,
     orderBy,
@@ -56,18 +72,18 @@ export default function RefundRequest({
     handleChangePage,
     handleRequestSort
   } = useMuiTable({
-    listData: requests
+    listData: list
   });
   return <Box py={4}>
       <H3 mb={2}>결제 내역</H3>
 
-      <Card>
+      {open? <Card>
         <Scrollbar>
           <TableContainer sx={{
           minWidth: 900
         }}>
             <Table>
-              <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={requests.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
+              <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={list.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
 
               <TableBody>
                 {filteredList.map((request, index) => <RefundRequestRow request={request} key={index} />)}
@@ -77,9 +93,11 @@ export default function RefundRequest({
         </Scrollbar>
 
         <Stack alignItems="center" my={4}>
-          <TablePagination onChange={handleChangePage} count={Math.ceil(requests.length / rowsPerPage)} />
+          <TablePagination onChange={handleChangePage} count={Math.ceil(list.length / rowsPerPage)} />
         </Stack>
       </Card>
+      :<div />
+      }
     </Box>;
 }
 export const getStaticProps = async () => {

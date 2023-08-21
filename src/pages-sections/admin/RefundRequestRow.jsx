@@ -13,59 +13,54 @@ const RefundRequestRow = ({
   request
 }) => {
   const {
-    name,
+    productName,
     image,
-    orderNo,
-    shopName,
-    amount,
-    status
+    payId,
+    payedMemberEmail,
+    productSalePrice,
+    paypalOrderStatus
   } = request;
+
   return <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        #{orderNo}
+        #{payId}
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        {shopName}
+        {payedMemberEmail}
       </StyledTableCell>
 
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
-          <Avatar src={image} sx={{
+          {/*<Avatar src={image} sx={{
           borderRadius: "8px"
-        }} />
-          <Paragraph>{name}</Paragraph>
+        }} />*/}
+          <Paragraph>{productName}</Paragraph>
         </FlexBox>
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        {currency(amount)}
+        {currency(productSalePrice)}
       </StyledTableCell>
 
       <StyledTableCell align="left" sx={{
       fontWeight: 400
     }}>
-        <StatusWrapper status={status}>{status}</StatusWrapper>
+        <StatusWrapper status={paypalOrderStatus}>{paypalOrderStatus}</StatusWrapper>
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
-          <Edit />
-        </StyledIconButton>
 
         <StyledIconButton>
           <RemoveRedEye />
         </StyledIconButton>
 
-        <StyledIconButton>
-          <Delete />
-        </StyledIconButton>
       </StyledTableCell>
     </StyledTableRow>;
 };
