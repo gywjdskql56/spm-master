@@ -21,11 +21,11 @@ const Checkout = () => {
   }
   return <CheckoutNavLayout itemList={itemList}>
       {itemList != null?<Grid container flexWrap="wrap-reverse" spacing={3}>
-        <Grid item lg={8} md={8} xs={12}>
+        {/*<Grid item lg={8} md={8} xs={12}>
           <PaymentForm itemList={itemList} />
-        </Grid>
+        </Grid>*/}
 
-        <Grid item lg={4} md={4} xs={12}>
+        <Grid item lg={12} md={12} xs={12}>
           <PaymentSummary itemList={itemList} />
         </Grid>
       </Grid>

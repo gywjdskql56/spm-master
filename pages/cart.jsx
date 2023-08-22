@@ -87,12 +87,12 @@ useEffect(() => {
 
       <Grid container spacing={3}>
         {/* CART PRODUCT LIST */}
-        <Grid item md={8} xs={12}>
+        <Grid item md={12} xs={12}>
           {state.cart.map(item => <ProductCard7 key={item.id} {...item} />)}
         </Grid>
 
         {/* CHECKOUT FORM */}
-        <Grid item md={4} xs={12}>
+        {/*<Grid item md={4} xs={12}>
           <Card sx={{
           padding: 3
         }}>
@@ -118,13 +118,13 @@ useEffect(() => {
 
             <TextField variant="outlined" rows={6} value={comment} onChange={(event)=>{setComment(event.target.value); console.log(event.target.value)}} fullWidth multiline sx={{
             mb: 2
-          }} />*/}
+          }} />
 
             <Divider sx={{
             mb: 2
           }} />
 
-            {/*<TextField fullWidth size="small" label="Voucher" variant="outlined" placeholder="Voucher" />
+            <TextField fullWidth size="small" label="Voucher" variant="outlined" placeholder="Voucher" />
             <Button variant="outlined" color="primary" fullWidth sx={{
             mt: 2,
             mb: 4
@@ -155,15 +155,15 @@ useEffect(() => {
             my: 2
           }}>
               Calculate Shipping
-            </Button>*/}
+            </Button>
 
-            {/* <Link href="/checkout" passHref state={state.cart} legacyBehavior> */}
+            <Link href="/checkout" passHref state={state.cart} legacyBehavior>
               <Button variant="contained" color="primary" onClick={()=>checkout()} fullWidth>
                 Checkout Now
               </Button>
-            {/* </Link> */}
+            </Link>
           </Card>
-        </Grid>
+        </Grid>*/}
       </Grid>
     </CheckoutNavLayout>;
 };
