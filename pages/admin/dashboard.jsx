@@ -25,36 +25,36 @@ export default function VendorDashboard(props) {
   return <Box py={4}>
       <Grid container spacing={3}>
         {/* WISHING CARD */}
-        <Grid item md={6} xs={12}>
+        <Grid item md={12} xs={12}>
           <WishCard />
         </Grid>
 
-        {/* ALL TRACKING CARDS */}
+        {/* ALL TRACKING CARDS
         <Grid container item md={6} xs={12} spacing={3}>
           {cardList.map(item => <Grid item md={6} sm={6} xs={12} key={item.id}>
               <Card1 title={item.title} color={item.color} amount1={item.amount1} amount2={item.amount2} percentage={item.percentage} status={item.status === "down" ? "down" : "up"} />
             </Grid>)}
-        </Grid>
+        </Grid>*/}
 
-        {/* SALES AREA */}
+        {/* SALES AREA
         <Grid item xs={12}>
           <Section3 />
-        </Grid>
+        </Grid>*/}
 
-        {/* ANALYTICS AREA */}
+        {/* ANALYTICS AREA
         <Grid item xs={12}>
           <Analytics />
-        </Grid>
+        </Grid>*/}
 
-        {/* RECENT PURCHASE AREA */}
+        {/* RECENT PURCHASE AREA
         <Grid item md={7} xs={12}>
           <RecentPurchase data={recentPurchase} />
-        </Grid>
+        </Grid>*/}
 
-        {/* STOCK OUT PRODUCTS */}
+        {/* STOCK OUT PRODUCTS
         <Grid item md={5} xs={12}>
           <StockOutProducts data={stockOutProducts} />
-        </Grid>
+        </Grid>*/}
       </Grid>
     </Box>;
 }
