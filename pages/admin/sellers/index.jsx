@@ -37,7 +37,13 @@ const tableHeading = [{
   id: "approvedDate",
   label: "회원가입 승인날짜",
   align: "left"
-}];
+},
+{
+  id: "files",
+  label: "서류",
+  align: "left"
+}
+];
 
 const sellers_new = [{
   businessRegistrationNumber: "+12345678910",

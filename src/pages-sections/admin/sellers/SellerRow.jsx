@@ -38,6 +38,24 @@ const SellerRow = ({
 
   const [id, setID] = useState(null);
   const [info, setInfo] = useState(null);
+  function download1(){
+  console.log('info')
+  console.log(info)
+    const url = targetUrl + '/members/vendor-prooffile/'+info[0].proofFileInfos[0].vendorProofDocumentId
+   const download = document.createElement("a")
+   download.href = url
+   download.setAttribute('type','application/json')
+   download.setAttribute('ngrok-skip-browser-warning', true)
+   download.click()
+  }
+    function download2(){
+    const url = targetUrl + '/members/vendor-prooffile/'+info[0].proofFileInfos[1].vendorProofDocumentId
+   const download = document.createElement("a")
+   download.href = url
+   download.setAttribute('type','application/json')
+   download.setAttribute('ngrok-skip-browser-warning', true)
+   download.click()
+  }
   function approve(){
     console.log(targetUrl + '/members/vendor-approve/'+vendorId.toString())
     fetch(targetUrl + '/members/vendor-approve/'+vendorId.toString(),{
@@ -63,9 +81,9 @@ const SellerRow = ({
 
   useEffect(()=>{
    if (approvedDate==null){
-   const url = targetUrl + '/members/vendor-prooffile/'+vendorId.toString()
-   const download = document.createElement("a")
-   download.href = url
+//   const url = targetUrl + '/members/vendor-prooffile/'+vendorId.toString()
+//   const download = document.createElement("a")
+//   download.href = url
 
    fetch(targetUrl + '/members/vendor-signup-request',{
       method: "GET",
@@ -125,7 +143,14 @@ const SellerRow = ({
         </Button>
         }
       </StyledTableCell>
-
+<StyledTableCell align="center">
+        <Button fullWidth type="submit" color="warning" variant="contained" sx={{height: 30}} onClick={() => download1()} >
+          서류1
+        </Button>
+         <Button fullWidth type="submit" color="warning" variant="contained" sx={{height: 30}} onClick={() => download2()} >
+          서류2
+        </Button>
+</StyledTableCell>
       {/*<StyledTableCell align="center">
         <StyledIconButton>
           <Edit />

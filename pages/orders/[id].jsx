@@ -198,14 +198,18 @@ useEffect(() => {
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
       <UserDashboardHeader icon={ShoppingBag} title="Order Details" navigation={<CustomerDashboardNavigation />} button={HEADER_BUTTON} />
+            <FlexBox justifyContent={width < breakpoint ? "center" : "flex-end"}>
+          {itemList!=null? <Typography p="0.5rem 1rem" textAlign="center" borderRadius="300px" color="primary.main" bgcolor="primary.light">
+             <b>{itemList.paypalOrderStatus}</b>
+          </Typography>:<div />}
+          </FlexBox>
 
-      {/* ORDER PROGRESS AREA */}
-      <Card sx={{
-      p: "2rem 1.5rem",
-      mb: "30px"
-    }}>
+      {/*<Card sx={{
+          p: "2rem 1.5rem",
+          mb: "30px"
+        }}>
         <StyledFlexbox>
-          {stepIconList.map((Icon, ind) => <Fragment key={ind}>
+          {/*stepIconList.map((Icon, ind) => <Fragment key={ind}>
               <Box position="relative">
                 <Avatar sx={{
               width: 64,
@@ -233,15 +237,9 @@ useEffect(() => {
               </Box>
 
               {ind < stepIconList.length - 1 && <Box className="line" bgcolor={ind < statusIndex ? "primary.main" : "grey.300"} />}
-            </Fragment>)}
+            </Fragment>)
         </StyledFlexbox>
-
-        <FlexBox justifyContent={width < breakpoint ? "center" : "flex-end"}>
-          {itemList!=null? <Typography p="0.5rem 1rem" textAlign="center" borderRadius="300px" color="primary.main" bgcolor="primary.light">
-             <b>{itemList.paypalOrderStatus}</b>
-          </Typography>:<div />}
-        </FlexBox>
-      </Card>
+      </Card>*/}
 
       {/* ORDERED PRODUCT LIST */}
       {itemList!=null? <Card sx={{

@@ -13,7 +13,10 @@ export const getAuth = async () => {
   const auth_data = await auth.json();
   if (auth_data.status=="success"){
     console.log(auth_data.data[0]['authority'])
-    if (auth_data.data[0]['authority']=="ROLE_MEMBER"){
+    if (auth_data.data[0]['authority']=="ROLE_GUEST"){
+        return ["fail", ""];
+    }
+    else if (auth_data.data[0]['authority']=="ROLE_MEMBER"){
           window.sessionStorage.setItem('id',auth_data.data[0]['authority'])
           window.sessionStorage.setItem('type',auth_data.data[0]['authority'])
           }else if (auth_data.data[0]['authority']=="ROLE_VENDOR"){

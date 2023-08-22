@@ -24,14 +24,14 @@ const ProductSearchResult = () => {
     console.log("SLUG")
     setSlug(slugV)
     console.log(slugV)
-    const res2 = fetch(targetUrl+`products/search?query=`+slugV,{
+    const res2 = fetch(targetUrl+`/products/search?query=`+slugV,{
           method: 'GET',
           credentials : 'include',
           headers: {
             'Content-Type': 'application/json',
             "ngrok-skip-browser-warning": true,
         }}).then(response => response.json())
-    .then(response => {setProduct(response.data)})
+    .then(response => {console.log(response);setProduct(response.data)})
 
   },[])
   return <ShopLayout1>

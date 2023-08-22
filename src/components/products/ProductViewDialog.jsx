@@ -101,19 +101,23 @@ const ProductViewDialog = props => {
               <H2>{product.title}</H2>
 
               <Paragraph py={1} color="grey.500" fontWeight={600} fontSize={13}>
-                CATEGORY: {"category_name"}
+                CATEGORY: {product.item.category.categoryName}
               </Paragraph>
 
-              <H1 color="primary.main">{"US"+(product.price)}</H1>
+              <Paragraph py={1} color="grey.500" fontWeight={600} fontSize={13}>
+                REGION: {product.item.region.regionName}
+              </Paragraph>
 
-              <FlexBox alignItems="center" gap={1}>
+              <H1 color="primary.main">{currency(product.price)}</H1>
+
+              {/*<FlexBox alignItems="center" gap={1}>
                 <BazaarRating color="warn" fontSize="1.25rem" value={4} readOnly />
                 <H6 lineHeight="1">(50)</H6>
               </FlexBox>
 
-              <Paragraph my={2}>
+              {/*<Paragraph my={2}>
                 {"detail"}
-              </Paragraph>
+              </Paragraph>*/}
 
               <Divider sx={{
               mb: 2

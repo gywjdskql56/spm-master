@@ -57,7 +57,7 @@ return profile
       px: 4,
       bgcolor: "primary.light"
     }}>
-        프로필 수정
+        Edit Profile
       </Button>
     </Link>;
   const infoList = [{
@@ -80,7 +80,7 @@ return profile
       {/* USER PROFILE INFO */}
       <Box mb={4}>
         <Grid container spacing={3}>
-          <Grid item md={6} xs={12}>
+          <Grid item md={12} xs={12}>
             <Card sx={{
             display: "flex",
             p: "14px 32px",
@@ -105,14 +105,14 @@ return profile
                   </div>
 
                   <Typography color="grey.600" letterSpacing="0.2em">
-                     일반회원
+                     Member
                   </Typography>
                 </FlexBetween>
               </Box>
             </Card>
           </Grid>
 
-          <Grid item md={6} xs={12}>
+          {/*<Grid item md={6} xs={12}>
             <Grid container spacing={4}>
               {infoList.map(item => <Grid item lg={3} sm={6} xs={6} key={item.subtitle}>
                   <Card sx={{
@@ -132,7 +132,7 @@ return profile
                   </Card>
                 </Grid>)}
             </Grid>
-          </Grid>
+          </Grid>*/}
         </Grid>
       </Box>
 
@@ -145,11 +145,11 @@ return profile
         justifyContent: "flex-start"
       })
     }}>
-        <TableRowItem title="이름" value={users.firstName} />
-        <TableRowItem title="성" value={users.lastName} />
-        <TableRowItem title="이메일" value={users.email} />
-        <TableRowItem title="휴대폰번호" value={users.phoneNum} />
-        <TableRowItem title="국가" value={users.country} />
+        <TableRowItem title="firstName" value={users.firstName} />
+        <TableRowItem title="lastName" value={users.lastName} />
+        <TableRowItem title="Email" value={users.email} />
+        <TableRowItem title="Phone" value={users.phoneNum} />
+        <TableRowItem title="Nation" value={users.country} />
       </TableRow>
     </CustomerDashboardLayout>;
 };
