@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { useCallback, useState, useEffect } from "react";
 import { StatusWrapper, StyledTableRow, StyledTableCell, StyledIconButton } from "pages-sections/admin";
 import api from "utils/__api__/ticket";
+import { targetUrl } from "components/config";
+
 const tableHeading = [{
   id: "title",
   label: "문의",

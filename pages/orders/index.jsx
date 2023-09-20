@@ -35,7 +35,7 @@ const Orders = ({
 
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader title="주문/예약" icon={ShoppingBag} navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader title="My Order" icon={ShoppingBag} navigation={<CustomerDashboardNavigation />} />
 
       {/* ORDER LIST AREA */}
       <TableRow elevation={0} sx={{
@@ -47,19 +47,19 @@ const Orders = ({
       }
     }}>
         <H5 color="grey.600" my={0} mx={0.75} textAlign="left">
-          주문 고유번호
+          Order ID
         </H5>
 
         <H5 color="grey.600" my={0} mx={0.75} textAlign="left">
-          주문/예약 상태
+          Order Status
         </H5>
 
         <H5 color="grey.600" my={0} mx={0.75} textAlign="left">
-          구매일시
+          Pay Date
         </H5>
 
         <H5 color="grey.600" my={0} mx={0.75} textAlign="left">
-          결제 금액
+          Pay Amount
         </H5>
 
         <H5 my={0} px={2.75} color="grey.600" flex="0 0 0 !important" display={{

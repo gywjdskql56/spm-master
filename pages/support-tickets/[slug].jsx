@@ -89,7 +89,7 @@ const SupportTicketDetails = () => {
   }
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="고객센터" navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader button={HEADER_LINK} icon={CustomerService} title="Support-Ticket" navigation={<CustomerDashboardNavigation />} />
 
       {/* CONVERSATION LIST */}
       <FlexBox gap={2} mb={4} key="1">

@@ -119,16 +119,30 @@ const Signup = () => {
   function handleEmail() {
     console.log("Email: ", values.email)
     console.log("Email: ", targetUrl)
+    if (cust){
     fetch(targetUrl+'/members/email/code',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
-      body: JSON.stringify({'emailAddr': values.email})
+      body: JSON.stringify({'emailAddr': values.email, 'accountType':'member'})
     })
     .then(response => response.json())
     .then(response => console.log(response))
+    }
+    else {
+     fetch(targetUrl+'/members/email/code',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({'emailAddr': values.email, 'accountType':'vendor'})
+    })
+    .then(response => response.json())
+    .then(response => console.log(response))
+    }
   }
     const handleFileChange1 = (e) => {
     if (e.target.files) {
@@ -153,13 +167,14 @@ const Signup = () => {
   function checkEmail() {
     console.log("Email: ", values.email)
     console.log("Code: ", values.check)
+    if (cust){
     fetch(targetUrl+'/members/email-verify',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
-      body: JSON.stringify({'emailAddr':values.email,'code': values.check})
+      body: JSON.stringify({'emailAddr':values.email,'code': values.check, 'accountType':'member'})
     })
     .then(response => response.json())
     .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
@@ -169,6 +184,24 @@ const Signup = () => {
             window.alert("Try again")
             }}
             })
+            } else {
+     fetch(targetUrl+'/members/email-verify',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({'emailAddr':values.email,'code': values.check, 'accountType':'vendor'})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+            window.alert("Verified")
+            }}
+            else {if (typeof window !== "undefined") {
+            window.alert("Try again")
+            }}
+            })
+            }
   }
 
   function checkform(){

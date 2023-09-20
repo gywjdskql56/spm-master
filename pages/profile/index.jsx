@@ -9,14 +9,37 @@ import UserDashboardHeader from "components/header/UserDashboardHeader";
 import CustomerDashboardLayout from "components/layouts/customer-dashboard";
 import CustomerDashboardNavigation from "components/layouts/customer-dashboard/Navigations";
 import { useState, useEffect } from "react";
-import { targetUrl } from "components/config";
 import fetch from "isomorphic-fetch";
+import { targetUrl, getAuth } from "components/config";
 // ============================================================
 
 const Profile = (
 ) => {
   // console.log(props)
   // console.log(props.profiles)
+  function withdraw() {
+      fetch(targetUrl+"/accounts/withdraw",{
+          credentials : 'include',
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data);
+        if(response.status=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 탈퇴되었습니다.")
+            window.location.href = "/"
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("회원 탈퇴에 실패하였습니다. 다시 시도해주세요.")
+            }
+    }});
+  }
 
   const getData = async () => {
     const profileRes = await fetch(targetUrl+"/members/myinfo",{
@@ -52,14 +75,23 @@ return profile
 
 
   // SECTION TITLE HEADER LINK
-  const HEADER_LINK = <Link href={`/profile/${users.memberId}`} passHref>
-      <Button color="primary" sx={{
+  const HEADER_LINK = <div>
+      <Button color="primary" onClick={()=>withdraw()} sx={{
       px: 4,
       bgcolor: "primary.light"
     }}>
+    Membership Withdrawal
+      </Button>
+   <Link href={`/profile/${users.memberId}`} passHref>
+      <Button color="success" sx={{
+      px: 4,
+      marginLeft: 3,
+      bgcolor: "success.light"
+    }}>
         Edit Profile
       </Button>
-    </Link>;
+    </Link>
+    </div>;
   const infoList = [{
     title: "-",
     subtitle: "전체 주문건수"
@@ -75,7 +107,7 @@ return profile
   }];
   return <CustomerDashboardLayout>
       {/* TITLE HEADER AREA */}
-      <UserDashboardHeader icon={Person} title="내 프로필" button={HEADER_LINK} navigation={<CustomerDashboardNavigation />} />
+      <UserDashboardHeader icon={Person} title="My Profile" button={HEADER_LINK} navigation={<CustomerDashboardNavigation />} />
 
       {/* USER PROFILE INFO */}
       <Box mb={4}>

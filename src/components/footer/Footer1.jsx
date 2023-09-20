@@ -41,9 +41,9 @@ const Footer1 = () => {
                 </Link>*/}
 
                 <Paragraph mb={2.5} color="grey.500">
-                  Hello. Welcome to ALLMEDITRIP.
+                  Hello. Welcome to StaynLive(스테이앤리브주식회사).
                     We strive to provide excellent Korean medical services at reasonable prices to foreigners.
-                    Enjoy Korea travel and medical services at the same time through ALLMEDITRIP.
+                    Enjoy Korea travel and medical services at the same time through StaynLive(스테이앤리브주식회사).
                 </Paragraph>
 
                 {/*<AppStore />*/}
@@ -111,7 +111,7 @@ const Footer1 = () => {
       </Box>
     </footer>;
 };
-const aboutLinks = ["About ALLMEDITRIP"];
+const aboutLinks = ["About StaynLive(스테이앤리브주식회사)"];
 const customerCareLinks = ["FAQ"];
 const iconList = [{
   icon: Facebook,

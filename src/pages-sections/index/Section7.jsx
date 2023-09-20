@@ -61,6 +61,7 @@ const Section7 = (props) => {
   console.log("categories");
 
   const FilterProduct = async () => {
+    console.log("FilterProduct")
     var url = "";
     if (cate == "*" && region == "*") {
       console.log("all");
