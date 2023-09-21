@@ -29,7 +29,8 @@ const ProductForm = props => {
     validationSchema,
     handleFormSubmit
   } = props;
-
+   console.log("initialValues")
+   console.log(initialValues)
   console.log(initialValues.data.productDetails.imageList)
   var arrayP = initialValues.data.productDetails.imageList
   arrayP = arrayP.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
@@ -62,21 +63,22 @@ const ProductForm = props => {
     }]);
   const [mainch, setMainch] = useState(false);
   const [thumb, setThumb] = useState([]);
-  const [desc, setDesc] = useState([initialValues.data.productDetails.description,
+  const [thumbChange, setThumbChange] = useState(false);
+  const arr1 = [initialValues.data.productDetails.description,
                         initialValues.data.hospitalDetails.description,
-                        initialValues.data.accommodationDetails.description,
-                        "","","","","","","","","","",]);
+                        initialValues.data.accommodationDetails.description]
+  const [desc, setDesc] = useState(arr1.concat(initialValues.desc_list));
   const [show, setShow] = useState(initialValues.show);
   const [category, setCategory] = useState([]);
-  const [categoryID, setCategoryID] = useState(null);
+  const [categoryID, setCategoryID] = useState(initialValues.data.category.categoryId);
   const [region, setRegion] = useState([]);
-  const [regionID, setRegionID] = useState(null);
+  const [regionID, setRegionID] = useState(initialValues.data.region.regionId);
   const [optionI, setOptionI] = useState(initialValues.included);
   const [optionN, setOptionN] = useState(initialValues.not_included);
   const [option, setOption] = useState(initialValues.option);
   const [optionNew, setOptionNew] = useState(initialValues.optionNew);
   const [optionT, setOptionT] = useState(initialValues.tags);
-  const [cateid, setCateid] = useState(1);
+  const [cateid, setCateid] = useState(initialValues.data.type);
   const [product, setProduct] = useState(null);
   var [state, setState] = useState(null);
   if (initialValues.type==1){
@@ -142,36 +144,6 @@ const [dates, setDates] = useState([
       //your modification on passed value ....
       setDates(value)
       values.dates = value
-      {/*console.log(value)
-      console.log(value[0][0])
-      console.log(value[0][0].format())
-      console.log(value[0][0].format("YYYY-MM-DD"))
-      var date_arr = []
-      for (let i = 0; i < value.length; i += 1) {
-         var stDate = value[i][0].format("YYYY-MM-DD")
-         if (value[i].length >1){
-            var edDate = value[i][1].format("YYYY-MM-DD")
-            var date_pair = [stDate, edDate]
-         }else{
-         var date_pair = [stDate, ""]
-         }
-         date_arr.push(date_pair)
-      }
-      setDates(date_arr)*/}
-      {/*console.log(new Date(value[0][0].format("YYYY-MM-DD")))
-      console.log(new DateObject(value[0][0].format("YYYY-MM-DD")))
-      console.log(new DateObject(value[0][0].format("YYYY-MM-DD"))===value[0][0]?true:false)
-      console.log(new DateObject(value[0][0].format("YYYY/MM/DD"))===value[0][0]?true:false)
-      console.log(new DateObject("2023-05-23").format())
-      console.log(new DateObject("2023/05/23"))
-      console.log(new DateObject("2023/05/23").format())
-      console.log(new DateObject("2023","05","23"))
-      console.log(new DateObject("2023","05","23").format())
-      console.log(new DateObject().set({ day: 23 }))
-      console.log(new DateObject().set({ day: 23 }).format())
-      console.log(new DateObject().set({ day: 23 })==new DateObject("2023-07-23")?true:false)
-      console.log(new DateObject().set({ day: 23 })==new DateObject("2023/07/23")?true:false)
-      console.log(new DateObject().set({ day: 23 })==new DateObject("2023","07","23")?true:false)*/}
     }
     function handleChange_text(index, event){
     console.log(values.description)
@@ -197,6 +169,9 @@ const [dates, setDates] = useState([
     console.log(event)
     console.log(event.target.files)
     setThumb(event.target.files)
+    setThumbChange(true)
+
+
 //    console.log(files_list[0])
 //    files_list.forEach(file => Object.assign(file, {
 //      preview: URL.createObjectURL(file)
@@ -290,16 +265,16 @@ const [dates, setDates] = useState([
    useEffect(() => {
         getCategory()
         getRegion()
-   {/*for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
+   for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
     console.log(i)
-    var array = initialValues.data.courseDetailsList[i].imageList
-    console.log("array")
-    console.log(array)
-    array = array.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
-    console.log(array)
-    setFiles(files =>({...files, i : array}))
-    console.log(files)
-  }*/}
+//    var array = initialValues.data.courseDetailsList[i].imageList
+//    console.log("array")
+//    console.log(array)
+//    array = array.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
+//    console.log(array)
+//    setFiles(files =>({...files, i : array}))
+//    console.log(files)
+  }
    }, []);
   // HANDLE DELETE UPLOAD IMAGE
     const handleFileDeleteMain = (file) => () => {
@@ -343,10 +318,10 @@ const [dates, setDates] = useState([
   function handleAdd() {
     console.log('ADD')
     setOption(option => [...option, values.option_sale_name+"("+values.option_sale_price+")"])
-    setOptionNew(optionNew => [...optionNew, {"name" : values.option_sale_name, "price" : values.option_sale_price}])
+    setOptionNew(optionNew => [...optionNew, {"description" : values.option_sale_name, "price" : values.option_sale_price}])
     console.log(option)
     values.option = [...values.option, values.option_sale_name+"("+values.option_sale_price+")"]
-    values.optionNew = [...values.optionNew, {"name" : values.option_sale_name, "price" : values.option_sale_price}]
+    values.optionNew = [...values.optionNew, {"description" : values.option_sale_name, "price" : values.option_sale_price}]
     console.log(values.option)
     values.option_sale_name = ""
     values.option_sale_price = ""
@@ -405,15 +380,7 @@ const [dates, setDates] = useState([
     setRegionID(val)
   }
   function submit(){
-  console.log(values.name)
-  console.log(values.description)
-  console.log(values.sale_price)
-  console.log(values.category1)
-  console.log(values.category2)
-  console.log(values.show)
-  console.log(dates)
-  console.log(dates[0])
-  console.log(dates.length)
+
   const date_list = []
   for (let i=0; i<dates.length; i++) {
     console.log(i)
@@ -423,57 +390,102 @@ const [dates, setDates] = useState([
         date_list.push({"startDate":dates[i][0].format("YYYY-MM-DD")})
     }
   }
-  console.log(date_list)
+
   console.log(option.join('|'));
   console.log(values.optionNew);
+  console.log(desc);
   var day_list = [];
   var day_item_list = [];
     for (var i = 1; i <= day; i++) {
         day_list.push(i);
-        day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
+        if (files[i]==undefined){
+        day_item_list.push({"day" : i, "description" : desc[i+2], "imageCount" : 0})
+        }
+        else{
+        day_item_list.push({"day" : i, "description" : desc[i+2], "imageCount" : (files[i]).length})
+        }
     }
   var fd = new FormData();
 //  fd.append("thumbnailImage", main)
-  Object.values(main).forEach((file) => fd.append("thumbnailImage", file));
-  console.log(main)
-//  fd.append("productDetailsImages", files["상품"])
-//  fd.append("hospitalDetailsImages", files["병원"])
-//  fd.append("accommodationDetailsImages", files["숙소"])
+if (thumbChange){
+    Object.values(main).forEach((file) => fd.append("thumbnailImage", file))
+}
+
   Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));
   Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
   Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
 
+    var day_list = [];
+  var day_item_list = [];
+  var courseSaveDtoList_list = [];
+    for (var i = 1; i <= day; i++) {
+        day_list.push(i);
+        if((files[i])==undefined){
+            day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : 0})
+        }else {
+            day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
+        }
+        if (i-1<initialValues.data.courseDetailsList.length){
+        courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+3], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList.map((item) => item.id),"newImageCount" : files[i-1].length})
+        }
+        else{
+           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+3], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList,"newImageCount" : files[i-1].length})
+        }
+        files[i-1].forEach((file) => fd.append("courseDetailsImages", file));
+    }
+    day_list.forEach((day) => {if (files[day]!=undefined) {files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
+
+
+
 //  fd.append("courseDetailsImages", main)
-  day_list.forEach((day) => {files[day].forEach((img) => fd.append("courseDetailsImages", img))});
+console.log("files[day]")
+console.log(optionNew)
+console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
+  day_list.forEach((day) => {if(files[day]!=undefined) {files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
   const body_data = {
+  "productId":initialValues.data.productId,
     "productName" : values.name,
     "categoryId" : categoryID,
     "regionId" : regionID,
     "servicePeriodList" : date_list,
+//    "servicePeriodList" : initialValues.data.servicePeriodList,
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetails" : desc[0],
-    "hospitalDetails" : desc[1],
-    "accommodationDetails" : desc[2],
-    "tourDescriptionList" : day_item_list,
-    "tagList" : optionT,
-    "price" : values.price,
-    "salePrice" : values.sale_price,
-    "optionFeeList" : values.optionNew,
-    "open" : show
+    "productDetailsNRemovedImage" : {"description" : desc[0], "removedProductImageIdList" : initialValues.data.productDetails.imageList.map((item) => item.id)},
+    "hospitalDetailsNRemovedImage" : {"description" : desc[1], "removedProductImageIdList" : initialValues.data.hospitalDetails.imageList.map((item) => item.id) },
+    "accommodationDetailsNRemovedImage" : {"description" : desc[2], "removedProductImageIdList" :initialValues.data.accommodationDetails.imageList.map((item) => item.id) },
+    "courseSaveDtoList" : courseSaveDtoList_list,
+
+"tagList" : optionT,
+
+"price" : values.price,
+"salePrice" : values.sale_price,
+
+"optionFeeSaveInfo" : {
+"deleteIdList" : initialValues.data.optionFeeList.map((item)=> item.id),
+"updateInfoList" : [],
+"createInfoList" : [{"description" : "옵션비용 추가 테스트", "price" : 299999}]
+},
+
+"open" : show,
+ "thumbnailChanged":thumbChange,
+
   }
+  console.log("body_data")
   console.log(body_data)
 //  ['상품','병원','숙소']
-  fd.append("productAddRequestDto", new Blob([JSON.stringify(body_data)], { type: 'application/json' }))
+  fd.append("productSaveRequestDto", new Blob([JSON.stringify(body_data)], { type: 'application/json' }))
 
    for (var pair of fd.entries()) {
       console.log(pair[0]+ ', ' + pair[1]);
     }
+
 //  productAddRequestDto
+// ***********************************
   fetch(targetUrl+'/products',{
       credentials : 'include',
-      method: 'POST',
+      method: 'PUT',
       body: fd
     })
     .then(response => response.json())
@@ -692,7 +704,7 @@ const [dates, setDates] = useState([
               <Typography fontSize="14px" color="grey.600" align="center">
                   {(n)+" 상세 설명"}
               </Typography>
-                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(n)+" 상세 설명"} onBlur={handleBlur} onChange={()=>handleChange_text(index, event)} placeholder="Description" value={desc[index]} error={!!touched.description && !!errors.description} helperText={touched.description && errors.description} />
+                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(n)+" 상세 설명"} onBlur={handleBlur} onChange={()=>handleChange_text(index, event)} placeholder="Description" value={desc[index]} />
               </Grid>
               <Grid item xs={6}>
               <Typography fontSize="14px" color="grey.600" align="center">
@@ -717,7 +729,7 @@ const [dates, setDates] = useState([
           <Typography fontSize="14px" color="grey.600" align="center">
                   {(index+1)+"일차 설명"}
               </Typography>
-                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index+3, event)} placeholder="Description" value={desc[index+3]} error={!!touched.description && !!errors.description} helperText={touched.description && errors.description} />
+                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index+3, event)} placeholder="Description" value={desc[index+3]} />
               </Grid>
               <Grid item xs={6}>
               <Typography fontSize="14px" color="grey.600" align="center">

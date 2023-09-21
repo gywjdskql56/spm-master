@@ -39,6 +39,21 @@ const tableHeading = [{
   align: "center"
 }];
 
+const table_base = [{
+answer : null,
+answerDate : null,
+answerUpdateDate : null,
+contents : "test",
+email : "gywjdskql5915@gmail.com",
+oauthProvider: "self",
+open : true,
+productId : 1,
+productqnaId : 2,
+title : "test",
+type : "결제",
+updateDate : null,
+writeDate : "2023-08-22T14:12:57.136695"}]
+
 // =============================================================================
 SupportTickets.getLayout = function getLayout(page) {
   return <VendorDashboardLayout>{page}</VendorDashboardLayout>;
@@ -52,7 +67,7 @@ export default function SupportTickets({
 }) {
   const router = useRouter();
 
-  const [ticket, setTicket] = useState([]);
+  const [tickets, setTickets] = useState(table_base);
 
     const getTicket = async () => {
     const res = await fetch(targetUrl+"/productqnas",{
@@ -63,7 +78,7 @@ export default function SupportTickets({
             "ngrok-skip-browser-warning": true,
         }})
   const data = await res.json();
-  setTicket(data.data)
+  setTickets(data.data)
   console.log(data);
   if (data.status =="error"){
     if (typeof window !== "undefined") {
@@ -72,7 +87,7 @@ export default function SupportTickets({
     }
   }
   console.log(data.data);
-  setTicket((data.data))
+  setTickets((data.data))
   return data;
   }
   const DeleteFAQ = async (id) => {
@@ -114,13 +129,13 @@ export default function SupportTickets({
     handleChangePage,
     handleRequestSort
   } = useMuiTable({
-    listData: ticket,
+    listData: tickets,
     defaultSort: "date"
   });
   return <Box py={4}>
-      <SearchInput placeholder="Search Ticket.." sx={{
+      {/*<SearchInput placeholder="Search Ticket.." sx={{
       mb: 4
-    }} />
+    }} />*/}
 
       <Card>
         <Scrollbar>
@@ -128,10 +143,10 @@ export default function SupportTickets({
           minWidth: 800
         }}>
             <Table>
-              <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={ticketList.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
+              <TableHeader order={order} hideSelectBtn orderBy={orderBy} heading={tableHeading} rowCount={tickets.length} numSelected={selected.length} onRequestSort={handleRequestSort} />
 
               <TableBody>
-                {filteredList.map((tickets, indexs) => filteredList[indexs].productqnaInfo.map((ticket, index)=>
+                {filteredList.map((ticket, index) =>
                     <StyledTableRow role="checkbox" key={index}>
                     <StyledTableCell align="left">
                       {ticket.title}
@@ -170,14 +185,14 @@ export default function SupportTickets({
                         <Delete />
                       </StyledIconButton>*/}
                     </StyledTableCell>
-                  </StyledTableRow>))}
+                  </StyledTableRow>)}
               </TableBody>
             </Table>
           </TableContainer>
         </Scrollbar>
 
         <Stack alignItems="center" my={4}>
-          <TablePagination onChange={handleChangePage} count={Math.ceil(ticketList.length / rowsPerPage)} />
+          <TablePagination onChange={handleChangePage} count={Math.ceil(tickets.length / rowsPerPage)} />
         </Stack>
       </Card>
     </Box>;

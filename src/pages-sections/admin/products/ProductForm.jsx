@@ -29,6 +29,8 @@ const ProductForm = props => {
     validationSchema,
     handleFormSubmit
   } = props;
+  console.log("initialValues")
+  console.log(initialValues)
   const [files, setFiles] = useState({'상품':[],'병원':[],'숙소':[],1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[]});
   const [main, setMain] = useState([]);
   const [thumb, setThumb] = useState([]);
@@ -238,6 +240,7 @@ const [dates, setDates] = useState([
    useEffect(() => {
         getCategory()
         getRegion()
+
    }, []);
   // HANDLE DELETE UPLOAD IMAGE
     const handleFileDeleteMain = (file) => () => {
@@ -366,7 +369,12 @@ const [dates, setDates] = useState([
   var day_item_list = [];
     for (var i = 1; i <= day; i++) {
         day_list.push(i);
-        day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
+        if((files[i]).length==0){
+            day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : 0})
+        }else {
+            day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
+        }
+
     }
   var fd = new FormData();
 //  fd.append("thumbnailImage", main)

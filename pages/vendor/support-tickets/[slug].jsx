@@ -50,7 +50,7 @@ export default function SupportTickets() {
   console.log(data);
   console.log(data.data);
 for ( let i = 0; i < data.data.length; i++) {
-    if (data.data[i].productId == ticket_id){
+    if (data.data[i].productqnaId == ticket_id){
         console.log("Ticket")
         console.log(data.data[i])
         setTicket(data.data[i])
@@ -75,7 +75,7 @@ for ( let i = 0; i < data.data.length; i++) {
    const DeleteFAQ = async (id) => {
         getAuth()
         console.log(id)
-      const res = await fetch(targetUrl+"/sysqnas/answer/"+id,{
+      const res = await fetch(targetUrl+"/productqnas/answer/"+id,{
               method: 'DELETE',
               credentials : 'include',
               headers: {
@@ -92,7 +92,6 @@ for ( let i = 0; i < data.data.length; i++) {
       } else {
         if (typeof window !== "undefined") {
         window.alert("문의글 삭제에 실패했습니다.")
-        window.location.reload()
         }
       }
     console.log(id)
@@ -106,31 +105,11 @@ for ( let i = 0; i < data.data.length; i++) {
 //    app.use(cors());
   const handleFormSubmit = event => {
 
-    {/*fetch(targetUrl + '/members/vendor-approve/1',{
-      method: "PATCH",
-      credentials : 'include',
-      headers: {
-        "Content-Type": "application/json",
-    },
-      body: JSON.stringify({
-      'answer': text})
-    })
-    .then(response => response.json())
-    .then(response => {console.log(response); console.log(response.response);
-    if(response.status=='success'){
-        if (typeof window !== "undefined") {
-            window.alert("성공적으로 등록되었습니다.")
-        }
-    }else{
-        if (typeof window !== "undefined") {
-            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
-            }
-    }})*/}
-
+ if (ticket.answer==null){
     event.preventDefault();
     console.log(text)
-    fetch(targetUrl + '/sysqnas/answer/'+id,{
-      method: 'PATCH',
+    fetch(targetUrl + '/productqnas/answer/'+id,{
+      method: 'POST',
       credentials : 'include',
       headers: {
          "Content-Type": "application/json",
@@ -143,16 +122,42 @@ for ( let i = 0; i < data.data.length; i++) {
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
-            window.location.href =  "/admin/support-tickets"
+            window.location.href =  "/vendor/support-tickets"
+        }
+    }else{
+        if (typeof window !== "undefined") {
+            window.alert("등록에 실패하였습니다. 다시 시도해주세요.")
+            }
+    }})
+    } else {
+        event.preventDefault();
+    console.log(text)
+    fetch(targetUrl + '/productqnas/answer/'+id,{
+      method: 'PATCH',
+      credentials : 'include',
+      headers: {
+         "Content-Type": "application/json",
+    },
+      body: JSON.stringify({
+      'answer': text})
+    })
+    .then(response => response.json())
+    .then(response => {console.log(response); console.log(response.response);
+    if(response.status=='success'){
+        if (typeof window !== "undefined") {
+            window.alert("성공적으로 수정되었습니다.")
+            window.location.href =  "/vendor/support-tickets"
         }
     }else{
         if (typeof window !== "undefined") {
             window.alert("수정에 실패하였습니다. 다시 시도해주세요.")
             }
     }})
+    }
+
   };
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState(ticket.answer);
 
   useEffect(() => {
     const ticket_id = window.location.href.split("/").splice(-1);
@@ -226,23 +231,6 @@ for ( let i = 0; i < data.data.length; i++) {
           </Box>: <div />}
         </FlexBox>
 
-      {/*<FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-        <FormLabel component="legend">Please select a recipient</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={cust} onChange={handleChange_check} name="cust" />
-            }
-            label="Administrator"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={shop} onChange={handleChange_check} name="shop" />
-            }
-            label="Vendor"
-          />
-        </FormGroup>
-      </FormControl>*/}
 
       {/* FORM AREA */}
       <form onSubmit={handleFormSubmit}>
@@ -259,22 +247,29 @@ for ( let i = 0; i < data.data.length; i++) {
       <Grid container spacing={1}>
       <Grid item lg={10} md={10} xs={10} />
       <Grid item lg={1} md={1} xs={1} >
-        <Button type="submit" color="primary" variant="contained" sx={{
+        {ticket.answer==null? <Button type="submit" color="primary" variant="contained" sx={{
+        ml: "auto",
+        display: "block"
+      }}>
+          등록
+        </Button>
+        :<Button type="submit" color="primary" variant="contained" sx={{
         ml: "auto",
         display: "block"
       }}>
           수정
-        </Button>
+        </Button>}
+
         </Grid>
-        <Grid item lg={1} md={1} xs={1} >
-        <Button color="success" variant="contained" onClick={() => DeleteFAQ(ticket.sysqnaId)}
+        {ticket.answer!=null?<Grid item lg={1} md={1} xs={1} >
+        <Button color="success" variant="contained" onClick={() => DeleteFAQ(ticket.productqnaId)}
         sx={{
         ml: "auto",
         display: "block"
       }}>
-          삭제
+          답글 삭제
         </Button>
-        </Grid>
+        </Grid>:<div />}
         </Grid>
       </form>
 {/*//        <Scrollbar>

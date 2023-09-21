@@ -357,7 +357,8 @@ useEffect(() => {
       <Grid container spacing={3} justifyContent="space-around">
         <Grid item md={6} xs={12} alignItems="center">
           <FlexBox justifyContent="center" mb={6} onClick={handleOpen}>
-            <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.productDetails.imageList[selectedImage].imageBase64String}`} />
+            {product.productDetails.imageList[selectedImage]!=undefined?
+            <LazyImage alt={title} width={300} height={300} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.productDetails.imageList[selectedImage].imageBase64String}`} />:<div />}
           </FlexBox>
           <Modal
             open={open}
@@ -367,7 +368,8 @@ useEffect(() => {
           >
           <Box sx={style}>
            {/*<LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.thumbnailImage.imageBase64String}`} />*/}
-           <LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.productDetails.imageList[selectedImage].imageBase64String}`} />
+           {product.productDetails.imageList[selectedImage]!=undefined?<LazyImage alt={title} width={1000} height={1000} loading="eager" objectFit="contain" src={`data:image/png;base64,${product.productDetails.imageList[selectedImage].imageBase64String}`} />
+           :<div />}
           </Box>
           </Modal>
 

@@ -43,11 +43,13 @@ export const navigations = [{
   name: "리뷰",
   icon: duotone.Review,
   path: "/vendor/reviews"
-}, {
-  name: "판매사 세팅",
-  icon: duotone.SiteSetting,
-  path: "/vendor/shop-settings"
-}, {
+},
+//{
+//  name: "판매사 세팅",
+//  icon: duotone.SiteSetting,
+//  path: "/vendor/shop-settings"
+//},
+ {
   name: "고객센터 관리",
   icon: duotone.ElementHub,
   path: "/vendor/support-tickets"

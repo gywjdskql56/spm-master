@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import * as React from 'react';
-import { Button, Checkbox, Box, FormControlLabel, Grid, TextField } from "@mui/material";
+import { Button, Checkbox, Box, FormControlLabel, Grid, TextField, MenuItem } from "@mui/material";
 import Link from "next/link";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -24,7 +24,10 @@ import AlertPopup from 'react-popup-alert'
 import Autocomplete from "@mui/material/Autocomplete";
 import countryList from "data/countryList";
 import {ScrollBox, ScrollAxes, FastTrack} from 'react-scroll-box';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 const Signup = () => {
+
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
@@ -115,6 +118,11 @@ const Signup = () => {
   const [file, setFile] = React.useState(null);
   const [file1, setFile1] = React.useState(null);
   const [file2, setFile2] = React.useState(null);
+  const [acc, setAcc] = React.useState(null);
+  const [bankcode, setBankcode] = React.useState(null);
+  const handleChange_bc = (event) => {
+    setBankcode(event.target.value);
+  };
 
   function handleEmail() {
     console.log("Email: ", values.email)
@@ -304,7 +312,9 @@ const Signup = () => {
           "companyType": type,
           "email": values.email,
           "password": values.password,
-          "phoneNum": value
+          "phoneNum": value,
+          "bankCode": bankcode,
+          "acountNumber":acc
         }
 
         fd.append(
@@ -524,6 +534,28 @@ const Signup = () => {
         }} options={countryList} value={values.billing_country} getOptionLabel={option => option.label} onChange={(_, value) => {setFieldLabel(value.label);setFieldValue(value.value); values.billing_country=value.value; console.log(value);console.log(value.value); console.log(value.label)}} renderInput={params => <TextField label="Country" placeholder="Select Country" error={!!touched.billing_country && !!errors.billing_country} helperText={touched.billing_country && errors.billing_country} {...params} />} />
  </div>
 :<div />}
+{shop==true?
+<div>
+<Grid container spacing={3}><Grid item xs={4}>
+                <div mb={1.5}
+                    mt={1.5}>
+                <H6> 은행코드 </H6>
+                <Select
+                    mb={1.5}
+                    mt={1.5}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={1}
+                      label="관광일수"
+                      onChange={handleChange_bc}
+                    >
+                      <MenuItem value={1}>국민은행</MenuItem>
+                      <MenuItem value={2}>신한은행</MenuItem>
+                      <MenuItem value={3}>우리은행</MenuItem>
+                      <MenuItem value={4}>하나은행</MenuItem>
+                    </Select></div></Grid>
+<Grid item xs={7}><BazaarTextField mb={1.5} name="nameF" size="small" label="Account Number" variant="outlined" onBlur={handleBlur} value={acc} onChange={handleChange} placeholder="" /></Grid></Grid></div>  : <div />
+}
         <div />
        <TextField rows={6} multiline fullWidth mb={1.5} sx={{mb: 2, m:2}} color="info" size="medium" name="Terms & Conditions" onBlur={handleBlur} value={values.description} label="Terms & Conditions" error={Boolean(errors.description && touched.description)} helperText={touched.description && errors.description} />
         <FormControlLabel name="agreement" className="agreement" onChange={handleChange} control={<Checkbox size="small" color="secondary" checked={values.agreement || false} />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start">

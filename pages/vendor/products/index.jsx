@@ -47,9 +47,21 @@ ProductList.getLayout = function getLayout(page) {
 // =============================================================================
 
 // =============================================================================
+const product_base = [{
+"id":1,
+"slug":1,
+"name":"Plastic Surgery in Gyeongbokgung Palace",
+"region":"SEOUL",
+"price":1,
+"sale_price":2,
+"option":'',
+"image":1,
+"published":true,
+"category":"",
+}]
 
 export default function ProductList(props) {
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(product_base);
   useEffect(() => {
     fetch(targetUrl+"/vendor-products",{
           method: 'GET',

@@ -64,17 +64,6 @@ export default function EditProduct() {
         for (let i=0; i<data.optionFeeList.length; i++) {
             option_list.push(data.optionFeeList[i].name+"("+data.optionFeeList[i].price+")")
         }
-       const desc_list = []
-        for (let i=0; i<10; i++) {
-            if (i<data.courseDetailsList.length){
-            desc_list.push(data.courseDetailsList[i].description)
-            }
-            else {
-            desc_list.push("")
-            }
-        }
-        console.log("*********")
-        console.log(desc_list)
         const productval = {
           name: data.productName,
           tags: data.tagList,
@@ -93,8 +82,7 @@ export default function EditProduct() {
           dates : date_list,
           servicePeriodList : data.servicePeriodList,
           type : data.type,
-          data: data,
-          desc_list :desc_list
+          data: data
           }
         setProduct( productval )
         console.log(product)

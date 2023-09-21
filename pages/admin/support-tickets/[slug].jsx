@@ -59,6 +59,9 @@ export default function SupportTickets() {
   }
   console.log(data.data);
   setTicket((data.data))
+  console.log("ticket")
+  console.log(data.data.answer)
+  console.log(ticket.answer)
   return data;
   }
 
@@ -88,19 +91,12 @@ export default function SupportTickets() {
     console.log(id)
   }
 
-
-
-  // HANDLE FORM SUBMIT
-    const cors = require("cors");
-//    const app = express();
-//    app.use(cors());
-  const handleFormSubmit = event => {
-
-    {/*fetch(targetUrl + '/members/vendor-approve/1',{
-      method: "PATCH",
+     const CreateFAQ = async (id) => {
+    fetch(targetUrl + '/sysqnas/answer/'+id,{
+      method: 'POST',
       credentials : 'include',
       headers: {
-        "Content-Type": "application/json",
+         "Content-Type": "application/json",
     },
       body: JSON.stringify({
       'answer': text})
@@ -110,12 +106,22 @@ export default function SupportTickets() {
     if(response.status=='success'){
         if (typeof window !== "undefined") {
             window.alert("성공적으로 등록되었습니다.")
+            window.location.href =  "/admin/support-tickets"
         }
     }else{
         if (typeof window !== "undefined") {
-            window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
+            window.alert("등록에 실패하였습니다. 다시 시도해주세요.")
             }
-    }})*/}
+    }})
+  }
+
+
+
+  // HANDLE FORM SUBMIT
+    const cors = require("cors");
+//    const app = express();
+//    app.use(cors());
+  const handleFormSubmit = event => {
 
     event.preventDefault();
     console.log(text)
@@ -248,6 +254,16 @@ export default function SupportTickets() {
       />*/}
       <Grid container spacing={1}>
       <Grid item lg={10} md={10} xs={10} />
+      {ticket.answer==null?
+      <Grid item lg={1} md={1} xs={1} >
+        <Button color="primary" variant="contained" sx={{
+        ml: "auto",
+        display: "block"
+      }} onClick={() => CreateFAQ(ticket.sysqnaId)}>
+          등록
+        </Button>
+        </Grid>
+        :
       <Grid item lg={1} md={1} xs={1} >
         <Button type="submit" color="primary" variant="contained" sx={{
         ml: "auto",
@@ -255,7 +271,7 @@ export default function SupportTickets() {
       }}>
           수정
         </Button>
-        </Grid>
+        </Grid>}
         <Grid item lg={1} md={1} xs={1} >
         <Button color="success" variant="contained" onClick={() => DeleteFAQ(ticket.sysqnaId)}
         sx={{

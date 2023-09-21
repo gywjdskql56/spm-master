@@ -54,9 +54,12 @@ if(data.status=="success"){
    'qty': item.count,
    'name': item.productName,
    'id':item.cartId,
+   'productid':item.productId,
    'price': item.price+item.optionFee,
    'dates':item.serviceDateInfoList
    }))
+
+
    setState({"cart": cartval})
 };
 
