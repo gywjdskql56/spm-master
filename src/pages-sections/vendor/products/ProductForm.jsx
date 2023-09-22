@@ -396,13 +396,13 @@ const [dates, setDates] = useState([
   console.log(desc);
   var day_list = [];
   var day_item_list = [];
-    for (var i = 1; i <= day; i++) {
+    for (var i = 0; i < day; i++) {
         day_list.push(i);
         if (files[i]==undefined){
-        day_item_list.push({"day" : i, "description" : desc[i+2], "imageCount" : 0})
+        day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : 0})
         }
         else{
-        day_item_list.push({"day" : i, "description" : desc[i+2], "imageCount" : (files[i]).length})
+        day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
         }
     }
   var fd = new FormData();
