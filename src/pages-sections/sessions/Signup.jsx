@@ -110,7 +110,7 @@ const Signup = () => {
   const [fieldlabel, setFieldLabel] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [verify, setVerify] = React.useState(false);
-  const [type, setType] = React.useState(null);
+  const [type, setType] = React.useState(1);
   const { cust, shop } = state;
   const { tour, hospital } = state2;
   const error = [cust, shop].filter((v) => v).length !== 1;
@@ -122,6 +122,9 @@ const Signup = () => {
   const [bankcode, setBankcode] = React.useState(null);
   const handleChange_bc = (event) => {
     setBankcode(event.target.value);
+  };
+   const handleChange_acc = (event) => {
+    setAcc(event.target.value);
   };
 
   function handleEmail() {
@@ -314,9 +317,10 @@ const Signup = () => {
           "password": values.password,
           "phoneNum": value,
           "bankCode": bankcode,
-          "acountNumber":acc
+          "accountNumber":acc
         }
-
+        console.log("body_data")
+        console.log(body_data)
         fd.append(
             'vendorSignUpRequestDto',
             new Blob([JSON.stringify(body_data)], { type: 'application/json' })
@@ -536,7 +540,8 @@ const Signup = () => {
 :<div />}
 {shop==true?
 <div>
-<Grid container spacing={3}><Grid item xs={4}>
+<Grid container spacing={3}>
+    <Grid item xs={4}>
                 <div mb={1.5}
                     mt={1.5}>
                 <H6> 은행코드 </H6>
@@ -554,7 +559,7 @@ const Signup = () => {
                       <MenuItem value={3}>우리은행</MenuItem>
                       <MenuItem value={4}>하나은행</MenuItem>
                     </Select></div></Grid>
-<Grid item xs={7}><BazaarTextField mb={1.5} name="nameF" size="small" label="Account Number" variant="outlined" onBlur={handleBlur} value={acc} onChange={handleChange} placeholder="" /></Grid></Grid></div>  : <div />
+<Grid item xs={7}><BazaarTextField mb={1.5} name="nameF" size="small" label="Account Number" variant="outlined" onBlur={handleBlur} value={acc} onChange={handleChange_acc} placeholder="" /></Grid></Grid></div>  : <div />
 }
         <div />
        <TextField rows={6} multiline fullWidth mb={1.5} sx={{mb: 2, m:2}} color="info" size="medium" name="Terms & Conditions" onBlur={handleBlur} value={values.description} label="Terms & Conditions" error={Boolean(errors.description && touched.description)} helperText={touched.description && errors.description} />
