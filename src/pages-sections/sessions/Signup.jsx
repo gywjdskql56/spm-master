@@ -119,7 +119,7 @@ const Signup = () => {
   const [file1, setFile1] = React.useState(null);
   const [file2, setFile2] = React.useState(null);
   const [acc, setAcc] = React.useState(null);
-  const [bankcode, setBankcode] = React.useState(null);
+  const [bankcode, setBankcode] = React.useState("12");
   const handleChange_bc = (event) => {
     setBankcode(event.target.value);
   };
