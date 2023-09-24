@@ -281,14 +281,22 @@ const [dates, setDates] = useState([
   };
   function handleAdd() {
     console.log('ADD')
+    if (values.option_sale_price !=null && values.option_sale_price!='' && typeof(values.option_sale_price)=="number"){
     setOption(option => [...option, values.option_sale_name+"("+values.option_sale_price+")"])
     setOptionNew(optionNew => [...optionNew, {"name" : values.option_sale_name, "price" : values.option_sale_price}])
     console.log(option)
     values.option = [...values.option, values.option_sale_name+"("+values.option_sale_price+")"]
     values.optionNew = [...values.optionNew, {"name" : values.option_sale_name, "price" : values.option_sale_price}]
-    console.log(values.option)
     values.option_sale_name = ""
     values.option_sale_price = ""
+}
+    else{
+        if (typeof window !== "undefined") {
+            window.alert("옵션 가격에는 숫자만 입력하세요.")
+        }
+    }
+    console.log(values.option)
+
   }
   function handleAdd_included() {
     console.log('ADD')
@@ -344,13 +352,14 @@ const [dates, setDates] = useState([
     setRegionID(val)
   }
   function submit(){
-  console.log(values.name)
-  console.log(values.description)
-  console.log(values.sale_price)
-  console.log(values.category1)
-  console.log(values.category2)
-  console.log(values.show)
-  console.log(dates)
+
+  if(typeof(values.price)!="number" || typeof(values.sale_price)=="number"){
+     if (typeof window !== "undefined") {
+            window.alert("가격은 숫자만 입력해주세요.")
+            window.location.href = "/"
+        }
+    } else {
+
   console.log(dates[0])
   console.log(dates.length)
   const date_list = []
@@ -377,12 +386,8 @@ const [dates, setDates] = useState([
 
     }
   var fd = new FormData();
-//  fd.append("thumbnailImage", main)
   Object.values(main).forEach((file) => fd.append("thumbnailImage", file));
   console.log(main)
-//  fd.append("productDetailsImages", files["상품"])
-//  fd.append("hospitalDetailsImages", files["병원"])
-//  fd.append("accommodationDetailsImages", files["숙소"])
   Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));
   Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
   Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
@@ -397,9 +402,9 @@ const [dates, setDates] = useState([
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetails" : desc[0],
-    "hospitalDetails" : desc[1],
-    "accommodationDetails" : desc[2],
+    "productDetails" : desc[2],
+    "hospitalDetails" : desc[0],
+    "accommodationDetails" : desc[1],
     "tourDescriptionList" : day_item_list,
     "tagList" : optionT,
     "price" : values.price,
@@ -432,6 +437,7 @@ const [dates, setDates] = useState([
             window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
             }
     }})
+    }
   }
 
     const {
@@ -510,12 +516,10 @@ const [dates, setDates] = useState([
                 </Button>
               </Grid>
               {optionI.map(o =>
-              <Grid item sm={1} xs={1}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1",padding: 4, margin: 2 }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_included(o)} />
-                </Button>
-              </Grid>)}
+                </Button> )}
               </Grid>
               <br />
 
@@ -534,12 +538,11 @@ const [dates, setDates] = useState([
                 </Button>
               </Grid>
               {optionN.map(o =>
-              <Grid item sm={2} xs={2}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#E49689" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#E49689",padding: 4, margin: 2 }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_not_included(o)} />
-                </Button>
-              </Grid>)}
+                </Button>)
+              }
               </Grid>
 
               </Grid>
@@ -686,12 +689,11 @@ const [dates, setDates] = useState([
                 </Button>
               </Grid>
               {optionT.map(o =>
-              <Grid item sm={2} xs={2}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1",padding: 4, margin: 2 }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_tags(o)} />
                 </Button>
-              </Grid>)}
+              )}
               </Grid>
               </Grid>
 
@@ -733,12 +735,11 @@ const [dates, setDates] = useState([
               </Grid>)*/}
 
               {values.optionNew.map(o =>
-              <Grid item sm={2} xs={12}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A", padding: 4, margin: 2 }} >
                   {o.name+"("+o.price+")"}{" "}&nbsp;
                     <BiXCircle size={25} onClick={() => handleOption(o)} />
                 </Button>
-              </Grid>)}
+             )}
               <Grid container spacing={3}>
               <Grid item sm={6} xs={6}>
                 <FormControlLabel control={<Switch defaultChecked value={show} onChange={()=>{setShow((show)=>(!show))}} />} label="판매상품 공개하기" />

@@ -166,43 +166,13 @@ const Signup = () => {
             window.alert("Verified")
             }}
             else {if (typeof window !== "undefined") {
-            window.alert("Try again")
+            window.alert("Incorrect Code")
             }}
             })
   }
 
   function checkform(){
-  {/*if (values.nameF==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the first name")
-            }
-        }
-    else if (values.nameL==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the last name")
-            }
-        }
-    else if (values.email==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the email")
-            }
-        }
-    else if (verify==false){
-        if (typeof window !== "undefined") {
-            window.alert("Please verify email")
-            }
-        }
-    else if (values.password==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the password")
-            }
-        }
-    else if (values.re_password==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the password twice")
-            }
-        }
-    else*/}
+
     if(cust) {
         console.log("Email: ", values.email)
         console.log("Code: ", values.check)
@@ -229,7 +199,8 @@ const Signup = () => {
         })
         .then(response => response.json())
         .then(response => {console.log(response);
-        if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        if(response.status=='success'){
+           if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
             window.location.href =  "/"
             }}
@@ -290,7 +261,9 @@ const Signup = () => {
           body: fd
         })
         .then(response => response.json())
-        .then(response => {console.log(response);if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        .then(response => {console.log(response);
+           if(response.status=='success'){
+            if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
             }}
             else {if (typeof window !== "undefined") {

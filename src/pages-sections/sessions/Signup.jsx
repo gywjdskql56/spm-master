@@ -273,7 +273,8 @@ const Signup = () => {
         })
         .then(response => response.json())
         .then(response => {console.log(response);
-        if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        if(response.status=='success'){
+        if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
             window.location.href =  "/"
             }}
@@ -338,7 +339,8 @@ const Signup = () => {
         })
         .then(response => response.json())
         .then(response => {console.log(response);
-        if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+        if(response.status=='success'){
+        if (typeof window !== "undefined") {
             window.alert("Success for sign-up")
             window.location.href =  "/"
             }}
