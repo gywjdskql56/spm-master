@@ -367,9 +367,9 @@ const [dates, setDates] = useState([
   console.log(values.optionNew);
   var day_list = [];
   var day_item_list = [];
-    for (var i = 1; i <= day; i++) {
+    for (var i = 0; i < day; i++) {
         day_list.push(i);
-        if((files[i]).length==0){
+        if((files[i])==undefined ||(files[i]).length==0){
             day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : 0})
         }else {
             day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
@@ -388,7 +388,7 @@ const [dates, setDates] = useState([
   Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
 
 //  fd.append("courseDetailsImages", main)
-  day_list.forEach((day) => {files[day].forEach((img) => fd.append("courseDetailsImages", img))});
+  day_list.forEach((day) => {if (files[day]!=undefined){files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
   const body_data = {
     "productName" : values.name,
     "categoryId" : categoryID,
@@ -397,9 +397,9 @@ const [dates, setDates] = useState([
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetails" : desc[2],
-    "hospitalDetails" : desc[0],
-    "accommodationDetails" : desc[1],
+    "productDetails" : desc[0],
+    "hospitalDetails" : desc[1],
+    "accommodationDetails" : desc[2],
     "tourDescriptionList" : day_item_list,
     "tagList" : optionT,
     "price" : values.price,
