@@ -7,7 +7,7 @@ import BazaarSwitch from "components/BazaarSwitch";
 import { Paragraph, Small } from "components/Typography";
 import { currency } from "lib";
 import { StyledTableRow, CategoryWrapper, StyledTableCell, StyledIconButton } from "../StyledComponents";
-
+import { targetUrl } from "components/config";
 // ========================================================================
 
 // ========================================================================
@@ -27,6 +27,24 @@ const ProductRow = ({
   } = product;
   const router = useRouter();
   const [productPulish, setProductPublish] = useState(published);
+  const handleChange_open = (event) => {
+
+
+    fetch(targetUrl + "/products/open/"+id, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": true,
+    },
+  }).then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data.data);if(data.status=='success'){setProductPublish(data.data.current)}})
+
+
+  }
+
   return <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
@@ -51,7 +69,7 @@ const ProductRow = ({
       <StyledTableCell align="left">{currency(price)}</StyledTableCell>
 
       <StyledTableCell align="left">
-        <BazaarSwitch color="info" checked={productPulish} /> {/*() => setProductPublish(state => !state)*/}
+        <BazaarSwitch color="info" checked={productPulish} onClick={handleChange_open} /> {/*() => setProductPublish(state => !state)*/}
       </StyledTableCell>
 
       <StyledTableCell align="center">
@@ -61,11 +79,11 @@ const ProductRow = ({
 
         {/*<StyledIconButton>
           <RemoveRedEye />
-        </StyledIconButton>*/}
+        </StyledIconButton>
 
         <StyledIconButton>
           <Delete />
-        </StyledIconButton>
+        </StyledIconButton>*/}
       </StyledTableCell>
     </StyledTableRow>;
 };

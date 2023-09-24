@@ -58,7 +58,7 @@ const ProductSearchResult = () => {
           </Box>
 
           <FlexBox alignItems="center" columnGap={4} flexWrap="wrap" my="0.5rem">
-            <FlexBox alignItems="center" gap={1} flex="1 1 0">
+            {/*<FlexBox alignItems="center" gap={1} flex="1 1 0">
               <Paragraph color="grey.600" whiteSpace="pre">
                 Sort by:
               </Paragraph>
@@ -71,7 +71,7 @@ const ProductSearchResult = () => {
                     {item.label}
                   </MenuItem>)}
               </TextField>
-            </FlexBox>
+            </FlexBox>*/}
 
             {/*<FlexBox alignItems="center" my="0.25rem">
               <Paragraph color="grey.600" mr={1}>

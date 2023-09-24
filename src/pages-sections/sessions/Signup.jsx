@@ -119,7 +119,7 @@ const Signup = () => {
   const [file1, setFile1] = React.useState(null);
   const [file2, setFile2] = React.useState(null);
   const [acc, setAcc] = React.useState(null);
-  const [bankcode, setBankcode] = React.useState("12");
+  const [bankcode, setBankcode] = React.useState(1);
   const handleChange_bc = (event) => {
     setBankcode(event.target.value);
   };
@@ -550,7 +550,7 @@ const Signup = () => {
                     mt={1.5}
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={1}
+                      value={bankcode}
                       label="관광일수"
                       onChange={handleChange_bc}
                     >

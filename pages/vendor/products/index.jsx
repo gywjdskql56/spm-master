@@ -36,7 +36,7 @@ const tableHeading = [{
   align: "left"
 }, {
   id: "action",
-  label: "수정 및 삭제",
+  label: "수정",
   align: "center"
 }];
 

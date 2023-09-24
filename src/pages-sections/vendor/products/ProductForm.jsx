@@ -44,6 +44,9 @@ const ProductForm = props => {
   var arrayTotal = {}
   for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
     console.log(i)
+    console.log(initialValues.data)
+    console.log(initialValues.data.courseDetailsList.length)
+    console.log(initialValues.data.courseDetailsList)
     var array = initialValues.data.courseDetailsList[i].imageList
     console.log("array")
     console.log(array)
@@ -267,14 +270,12 @@ const [dates, setDates] = useState([
         getRegion()
    for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
     console.log(i)
-//    var array = initialValues.data.courseDetailsList[i].imageList
-//    console.log("array")
-//    console.log(array)
-//    array = array.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
-//    console.log(array)
-//    setFiles(files =>({...files, i : array}))
-//    console.log(files)
   }
+        if (cateid==1){
+        setList(['상품','병원','숙소'])
+      } else {
+        setList(['상품','병원'])
+      }
    }, []);
   // HANDLE DELETE UPLOAD IMAGE
     const handleFileDeleteMain = (file) => () => {
@@ -291,7 +292,7 @@ const [dates, setDates] = useState([
     }else if(index=='숙소'){
     setFiles(prev=>({...prev, "숙소":files[index].filter(item => item.name !== file.name)}));
     }else if(index==0){
-    setFiles(prev=>({...prev, 0:files[index].filter(item => item.name !== file.name)}));
+    setFiles(prev=>({...prev, index:files[index].filter(item => item.name !== file.name)}));
     }else if(index==1){
     setFiles(prev=>({...prev, 1:files[index].filter(item => item.name !== file.name)}));
     }else if(index==2){
@@ -729,7 +730,7 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
           <Typography fontSize="14px" color="grey.600" align="center">
                   {(index+1)+"일차 설명"}
               </Typography>
-                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index+3, event)} placeholder="Description" value={desc[index+3]} />
+                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index, event)} placeholder="Description" value={desc[index]} />
               </Grid>
               <Grid item xs={6}>
               <Typography fontSize="14px" color="grey.600" align="center">
