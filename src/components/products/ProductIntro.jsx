@@ -158,13 +158,10 @@ useEffect(() => {
 
   }
    function handleDates(value){
-   console.log("handleDates")
-   console.log(value)
-   console.log(value.year)
-   console.log(value.day)
-   console.log(value.monthIndex)
-   console.log(value.format("YYYY-MM-DD"))
-   console.log(new Date(value.format("YYYY-MM-DD")))
+   if (value==null){
+    setValue(null)
+   }
+   else {
    var endDate = new Date(value.format("YYYY-MM-DD"))
    endDate.setDate(endDate.getDate() + courseDetailsList.length)
    console.log(endDate)
@@ -172,20 +169,10 @@ useEffect(() => {
    endDate2.setDate(endDate2.getDate() + courseDetailsList.length)
    console.log(endDate2)
    console.log(endDate2.toISOString().split('T')[0])
-
-//   console.log(new Date(new Date().setDate(value.format("YYYY-MM-DD").getDate() - 5)))
    console.log(new Date(new Date().setDate(value - 5)))
 
       setValue(value)
-{/*     const date_list = []
-     if (value.length!=undefined){
-     for (let i=0; i<value.length; i++) {
-//        console.log(value[i])
-//        console.log(value[i].format("YYYY-MM-DD"))
-        console.log(value[i].format("YYYY-MM-DD"))
-        date_list.push({startDate: value.format("YYYY-MM-DD"), endDate: value[i].format("YYYY-MM-DD")} )
-     }*/}
-     setDates([{startDate: value.format("YYYY-MM-DD"), endDate: endDate.toISOString().split('T')[0]}])
+     setDates([{startDate: value.format("YYYY-MM-DD"), endDate: endDate.toISOString().split('T')[0]}])}
    }
 
 

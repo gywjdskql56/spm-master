@@ -50,7 +50,7 @@ ProductList.getLayout = function getLayout(page) {
 const product_base = [{
 "id":1,
 "slug":1,
-"name":"Plastic Surgery in Gyeongbokgung Palace",
+"name":"",
 "region":"SEOUL",
 "price":1,
 "sale_price":2,
@@ -84,11 +84,11 @@ export default function ProductList(props) {
     id: item.productId,
     slug: item.productId,
     name: item.productName,
-    region: item.regionName,
+    region: item.region.regionName,
     price: item.price,
     sale_price: item.salePrice,
     option: item.option,
-    image: "/assets/images/products/Package/"+item.img+".png",
+    image: item.thumbnailImageBase64String,
     published: item.open,
     category: item.category.categoryName
   }));

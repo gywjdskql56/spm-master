@@ -42,7 +42,8 @@ const ProductCard7 = ({
   imgUrl,
   slug,
   option,
-  dates
+  dates,
+  image
 }) => {
 const router = useRouter()
    console.log("imgUrl")
@@ -83,7 +84,7 @@ const router = useRouter()
 
   };
   return <Wrapper>
-      {/* <Image alt={name} width={140} height={140} display="block" src={imgUrl || "/assets/images/products/iphone-xi.png"} /> */}
+      <Image alt={name} width={300} height={200} display="block" src={`data:image/png;base64,${image}`} />
 
       <IconButton size="small" onClick={handleCartAmountChange(0)} sx={{
       position: "absolute",

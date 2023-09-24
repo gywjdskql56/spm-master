@@ -56,7 +56,8 @@ if(data.status=="success"){
    'id':item.cartId,
    'productid':item.productId,
    'price': item.price+item.optionFee,
-   'dates':item.serviceDateInfoList
+   'dates':item.serviceDateInfoList,
+   'image':item.thumbnailImageBase64String
    }))
 
 

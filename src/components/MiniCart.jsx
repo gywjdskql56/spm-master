@@ -20,10 +20,6 @@ const MiniCart = ({
   const {
     palette
   } = useTheme();
-//  const {
-//    state,
-//    dispatch
-//  } = useAppContext();
 
 const [state, setState] = useState({'cart':[]});
 const getData = async () => {
@@ -36,7 +32,6 @@ const res = await fetch(targetUrl+"/cart",{
             }})
 console.log(res)
 const data = await res.json();
-console.log("RENEW!!!!!!!!!!!!!!!!")
 console.log(data)
 if(data.status=="success"){
     console.log(data.status)
@@ -60,6 +55,7 @@ if(data.status=="success"){
    'id':item.cartId,
    'price': item.price+item.optionFee,
    'dates': item.serviceDateInfoList[0],
+   'image': item.thumbnailImageBase64String
    }))
    setState({"cart": cartval})
 };
@@ -72,14 +68,6 @@ useEffect(() => {
   const handleCartAmountChange = (amount, product) => () => {
     console.log("product")
     console.log(product)
-//    dispatch({
-//      type: "CHANGE_CART_AMOUNT",
-//      payload: {
-//        ...product,
-//        qty: amount,
-//        code: product.code,
-//      }
-//    });
   };
 
   const handleCartAmountDelete = (product) => () => {
@@ -104,14 +92,7 @@ useEffect(() => {
             window.alert("장바구니에서 삭제 실패하였습니다. 다시 시도해주세요.")
         }}
     })
-//    dispatch({
-//      type: "DELETE_CART_AMOUNT",
-//      payload: {
-//        ...product,
-//        code: product.code,
-//        id:product.id
-//      }
-//    });
+
   };
   const getTotalPrice = () => {
     return state.cart.reduce((accum, item) => accum + item.price * item.qty, 0);
@@ -164,9 +145,9 @@ useEffect(() => {
               </Button>
             </FlexBox>*/}
 
-            <Link href={`/product/${item.slug}`}>
+            <Link href={`/cart`}>
               <a>
-                <Avatar alt={item.name} src={item.imgUrl} sx={{
+                <Avatar alt={item.name} src={`data:image/png;base64,${item.image}`} sx={{
               mx: 2,
               width: 76,
               height: 76
@@ -179,7 +160,7 @@ useEffect(() => {
           overflow: "hidden",
           textOverflow: "ellipsis"
         }}>
-              <Link href={`/product/${item.slug}`}>
+              <Link href={`/cart`}>
                 <a>
                   <H5 ellipsis fontSize="14px" className="title">
                     {item.name}

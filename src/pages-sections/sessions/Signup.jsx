@@ -188,10 +188,13 @@ const Signup = () => {
       body: JSON.stringify({'emailAddr':values.email,'code': values.check, 'accountType':'member'})
     })
     .then(response => response.json())
-    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){if (typeof window !== "undefined") {
+            setVerify(true)
             window.alert("Verified")
+
             }}
             else {if (typeof window !== "undefined") {
+
             window.alert("Try again")
             }}
             })
@@ -205,7 +208,8 @@ const Signup = () => {
       body: JSON.stringify({'emailAddr':values.email,'code': values.check, 'accountType':'vendor'})
     })
     .then(response => response.json())
-    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){setVerify(true);if (typeof window !== "undefined") {
+    .then(response => {console.log(response);console.log(response.status); if(response.status=='success'){if (typeof window !== "undefined") {
+            setVerify(true)
             window.alert("Verified")
             }}
             else {if (typeof window !== "undefined") {
@@ -216,46 +220,24 @@ const Signup = () => {
   }
 
   function checkform(){
-  {/*if (values.nameF==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the first name")
-            }
-        }
-    else if (values.nameL==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the last name")
-            }
-        }
-    else if (values.email==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the email")
-            }
-        }
-    else if (verify==false){
-        if (typeof window !== "undefined") {
-            window.alert("Please verify email")
-            }
-        }
-    else if (values.password==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the password")
-            }
-        }
-    else if (values.re_password==""){
-        if (typeof window !== "undefined") {
-            window.alert("Please type the password twice")
-            }
-        }
-    else*/}
+
     if(cust) {
-        console.log("Email: ", values.email)
-        console.log("Code: ", values.check)
-        console.log("NameL: ", values.nameL)
-        console.log("NameF: ", values.nameF)
-        console.log("Password: ", values.password)
-        console.log("country: ", fieldvalue)
-        console.log("country: ", values.billing_country)
-        console.log("phoneNum: ", value)
+    if (typeof(acc.replace("-",''))!="number") {
+         if (typeof window !== "undefined") {
+            window.alert("Only - and number are allowed in account number.")
+         }
+      }
+      else if (typeof(values.regist.replace("-",''))!="number") {
+         if (typeof window !== "undefined") {
+            window.alert("Only - and number are allowed in registration number.")
+         }
+      }
+    else if (verify!=true) {
+          if (typeof window !== "undefined") {
+            window.alert("Please verify your Email")
+         }
+      }
+      else {
         fetch(targetUrl+'/members/signup',{
           method: 'POST',
           headers: {
@@ -287,21 +269,24 @@ const Signup = () => {
                     }
                 }}})
       }
+      }
       else {
-
-        console.log("Email: ", values.email)
-        console.log("Code: ", values.check)
-        console.log("nameC: ", values.nameC)
-        console.log("Regist: ", values.regist)
-        console.log("Password: ", values.password)
-        console.log("NameL: ", values.nameL)
-        console.log("NameF: ", values.nameF)
-        console.log("Email: ", values.email)
-        console.log("country: ", fieldvalue)
-        console.log("countryType: ", type)
-        console.log("phoneNum: ", value)
-        console.log("File1: ", file[0])
-        console.log("File2: ", file[1])
+    if (typeof(acc.replace("-",''))!="number") {
+         if (typeof window !== "undefined") {
+            window.alert("Only - and number are allowed in account number.")
+         }
+      }
+      else if (typeof(values.regist.replace("-",''))!="number") {
+         if (typeof window !== "undefined") {
+            window.alert("Only - and number are allowed in registration number.")
+         }
+      }
+    else if (verify!=true) {
+          if (typeof window !== "undefined") {
+            window.alert("Please verify your Email")
+         }
+      }
+      else {
         const fd = new FormData();
         Object.values(file).forEach((file) => fd.append("proofFiles", file));
 
@@ -352,6 +337,7 @@ const Signup = () => {
                     window.alert("Try again")
                     }
                 }}})
+                }
       }
   }
 
@@ -472,7 +458,7 @@ const Signup = () => {
           </div>*/}
           <FormControlLabel name="agreement" className="agreement" control={<div />} label={<FlexBox flexWrap="wrap" alignItems="center" justifyContent="flex-start"></FlexBox>} />
           <BazaarTextField mb={1.5} fullWidth name="nameC" size="small" label="Company Name" variant="outlined" onBlur={handleBlur} value={values.nameC} onChange={handleChange} placeholder="HJ Agency" error={!!touched.nameC && !!errors.nameC} helperText={touched.nameC && errors.nameC} />
-        <BazaarTextField mb={1.5} fullWidth name="regist" size="small" type="number" variant="outlined" onBlur={handleBlur} value={values.regist} onChange={handleChange} label="Company Registration Number" placeholder="123-45-67890" error={!!touched.regist && !!errors.regist} helperText={touched.regist && errors.regist} />
+        <BazaarTextField mb={1.5} fullWidth name="regist" size="small" variant="outlined" onBlur={handleBlur} value={values.regist} onChange={handleChange} label="Company Registration Number" placeholder="123-45-67890" error={!!touched.regist && !!errors.regist} helperText={touched.regist && errors.regist} />
           <div />
           </div>)
           : <div />}

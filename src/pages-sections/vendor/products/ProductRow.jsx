@@ -15,6 +15,7 @@ import { targetUrl } from "components/config";
 const ProductRow = ({
   product
 }) => {
+  console.log(product)
   const {
     category,
     name,
@@ -48,7 +49,7 @@ const ProductRow = ({
   return <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
-          <Avatar src={image} sx={{
+          <Avatar src={`data:image/png;base64,${image}`} sx={{
           borderRadius: "8px"
         }} />
           <Box>
