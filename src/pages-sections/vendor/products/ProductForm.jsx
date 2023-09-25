@@ -67,6 +67,9 @@ const ProductForm = props => {
   const [mainch, setMainch] = useState(false);
   const [thumb, setThumb] = useState([]);
   const [thumbChange, setThumbChange] = useState(false);
+  const [proChange, setProChange] = useState(false);
+  const [accChange, setAccChange] = useState(false);
+  const [hosChange, setHosChange] = useState(false);
   const arr1 = [initialValues.data.productDetails.description,
                         initialValues.data.hospitalDetails.description,
                         initialValues.data.accommodationDetails.description]
@@ -141,8 +144,7 @@ const ProductForm = props => {
   [new DateObject().set({ day: 28 }), new DateObject().set({ day: 28 })],
   [new DateObject().set({ day: 23 }), new DateObject().set({ day: 27 })]
 ])*/}
-const [dates, setDates] = useState([
-])
+const [dates, setDates] = useState(initialValues.servicePeriodList)
     function handleDates(value){
       //your modification on passed value ....
       setDates(value)
@@ -193,10 +195,13 @@ const [dates, setDates] = useState([
     }));
     if (index=='상품'){
     setFiles(prev=>({...prev, "상품":files_list}));
+    setProChange(true)
     }else if(index=='병원'){
     setFiles(prev=>({...prev, "병원":files_list}));
+    setHosChange(true)
     }else if(index=='숙소'){
     setFiles(prev=>({...prev, "숙소":files_list}));
+    setAccChange(true)
     }else if(index==0){
     setFiles(prev=>({...prev, 0:files_list}));
     }else if(index==1){
@@ -412,9 +417,7 @@ if (thumbChange){
     Object.values(main).forEach((file) => fd.append("thumbnailImage", file))
 }
 
-  Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));
-  Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
-  Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
+
 
     var day_list = [];
   var day_item_list = [];
@@ -442,7 +445,7 @@ if (thumbChange){
 console.log("files[day]")
 console.log(optionNew)
 console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
-  day_list.forEach((day) => {if(files[day]!=undefined) {files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
+  day_list.forEach((day) => {if (files[day]!=undefined) {files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
   const body_data = {
   "productId":initialValues.data.productId,
     "productName" : values.name,
@@ -453,25 +456,39 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetailsNRemovedImage" : {"description" : desc[0], "removedProductImageIdList" : initialValues.data.productDetails.imageList.map((item) => item.id)},
-    "hospitalDetailsNRemovedImage" : {"description" : desc[1], "removedProductImageIdList" : initialValues.data.hospitalDetails.imageList.map((item) => item.id) },
-    "accommodationDetailsNRemovedImage" : {"description" : desc[2], "removedProductImageIdList" :initialValues.data.accommodationDetails.imageList.map((item) => item.id) },
+    "productDetailsNRemovedImage" : {"description" : desc[0], "removedProductImageIdList" : [] },
+    "hospitalDetailsNRemovedImage" : {"description" : desc[1], "removedProductImageIdList" : [] },
+    "accommodationDetailsNRemovedImage" : {"description" : desc[2], "removedProductImageIdList" :[] },
     "courseSaveDtoList" : courseSaveDtoList_list,
 
-"tagList" : optionT,
+    "tagList" : optionT,
 
-"price" : values.price,
-"salePrice" : values.sale_price,
+    "price" : values.price,
+    "salePrice" : values.sale_price,
 
-"optionFeeSaveInfo" : {
-"deleteIdList" : initialValues.data.optionFeeList.map((item)=> item.id),
-"updateInfoList" : [],
-"createInfoList" : [{"description" : "옵션비용 추가 테스트", "price" : 299999}]
+    "optionFeeSaveInfo" : {
+    "deleteIdList" : initialValues.data.optionFeeList.map((item)=> item.id),
+    "updateInfoList" : [],
+    "createInfoList" : [{"description" : "test", "price" : 12}]
 },
 
 "open" : show,
  "thumbnailChanged":thumbChange,
 
+  }
+//    Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));
+//  Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
+//  Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
+  if (setProChange){
+  body_data['productDetailsNRemovedImage'] = {"description" : desc[0], "removedProductImageIdList" : initialValues.data.productDetails.imageList.map((item) => item.id)}
+  Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));}
+  else if (setHoschange) {
+    body_data['hospitalDetailsNRemovedImage'] = {"description" : desc[0], "removedProductImageIdList" : initialValues.data.hospitalDetails.imageList.map((item) => item.id)}
+  Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
+
+  } else{
+  body_data['accommodationDetailsNRemovedImage'] = {"description" : desc[0], "removedProductImageIdList" : initialValues.data.accommodationDetails.imageList.map((item) => item.id)}
+    Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
   }
   console.log("body_data")
   console.log(body_data)
@@ -640,6 +657,7 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
                       label="관광일수"
                       onChange={handleChange_day}
                     >
+                      <MenuItem value={0}>없음</MenuItem>
                       <MenuItem value={1}>1</MenuItem>
                       <MenuItem value={2}>2</MenuItem>
                       <MenuItem value={3}>3</MenuItem>

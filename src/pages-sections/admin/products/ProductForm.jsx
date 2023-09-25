@@ -47,6 +47,7 @@ const ProductForm = props => {
   const [optionT, setOptionT] = useState([]);
   const [cateid, setCateid] = useState(1);
   const [product, setProduct] = useState(null);
+  const [day, setDay] = useState(0);
   const [state, setState] = useState({
     cust: true,
     shop: false,
@@ -69,17 +70,17 @@ const ProductForm = props => {
         setList(['상품','병원'])
       }
   };
-  const [day, setDay] = useState(0);
+
   const handleChange_day = (event) => {
     setDay(event.target.value);
-    console.log(event.target.value)
-    console.log(day)
-    console.log(typeof(event.target.value))
-    console.log(parseInt(event.target.value, 10))
-    console.log(typeof(parseInt(event.target.value, 10)))
+//    console.log(event.target.value)
+//    console.log(day)
+//    console.log(typeof(event.target.value))
+//    console.log(parseInt(event.target.value, 10))
+//    console.log(typeof(parseInt(event.target.value, 10)))
 
-    console.log([...Array(parseInt(event.target.value))])
-    setListn([...Array(parseInt(event.target.value))])
+//    console.log([...Array(parseInt(event.target.value))])
+//    setListn([...Array(parseInt(event.target.value))])
    console.log(Array.from({length: event.target.value}, (_, i) => i + 1))
    setListn(Array.from({length: event.target.value}, (_, i) => i + 1))
   };
@@ -353,10 +354,9 @@ const [dates, setDates] = useState([
   }
   function submit(){
 
-  if(typeof(values.price)!="number" || typeof(values.sale_price)=="number"){
+  if(typeof(values.price)!="number" || typeof(values.sale_price)!="number"){
      if (typeof window !== "undefined") {
             window.alert("가격은 숫자만 입력해주세요.")
-            window.location.href = "/"
         }
     } else {
 
@@ -402,15 +402,17 @@ const [dates, setDates] = useState([
     "includedPartList" : optionI,
     "nonIncludedPartList" : optionN,
     "type" : cateid,
-    "productDetails" : desc[2],
-    "hospitalDetails" : desc[0],
-    "accommodationDetails" : desc[1],
+    "productDetails" : desc[0],
+    "hospitalDetails" : desc[1],
     "tourDescriptionList" : day_item_list,
     "tagList" : optionT,
     "price" : values.price,
     "salePrice" : values.sale_price,
     "optionFeeList" : values.optionNew,
     "open" : show
+  }
+  if (cust){
+   body_data['accommodationDetails'] = desc[2]
   }
   console.log(body_data)
 //  ['상품','병원','숙소']
@@ -575,6 +577,7 @@ const [dates, setDates] = useState([
                       label="관광일수"
                       onChange={handleChange_day}
                     >
+                      <MenuItem value={0}>없음</MenuItem>
                       <MenuItem value={1}>1</MenuItem>
                       <MenuItem value={2}>2</MenuItem>
                       <MenuItem value={3}>3</MenuItem>
@@ -644,7 +647,7 @@ const [dates, setDates] = useState([
               </Grid> )})}
 
 
-              {listn.map((n, index) => {
+              {listn.slice(3,).map((n, index) => {
           return ( <Grid container spacing={3}>
           <Grid item xs={6}>
           <Typography fontSize="14px" color="grey.600" align="center">

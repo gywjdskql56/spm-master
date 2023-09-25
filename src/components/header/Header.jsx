@@ -171,13 +171,31 @@ useEffect(() => {
       </FormControl>
       <Grid container spacing={3}>
       <Grid item md={5} xs={5}>
-      <Link href="/profile">
+      {window.sessionStorage.getItem('id')=="ROLE_SYSADMIN"?
+      <Link href="/admin/dashboard">
+      <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'orange', color:'white'}}>
+        <Box fontSize="12px" ml={1}>
+          Admin Page
+        </Box>
+      </Button>
+      </Link>
+      : (window.sessionStorage.getItem('id')=="ROLE_VENDOR"?
+      <Link href="/vendor/dashboard">
+      <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'orange', color:'white'}}>
+        <Box fontSize="12px" ml={1}>
+          Vendor Page
+        </Box>
+      </Button>
+      </Link>
+      : <Link href="/profile">
       <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'orange', color:'white'}}>
         <Box fontSize="12px" ml={1}>
           My Page
         </Box>
       </Button>
       </Link>
+      )
+      }
       </Grid>
       <Grid item md={5} xs={5}>
       <Button size="medium" fullWidth sx={{height: 44, margin: 2}} style={{backgroundColor:'black', color:'white'}} onClick={()=>Logout()}>

@@ -30,7 +30,7 @@ const ProductIntro = ({
 //  console.log(product)
   const {
     productId,
-    price,
+    salePrice,
     title,
     images,
     slug,
@@ -74,7 +74,7 @@ if(data.status=="success"){
    'qty': item.count,
    'name': item.productName,
    'id':item.cartId,
-   'price': item.price+item.optionFee
+   'price': item.salePrice+item.optionFee
    }))
    setState({"cart": cartval})
 };
@@ -117,14 +117,14 @@ useEffect(() => {
   });
   const [open, setOpen] = useState(false);
   const [amt, setAmt] = useState(1);
-  const [totalprice, setTotalPrice] = useState(price);
-  const [perprice, setPerPrice] = useState(price);
+  const [totalprice, setTotalPrice] = useState(salePrice);
+  const [perprice, setPerPrice] = useState(salePrice);
   const [option, setOption] = useState([])
   const [optionID, setOptionID] = useState([])
   const [optionT, setOptionT] = useState([])
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleClickOption = (e, id, name, price) =>{
+  const handleClickOption = (e, id, name, salePrice) =>{
 
 //    console.log("handleClickOption")
 //    console.log(e)
@@ -135,9 +135,9 @@ useEffect(() => {
 //    setOption((prev)=>[...prev, e.target.value])
     setOption((prev)=>[...prev, name])
     setOptionID((prev)=>[...prev, id])
-    setOptionT((prev)=>[...prev, {"price":price, "id":id, "name":name}])
-    setTotalPrice((prev)=>(prev + parseFloat(price)*amt))
-    setPerPrice((prev)=>(prev + parseFloat(price)))
+    setOptionT((prev)=>[...prev, {"price":salePrice, "id":id, "name":name}])
+    setTotalPrice((prev)=>(prev + parseFloat(salePrice)*amt))
+    setPerPrice((prev)=>(prev + parseFloat(salePrice)))
     }
     else{
 //    console.log("Color Not Change!!!"+e.target.style.color)
@@ -149,11 +149,11 @@ useEffect(() => {
       return prev.filter(item => item !== id)
     })
     setOptionT(prev => {
-      return prev.filter(item => item !== {"price":price, "id":id, "name":name})
+      return prev.filter(item => item !== {"price":salePrice, "id":id, "name":name})
     })
 
-    setTotalPrice((prev)=>(prev - price*amt))
-    setPerPrice((prev)=>(prev - price))
+    setTotalPrice((prev)=>(prev - salePrice*amt))
+    setPerPrice((prev)=>(prev - salePrice))
     }
 
   }
@@ -190,7 +190,7 @@ useEffect(() => {
    if(auth[0]=="success" && auth[1]=="ROLE_MEMBER"){
      console.log("createOrder")
     var uriString = targetUrl;
-    uriString+="/createOrder?productId="+productId+"&productSalePrice="+product.price+"&startDate="+product.servicePeriodList[0].startDate+"&endDate="+product.servicePeriodList[0].endDate+"&";
+    uriString+="/createOrder?productId="+productId+"&productSalePrice="+product.salePrice+"&startDate="+product.servicePeriodList[0].startDate+"&endDate="+product.servicePeriodList[0].endDate+"&";
     {/*uriString+="optionFee="+encodeURIComponent(product.optionFeeList[0].price+","+product.optionFeeList[0].name)+"&"
     +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
     +"optionFee="+encodeURIComponent("10,옵션비용테스트3")+"&";
@@ -198,9 +198,9 @@ useEffect(() => {
     console.log(product.optionFeeList)
     console.log(product.optionFeeList.length)*/}
     for (var i=0; i < optionT.length; i++){
-    console.log(optionT[i].price+","+optionT[i].name)
-    console.log(encodeURIComponent(optionT[i].price+","+optionT[i].name))
-    uriString+= "optionFee="+encodeURIComponent(encodeURIComponent(optionT[i].price+","+optionT[i].name))+"&"
+    console.log(optionT[i].salePrice+","+optionT[i].name)
+    console.log(encodeURIComponent(optionT[i].salePrice+","+optionT[i].name))
+    uriString+= "optionFee="+encodeURIComponent(encodeURIComponent(optionT[i].salePrice+","+optionT[i].name))+"&"
     }
 //    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
 //    +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
@@ -222,44 +222,6 @@ useEffect(() => {
     }
    }
 
-
-
-
-
-
-   {/*function createOrder() {
-    // replace this url with your server
-    if (value==null){
-        window.alert('Please select dates.')
-   }else{
-    console.log("createOrder")
-    var uriString = targetUrl;
-    uriString+="/createOrder?productId=1&productSalePrice=400&startDate=2023-07-05&endDate=2023-07-09&";
-    uriString+="optionFee="+encodeURIComponent("20,옵션비용테스트1")+"&"
-    +"optionFee="+encodeURIComponent("30,옵션비용테스트2")+"&"
-    +"optionFee="+encodeURIComponent("10,옵션비용테스트3")+"&";
-    uriString+="additionalComments=additionalCommentsTest&";
-    uriString+="firstName=firstNameTest&";
-    uriString+="lastName=lastNameTest&";
-    uriString+="phoneNumber=phoneNumberTest&";
-    uriString+="email=emailTest&";
-    uriString+="country=countryTest";
-    window.open(uriString,'pop01','top=10,left=10,width=500,height=600,status=no,menubar=no,toolbar=no,resizable=no');
-    return fetch(uriString, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": true,
-        },
-    })
-        .then((response) => response.json())
-        .then((order) => {
-            // Your code here after create the order
-            console.log(order)
-            return 1;
-        });
-}}*/}
   // HANDLE CHAMGE TYPE AND OPTIONS
   const handleChangeVariant = (variantName, value) => () => {
     setSelectVariants(state => ({
@@ -287,8 +249,6 @@ useEffect(() => {
         id: productId,
         slug : productId
       })
-      console.log("value: ", value)
-      console.log("dates: ", dates)
 
    const res = await fetch(targetUrl+"/cart",{
           method: 'POST',
@@ -394,7 +354,7 @@ useEffect(() => {
           height: 40,
           margin: 2
         }}>
-              <H6 mb={1} style={{color:'white'}}>{variant.name+"("+variant.price+")"}</H6>
+              <H6 mb={1} style={{color:'white'}}>{variant.name+"("+variant.salePrice+")"}</H6>
 
               {/* {variant.values.map(({
             id,
@@ -409,7 +369,7 @@ useEffect(() => {
 
           <Box pt={1} mb={3}>
             <H2 color="primary.main" mb={0.5} lineHeight="1">
-              {currency(price)}
+              {currency(salePrice)}
             </H2>
           </Box>
           <Box mb={2}>
