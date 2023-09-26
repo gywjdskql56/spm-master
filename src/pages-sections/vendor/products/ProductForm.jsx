@@ -595,12 +595,11 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
                 </Button>
               </Grid>
               {optionI.map(o =>
-              <Grid item sm={1} xs={1}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1",padding: 4, margin: 2  }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_included(o)} />
                 </Button>
-              </Grid>)}
+              )}
               </Grid>
               <br />
 
@@ -619,12 +618,11 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
                 </Button>
               </Grid>
               {optionN.map(o =>
-              <Grid item sm={2} xs={2}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#E49689" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#E49689",padding: 4, margin: 2  }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_not_included(o)} />
                 </Button>
-              </Grid>)}
+              )}
               </Grid>
 
               </Grid>
@@ -787,12 +785,11 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
                 </Button>
               </Grid>
               {optionT.map(o =>
-              <Grid item sm={2} xs={2}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#4F83E1",padding: 4, margin: 2  }} >
                   {o}
                     <BiXCircle size={20} onClick={() => handleOption_tags(o)} />
                 </Button>
-              </Grid>)}
+              )}
               </Grid>
               </Grid>
 
@@ -826,20 +823,12 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
                 </Button>
               </Grid>
               {values.option.map(o =>
-              <Grid item sm={2} xs={12}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
+                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A",padding: 4, margin: 2  }} >
                   {o}{" "}&nbsp;
                     <BiXCircle size={25} onClick={() => handleOption(o)} />
                 </Button>
-              </Grid>)}
+              )}
 
-              {/*values.optionNew.map(o =>
-              <Grid item sm={2} xs={12}>
-                <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A" }} >
-                  {o.name+"("+o.price+")"}{" "}&nbsp;
-                    <BiXCircle size={25} onClick={() => handleOption(o)} />
-                </Button>
-              </Grid>)*/}
               <Grid container spacing={3}>
               <Grid item sm={6} xs={6}>
                 <FormControlLabel control={<Switch defaultChecked value={values.show} onChange={handleChange} />} label="판매상품 공개하기" />
