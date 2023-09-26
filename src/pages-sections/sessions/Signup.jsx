@@ -519,7 +519,7 @@ const Signup = () => {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={bankcode}
-                      label="관광일수"
+                      label="은행코드"
                       onChange={handleChange_bc}
                     >
                       <MenuItem value={1}>국민은행</MenuItem>

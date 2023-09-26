@@ -73,16 +73,16 @@ const ProductForm = props => {
 
   const handleChange_day = (event) => {
     setDay(event.target.value);
-//    console.log(event.target.value)
-//    console.log(day)
-//    console.log(typeof(event.target.value))
-//    console.log(parseInt(event.target.value, 10))
-//    console.log(typeof(parseInt(event.target.value, 10)))
+    console.log(event.target.value)
+    console.log(day)
+    console.log(typeof(event.target.value))
+    console.log(parseInt(event.target.value, 10))
+    console.log(typeof(parseInt(event.target.value, 10)))
 
-//    console.log([...Array(parseInt(event.target.value))])
-//    setListn([...Array(parseInt(event.target.value))])
+    console.log([...Array(parseInt(event.target.value))])
+    setListn([...Array(parseInt(event.target.value+3))])
    console.log(Array.from({length: event.target.value}, (_, i) => i + 1))
-   setListn(Array.from({length: event.target.value}, (_, i) => i + 1))
+   setListn(Array.from({length: event.target.value+3}, (_, i) => i + 1))
   };
 
 {/*  const [dates, setDates] = useState([
@@ -379,9 +379,9 @@ const [dates, setDates] = useState([
     for (var i = 0; i < day; i++) {
         day_list.push(i);
         if((files[i])==undefined ||(files[i]).length==0){
-            day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : 0})
+            day_item_list.push({"day" : i+1, "description" : desc[i+3], "imageCount" : 0})
         }else {
-            day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
+            day_item_list.push({"day" : i+1, "description" : desc[i+3], "imageCount" : (files[i]).length})
         }
 
     }
@@ -659,12 +659,12 @@ const [dates, setDates] = useState([
               <Typography fontSize="14px" color="grey.600" align="center">
                   {(index+1)+"일차 이미지"}
               </Typography>
-                <DropZone onChange={files => handleChangeDropZone(files, n)} />
+                <DropZone onChange={files => handleChangeDropZone(files, n-3)} />
                 <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
-                  {files[n].map((file, index) => {
+                  {files[n-3].map((file, index) => {
                 return <UploadImageBox key={index}>
                         <BazaarImage src={file.preview} width="100%" />
-                        <StyledClear onClick={handleFileDelete(file, n)} />
+                        <StyledClear onClick={handleFileDelete(file, n-3)} />
                       </UploadImageBox>;
               })}
                 </FlexBox>
