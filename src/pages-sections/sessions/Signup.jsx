@@ -80,7 +80,7 @@ const Signup = () => {
     tour: true,
     hospital: false,
   });
-  const [value, setValue] = useState("8201-0000-0000")
+  const [value, setValue] = useState("82")
 
   const handleChange_check = (event) => {
   if (event.target.name=='cust'){
@@ -120,7 +120,7 @@ setValue(event)
   const { tour, hospital } = state2;
   const error = [cust, shop].filter((v) => v).length !== 1;
   const error2 = [tour, hospital].filter((v) => v).length !== 1;
-  const [file, setFile] = React.useState(null);
+  const [file, setFile] = React.useState([]);
   const [file1, setFile1] = React.useState(null);
   const [file2, setFile2] = React.useState(null);
   const [acc, setAcc] = React.useState(null);
@@ -282,16 +282,18 @@ setValue(event)
       else {
         const fd = new FormData();
         Object.values(file).forEach((file) => fd.append("proofFiles", file));
-
+        var type_t = ""
         if (tour){
             setType("유치업자")
+            type_t = "유치업자"
         }else {
             setType("의료업자")
+            type_t = "의료업자"
         }
         const body_data = {
           "businessRegistrationNumber": values.regist,
           "companyName": values.nameC,
-          "companyType": type,
+          "companyType": type_t,
           "email": values.email,
           "password": values.password,
           "phoneNum": value,
@@ -346,6 +348,10 @@ setValue(event)
     } else if (values.regist==""){
        if (typeof window !== "undefined") {
             window.alert("Please type company registration code")
+            }
+    } else if (file.length!=2){
+       if (typeof window !== "undefined") {
+            window.alert("Two files must be uploaded.")
             }
     }
     else{

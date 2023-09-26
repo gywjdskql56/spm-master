@@ -163,13 +163,16 @@ const ProductCard1 = ({
               </Span>}
 
             <FlexBox alignItems="center" gap={1} mt={0.5}>
-              <Box fontWeight="600" color="primary.main">
+              {/*<Box fontWeight="600" color="primary.main">
                 {calculateDiscount(price, discount)}
               </Box>
 
               {!!discount && <Box color="grey.600" fontWeight="600">
                   <del>{currency(price)}</del>
-                </Box>}
+                </Box>}*/}
+                <Box fontWeight="600" color="primary.main">
+                {currency(price)}
+              </Box>
             </FlexBox>
           </Box>
 

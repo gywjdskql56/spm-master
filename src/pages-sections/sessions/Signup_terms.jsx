@@ -107,12 +107,12 @@ const Signup = () => {
   const [fieldvalue, setFieldValue] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [verify, setVerify] = React.useState(false);
-  const [type, setType] = React.useState(null);
+  const [type, setType] = React.useState("유치업자");
   const { cust, shop } = state;
   const { tour, hospital } = state2;
   const error = [cust, shop].filter((v) => v).length !== 1;
   const error2 = [tour, hospital].filter((v) => v).length !== 1;
-  const [file, setFile] = React.useState(null);
+  const [file, setFile] = React.useState([]);
   const [file1, setFile1] = React.useState(null);
   const [file2, setFile2] = React.useState(null);
 

@@ -57,6 +57,7 @@ const Section7 = (props) => {
   const { products, regions, title, categories } = props;
   
   console.log("categories");
+  console.log("products: ",products)
 
   const FilterProduct = async () => {
     var url = "";

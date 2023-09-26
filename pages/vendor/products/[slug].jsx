@@ -62,7 +62,7 @@ export default function EditProduct() {
         console.log(data.courseDetailsList)
         const option_list = []
         for (let i=0; i<data.optionFeeList.length; i++) {
-            option_list.push(data.optionFeeList[i].name+"("+data.optionFeeList[i].price+")")
+            option_list.push({'description': data.optionFeeList[i].name, 'price':data.optionFeeList[i].price, 'id':data.optionFeeList[i].id})
         }
        const desc_list = []
         for (let i=0; i<10; i++) {

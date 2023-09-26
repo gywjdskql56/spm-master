@@ -354,7 +354,7 @@ useEffect(() => {
           height: 40,
           margin: 2
         }}>
-              <H6 mb={1} style={{color:'white'}}>{variant.name+"("+variant.salePrice+")"}</H6>
+              <H6 mb={1} style={{color:'white'}}>{variant.name+"("+variant.price+")"}</H6>
 
               {/* {variant.values.map(({
             id,

@@ -42,24 +42,29 @@ const ProductForm = props => {
 //courseDetailsList
   //imageBase64String
   var arrayTotal = {}
-  for (var i =0; i<initialValues.data.courseDetailsList.length; i++){
+  for (var i =0; i<10; i++){
     console.log(i)
     console.log(initialValues.data)
     console.log(initialValues.data.courseDetailsList.length)
     console.log(initialValues.data.courseDetailsList)
+    if (i<initialValues.data.courseDetailsList.length){
     var array = initialValues.data.courseDetailsList[i].imageList
     console.log("array")
     console.log(array)
     array = array.map((item) =>({ preview : `data:image/png;base64,${item.imageBase64String}`}));
     console.log(array)
 //    setFiles(files =>({...files, i : array}))
-    arrayTotal[i] = array
+    arrayTotal[i] = array}
+    else {
+    arrayTotal[i] = []
+    }
   }
   arrayTotal["상품"] = arrayP
   arrayTotal["병원"] = arrayH
   arrayTotal["숙소"] = arrayA
 //  const [files, setFiles] = useState({'상품':arrayP,'병원':arrayH,'숙소':arrayA,0:[],1:[],2:[],3:[],4:[],5:[],6:[],7:[],8:[],9:[],10:[]});
   const [files, setFiles] = useState(arrayTotal)
+  const [filesch, setFilesch] = useState({0:false,1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false})
 
   const [main, setMain] = useState([{
       preview: `data:image/png;base64,${initialValues.img.imageBase64String}`
@@ -74,6 +79,8 @@ const ProductForm = props => {
                         initialValues.data.hospitalDetails.description,
                         initialValues.data.accommodationDetails.description]
   const [desc, setDesc] = useState(arr1.concat(initialValues.desc_list));
+  console.log("desc")
+  console.log(desc)
   const [show, setShow] = useState(initialValues.show);
   const [category, setCategory] = useState([]);
   const [categoryID, setCategoryID] = useState(initialValues.data.category.categoryId);
@@ -82,6 +89,7 @@ const ProductForm = props => {
   const [optionI, setOptionI] = useState(initialValues.included);
   const [optionN, setOptionN] = useState(initialValues.not_included);
   const [option, setOption] = useState(initialValues.option);
+  const [optionR, setOptionR] = useState([]);
   const [optionNew, setOptionNew] = useState(initialValues.optionNew);
   const [optionT, setOptionT] = useState(initialValues.tags);
   const [cateid, setCateid] = useState(initialValues.data.type);
@@ -104,8 +112,6 @@ const ProductForm = props => {
   console.log("dayn")
   console.log(dayn)
   console.log(typeof(dayn))
-  console.log([1,2,3])
-  console.log(typeof([1,2,3]))
   const [list, setList] = useState(['상품','병원','숙소']);
   const [listn, setListn] = useState(dayn);
   const { cust, shop } = state;
@@ -133,10 +139,10 @@ const ProductForm = props => {
     console.log(parseInt(event.target.value, 10))
     console.log(typeof(parseInt(event.target.value, 10)))
 
-    console.log([...Array(parseInt(event.target.value))])
-    setListn([...Array(parseInt(event.target.value))])
+//    console.log([...Array(parseInt(event.target.value))])
+//    setListn([...Array(parseInt(event.target.value))])
    console.log(Array.from({length: event.target.value}, (_, i) => i + 1))
-   setListn(Array.from({length: event.target.value}, (_, i) => i + 1))
+   setListn(Array.from({length: event.target.value}, (_, i) => i ))
   };
 
 {/*  const [dates, setDates] = useState([
@@ -144,17 +150,35 @@ const ProductForm = props => {
   [new DateObject().set({ day: 28 }), new DateObject().set({ day: 28 })],
   [new DateObject().set({ day: 23 }), new DateObject().set({ day: 27 })]
 ])*/}
-const [dates, setDates] = useState(initialValues.servicePeriodList)
+const [dates, setDates] = useState([])
+//const [dates, setDates] = useState(initialValues.servicePeriodList)
     function handleDates(value){
       //your modification on passed value ....
       setDates(value)
       values.dates = value
     }
     function handleChange_text(index, event){
+    console.log("handleChange_text")
     console.log(values.description)
+    console.log(values.description[index])
     console.log(index)
     console.log(event)
-    values.description[index] = event.target.value
+    setDesc(desc => desc.map((desc, i) => i === index ? event.target.value : desc));
+    console.log(desc)
+    }
+    function handleChange_text_days(index, event){
+    console.log("handleChange_text")
+    console.log(values.description)
+    console.log(values.description[index])
+    console.log(index)
+    console.log(event)
+    if (values.description.length>index-3){
+    values.description[index-3].description = event.target.value
+
+    console.log(desc)}
+    else {
+    values.description.push({day: index-3+1, description:event.target.value, imageList:[]})
+    }
     setDesc(desc => desc.map((desc, i) => i === index ? event.target.value : desc));
     }
 
@@ -204,26 +228,37 @@ const [dates, setDates] = useState(initialValues.servicePeriodList)
     setAccChange(true)
     }else if(index==0){
     setFiles(prev=>({...prev, 0:files_list}));
+    setFilesch(prev => ({...prev, 0: true}))
     }else if(index==1){
     setFiles(prev=>({...prev, 1:files_list}));
+    setFilesch(prev => ({...prev, 1: true}))
     }else if(index==2){
     setFiles(prev=>({...prev, 2:files_list}));
+    setFilesch(prev => ({...prev, 2: true}))
     }else if(index==3){
     setFiles(prev=>({...prev, 3:files_list}));
+    setFilesch(prev => ({...prev, 3: true}))
     }else if(index==4){
     setFiles(prev=>({...prev, 4:files_list}));
+    setFilesch(prev => ({...prev, 4: true}))
     }else if(index==5){
     setFiles(prev=>({...prev, 5:files_list}));
+    setFilesch(prev => ({...prev, 5: true}))
     }else if(index==6){
     setFiles(prev=>({...prev, 6:files_list}));
+    setFilesch(prev => ({...prev, 6: true}))
     }else if(index==7){
     setFiles(prev=>({...prev, 7:files_list}));
+    setFilesch(prev => ({...prev, 7: true}))
     }else if(index==8){
     setFiles(prev=>({...prev, 8:files_list}));
+    setFilesch(prev => ({...prev, 8: true}))
     }else if(index==9){
     setFiles(prev=>({...prev, 9:files_list}));
+    setFilesch(prev => ({...prev, 9: true}))
     }else if(index==10){
     setFiles(prev=>({...prev, 10:files_list}));
+    setFilesch(prev => ({...prev, 10: true}))
     }
     console.log(files_list)
     console.log(files)
@@ -323,12 +358,12 @@ const [dates, setDates] = useState(initialValues.servicePeriodList)
   };
   function handleAdd() {
     console.log('ADD')
-    setOption(option => [...option, values.option_sale_name+"("+values.option_sale_price+")"])
+//    setOption(option => [...option, values.option_sale_name+"("+values.option_sale_price+")"])
     setOptionNew(optionNew => [...optionNew, {"description" : values.option_sale_name, "price" : values.option_sale_price}])
-    console.log(option)
-    values.option = [...values.option, values.option_sale_name+"("+values.option_sale_price+")"]
+//    console.log(option)
+//    values.option = [...values.option, values.option_sale_name+"("+values.option_sale_price+")"]
     values.optionNew = [...values.optionNew, {"description" : values.option_sale_name, "price" : values.option_sale_price}]
-    console.log(values.option)
+//    console.log(values.option)
     values.option_sale_name = ""
     values.option_sale_price = ""
   }
@@ -358,11 +393,14 @@ const [dates, setDates] = useState(initialValues.servicePeriodList)
   }
   function handleOption(optionItem){
     console.log('delete')
+    console.log(optionItem)
     setOption(option.filter(item => item !== optionItem))
     setOptionNew(optionNew.filter(item => item !== optionItem))
-    values.option = values.option.filter(item => item !== optionItem)
+//    values.option = values.option.filter(item => item !== optionItem)
     values.optionNew = values.optionNew.filter(item => item !== optionItem)
-    console.log(values.option)
+    console.log(optionItem.id)
+    if (optionItem.id!=undefined){
+    setOptionR(prev=>[...prev, optionItem.id])}
   }
   function handleOption_included(optionItem){
     console.log('delete')
@@ -386,7 +424,11 @@ const [dates, setDates] = useState(initialValues.servicePeriodList)
     setRegionID(val)
   }
   function submit(){
-
+  console.log("dates")
+  console.log(dates)
+    if(dates==[] || dates.length==0 ){
+    window.alert("날짜를 지정해주세요.")
+    }else{
   const date_list = []
   for (let i=0; i<dates.length; i++) {
     console.log(i)
@@ -422,29 +464,51 @@ if (thumbChange){
     var day_list = [];
   var day_item_list = [];
   var courseSaveDtoList_list = [];
+  console.log("initialValues.data.courseDetailsList.length")
+  console.log(initialValues.data.courseDetailsList.length)
+  console.log("day")
+  console.log(day)
     for (var i = 1; i <= day; i++) {
         day_list.push(i);
+        console.log(i-1)
+        console.log(initialValues.data.courseDetailsList.length)
+        console.log(initialValues.data.courseDetailsList[i-1].imageList)
+        console.log(files[i-1])
         if((files[i])==undefined){
             day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : 0})
         }else {
             day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
         }
-        if (i-1<initialValues.data.courseDetailsList.length && initialValues.data.courseDetailsList[i-1].imageList!=files[i]){
-            courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+3], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList.map((item) => item.id),"newImageCount" : files[i-1].length})
+        if (i-1<initialValues.data.courseDetailsList.length && filesch[i-1]==true){
+            console.log('작은데 다름')
+            courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+2], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList.map((item) => item.id),"newImageCount" : files[i-1].length})
             files[i-1].forEach((file) => fd.append("courseDetailsImages", file));
         }
         else if(i-1<initialValues.data.courseDetailsList.length){
-            courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+3], "removedImageIdList" : [],"newImageCount" : 0})
+            console.log('같은데 적음')
+            courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+2], "removedImageIdList" : [],"newImageCount" : 0})
         }else if (files[i-1] != null && files[i-1]!=[] && files[i-1]!=undefined && files[i-1].length!=0){
-           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+3], "newImageCount" : files[i-1].length })
+            console.log('큰데 다름')
+           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+2], "newImageCount" : files[i-1].length })
            files[i-1].forEach((file) => fd.append("courseDetailsImages", file));
         }else {
-           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+3], "newImageCount" : 0 })
+        console.log('큰데 같음')
+           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+2], "newImageCount" : 0 })
 
         }
 
     }
     day_list.forEach((day) => {if (files[day]!=undefined) {files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
+
+    var option_newlist = []
+    for (var i=0; i<values.optionNew.length; i++){
+        if (values.optionNew[i].id==undefined){
+        option_newlist.push(values.optionNew[i])
+        }
+    }
+    console.log("option_newlist")
+    console.log(option_newlist)
+    console.log(values.optionNew)
 
 
 
@@ -474,9 +538,9 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
     "salePrice" : values.sale_price,
 
     "optionFeeSaveInfo" : {
-    "deleteIdList" : initialValues.data.optionFeeList.map((item)=> item.id),
+    "deleteIdList" : optionR,
     "updateInfoList" : [],
-    "createInfoList" : [{"description" : "test", "price" : 12}]
+    "createInfoList" : option_newlist
 },
 
 "open" : show,
@@ -523,7 +587,7 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
             window.alert("상품등록에 실패하였습니다. 다시 시도해주세요.")
             }
     }})
-  }
+  }}
 
     const {
     values,
@@ -752,7 +816,7 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
           <Typography fontSize="14px" color="grey.600" align="center">
                   {(index+1)+"일차 설명"}
               </Typography>
-                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index, event)} placeholder="Description" value={desc[index+3]} />
+                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text_days(index+3 , event)} placeholder="Description" value={desc[index+3]} />
               </Grid>
               <Grid item xs={6}>
               <Typography fontSize="14px" color="grey.600" align="center">
@@ -828,9 +892,9 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
                   ADD
                 </Button>
               </Grid>
-              {values.option.map(o =>
+              {values.optionNew.map(o =>
                 <Button key={o} variant="contained" type="submit" style={{ backgroundColor: "#FFA07A",padding: 4, margin: 2  }} >
-                  {o}{" "}&nbsp;
+                  {o.description+"("+o.price+")"}{" "}&nbsp;
                     <BiXCircle size={25} onClick={() => handleOption(o)} />
                 </Button>
               )}

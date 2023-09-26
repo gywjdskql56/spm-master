@@ -38,6 +38,35 @@ export const getAuth = async () => {
    }
   }
 
+  export const getAuth_vendor = async () => {
+  const auth = fetch(targetUrl+"/members/auth",{
+          method: 'GET',
+          credentials : 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+        .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data.data);
+        if (data.status=="success"){
+    console.log(data.data[0]['authority'])
+    if (data.data[0]['authority']=="ROLE_VENDOR"){
+          window.sessionStorage.setItem('id',data.data[0]['authority'])
+          window.sessionStorage.setItem('type',data.data[0]['authority'])
+    }else {
+        window.alert('Please login as Vendor. You do not have permission')
+        window.location.href = "/"
+    }
+    }
+   else {
+    window.alert('Please login as Vendor. You do not have permission')
+    window.location.href = "/"
+   }})
+
+  }
+
 
 export const getAuthInfo = async () => {
   const auth = await fetch(targetUrl+"/members/auth",{

@@ -43,7 +43,9 @@ const ProductDescription = ({explain}) => {
 
       <H3 mb={2}>Accommodation Information</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+      <div style={{whiteSpace: "pre-line"}}>
         {explain.accommodationDetails.description}
+      </div>
         <FlexBox justifyContent="left" mb={3}>
           {explain.accommodationDetails.imageList.map((url, ind) => <Image src={`data:image/png;base64,${url.imageBase64String}`} width={300} height={200} priority={true} sx={{borderRadius: 8, p:2}} />)}
           {/*<Image src={"/assets/images/products/Place/img_14.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />*/}
@@ -53,7 +55,9 @@ const ProductDescription = ({explain}) => {
 
       <H3 mb={2}>Hospital Information</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+      <div style={{whiteSpace: "pre-line"}}>
         {explain.hospitalDetails.description}
+      </div>
         <FlexBox justifyContent="left" mb={3}>
           {explain.hospitalDetails.imageList.map((url, ind) => <Image src={`data:image/png;base64,${url.imageBase64String}`} width={300} height={200} priority={true} sx={{borderRadius: 8, p:2}} />)}
 
@@ -72,7 +76,9 @@ const ProductDescription = ({explain}) => {
 
       {explain.courseDetailsList.map((item,ind) => (<div><H3 mb={2}>{"Day "+item.day}</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
+      <div style={{whiteSpace: "pre-line"}}>
         {item.description}
+      </div>
         <FlexBox justifyContent="left" mb={3}>
           {item.imageList.map((url, ind) => <Image src={`data:image/png;base64,${url.imageBase64String}`} width={300} height={200} priority={true} sx={{borderRadius: 8, p:2}} />)}
         </FlexBox>
