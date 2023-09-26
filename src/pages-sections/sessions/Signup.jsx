@@ -222,17 +222,7 @@ const Signup = () => {
   function checkform(){
 
     if(cust) {
-    if (typeof(acc.replace("-",''))!="number") {
-         if (typeof window !== "undefined") {
-            window.alert("Only - and number are allowed in account number.")
-         }
-      }
-      else if (typeof(values.regist.replace("-",''))!="number") {
-         if (typeof window !== "undefined") {
-            window.alert("Only - and number are allowed in registration number.")
-         }
-      }
-    else if (verify!=true) {
+     if (verify!=true) {
           if (typeof window !== "undefined") {
             window.alert("Please verify your Email")
          }
@@ -271,17 +261,7 @@ const Signup = () => {
       }
       }
       else {
-    if (typeof(acc.replace("-",''))!="number") {
-         if (typeof window !== "undefined") {
-            window.alert("Only - and number are allowed in account number.")
-         }
-      }
-      else if (typeof(values.regist.replace("-",''))!="number") {
-         if (typeof window !== "undefined") {
-            window.alert("Only - and number are allowed in registration number.")
-         }
-      }
-    else if (verify!=true) {
+      if (verify!=true) {
           if (typeof window !== "undefined") {
             window.alert("Please verify your Email")
          }
