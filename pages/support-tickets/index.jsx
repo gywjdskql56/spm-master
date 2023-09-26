@@ -81,8 +81,10 @@ const TicketList = ({ticket}) => {
               }
               <FlexBox alignItems="center" flexWrap="wrap" pt={1} m={-0.75}>
                 <StyledChip label={item.type} size="small" />
-                {item.answerDate==null? <StyledChip label={"답변대기중"} size="small" green={1} />
-                : <StyledChip label={"답변완료"} size="small" green={1} />}
+                {item.answerDate==null? <StyledChip label={"Waiting for response"} size="small" green={1} />
+                : <StyledChip label={"Answer completed"} size="small" green={1} />}
+                {item.open==true? <StyledChip label={"Open"} size="small" />
+                : <StyledChip label={"Private"} size="small" />}
 
                 <Span className="pre" m={0.75} color="grey.600">
                   {format(new Date(item.writeDate), "MMM dd, yyyy")}

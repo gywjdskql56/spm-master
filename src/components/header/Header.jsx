@@ -144,6 +144,7 @@ useEffect(() => {
         console.log(data)
         if (data.status=="success"){
             window.alert("로그아웃 되었습니다.")
+            window.location.reload();
         }else {
             window.alert("로그아웃에 실패하였습니다.")
         }

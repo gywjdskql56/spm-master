@@ -21,9 +21,10 @@ const SupportTicketDetails = () => {
     const [ticket, setTicket] = useState(null);
     const getTicket = async () => {
 
-    getAuth()
 
-    {/*const response = await fetch(targetUrl+"/members/auth/",{
+
+    {/*getAuth()
+    const response = await fetch(targetUrl+"/members/auth/",{
           method: 'GET',
           credentials : 'include',
           headers: {
@@ -47,8 +48,8 @@ const SupportTicketDetails = () => {
   console.log(data);
   if (data.status =="error"){
     if (typeof window !== "undefined") {
-    window.alert("Try again")
-    window.location.href =  "/"
+    window.alert("Please login")
+    window.location.href =  "/support-tickets"
     }
   }else {
     if (data.data.open==false && data.data.email!=window.sessionStorage.getItem('id')){

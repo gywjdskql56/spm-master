@@ -80,7 +80,7 @@ const Signup = () => {
     tour: true,
     hospital: false,
   });
-  const [value, setValue] = useState()
+  const [value, setValue] = useState("8201-0000-0000")
 
   const handleChange_check = (event) => {
   if (event.target.name=='cust'){
@@ -104,6 +104,11 @@ const Signup = () => {
     tour: false,
     hospital: true,});
   }
+  };
+
+   const handleChange_country = (event) => {
+console.log(event)
+setValue(event)
   };
 
   const [fieldvalue, setFieldValue] = React.useState(false);
@@ -220,6 +225,14 @@ const Signup = () => {
   }
 
   function checkform(){
+    console.log({
+          "country": fieldvalue,
+          "email": values.email,
+          "firstName": values.nameF,
+          "lastName": values.nameL,
+          "password": values.password,
+          "phoneNum": value
+        })
 
     if(cust) {
      if (verify!=true) {
@@ -495,7 +508,10 @@ const Signup = () => {
     <PhoneInput
       placeholder="Enter phone number"
       value={value}
-      onChange={setValue}/>
+      onChange={setValue}
+      specialLabel={''}
+      country={'kr'}
+      />
     {cust==true?
     <div>
     <Small display="block" mb={1.5} textAlign="left" fontWeight="600" color="grey.700">

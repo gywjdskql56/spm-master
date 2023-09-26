@@ -429,13 +429,20 @@ if (thumbChange){
         }else {
             day_item_list.push({"day" : i, "description" : desc[i+3], "imageCount" : (files[i]).length})
         }
-        if (i-1<initialValues.data.courseDetailsList.length){
-        courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+3], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList.map((item) => item.id),"newImageCount" : files[i-1].length})
+        if (i-1<initialValues.data.courseDetailsList.length && initialValues.data.courseDetailsList[i-1].imageList!=files[i]){
+            courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+3], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList.map((item) => item.id),"newImageCount" : files[i-1].length})
+            files[i-1].forEach((file) => fd.append("courseDetailsImages", file));
         }
-        else{
-           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+3], "removedImageIdList" : initialValues.data.courseDetailsList[i-1].imageList,"newImageCount" : files[i-1].length})
+        else if(i-1<initialValues.data.courseDetailsList.length){
+            courseSaveDtoList_list.push({ "courseId" : initialValues.data.courseDetailsList[i-1].courseId, "day" : i, "description" : desc[i+3], "removedImageIdList" : [],"newImageCount" : 0})
+        }else if (files[i-1] != null && files[i-1]!=[] && files[i-1]!=undefined && files[i-1].length!=0){
+           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+3], "newImageCount" : files[i-1].length })
+           files[i-1].forEach((file) => fd.append("courseDetailsImages", file));
+        }else {
+           courseSaveDtoList_list.push({ "courseId" : null, "day" : i, "description" : desc[i+3], "newImageCount" : 0 })
+
         }
-        files[i-1].forEach((file) => fd.append("courseDetailsImages", file));
+
     }
     day_list.forEach((day) => {if (files[day]!=undefined) {files[day].forEach((img) => fd.append("courseDetailsImages", img))}});
 
@@ -483,11 +490,10 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
   body_data['productDetailsNRemovedImage'] = {"description" : desc[0], "removedProductImageIdList" : initialValues.data.productDetails.imageList.map((item) => item.id)}
   Object.values(files["상품"]).forEach((file) => fd.append("productDetailsImages", file));}
   else if (setHoschange) {
-    body_data['hospitalDetailsNRemovedImage'] = {"description" : desc[0], "removedProductImageIdList" : initialValues.data.hospitalDetails.imageList.map((item) => item.id)}
+    body_data['hospitalDetailsNRemovedImage'] = {"description" : desc[1], "removedProductImageIdList" : initialValues.data.hospitalDetails.imageList.map((item) => item.id)}
   Object.values(files["병원"]).forEach((file) => fd.append("hospitalDetailsImages", file));
-
   } else{
-  body_data['accommodationDetailsNRemovedImage'] = {"description" : desc[0], "removedProductImageIdList" : initialValues.data.accommodationDetails.imageList.map((item) => item.id)}
+  body_data['accommodationDetailsNRemovedImage'] = {"description" : desc[2], "removedProductImageIdList" : initialValues.data.accommodationDetails.imageList.map((item) => item.id)}
     Object.values(files["숙소"]).forEach((file) => fd.append("accommodationDetailsImages", file));
   }
   console.log("body_data")
@@ -746,7 +752,7 @@ console.log(initialValues.data.productDetails.imageList.map((item) => item.id))
           <Typography fontSize="14px" color="grey.600" align="center">
                   {(index+1)+"일차 설명"}
               </Typography>
-                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index, event)} placeholder="Description" value={desc[index]} />
+                <TextField rows={8} multiline fullWidth color="info" size="medium" name="description" label={(index+1)+"일차"} onBlur={handleBlur} onChange={()=>handleChange_text(index, event)} placeholder="Description" value={desc[index+3]} />
               </Grid>
               <Grid item xs={6}>
               <Typography fontSize="14px" color="grey.600" align="center">
