@@ -111,7 +111,7 @@ const Footer1 = () => {
       </Box>
     </footer>;
 };
-const aboutLinks = ["About StaynLive(스테이앤리브주식회사)"];
+const aboutLinks = ["About Allmeditrip"];
 const customerCareLinks = ["FAQ"];
 const iconList = [{
   icon: Facebook,
