@@ -3353,12 +3353,12 @@ export const serviceList = [{
   id: "5f9bd366-9583-4e6d-9b11-abe74b9c5d96",
   icon: "Truck",
   title: "High level of medical care",
-  description: "We have a high level of medical care that does not lag behind any other country, and only verified hospitals are targeted."
+  description: "We provide cutting-edge medical equipment and high-quality medical services that are comparable to those in other countries, and we carefully select and introduce only proven medical institutions."
 }, {
   id: "121cffea-6972-41f8-8094-98dca22d17bb",
   icon: "CreditCardVerified",
   title: "Safe payment and follow-up management",
-  description: "Payments are supported within the platform, and actions related to refunds and payments are also supported by the platform."
+  description: "Payments and refunds are supported within the platform (PayPal system) and customer safety is guaranteed."
 }, {
   id: "5b94f5d8-71ec-40a6-b5b8-401286deba24",
   icon: "Shield",

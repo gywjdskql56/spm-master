@@ -50,7 +50,7 @@ const MarketShop = props => {
    </Grid>
    <Grid item lg={5} md={5} xs={5}>
       <Typography variant="h5" fontWeight="600" mb={1}>
-         About StaynLive
+         About Allmeditrip
       </Typography>
   </Grid>
   </Grid>
@@ -65,14 +65,14 @@ const MarketShop = props => {
 
       <Grid container spacing={3}>
       <Grid item lg={0.5} md={0.5} xs={0.5} />
-        <Grid item lg={4.5} md={4.5} xs={4.5} >
-        <Image src={"/assets/images/hotel/img.png"} width={400} priority={true} sx={{borderRadius: 8, p:2}} />
+        <Grid item lg={3.5} md={3.5} xs={3.5} >
+        <Image src={"/assets/images/hotel/img_4.jpeg"} width={380} priority={true} sx={{borderRadius: 8, p:2}} />
           {/*  <LazyImage alt={"staynlive"} sx={{borderRadius: 8, p:2}} width={400} height={400} loading="eager" objectFit="contain" src={"/assets/images/hotel/img.png"} /> */}
           </Grid>
-          <Grid item lg={7} md={7} xs={7} >
+          <Grid item lg={8} md={8} xs={8} >
           <Box style={{backgroundColor:"#E2E6ED"}} sx={{borderRadius: 4,p: 5,m: 2}}>
           <H1 textAlign="left" fontSize="26px" lineHeight="1" mt={1}>
-                {"Welcome to StaynLive"}
+                {"Welcome to Allmeditrip"}
           </H1>
           <Typography textAlign="left" fontSize="14px" lineHeight="1" mt={2} sx={{p:2}}>
                 {"StaynLive's history guarantees the dignity and respect of customers. StaynLive has an incomparable reputation and representativeness with delicate and elegant facilities and services.We provide guaranteed services and facilities anywhere in the world, providing unwavering satisfaction to our customers.We promise to impress you with thoughtful service that matches your leisure and pride in enjoying a high-class life."}

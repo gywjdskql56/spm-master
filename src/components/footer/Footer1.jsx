@@ -41,9 +41,9 @@ const Footer1 = () => {
                 </Link>*/}
 
                 <Paragraph mb={2.5} color="grey.500">
-                  Hello. Welcome to StaynLive(스테이앤리브주식회사).
+                  Hello. Welcome to Allmeditrip.
                     We strive to provide excellent Korean medical services at reasonable prices to foreigners.
-                    Enjoy Korea travel and medical services at the same time through StaynLive(스테이앤리브주식회사).
+                    Enjoy traveling to Korea and receiving medical services at the same time through Almeditrip..
                 </Paragraph>
 
                 {/*<AppStore />*/}
@@ -79,15 +79,15 @@ const Footer1 = () => {
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  B113, 11 Seoae-ro 1-gil, Jung-gu, Seoul
+                  1st floor, 369 Dongho-ro, Jung-gu, Seoul
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  Company: StaynLive(406-86-41474)
+                  Company name: Allmeditrip (406-86-01424)
                 </Box>
 
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: 0507-1370-3709
+                  Phone: 070-4996-9886
                 </Box>
 
                 {/*<FlexBox className="flex" mx={-0.625}>
