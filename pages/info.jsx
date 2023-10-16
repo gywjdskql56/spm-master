@@ -75,7 +75,7 @@ const MarketShop = props => {
                 {"Welcome to Allmeditrip"}
           </H1>
           <Typography textAlign="left" fontSize="14px" lineHeight="1" mt={2} sx={{p:2}}>
-                {"StaynLive's history guarantees the dignity and respect of customers. StaynLive has an incomparable reputation and representativeness with delicate and elegant facilities and services.We provide guaranteed services and facilities anywhere in the world, providing unwavering satisfaction to our customers.We promise to impress you with thoughtful service that matches your leisure and pride in enjoying a high-class life."}
+                {"Allmeditrip guarantees the dignity and respect of customers. StaynLive has an incomparable reputation and representativeness with delicate and elegant facilities and services.We provide guaranteed services and facilities anywhere in the world, providing unwavering satisfaction to our customers.We promise to impress you with thoughtful service that matches your leisure and pride in enjoying a high-class life."}
           </Typography>
           </Box>
           </Grid>
