@@ -2,7 +2,25 @@ import NextImage from "next/image";
 import { Box, Card } from "@mui/material";
 import { H3, H5, Paragraph } from "components/Typography";
 import { currency } from "lib";
+import { targetUrl } from "components/config";
+import { useEffect, useState } from "react";
+
 const WishCard = () => {
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    fetch(targetUrl+"/open-products",{
+          credentials : 'include',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": true,
+        }})
+    .then((response) =>
+        response.json())
+    .then((data) =>
+        {console.log(data.data.length); setProduct(data.data)});
+    }, []);
   return <Card sx={{
     p: 3,
     height: "100%",
@@ -18,7 +36,7 @@ const WishCard = () => {
         웹사이트 전체 현황 페이지입니다.
       </Paragraph>
 
-      <H3 mt={3}>2</H3>
+      <H3 mt={3}>{product.length}</H3>
       <Paragraph color="grey.600">총 상품수</Paragraph>
 
       <H3 mt={3}>6</H3>
