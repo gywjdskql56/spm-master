@@ -18,10 +18,6 @@ import Link from "next/link";
 
 const sortOptions = [
   {
-    label: "Relevance",
-    value: "Relevance",
-  },
-  {
     label: "Date",
     value: "Date",
   },
@@ -55,7 +51,8 @@ const StyledBazaarCard = styled(BazaarCard)(({ theme }) => ({
 
 const Section7 = (props) => {
   const { products, regions, title, categories } = props;
-  
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
   console.log("categories");
   console.log("products: ",products)
 
@@ -96,6 +93,17 @@ const Section7 = (props) => {
     } else {
       setSelected(region.toString());
     }
+  };
+
+  const change_click= event => {
+    console.log(event)
+    setSelectedIndex(item.index)
+    console.log('Change')
+  }
+    const handleChange = (event) => {
+    setSelectedIndex(event.target.value);
+    console.log("handleChange");
+    console.log(event.target.value);
   };
 
   useEffect(() => {
@@ -217,24 +225,36 @@ const Section7 = (props) => {
               </Paragraph>
             </Grid>
             <Grid item lg={3} sm={3} xs={3}>
-              <TextField
-                select
-                fullWidth
-                size="small"
-                variant="outlined"
-                placeholder="Short by"
-                defaultValue={sortOptions[0].value}
-                sx={{
-                  flex: "1 1 0",
-                  minWidth: "50px",
-                }}
-              >
-                {sortOptions.map((item) => (
-                  <MenuItem value={item.value} key={item.value}>
-                    {item.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+//              <TextField
+//                select
+//                fullWidth
+//                size="small"
+//                variant="outlined"
+//                placeholder="Short by"
+//                defaultValue={sortOptions[0].value}
+//                sx={{
+//                  flex: "1 1 0",
+//                  minWidth: "50px",
+//                }}
+////                onChange = {()=>change_click(item)}
+//              >
+<Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={10}
+          label="Age"
+          onChange={handleChange}
+        >
+                  <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+//                {sortOptions.map((item) => (
+//                  <MenuItem value={item.value} key={item.value} selected={item.index === selectedIndex}>
+//                    {item.label}
+//                  </MenuItem>
+//                ))}
+//              </TextField>
+</Select>
             </Grid>
           </Grid>
           <Grid container spacing={3}>

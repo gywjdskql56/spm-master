@@ -67,7 +67,7 @@ const getData = async () => {
         regions={regions.data}
         productList={props.mobileList}
       />
-      <Section1 />
+      {/*<Section1 />*/}
       <Section12 />
       </div>
       :

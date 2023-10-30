@@ -10,6 +10,7 @@ import Image from 'mui-image'
 
 const ProductDescription = ({explain}) => {
  console.log(explain)
+ console.log(explain.type)
   return <Box style={{backgroundColor:"#E2E6ED"}} sx={{ borderRadius: '16px',p: 2, m:2 }}>
 
       <Box sx={{ borderRadius: '16px',p: 2 }}>
@@ -40,7 +41,8 @@ const ProductDescription = ({explain}) => {
       </Button>)}
 
 
-
+       {explain.type==1?
+       <div>
       <H3 mb={2}>Accommodation Information</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
       <div style={{whiteSpace: "pre-line"}}>
@@ -51,7 +53,7 @@ const ProductDescription = ({explain}) => {
           {/*<Image src={"/assets/images/products/Place/img_14.png"} width={300} priority={true} sx={{borderRadius: 8, p:2}} />*/}
           {/*<LazyImage alt={"title"} sx={{borderRadius: 8, p:2}} width={300} height={180} objectFit="contain" src={"/assets/images/products/Place/img_15.png"} />*/}
         </FlexBox>
-      </Box>
+      </Box></div>:<div/>}
 
       <H3 mb={2}>Hospital Information</H3>
       <Box style={{backgroundColor:"white"}} sx={{ borderRadius: '16px',p: 2 }}>
@@ -69,7 +71,7 @@ const ProductDescription = ({explain}) => {
       </Box>
       </Box>
       </Box>
-
+{explain.type==1?
     <Box sx={{ borderRadius: '16px',p: 2 }}>
       <H2 mb={2}>Detail</H2>
       <Box sx={{borderColor:"grey.500",border: 2,borderRadius: '16px',p: 2}} >
@@ -85,7 +87,7 @@ const ProductDescription = ({explain}) => {
       </Box></div>))}
 
       </Box>
-      </Box>
+      </Box>:<div/>}
     </Box>;
 };
 export default ProductDescription;

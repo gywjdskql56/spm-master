@@ -25,15 +25,15 @@ const sortOptions = [
   // },
   {
     label: "Date",
-    value: "Date",
+    value: "DESC,writeDate",
   },
   {
     label: "Price Low to High",
-    value: "Price Low to High",
+    value: "ASC,salePrice",
   },
   {
     label: "Price High to Low",
-    value: "Price High to Low",
+    value: "DESC,salePrice",
   },
 ];
 
@@ -57,7 +57,13 @@ const StyledBazaarCard = styled(BazaarCard)(({ theme }) => ({
 
 const Section7 = (props) => {
   const { products, regions, title, categories } = props;
-  
+  const [sort, setSort] = useState(sortOptions[0].value);
+
+  const handleChange = (event) => {
+    setSort(event.target.value);
+    console.log("handleChange");
+    console.log(event.target.value);
+  };
   console.log("categories");
 
   const FilterProduct = async () => {
@@ -65,12 +71,13 @@ const Section7 = (props) => {
     var url = "";
     if (cate == "*" && region == "*") {
       console.log("all");
+      url = targetUrl + `/open-products?sortCondition=${encodeURIComponent(encodeURIComponent(sort))}`;
     } else if (cate == "*") {
-      url = targetUrl + `/open-products?regionId=${region}`;
+      url = targetUrl + `/open-products?regionId=${region}&sortCondition=${encodeURIComponent(encodeURIComponent(sort))}`;
     } else if (region == "*") {
-      url = targetUrl + `/open-products?categoryId=${cate}`;
+      url = targetUrl + `/open-products?categoryId=${cate}&sortCondition=${encodeURIComponent(encodeURIComponent(sort))}`;
     } else {
-      url = targetUrl + `/open-products?categoryId=${cate}&regionId=${region}`;
+      url = targetUrl + `/open-products?categoryId=${cate}&regionId=${region}sortCondition=${encodeURIComponent(encodeURIComponent(sort))}`;
     }
     const filterproductRes = await fetch(url, {
       method: "GET",
@@ -80,6 +87,7 @@ const Section7 = (props) => {
         "ngrok-skip-browser-warning": true,
       },
     });
+    console.log(url)
     const filterproduct = await filterproductRes.json();
     setProductList(filterproduct.data);
   };
@@ -102,7 +110,7 @@ const Section7 = (props) => {
 
   useEffect(() => {
     FilterProduct();
-  }, [cate, region]);
+  }, [cate, region, sort]);
   return (
     <Container
       sx={{
@@ -230,6 +238,7 @@ const Section7 = (props) => {
                   flex: "1 1 0",
                   minWidth: "50px",
                 }}
+                onChange={handleChange}
               >
                 {sortOptions.map((item) => (
                   <MenuItem value={item.value} key={item.value}>
